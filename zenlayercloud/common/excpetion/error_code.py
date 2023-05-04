@@ -1,0 +1,7 @@
+#  Zenlayer.com Inc.
+#  Copyright (c) 2014-2023 All Rights Reserved.
+
+
+CREDENTIAL_MISSING_ERROR = "CREDENTIAL_VALUE_MISSING"
+
+SDK_INVALID_REQUEST = "SDK_INVALID_REQUEST"
