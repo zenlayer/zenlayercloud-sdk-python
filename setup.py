@@ -4,9 +4,10 @@
 distutils/setuptools install script.
 """
 import os
+
 from setuptools import setup, find_packages
 
-import tencentcloud
+import zenlayercloud
 
 ROOT = os.path.dirname(__file__)
 
@@ -16,9 +17,9 @@ setup(
     version=zenlayercloud.__version__,
     description='Zenlayer Cloud SDK for Python',
     long_description=open('README.rst').read(),
-    author='Tencent Cloud',
-    url='https://github.com/zenlayer/zenlayer-sdk-python',
-    maintainer_email="tencentcloudapi@zenlayer.com",
+    author='Zenlayer Cloud',
+    url='https://github.com/zenlayer/zenlayercloud-sdk-python',
+    maintainer_email="console_api@zenlayer.com",
     scripts=[],
     packages=find_packages(exclude=["tests*"]),
     license="Apache License 2.0",
@@ -28,7 +29,6 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',

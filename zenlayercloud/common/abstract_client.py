@@ -65,7 +65,6 @@ class AbstractClient(object):
         req.header["Authorization"] = authorization
 
         resp = self._send_request(req)
-
         return self._handle_response(resp)
 
     def _build_zc2_authorization(self, req):
@@ -112,7 +111,6 @@ class AbstractClient(object):
             response = BaseResponse(status=http_resp.status_code,
                                     header=headers,
                                     data=http_resp.text)
-
             return response
         except Exception as e:
             raise ZenlayerCloudSdkException("NETWORK_ERROR", str(e))
@@ -125,4 +123,4 @@ class AbstractClient(object):
             message = resp_data["message"]
             request_id = resp_data["requestId"]
             raise ZenlayerCloudSdkException(code, message, request_id)
-        return resp_data
+        return resp_data['response']
