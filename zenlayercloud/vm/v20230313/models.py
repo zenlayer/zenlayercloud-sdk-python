@@ -402,6 +402,7 @@ class InstanceInfo(AbstractModel):
         self.securityGroupIds = None
         self.systemDisk = None
         self.dataDisks = None
+        self.autoRenew = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
@@ -433,6 +434,7 @@ class InstanceInfo(AbstractModel):
             for item in params.get("dataDisks"):
                 obj = DataDisk(item)
                 self.dataDisks.append(obj)
+        self.autoRenew = params.get("autoRenew")
 
 
 class DescribeInstancesStatusRequest(AbstractModel):
@@ -819,6 +821,124 @@ class ModifyInstancesResourceGroupResponse(AbstractModel):
         self.requestId = params.get("requestId")
 
 
+class DescribeInstanceTrafficRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceId = None
+        self.startTime = None
+        self.endTime = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+
+class DescribeInstanceTrafficResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.dataList = None
+        self.in95 = None
+        self.in95Time = None
+        self.inAvg = None
+        self.inMax = None
+        self.inMin = None
+        self.inTotal = None
+        self.maxBandwidth95ValueMbps = None
+        self.out95 = None
+        self.out95Time = None
+        self.outAvg = None
+        self.outMax = None
+        self.outMin = None
+        self.outTotal = None
+        self.totalUnit = None
+        self.unit = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("dataList") is not None:
+            self.dataList = []
+            for item in params.get("dataList"):
+                obj = InstanceTrafficData(item)
+                self.dataList.append(obj)
+        self.in95 = params.get("in95")
+        self.in95Time = params.get("in95Time")
+        self.inAvg = params.get("inAvg")
+        self.inMax = params.get("inMax")
+        self.inMin = params.get("inMin")
+        self.inTotal = params.get("inTotal")
+        self.maxBandwidth95ValueMbps = params.get("maxBandwidth95ValueMbps")
+        self.out95 = params.get("out95")
+        self.out95Time = params.get("out95Time")
+        self.outAvg = params.get("outAvg")
+        self.outMax = params.get("outMax")
+        self.outMin = params.get("outMin")
+        self.outTotal = params.get("outTotal")
+        self.totalUnit = params.get("totalUnit")
+        self.unit = params.get("unit")
+
+class InstanceTrafficData(AbstractModel):
+
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.internetRX = None
+        self.internetTX = None
+        self.time = None
+
+    def _deserialize(self, params):
+        self.internetRX = params.get("internetRX")
+        self.internetTX = params.get("internetTX")
+        self.time = params.get("time")
+
+
+class DescribeInstanceCpuMonitorRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceId = None
+        self.startTime = None
+        self.endTime = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+
+class DescribeInstanceCpuMonitorResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.dataList = None
+
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("dataList") is not None:
+            self.dataList = []
+            for item in params.get("dataList"):
+                obj = InstanceCpuMonitorData(item)
+                self.dataList.append(obj)
+
+
+class InstanceCpuMonitorData(AbstractModel):
+
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.cpu = None
+        self.time = None
+
+    def _deserialize(self, params):
+        self.cpu = params.get("cpu")
+        self.time = params.get("time")
+
+
 class CreateDisksRequest(AbstractModel):
 
     def __init__(self):
@@ -916,6 +1036,7 @@ class DiskInfo(AbstractModel):
         self.createTime = None
         self.expiredTime = None
         self.period = None
+        self.autoRenew = None
 
     def _deserialize(self, params):
         self.diskId = params.get("diskId")
@@ -932,6 +1053,7 @@ class DiskInfo(AbstractModel):
         self.createTime = params.get("createTime")
         self.expiredTime = params.get("expiredTime")
         self.period = params.get("period")
+        self.autoRenew = params.get("autoRenew")
 
 
 class AttachDisksRequest(AbstractModel):

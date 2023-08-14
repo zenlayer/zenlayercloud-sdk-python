@@ -405,6 +405,7 @@ class InstanceInfo(AbstractModel):
         self.raidConfig = None
         self.partitions = None
         self.nic = None
+        self.autoRenew = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
@@ -438,6 +439,7 @@ class InstanceInfo(AbstractModel):
                 self.partitions.append(obj)
         if params.get("nic") is not None:
             self.nic = Nic(params.get("nic"))
+        self.autoRenew =  params.get("autoRenew")
 
 
 class StartInstancesRequest(AbstractModel):

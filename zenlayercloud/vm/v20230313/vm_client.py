@@ -155,10 +155,25 @@ class VmClient(AbstractClient):
         model._deserialize(response)
         return model
 
+
     def ModifyInstancesResourceGroup(self, request):
         response = self._api_call("ModifyInstancesResourceGroup", request)
 
         model = models.ModifyInstancesResourceGroupResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeInstanceTraffic(self, request):
+        response = self._api_call("DescribeInstanceTraffic", request)
+
+        model = models.DescribeInstanceTrafficResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeInstanceCpuMonitor(self, request):
+        response = self._api_call("DescribeInstanceCpuMonitor", request)
+
+        model = models.DescribeInstanceCpuMonitorResponse()
         model._deserialize(response)
         return model
 
