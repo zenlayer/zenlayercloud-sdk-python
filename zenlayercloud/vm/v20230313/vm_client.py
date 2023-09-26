@@ -177,6 +177,27 @@ class VmClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ModifyInstanceType(self, request):
+        response = self._api_call("ModifyInstanceType", request)
+
+        model = models.ModifyInstanceTypeResponse()
+        model._deserialize(response)
+        return model
+
+    def CancelInstanceDowngrade(self, request):
+        response = self._api_call("CancelInstanceDowngrade", request)
+
+        model = models.CancelInstanceDowngradeResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeInstanceTypeStatus(self, request):
+        response = self._api_call("DescribeInstanceTypeStatus", request)
+
+        model = models.DescribeInstanceTypeStatusResponse()
+        model._deserialize(response)
+        return model
+
     def CreateDisks(self, request):
         response = self._api_call("CreateDisks", request)
 
@@ -370,6 +391,62 @@ class VmClient(AbstractClient):
         response = self._api_call("UnAssociateSecurityGroupInstance", request)
 
         model = models.UnAssociateSecurityGroupInstanceResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateVpc(self, request):
+        response = self._api_call("CreateVpc", request)
+
+        model = models.CreateVpcResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteVpc(self, request):
+        response = self._api_call("DeleteVpc", request)
+
+        model = models.DeleteVpcResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyVpcsAttribute(self, request):
+        response = self._api_call("ModifyVpcsAttribute", request)
+
+        model = models.ModifyVpcsAttributeResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeVpcs(self, request):
+        response = self._api_call("DescribeVpcs", request)
+
+        model = models.DescribeVpcsResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateVpcSubnet(self, request):
+        response = self._api_call("CreateVpcSubnet", request)
+
+        model = models.CreateVpcSubnetResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteVpcSubnet(self, request):
+        response = self._api_call("DeleteVpcSubnet", request)
+
+        model = models.DeleteVpcSubnetResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyVpcSubnetsAttribute(self, request):
+        response = self._api_call("ModifyVpcSubnetsAttribute", request)
+
+        model = models.ModifyVpcSubnetsAttributeResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeVpcSubnets(self, request):
+        response = self._api_call("DescribeVpcSubnets", request)
+
+        model = models.DescribeVpcSubnetsResponse()
         model._deserialize(response)
         return model
 

@@ -35,10 +35,14 @@ class ZoneInfo(AbstractModel):
             return
         self.zoneId = None
         self.zoneName = None
+        self.supportSecurityGroup = None
+        self.supportNetworkType = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
         self.zoneName = params.get("zoneName")
+        self.supportSecurityGroup = params.get("supportSecurityGroup")
+        self.supportNetworkType = params.get("supportNetworkType")
 
 
 class DescribeZoneInstanceConfigInfosRequest(AbstractModel):
@@ -833,6 +837,7 @@ class DescribeInstanceTrafficRequest(AbstractModel):
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
 
+
 class DescribeInstanceTrafficResponse(AbstractModel):
 
     def __init__(self):
@@ -877,6 +882,7 @@ class DescribeInstanceTrafficResponse(AbstractModel):
         self.totalUnit = params.get("totalUnit")
         self.unit = params.get("unit")
 
+
 class InstanceTrafficData(AbstractModel):
 
     def __init__(self, params=None):
@@ -907,12 +913,12 @@ class DescribeInstanceCpuMonitorRequest(AbstractModel):
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
 
+
 class DescribeInstanceCpuMonitorResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None
         self.dataList = None
-
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
@@ -937,6 +943,74 @@ class InstanceCpuMonitorData(AbstractModel):
     def _deserialize(self, params):
         self.cpu = params.get("cpu")
         self.time = params.get("time")
+
+
+class ModifyInstanceTypeRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceId = None
+        self.instanceTypeId = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+        self.instanceTypeId = params.get("instanceTypeId")
+
+
+class ModifyInstanceTypeResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.orderNumber = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.orderNumber = params.get("orderNumber")
+
+
+class CancelInstanceDowngradeRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceId = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+
+
+class CancelInstanceDowngradeResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribeInstanceTypeStatusRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceId = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+
+
+class DescribeInstanceTypeStatusResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.instanceId = None
+        self.instanceName = None
+        self.instanceType = None
+        self.modifiedInstanceType = None
+        self.modifiedInstanceTypeStatus = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.instanceId = params.get("instanceId")
+        self.instanceName = params.get("instanceName")
+        self.instanceType = params.get("instanceType")
+        self.modifiedInstanceType = params.get("modifiedInstanceType")
+        self.modifiedInstanceTypeStatus = params.get("modifiedInstanceTypeStatus")
 
 
 class CreateDisksRequest(AbstractModel):
@@ -1538,7 +1612,6 @@ class RuleInfo(AbstractModel):
             return
         self.direction = None
         self.policy = None
-        self.priority = None
         self.ipProtocol = None
         self.portRange = None
         self.cidrIp = None
@@ -1546,7 +1619,6 @@ class RuleInfo(AbstractModel):
     def _deserialize(self, params):
         self.direction = params.get("direction")
         self.policy = params.get("policy")
-        self.priority = params.get("priority")
         self.ipProtocol = params.get("ipProtocol")
         self.portRange = params.get("portRange")
         self.cidrIp = params.get("cidrIp")
@@ -1716,7 +1788,6 @@ class AuthorizeSecurityGroupRuleRequest(AbstractModel):
         self.securityGroupId = None
         self.direction = None
         self.policy = None
-        self.priority = None
         self.ipProtocol = None
         self.portRange = None
         self.cidrIp = None
@@ -1725,7 +1796,6 @@ class AuthorizeSecurityGroupRuleRequest(AbstractModel):
         self.securityGroupId = params.get("securityGroupId")
         self.direction = params.get("direction")
         self.policy = params.get("policy")
-        self.priority = params.get("priority")
         self.ipProtocol = params.get("ipProtocol")
         self.portRange = params.get("portRange")
         self.cidrIp = params.get("cidrIp")
@@ -1802,6 +1872,270 @@ class UnAssociateSecurityGroupInstanceResponse(AbstractModel):
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+
+
+class CreateVpcRequest(AbstractModel):
+
+    def __init__(self):
+        self.zoneId = None
+        self.vpcName = None
+        self.vpcCidrBlock = None
+        self.subnetName = None
+        self.subnetCidrBlock = None
+
+    def _deserialize(self, params):
+        self.zoneId = params.get("zoneId")
+        self.vpcName = params.get("vpcName")
+        self.vpcCidrBlock = params.get("vpcCidrBlock")
+        self.subnetName = params.get("subnetName")
+        self.subnetCidrBlock = params.get("subnetCidrBlock")
+
+
+class CreateVpcResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.vpcId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.vpcId = params.get("vpcId")
+
+
+class DeleteVpcRequest(AbstractModel):
+
+    def __init__(self):
+        self.vpcId = None
+
+    def _deserialize(self, params):
+        self.vpcId = params.get("vpcId")
+
+
+class DeleteVpcResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class ModifyVpcsAttributeRequest(AbstractModel):
+
+    def __init__(self):
+        self.vpcIds = None
+        self.vpcName = None
+
+    def _deserialize(self, params):
+        self.vpcIds = params.get("vpcIds")
+        self.vpcName = params.get("vpcName")
+
+
+class ModifyVpcsAttributeResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribeVpcsRequest(AbstractModel):
+
+    def __init__(self):
+        self.vpcIds = None
+        self.cidrBlock = None
+        self.zoneId = None
+        self.vpcStatus = None
+        self.vpcName = None
+        self.pageSize = None
+        self.pageNum = None
+
+    def _deserialize(self, params):
+        self.vpcIds = params.get("vpcIds")
+        self.cidrBlock = params.get("cidrBlock")
+        self.zoneId = params.get("zoneId")
+        self.vpcStatus = params.get("vpcStatus")
+        self.vpcName = params.get("vpcName")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+
+
+class DescribeVpcsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = VpcNetworkInfo(item)
+                self.dataSet.append(obj)
+
+
+class VpcNetworkInfo(AbstractModel):
+
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.vpcId = None
+        self.zoneId = None
+        self.vpcName = None
+        self.vpcStatus = None
+        self.cidrBlock = None
+        self.subnetIdList = None
+        self.createTime = None
+        self.isDefault = None
+
+    def _deserialize(self, params):
+        self.vpcId = params.get("vpcId")
+        self.zoneId = params.get("zoneId")
+        self.vpcName = params.get("vpcName")
+        self.vpcStatus = params.get("vpcStatus")
+        self.cidrBlock = params.get("cidrBlock")
+        self.subnetIdList = params.get("subnetIdList")
+        self.createTime = params.get("createTime")
+        self.isDefault = params.get("isDefault")
+
+
+class CreateVpcSubnetRequest(AbstractModel):
+
+    def __init__(self):
+        self.cidrBlock = None
+        self.subnetName = None
+        self.vpcId = None
+
+    def _deserialize(self, params):
+        self.cidrBlock = params.get("cidrBlock")
+        self.subnetName = params.get("subnetName")
+        self.vpcId = params.get("vpcId")
+
+
+class CreateVpcSubnetResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.subnetId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.subnetId = params.get("subnetId")
+
+
+class DeleteVpcSubnetRequest(AbstractModel):
+
+    def __init__(self):
+        self.subnetId = None
+
+    def _deserialize(self, params):
+        self.subnetId = params.get("subnetId")
+
+
+class DeleteVpcSubnetResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class ModifyVpcSubnetsAttributeRequest(AbstractModel):
+
+    def __init__(self):
+        self.subnetIds = None
+        self.subnetName = None
+
+    def _deserialize(self, params):
+        self.subnetIds = params.get("subnetIds")
+        self.subnetName = params.get("subnetName")
+
+
+class ModifyVpcSubnetsAttributeResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribeVpcSubnetsRequest(AbstractModel):
+
+    def __init__(self):
+        self.subnetIds = None
+        self.cidrBlock = None
+        self.vpcId = None
+        self.subnetStatus = None
+        self.subnetName = None
+        self.pageSize = None
+        self.pageNum = None
+
+    def _deserialize(self, params):
+        self.subnetIds = params.get("subnetIds")
+        self.cidrBlock = params.get("cidrBlock")
+        self.vpcId = params.get("vpcId")
+        self.subnetStatus = params.get("subnetStatus")
+        self.subnetName = params.get("subnetName")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+
+
+class DescribeVpcSubnetsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = VpcSubnetInfo(item)
+                self.dataSet.append(obj)
+
+
+class VpcSubnetInfo(AbstractModel):
+
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.subnetId = None
+        self.vpcId = None
+        self.subnetName = None
+        self.subnetStatus = None
+        self.cidrBlock = None
+        self.instanceIdList = None
+        self.createTime = None
+        self.usageIpCount = None
+        self.totalIpCount = None
+        self.isDefault = None
+
+    def _deserialize(self, params):
+        self.subnetId = params.get("subnetId")
+        self.vpcId = params.get("vpcId")
+        self.subnetName = params.get("subnetName")
+        self.subnetStatus = params.get("subnetStatus")
+        self.cidrBlock = params.get("cidrBlock")
+        self.instanceIdList = params.get("instanceIdList")
+        self.createTime = params.get("createTime")
+        self.usageIpCount = params.get("usageIpCount")
+        self.totalIpCount = params.get("totalIpCount")
+        self.isDefault = params.get("isDefault")
 
 
 class CreateSubnetRequest(AbstractModel):
