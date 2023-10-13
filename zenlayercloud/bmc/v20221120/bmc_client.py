@@ -222,6 +222,13 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeInstancesMonitorHealth(self, request):
+        response = self._api_call("DescribeInstancesMonitorHealth", request)
+
+        model = models.DescribeInstancesMonitorHealthResponse()
+        model._deserialize(response)
+        return model
+
     # eip
 
     def DescribeEipAddresses(self, request):

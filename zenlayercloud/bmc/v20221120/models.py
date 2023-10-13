@@ -1132,6 +1132,60 @@ class InstanceTrafficData(AbstractModel):
         self.time = params.get("time")
 
 
+class DescribeInstancesMonitorHealthRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceIds = None
+
+    def _deserialize(self, params):
+        self.instanceIds = params.get("instanceIds")
+
+
+class DescribeInstancesMonitorHealthResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.monitorHealthList = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("monitorHealthList") is not None:
+            self.monitorHealthList = []
+            for item in params.get("monitorHealthList"):
+                obj = InstanceHealth(item)
+                self.monitorHealthList.append(obj)
+
+class InstanceHealth(AbstractModel):
+
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.instanceId = None
+        self.cpuStatus = None
+        self.diskStatus = None
+        self.ipmiPing = None
+        self.ipmiStatus = None
+        self.memoryStatus = None
+        self.psuStatus = None
+        self.wanPortStatus = None
+        self.serverBrand = None
+        self.serverModel = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+        self.cpuStatus = params.get("cpuStatus")
+        self.diskStatus = params.get("diskStatus")
+        self.ipmiPing = params.get("ipmiPing")
+        self.ipmiStatus = params.get("ipmiStatus")
+        self.memoryStatus = params.get("memoryStatus")
+        self.psuStatus = params.get("psuStatus")
+        self.wanPortStatus = params.get("wanPortStatus")
+        self.serverBrand = params.get("serverBrand")
+        self.serverModel = params.get("serverModel")
+
 class DescribeEipAddressesRequest(AbstractModel):
 
     def __init__(self):
