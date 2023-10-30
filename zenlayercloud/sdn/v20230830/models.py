@@ -1202,7 +1202,7 @@ class ModifyCloudRouterEdgePointBandwidthResponse(AbstractModel):
         self.requestId = params.get("requestId")
 
 
-class DescribeCloudRouteEdgePointTrafficRequest(AbstractModel):
+class DescribeCloudRouterEdgePointTrafficRequest(AbstractModel):
     def __init__(self):
         self.edgePointId = None
         self.startTime = None
@@ -1214,7 +1214,7 @@ class DescribeCloudRouteEdgePointTrafficRequest(AbstractModel):
         self.endTime = params.get("endTime")
 
 
-class DescribeCloudRouteEdgePointTrafficResponse(AbstractModel):
+class DescribeCloudRouterEdgePointTrafficResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None

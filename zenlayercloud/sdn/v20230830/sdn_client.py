@@ -244,10 +244,10 @@ class SdnClient(AbstractClient):
         return model
 
 
-    def DescribeCloudRouteEdgePointTraffic(self, request):
-        response = self._api_call("DescribeCloudRouteEdgePointTraffic", request)
+    def DescribeCloudRouterEdgePointTraffic(self, request):
+        response = self._api_call("DescribeCloudRouterEdgePointTraffic", request)
 
-        model = models.DescribeCloudRouteEdgePointTrafficResponse()
+        model = models.DescribeCloudRouterEdgePointTrafficResponse()
         model._deserialize(response)
         return model
 
