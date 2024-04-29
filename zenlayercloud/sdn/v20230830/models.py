@@ -95,7 +95,6 @@ class PortPrice(AbstractModel):
         self.portPrice = Price(params.get("portPrice"))
 
 
-
 class DescribePortsRequest(AbstractModel):
     def __init__(self):
         self.portIds = None
@@ -1093,6 +1092,13 @@ class CreateCloudRouterEdgePoint(AbstractModel):
         self.ipAddress = None
         self.bgpConnection = None
         self.staticRoutes = None
+        self.cloudType = None
+        self.cloudAccountId = None
+        self.edgePointName = None
+        self.cloudRegionId = None
+        self.dcId = None
+
+
 
     def _deserialize(self, params):
         self.vpcId = params.get("vpcId")
@@ -1107,6 +1113,11 @@ class CreateCloudRouterEdgePoint(AbstractModel):
             for item in params.get("staticRoutes"):
                 obj = IPRoute(item)
                 self.staticRoutes.append(obj)
+        self.cloudType = params.get("cloudType")
+        self.cloudAccountId = params.get("cloudAccountId")
+        self.edgePointName = params.get("edgePointName")
+        self.cloudRegionId = params.get("cloudRegionId")
+        self.dcId = params.get("dcId")
 
 
 class ModifyCloudRoutersAttributeRequest(AbstractModel):
@@ -1469,6 +1480,102 @@ class DescribeGoogleVlanUsageRequest(AbstractModel):
 
 
 class DescribeGoogleVlanUsageResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.start = None
+        self.end = None
+        self.usedVlans = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.start = params.get("start")
+        self.end = params.get("end")
+        self.usedVlans = params.get("usedVlans")
+
+
+class DescribeAliCloudRegionsRequest(AbstractModel):
+    def __init__(self):
+        self.product = None
+
+    def _deserialize(self, params):
+        self.product = params.get("product")
+
+
+class DescribeAliCloudRegionsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.cloudRegions = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("cloudRegions") is not None:
+            self.cloudRegions = []
+            for item in params.get("cloudRegions"):
+                obj = CloudRegion(item)
+                self.cloudRegions.append(obj)
+
+
+class DescribeAliCloudVlanUsageRequest(AbstractModel):
+    def __init__(self):
+        self.dcId = None
+
+    def _deserialize(self, params):
+        self.dcId = params.get("dcId")
+
+
+class DescribeAliCloudVlanUsageResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.start = None
+        self.end = None
+        self.usedVlans = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.start = params.get("start")
+        self.end = params.get("end")
+        self.usedVlans = params.get("usedVlans")
+
+
+class DescribeAzureRegionsRequest(AbstractModel):
+    def __init__(self):
+        self.pairingKey = None
+        self.product = None
+
+    def _deserialize(self, params):
+        self.pairingKey = params.get("pairingKey")
+        self.product = params.get("product")
+
+
+class DescribeAzureRegionsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.cloudRegions = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("cloudRegions") is not None:
+            self.cloudRegions = []
+            for item in params.get("cloudRegions"):
+                obj = CloudRegion(item)
+                self.cloudRegions.append(obj)
+
+
+class DescribeAzureVlanUsageRequest(AbstractModel):
+    def __init__(self):
+        self.dcId = None
+        self.pairingKey = None
+
+    def _deserialize(self, params):
+        self.dcId = params.get("dcId")
+        self.pairingKey = params.get("pairingKey")
+
+
+class DescribeAzureVlanUsageResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None

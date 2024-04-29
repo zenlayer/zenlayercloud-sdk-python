@@ -287,3 +287,32 @@ class SdnClient(AbstractClient):
         model = models.DescribeGoogleVlanUsageResponse()
         model._deserialize(response)
         return model
+
+    def DescribeAliCloudRegions(self, request):
+        response = self._api_call("DescribeAliCloudRegions", request)
+
+        model = models.DescribeAliCloudRegionsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeAliCloudVlanUsage(self, request):
+        response = self._api_call("DescribeAliCloudVlanUsage", request)
+
+        model = models.DescribeAliCloudVlanUsageResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeAzureRegions(self, request):
+        response = self._api_call("DescribeAzureRegions", request)
+
+        model = models.DescribeAzureRegionsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeAzureVlanUsage(self, request):
+        response = self._api_call("DescribeAzureVlanUsage", request)
+
+        model = models.DescribeAzureVlanUsageResponse()
+        model._deserialize(response)
+        return model
+
