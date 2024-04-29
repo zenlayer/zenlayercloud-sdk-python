@@ -439,7 +439,7 @@ class InstanceInfo(AbstractModel):
                 self.partitions.append(obj)
         if params.get("nic") is not None:
             self.nic = Nic(params.get("nic"))
-        self.autoRenew =  params.get("autoRenew")
+        self.autoRenew = params.get("autoRenew")
 
 
 class StartInstancesRequest(AbstractModel):
@@ -859,6 +859,7 @@ class AvailableResource(AbstractModel):
         self.maximumBandwidthOut = None
         self.defaultBandwidthOut = None
         self.defaultTrafficPackageSize = None
+        self.qty = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -868,6 +869,7 @@ class AvailableResource(AbstractModel):
         self.maximumBandwidthOut = params.get("maximumBandwidthOut")
         self.defaultBandwidthOut = params.get("defaultBandwidthOut")
         self.defaultTrafficPackageSize = params.get("defaultTrafficPackageSize")
+        self.qty = params.get("qty")
 
 
 class ModifyInstanceBandwidthRequest(AbstractModel):
@@ -1155,6 +1157,7 @@ class DescribeInstancesMonitorHealthResponse(AbstractModel):
                 obj = InstanceHealth(item)
                 self.monitorHealthList.append(obj)
 
+
 class InstanceHealth(AbstractModel):
 
     def __init__(self, params=None):
@@ -1185,6 +1188,7 @@ class InstanceHealth(AbstractModel):
         self.wanPortStatus = params.get("wanPortStatus")
         self.serverBrand = params.get("serverBrand")
         self.serverModel = params.get("serverModel")
+
 
 class DescribeEipAddressesRequest(AbstractModel):
 

@@ -2,6 +2,7 @@
 #  Copyright (c) 2014-2023 All Rights Reserved.
 from zenlayercloud.common.abstract_model import AbstractModel
 
+
 class DescribeDatacentersRequest(AbstractModel):
     def __init__(self):
         self.dcIds = None
@@ -10,6 +11,7 @@ class DescribeDatacentersRequest(AbstractModel):
     def _deserialize(self, params):
         self.dcIds = params.get("dcIds")
         self.isPortAvailable = params.get("isPortAvailable")
+
 
 class DescribeDatacentersResponse(AbstractModel):
 
@@ -75,6 +77,7 @@ class DescribeDataCenterPortPriceResponse(AbstractModel):
                 obj = PortPrice(item)
                 self.portPriceSet.append(obj)
 
+
 class PortPrice(AbstractModel):
     def __init__(self, params=None):
         if params is None:
@@ -84,14 +87,13 @@ class PortPrice(AbstractModel):
             return
         self.dcId = None
         self.portType = None
-        self.portDailyPrice = None
-        self.portMonthlyPrice = None
+        self.portPrice = None
 
     def _deserialize(self, params):
         self.dcId = params.get("dcId")
         self.portType = params.get("portType")
-        self.portDailyPrice = params.get("portDailyPrice")
-        self.portMonthlyPrice = params.get("portMonthlyPrice")
+        self.portPrice = Price(params.get("portPrice"))
+
 
 class DescribePortsRequest(AbstractModel):
     def __init__(self):
@@ -251,7 +253,6 @@ class DescribePortUsableVlanResponse(AbstractModel):
         self.end = None
         self.inuseVlanList = None
 
-
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
         self.start = params.get("start")
@@ -271,7 +272,6 @@ class DestroyPortResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None
-
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
@@ -296,7 +296,6 @@ class ModifyPortAttributeResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
 
-
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
 
@@ -314,7 +313,6 @@ class TerminatePortResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
 
-
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
 
@@ -331,7 +329,6 @@ class RenewPortResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None
-
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
@@ -358,13 +355,13 @@ class DescribePrivateConnectsRequest(AbstractModel):
         self.pageNum = params.get("pageNum")
         self.pageSize = params.get("pageSize")
 
+
 class DescribePrivateConnectsResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None
         self.totalCount = None
         self.dataSet = None
-
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
@@ -422,6 +419,8 @@ class PrivateConnectEndpoint(AbstractModel):
             return
         self.endpointId = None
         self.endpointName = None
+        self.cloudRegionId = None
+        self.cloudAccountId = None
         self.endpointType = None
         self.dataCenter = None
         self.vlanId = None
@@ -430,12 +429,13 @@ class PrivateConnectEndpoint(AbstractModel):
     def _deserialize(self, params):
         self.endpointId = params.get("endpointId")
         self.endpointName = params.get("endpointName")
+        self.cloudRegionId = params.get("cloudRegionId")
+        self.cloudAccountId = params.get("cloudAccountId")
         self.endpointType = params.get("endpointType")
         if params.get("dataCenter") is not None:
             self.dataCenter = DatacenterInfo(params.get("dataCenter"))
         self.vlanId = params.get("vlanId")
         self.connectivityStatus = params.get("connectivityStatus")
-
 
 
 class DatacenterInfo(AbstractModel):
@@ -451,6 +451,8 @@ class DatacenterInfo(AbstractModel):
         self.cityName = None
         self.countryName = None
         self.areaName = None
+        self.latitude = None
+        self.longitude = None
 
     def _deserialize(self, params):
         self.dcId = params.get("dcId")
@@ -459,6 +461,8 @@ class DatacenterInfo(AbstractModel):
         self.cityName = params.get("cityName")
         self.countryName = params.get("countryName")
         self.areaName = params.get("areaName")
+        self.areaName = params.get("latitude")
+        self.areaName = params.get("longitude")
 
 
 class DescribeCreatePrivateConnectAvailableSubnetsRequest(AbstractModel):
@@ -472,13 +476,13 @@ class DescribeCreatePrivateConnectAvailableSubnetsRequest(AbstractModel):
         self.pageNum = params.get("pageNum")
         self.pageSize = params.get("pageSize")
 
+
 class DescribeCreatePrivateConnectAvailableSubnetsResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None
         self.totalCount = None
         self.dataSet = None
-
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
@@ -487,6 +491,37 @@ class DescribeCreatePrivateConnectAvailableSubnetsResponse(AbstractModel):
             self.dataSet = []
             for item in params.get("dataSet"):
                 obj = PrivateConnectAvailableSubnet(item)
+                self.dataSet.append(obj)
+
+
+class DescribePrivateConnectAvailablePortsRequest(AbstractModel):
+    def __init__(self):
+        self.portIds = None
+        self.dcId = None
+        self.pageNum = None
+        self.pageSize = None
+
+    def _deserialize(self, params):
+        self.portIds = params.get("portIds")
+        self.dcId = params.get("dcId")
+        self.pageNum = params.get("pageNum")
+        self.pageSize = params.get("pageSize")
+
+
+class DescribePrivateConnectAvailablePortsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = PortInfo(item)
                 self.dataSet.append(obj)
 
 
@@ -529,6 +564,7 @@ class CreatePrivateConnectRequest(AbstractModel):
         self.bandwidthMbps = params.get("bandwidthMbps")
         self.resourceGroupId = params.get("resourceGroupId")
 
+
 class CreatePrivateConnectResponse(AbstractModel):
 
     def __init__(self):
@@ -547,16 +583,20 @@ class CreateEndpointParam(AbstractModel):
         if len(params) > 0:
             self._deserialize(params)
             return
-        self.subnetId = None
         self.portId = None
         self.vlanId = None
-
+        self.cloudAccountId = None
+        self.cloudType = None
+        self.cloudRegionId = None
+        self.dcId = None
 
     def _deserialize(self, params):
-        self.subnetId = params.get("subnetId")
         self.portId = params.get("portId")
         self.vlanId = params.get("vlanId")
-
+        self.cloudAccountId = params.get("cloudAccountId")
+        self.cloudType = params.get("cloudType")
+        self.cloudRegionId = params.get("cloudRegionId")
+        self.dcId = params.get("dcId")
 
 
 class ModifyPrivateConnectsAttributeRequest(AbstractModel):
@@ -653,7 +693,6 @@ class StepPrice(AbstractModel):
         self.discountUnitPrice = params.get("discountUnitPrice")
 
 
-
 class DeletePrivateConnectRequest(AbstractModel):
     def __init__(self):
         self.privateConnectId = None
@@ -705,7 +744,6 @@ class RenewPrivateConnectResponse(AbstractModel):
         self.requestId = params.get("requestId")
 
 
-
 class DescribePrivateConnectTrafficRequest(AbstractModel):
     def __init__(self):
         self.privateConnectId = None
@@ -753,7 +791,6 @@ class DescribePrivateConnectTrafficResponse(AbstractModel):
         self.unit = params.get("unit")
 
 
-
 class ModifyPrivateConnectBandwidthRequest(AbstractModel):
     def __init__(self):
         self.privateConnectId = None
@@ -778,7 +815,7 @@ class DescribeCloudRoutersRequest(AbstractModel):
         self.cloudRouterIds = None
         self.cloudRouterName = None
         self.cloudRouterStatus = None
-        self.egdePointId = None
+        self.edgePointId = None
         self.resourceGroupId = None
         self.pageNum = None
         self.pageSize = None
@@ -787,10 +824,11 @@ class DescribeCloudRoutersRequest(AbstractModel):
         self.cloudRouterIds = params.get("cloudRouterIds")
         self.cloudRouterName = params.get("cloudRouterName")
         self.cloudRouterStatus = params.get("cloudRouterStatus")
-        self.egdePointId = params.get("egdePointId")
+        self.edgePointId = params.get("edgePointId")
         self.resourceGroupId = params.get("resourceGroupId")
         self.pageNum = params.get("pageNum")
         self.pageSize = params.get("pageSize")
+
 
 class DescribeCloudRoutersResponse(AbstractModel):
 
@@ -865,6 +903,8 @@ class CloudRouterEdgePoint(AbstractModel):
         self.edgePointType = None
         self.vpcId = None
         self.portId = None
+        self.cloudRegionId = None
+        self.cloudAccountId = None
         self.vlanId = None
         self.bandwidthMbps = None
         self.bgpConnection = None
@@ -881,6 +921,8 @@ class CloudRouterEdgePoint(AbstractModel):
         self.edgePointType = params.get("edgePointType")
         self.vpcId = params.get("vpcId")
         self.portId = params.get("portId")
+        self.cloudRegionId = params.get("cloudRegionId")
+        self.cloudAccountId = params.get("cloudAccountId")
         self.vlanId = params.get("vlanId")
         self.bandwidthMbps = params.get("bandwidthMbps")
         if params.get("bgpConnection") is not None:
@@ -927,7 +969,6 @@ class IPRoute(AbstractModel):
         self.nextHop = params.get("nextHop")
 
 
-
 class DescribeCloudRouterAvailableVpcsRequest(AbstractModel):
     def __init__(self):
         self.vpcId = None
@@ -938,6 +979,7 @@ class DescribeCloudRouterAvailableVpcsRequest(AbstractModel):
         self.vpcId = params.get("vpcId")
         self.pageNum = params.get("pageNum")
         self.pageSize = params.get("pageSize")
+
 
 class DescribeCloudRouterAvailableVpcsResponse(AbstractModel):
 
@@ -974,6 +1016,7 @@ class CloudRouterAvailableVpc(AbstractModel):
         if params.get("dataCenter") is not None:
             self.dataCenter = DatacenterInfo(params.get("dataCenter"))
         self.cidrBlock = params.get("cidrBlock")
+
 
 class DescribeCloudRouterAvailablePortsRequest(AbstractModel):
     def __init__(self):
@@ -1130,7 +1173,7 @@ class DeleteCloudRouterEdgePointResponse(AbstractModel):
         self.requestId = params.get("requestId")
 
 
-class DeleteCloudRouterEdgePointRequest(AbstractModel):
+class DeleteCloudRouterRequest(AbstractModel):
     def __init__(self):
         self.cloudRouterId = None
 
@@ -1138,7 +1181,7 @@ class DeleteCloudRouterEdgePointRequest(AbstractModel):
         self.cloudRouterId = params.get("cloudRouterId")
 
 
-class DeleteCloudRouterEdgePointResponse(AbstractModel):
+class DeleteCloudRouterResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None
@@ -1279,3 +1322,161 @@ class ModifyCloudRouterEdgePointResponse(AbstractModel):
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+
+
+class DescribeAWSRegionsRequest(AbstractModel):
+    def __init__(self):
+        self.product = None
+
+    def _deserialize(self, params):
+        self.product = params.get("product")
+
+
+class DescribeAWSRegionsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.cloudRegions = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("cloudRegions") is not None:
+            self.cloudRegions = []
+            for item in params.get("cloudRegions"):
+                obj = CloudRegion(item)
+                self.cloudRegions.append(obj)
+
+
+class CloudRegion(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.cloudRegionId = None
+        self.dataCenter = None
+        self.products = None
+
+    def _deserialize(self, params):
+        self.cloudRegionId = params.get("cloudRegionId")
+        if params.get("dataCenter") is not None:
+            self.dataCenter = DatacenterInfo(params.get("dataCenter"))
+        self.products = params.get("products")
+
+
+class DescribeAWSVlanUsageRequest(AbstractModel):
+    def __init__(self):
+        self.dcId = None
+
+    def _deserialize(self, params):
+        self.dcId = params.get("dcId")
+
+
+class DescribeAWSVlanUsageResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.start = None
+        self.end = None
+        self.usedVlans = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.start = params.get("start")
+        self.end = params.get("end")
+        self.usedVlans = params.get("usedVlans")
+
+
+class DescribeTencentRegionsRequest(AbstractModel):
+    def __init__(self):
+        self.product = None
+
+    def _deserialize(self, params):
+        self.product = params.get("product")
+
+
+class DescribeTencentRegionsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.cloudRegions = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("cloudRegions") is not None:
+            self.cloudRegions = []
+            for item in params.get("cloudRegions"):
+                obj = CloudRegion(item)
+                self.cloudRegions.append(obj)
+
+
+class DescribeTencentVlanUsageRequest(AbstractModel):
+    def __init__(self):
+        self.dcId = None
+
+    def _deserialize(self, params):
+        self.dcId = params.get("dcId")
+
+
+class DescribeTencentVlanUsageResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.start = None
+        self.end = None
+        self.usedVlans = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.start = params.get("start")
+        self.end = params.get("end")
+        self.usedVlans = params.get("usedVlans")
+
+
+class DescribeGoogleRegionsRequest(AbstractModel):
+    def __init__(self):
+        self.pairingKey = None
+        self.product = None
+
+    def _deserialize(self, params):
+        self.pairingKey = params.get("pairingKey")
+        self.product = params.get("product")
+
+
+class DescribeGoogleRegionsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.cloudRegions = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("cloudRegions") is not None:
+            self.cloudRegions = []
+            for item in params.get("cloudRegions"):
+                obj = CloudRegion(item)
+                self.cloudRegions.append(obj)
+
+
+class DescribeGoogleVlanUsageRequest(AbstractModel):
+    def __init__(self):
+        self.dcId = None
+
+    def _deserialize(self, params):
+        self.dcId = params.get("dcId")
+
+
+class DescribeGoogleVlanUsageResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.start = None
+        self.end = None
+        self.usedVlans = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.start = params.get("start")
+        self.end = params.get("end")
+        self.usedVlans = params.get("usedVlans")

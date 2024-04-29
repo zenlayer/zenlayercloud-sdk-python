@@ -29,14 +29,12 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribePorts(self, request):
         response = self._api_call("DescribePorts", request)
 
         model = models.DescribePortsResponse()
         model._deserialize(response)
         return model
-
 
     def DescribePortTraffic(self, request):
         response = self._api_call("DescribePortTraffic", request)
@@ -45,14 +43,12 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribePortUsableVlan(self, request):
         response = self._api_call("DescribePortUsableVlan", request)
 
         model = models.DescribePortUsableVlanResponse()
         model._deserialize(response)
         return model
-
 
     def DestroyPort(self, request):
         response = self._api_call("DestroyPort", request)
@@ -67,7 +63,6 @@ class SdnClient(AbstractClient):
         model = models.ModifyPortAttributeResponse()
         model._deserialize(response)
         return model
-
 
     def TerminatePort(self, request):
         response = self._api_call("TerminatePort", request)
@@ -90,11 +85,17 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeCreatePrivateConnectAvailableSubnets(self, request):
         response = self._api_call("DescribeCreatePrivateConnectAvailableSubnets", request)
 
         model = models.DescribeCreatePrivateConnectAvailableSubnetsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribePrivateConnectAvailablePorts(self, request):
+        response = self._api_call("DescribePrivateConnectAvailablePorts", request)
+
+        model = models.DescribePrivateConnectAvailablePortsResponse()
         model._deserialize(response)
         return model
 
@@ -105,14 +106,12 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def ModifyPrivateConnectsAttribute(self, request):
         response = self._api_call("ModifyPrivateConnectsAttribute", request)
 
         model = models.ModifyPrivateConnectsAttributeResponse()
         model._deserialize(response)
         return model
-
 
     def InquiryCreatePrivateConnectPrice(self, request):
         response = self._api_call("InquiryCreatePrivateConnectPrice", request)
@@ -121,14 +120,12 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DeletePrivateConnect(self, request):
         response = self._api_call("DeletePrivateConnect", request)
 
         model = models.DeletePrivateConnectResponse()
         model._deserialize(response)
         return model
-
 
     def DestroyPrivateConnect(self, request):
         response = self._api_call("DestroyPrivateConnect", request)
@@ -137,14 +134,12 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def RenewPrivateConnect(self, request):
         response = self._api_call("RenewPrivateConnect", request)
 
         model = models.RenewPrivateConnectResponse()
         model._deserialize(response)
         return model
-
 
     def DescribePrivateConnectTraffic(self, request):
         response = self._api_call("DescribePrivateConnectTraffic", request)
@@ -160,7 +155,6 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeCloudRouters(self, request):
         response = self._api_call("DescribeCloudRouters", request)
 
@@ -175,7 +169,6 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeCloudRouterAvailablePorts(self, request):
         response = self._api_call("DescribeCloudRouterAvailablePorts", request)
 
@@ -183,14 +176,12 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def CreateCloudRouter(self, request):
         response = self._api_call("CreateCloudRouter", request)
 
         model = models.CreateCloudRouterResponse()
         model._deserialize(response)
         return model
-
 
     def ModifyCloudRoutersAttribute(self, request):
         response = self._api_call("ModifyCloudRoutersAttribute", request)
@@ -206,7 +197,6 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DeleteCloudRouterEdgePoint(self, request):
         response = self._api_call("DeleteCloudRouterEdgePoint", request)
 
@@ -220,7 +210,6 @@ class SdnClient(AbstractClient):
         model = models.DeleteCloudRouterResponse()
         model._deserialize(response)
         return model
-
 
     def DestroyCloudRouter(self, request):
         response = self._api_call("DestroyCloudRouter", request)
@@ -243,7 +232,6 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeCloudRouterEdgePointTraffic(self, request):
         response = self._api_call("DescribeCloudRouterEdgePointTraffic", request)
 
@@ -255,5 +243,47 @@ class SdnClient(AbstractClient):
         response = self._api_call("ModifyCloudRouterEdgePoint", request)
 
         model = models.ModifyCloudRouterEdgePointResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeAWSRegions(self, request):
+        response = self._api_call("DescribeAWSRegions", request)
+
+        model = models.DescribeAWSRegionsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeAWSVlanUsage(self, request):
+        response = self._api_call("DescribeAWSVlanUsage", request)
+
+        model = models.DescribeAWSVlanUsageResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeTencentRegions(self, request):
+        response = self._api_call("DescribeTencentRegions", request)
+
+        model = models.DescribeTencentRegionsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeTencentVlanUsage(self, request):
+        response = self._api_call("DescribeTencentVlanUsage", request)
+
+        model = models.DescribeTencentVlanUsageResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeGoogleRegions(self, request):
+        response = self._api_call("DescribeGoogleRegions", request)
+
+        model = models.DescribeGoogleRegionsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeGoogleVlanUsage(self, request):
+        response = self._api_call("DescribeGoogleVlanUsage", request)
+
+        model = models.DescribeGoogleVlanUsageResponse()
         model._deserialize(response)
         return model
