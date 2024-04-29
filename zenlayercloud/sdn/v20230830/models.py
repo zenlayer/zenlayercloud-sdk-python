@@ -95,6 +95,7 @@ class PortPrice(AbstractModel):
         self.portPrice = Price(params.get("portPrice"))
 
 
+
 class DescribePortsRequest(AbstractModel):
     def __init__(self):
         self.portIds = None

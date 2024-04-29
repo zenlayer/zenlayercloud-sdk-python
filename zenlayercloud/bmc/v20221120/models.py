@@ -13,6 +13,7 @@ class CreateInstancesRequest(AbstractModel):
         self.instanceChargePrepaid = None
         self.instanceTypeId = None
         self.imageId = None
+        self.ipxeUrl = None
         self.resourceGroupId = None
         self.instanceName = None
         self.hostname = None
@@ -34,6 +35,7 @@ class CreateInstancesRequest(AbstractModel):
             self.instanceChargePrepaid = ChargePrepaid(params.get("instanceChargePrepaid"))
         self.instanceTypeId = params.get("instanceTypeId")
         self.imageId = params.get("imageId")
+        self.ipxeUrl = params.get("ipxeUrl")
         self.resourceGroupId = params.get("imageId")
         self.instanceName = params.get("instanceName")
         self.hostname = params.get("hostname")
@@ -387,6 +389,7 @@ class InstanceInfo(AbstractModel):
         self.instanceTypeId = None
         self.imageId = None
         self.imageName = None
+        self.ipxeUrl = None
         self.instanceChargeType = None
         self.bandwidthOutMbps = None
         self.internetChargeType = None
@@ -415,6 +418,7 @@ class InstanceInfo(AbstractModel):
         self.instanceTypeId = params.get("instanceTypeId")
         self.imageId = params.get("imageId")
         self.imageName = params.get("imageName")
+        self.ipxeUrl = params.get("ipxeUrl")
         self.instanceChargeType = params.get("instanceChargeType")
         self.bandwidthOutMbps = params.get("bandwidthOutMbps")
         self.internetChargeType = params.get("internetChargeType")
@@ -501,6 +505,7 @@ class ReinstallInstanceRequest(AbstractModel):
     def __init__(self):
         self.instanceId = None
         self.imageId = None
+        self.ipxeUrl = None
         self.hostname = None
         self.password = None
         self.sshKeys = None
@@ -511,6 +516,7 @@ class ReinstallInstanceRequest(AbstractModel):
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
         self.imageId = params.get("imageId")
+        self.ipxeUrl = params.get("ipxeUrl")
         self.hostname = params.get("hostname")
         self.password = params.get("password")
         self.sshKeys = params.get("sshKeys")
