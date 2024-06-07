@@ -4,7 +4,7 @@ from zenlayercloud.common.abstract_client import AbstractClient
 from zenlayercloud.zec.v20240401 import models
 
 
-class ZlsClient(AbstractClient):
+class ZecClient(AbstractClient):
     _api_version = "2024-04-01"
     _service = "zec"
 
