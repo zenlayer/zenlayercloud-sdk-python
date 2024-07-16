@@ -453,6 +453,7 @@ class DatacenterInfo(AbstractModel):
         self.areaName = None
         self.latitude = None
         self.longitude = None
+        self.isPortAvailable = None
 
     def _deserialize(self, params):
         self.dcId = params.get("dcId")
@@ -461,8 +462,9 @@ class DatacenterInfo(AbstractModel):
         self.cityName = params.get("cityName")
         self.countryName = params.get("countryName")
         self.areaName = params.get("areaName")
-        self.areaName = params.get("latitude")
-        self.areaName = params.get("longitude")
+        self.latitude = params.get("latitude")
+        self.longitude = params.get("longitude")
+        self.isPortAvailable = params.get("isPortAvailable")
 
 
 class DescribeCreatePrivateConnectAvailableSubnetsRequest(AbstractModel):
@@ -583,20 +585,26 @@ class CreateEndpointParam(AbstractModel):
         if len(params) > 0:
             self._deserialize(params)
             return
+        self.subnetId = None
         self.portId = None
         self.vlanId = None
         self.cloudAccountId = None
         self.cloudType = None
         self.cloudRegionId = None
         self.dcId = None
+        self.endpointName = None
+        self.haType = None
 
     def _deserialize(self, params):
+        self.subnetId = params.get("subnetId")
         self.portId = params.get("portId")
         self.vlanId = params.get("vlanId")
         self.cloudAccountId = params.get("cloudAccountId")
         self.cloudType = params.get("cloudType")
         self.cloudRegionId = params.get("cloudRegionId")
         self.dcId = params.get("dcId")
+        self.endpointName = params.get("endpointName")
+        self.haType = params.get("haType")
 
 
 class ModifyPrivateConnectsAttributeRequest(AbstractModel):
@@ -1097,6 +1105,7 @@ class CreateCloudRouterEdgePoint(AbstractModel):
         self.edgePointName = None
         self.cloudRegionId = None
         self.dcId = None
+        self.haType = None
 
 
 
@@ -1118,6 +1127,7 @@ class CreateCloudRouterEdgePoint(AbstractModel):
         self.edgePointName = params.get("edgePointName")
         self.cloudRegionId = params.get("cloudRegionId")
         self.dcId = params.get("dcId")
+        self.haType = params.get("haType")
 
 
 class ModifyCloudRoutersAttributeRequest(AbstractModel):
@@ -1369,12 +1379,32 @@ class CloudRegion(AbstractModel):
         self.cloudRegionId = None
         self.dataCenter = None
         self.products = None
+        self.haTypes = None
 
     def _deserialize(self, params):
         self.cloudRegionId = params.get("cloudRegionId")
         if params.get("dataCenter") is not None:
             self.dataCenter = DatacenterInfo(params.get("dataCenter"))
         self.products = params.get("products")
+        if params.get("haTypes") is not None:
+            self.haTypes = []
+            for item in params.get("haTypes"):
+                obj = HAType(item)
+                self.haTypes.append(obj)
+
+class HAType(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.haType = None
+        self.isUsed = None
+
+    def _deserialize(self, params):
+        self.haType = params.get("haType")
+        self.isUsed = params.get("isUsed")
 
 
 class DescribeAWSVlanUsageRequest(AbstractModel):
