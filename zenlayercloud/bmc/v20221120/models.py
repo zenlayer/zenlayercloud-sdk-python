@@ -387,6 +387,7 @@ class InstanceInfo(AbstractModel):
         self.instanceName = None
         self.hostname = None
         self.instanceTypeId = None
+        self.instanceType = None
         self.imageId = None
         self.imageName = None
         self.ipxeUrl = None
@@ -416,6 +417,7 @@ class InstanceInfo(AbstractModel):
         self.instanceName = params.get("instanceName")
         self.hostname = params.get("hostname")
         self.instanceTypeId = params.get("instanceTypeId")
+        self.instanceType = InstanceType(params.get("instanceType"))
         self.imageId = params.get("imageId")
         self.imageName = params.get("imageName")
         self.ipxeUrl = params.get("ipxeUrl")
