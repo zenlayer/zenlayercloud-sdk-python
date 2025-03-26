@@ -706,9 +706,11 @@ class RebootInstancesResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None
+        self.instanceIds = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+        self.instanceIds = params.get("instanceIds")
 
 
 class ResetInstanceRequest(AbstractModel):
@@ -738,18 +740,18 @@ class ResetInstanceResponse(AbstractModel):
         self.requestId = params.get("requestId")
 
 
-class ResetInstancesPasswordRequest(AbstractModel):
+class ResetInstancePasswordRequest(AbstractModel):
 
     def __init__(self):
-        self.instanceIds = None
+        self.instanceId = None
         self.password = None
 
     def _deserialize(self, params):
-        self.instanceIds = params.get("instanceIds")
+        self.instanceId = params.get("instanceId")
         self.password = params.get("password")
 
 
-class ResetInstancesPasswordResponse(AbstractModel):
+class ResetInstancePasswordResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None
@@ -771,9 +773,11 @@ class StartInstancesResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None
+        self.instanceIds = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+        self.instanceIds = params.get("instanceIds")
 
 
 class StopInstancesRequest(AbstractModel):
@@ -791,9 +795,11 @@ class StopInstancesResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None
+        self.instanceIds = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+        self.instanceIds = params.get("instanceIds")
 
 
 
@@ -850,12 +856,11 @@ class CidrInfo(AbstractModel):
         self.totalCount = None
         self.usedCount = None
         self.source = None
-        self.networkType = None
+        self.eipV4Type = None
         self.netmask = None
+        self.poolId = None
         self.createTime = None
         self.expiredTime = None
-        self.period = None
-        self.instanceChargeType = None
         self.resourceGroupId = None
         self.resourceGroupName = None
 
@@ -868,23 +873,75 @@ class CidrInfo(AbstractModel):
         self.totalCount = params.get("totalCount")
         self.usedCount = params.get("usedCount")
         self.source = params.get("source")
-        self.networkType = params.get("networkType")
+        self.eipV4Type = params.get("eipV4Type")
         self.netmask = params.get("netmask")
+        self.poolId = params.get("poolId")
         self.createTime = params.get("createTime")
         self.expiredTime = params.get("expiredTime")
-        self.period = params.get("period")
-        self.instanceChargeType = params.get("instanceChargeType")
         self.resourceGroupId = params.get("resourceGroupId")
         self.resourceGroupName = params.get("resourceGroupName")
+
+
+
+class DescribePoolsRequest(AbstractModel):
+
+    def __init__(self):
+        self.poolIds = None
+        self.regionId = None
+        self.name = None
+        self.pageSize = None
+        self.pageNum = None
+
+    def _deserialize(self, params):
+        self.poolIds = params.get("poolIds")
+        self.regionId = params.get("regionId")
+        self.name = params.get("name")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+
+
+class DescribePoolsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = PoolInfo(item)
+                self.dataSet.append(obj)
+
+
+class PoolInfo(AbstractModel):
+
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.poolId = None
+        self.regionId = None
+        self.name = None
+        self.createTime = None
+
+
+    def _deserialize(self, params):
+        self.poolId = params.get("poolId")
+        self.regionId = params.get("regionId")
+        self.name = params.get("name")
+        self.createTime = params.get("createTime")
 
 
 class DescribeCidrRegionsRequest(AbstractModel):
 
     def __init__(self):
-        self.instanceChargeType = None
-
-    def _deserialize(self, params):
-        self.instanceChargeType = params.get("instanceChargeType")
+        super().__init__()
 
 
 class DescribeCidrRegionsResponse(AbstractModel):
@@ -975,37 +1032,6 @@ class StepPrice(AbstractModel):
         self.discountUnitPrice = params.get("discountUnitPrice")
 
 
-class DescribeOwnCidrPriceRequest(AbstractModel):
-
-    def __init__(self):
-        self.regionId = None
-        self.chargeType = None
-        self.instanceChargePrepaid = None
-        self.networkType = None
-        self.cidrBlock = None
-
-    def _deserialize(self, params):
-        self.regionId = params.get("regionId")
-        self.chargeType = params.get("chargeType")
-        if params.get("instanceChargePrepaid") is not None:
-            self.instanceChargePrepaid = ChargePrepaid(params.get("instanceChargePrepaid"))
-        self.networkType = params.get("networkType")
-        self.cidrBlock = params.get("cidrBlock")
-
-
-class DescribeOwnCidrPriceResponse(AbstractModel):
-
-    def __init__(self):
-        self.requestId = None
-        self.bandwidthPrice = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-        if params.get("bandwidthPrice") is not None:
-            self.bandwidthPrice = Price(params.get("bandwidthPrice"))
-
-
-
 class NetmaskInfo(AbstractModel):
 
     def __init__(self, params=None):
@@ -1028,17 +1054,12 @@ class DescribeCidrPriceRequest(AbstractModel):
 
     def __init__(self):
         self.regionId = None
-        self.chargeType = None
-        self.instanceChargePrepaid = None
-        self.networkType = None
+        self.eipV4Type = None
         self.netmask = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
-        self.chargeType = params.get("chargeType")
-        if params.get("instanceChargePrepaid") is not None:
-            self.instanceChargePrepaid = ChargePrepaid(params.get("instanceChargePrepaid"))
-        self.networkType = params.get("networkType")
+        self.eipV4Type = params.get("eipV4Type")
         if params.get("netmask") is not None:
             self.netmask = NetmaskInfo(params.get("netmask"))
 
@@ -1047,109 +1068,12 @@ class DescribeCidrPriceResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None
-        self.bandwidthPrice = None
         self.cidrPrice = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
-        if params.get("bandwidthPrice") is not None:
-            self.bandwidthPrice = Price(params.get("bandwidthPrice"))
         if params.get("cidrPrice") is not None:
             self.cidrPrice = Price(params.get("cidrPrice"))
-
-
-class DescribeCidrUsedIpsRequest(AbstractModel):
-
-    def __init__(self):
-        self.cidrId = None
-        self.publicIp = None
-        self.instanceId = None
-        self.instanceName = None
-        self.nicId = None
-        self.nicName = None
-        self.pageSize = None
-        self.pageNum = None
-
-    def _deserialize(self, params):
-        self.cidrId = params.get("cidrId")
-        self.publicIp = params.get("publicIp")
-        self.instanceId = params.get("instanceId")
-        self.instanceName = params.get("instanceName")
-        self.nicId = params.get("nicId")
-        self.nicName = params.get("nicName")
-        self.pageSize = params.get("pageSize")
-        self.pageNum = params.get("pageNum")
-
-
-class DescribeCidrUsedIpsResponse(AbstractModel):
-
-    def __init__(self):
-        self.requestId = None
-        self.totalCount = None
-        self.dataSet = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-        self.totalCount = params.get("totalCount")
-        if params.get("dataSet") is not None:
-            self.dataSet = []
-            for item in params.get("dataSet"):
-                obj = CidrUsedIpInfo(item)
-                self.dataSet.append(obj)
-
-
-class CidrUsedIpInfo(AbstractModel):
-
-    def __init__(self, params=None):
-        if params is None:
-            params = {}
-        if len(params) > 0:
-            self._deserialize(params)
-            return
-        self.publicIp = None
-        self.lanIp = None
-        self.nicId = None
-        self.nicName = None
-        self.instanceId = None
-        self.instanceName = None
-
-
-    def _deserialize(self, params):
-        self.publicIp = params.get("publicIp")
-        self.lanIp = params.get("lanIp")
-        self.nicId = params.get("nicId")
-        self.nicName = params.get("nicName")
-        self.instanceId = params.get("instanceId")
-        self.instanceName = params.get("instanceName")
-
-
-class CreateOwnCidrRequest(AbstractModel):
-
-    def __init__(self):
-        self.regionId = None
-        self.chargeType = None
-        self.resourceGroupId = None
-        self.instanceChargePrepaid = None
-        self.networkType = None
-        self.cidrBlock = None
-
-    def _deserialize(self, params):
-        self.regionId = params.get("regionId")
-        self.chargeType = params.get("chargeType")
-        self.resourceGroupId = params.get("resourceGroupId")
-        if params.get("instanceChargePrepaid") is not None:
-            self.instanceChargePrepaid = ChargePrepaid(params.get("instanceChargePrepaid"))
-        self.networkType = params.get("networkType")
-        self.cidrBlock = params.get("cidrBlock")
-
-
-class CreateOwnCidrResponse(AbstractModel):
-
-    def __init__(self):
-        self.requestId = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
 
 
 
@@ -1157,19 +1081,14 @@ class CreateCidrRequest(AbstractModel):
 
     def __init__(self):
         self.regionId = None
-        self.chargeType = None
         self.resourceGroupId = None
-        self.instanceChargePrepaid = None
-        self.networkType = None
+        self.eipV4Type = None
         self.netmask = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
-        self.chargeType = params.get("chargeType")
         self.resourceGroupId = params.get("resourceGroupId")
-        if params.get("instanceChargePrepaid") is not None:
-            self.instanceChargePrepaid = ChargePrepaid(params.get("instanceChargePrepaid"))
-        self.networkType = params.get("networkType")
+        self.eipV4Type = params.get("eipV4Type")
         if params.get("netmask") is not None:
             self.netmask = NetmaskInfo(params.get("netmask"))
 
@@ -1219,186 +1138,13 @@ class RenewCidrResponse(AbstractModel):
         self.requestId = params.get("requestId")
 
 
-
-class UnAssignCidrIpRequest(AbstractModel):
-
-    def __init__(self):
-        self.cidrId = None
-        self.publicIp = None
-
-    def _deserialize(self, params):
-        self.cidrId = params.get("cidrId")
-        self.publicIp = params.get("publicIp")
-
-
-class UnAssignCidrIpResponse(AbstractModel):
-
-    def __init__(self):
-        self.requestId = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-
-
-class AssignCidrIpRequest(AbstractModel):
-
-    def __init__(self):
-        self.cidrId = None
-        self.nicId = None
-        self.publicIp = None
-        self.lanIp = None
-
-    def _deserialize(self, params):
-        self.cidrId = params.get("cidrId")
-        self.nicId = params.get("nicId")
-        self.publicIp = params.get("publicIp")
-        self.lanIp = params.get("lanIp")
-
-
-class AssignCidrIpResponse(AbstractModel):
-
-    def __init__(self):
-        self.requestId = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-
-
-class BatchAssignCidrIpRequest(AbstractModel):
-
-    def __init__(self):
-        self.cidrId = None
-        self.cidrIpBinds = None
-
-    def _deserialize(self, params):
-        self.cidrId = params.get("cidrId")
-        if params.get("cidrIpBinds") is not None:
-            self.cidrIpBinds = []
-            for item in params.get("cidrIpBinds"):
-                obj = CidrIpBind(item)
-                self.cidrIpBinds.append(obj)
-
-
-class CidrIpBind(AbstractModel):
-
-    def __init__(self, params=None):
-        if params is None:
-            params = {}
-        if len(params) > 0:
-            self._deserialize(params)
-            return
-        self.nicId = None
-        self.publicIp = None
-        self.lanIp = None
-
-
-    def _deserialize(self, params):
-        self.nicId = params.get("nicId")
-        self.publicIp = params.get("publicIp")
-        self.lanIp = params.get("lanIp")
-
-
-class BatchAssignCidrIpResponse(AbstractModel):
-
-    def __init__(self):
-        self.requestId = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-
-
-class AvailableCidrIpRequest(AbstractModel):
-
-    def __init__(self):
-        self.cidrId = None
-
-    def _deserialize(self, params):
-        self.cidrId = params.get("cidrId")
-
-
-class AvailableCidrIpResponse(AbstractModel):
-
-    def __init__(self):
-        self.requestId = None
-        self.ips = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-        self.ips = params.get("ips")
-
-
-class ConfigEgressIpRequest(AbstractModel):
-
-    def __init__(self):
-        self.cidrId = None
-        self.publicIp = None
-
-    def _deserialize(self, params):
-        self.cidrId = params.get("cidrId")
-        self.publicIp = params.get("publicIp")
-
-
-class ConfigEgressIpResponse(AbstractModel):
-
-    def __init__(self):
-        self.requestId = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-
-
-
-class DescribeOwnCidrsRequest(AbstractModel):
-
-    def __init__(self):
-        self.regionId = None
-
-    def _deserialize(self, params):
-        self.regionId = params.get("regionId")
-
-
-class DescribeOwnCidrsResponse(AbstractModel):
-
-    def __init__(self):
-        self.requestId = None
-        self.cidrs = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-        if params.get("cidrs") is not None:
-            self.cidrs = []
-            for item in params.get("cidrs"):
-                obj = OwnCidr(item)
-                self.cidrs.append(obj)
-
-
-class OwnCidr(AbstractModel):
-
-    def __init__(self, params=None):
-        if params is None:
-            params = {}
-        if len(params) > 0:
-            self._deserialize(params)
-            return
-        self.cidrBlock = None
-        self.ipNum = None
-        self.networkType = None
-
-
-    def _deserialize(self, params):
-        self.cidrBlock = params.get("cidrBlock")
-        self.ipNum = params.get("ipNum")
-        self.networkType = params.get("networkType")
-
-
-
 class AvailableLanIpRequest(AbstractModel):
 
     def __init__(self):
-        self.cidrId = None
+        self.eipId = None
 
     def _deserialize(self, params):
-        self.cidrId = params.get("cidrId")
+        self.eipId = params.get("eipId")
 
 
 class AvailableLanIpResponse(AbstractModel):
@@ -2162,14 +1908,18 @@ class CreateNicRequest(AbstractModel):
         self.name = None
         self.subnetId = None
         self.packageSize = None
+        self.bandwidth = None
         self.internetChargeType = None
+        self.clusterId = None
         self.resourceGroupId = None
 
     def _deserialize(self, params):
         self.name = params.get("name")
         self.subnetId = params.get("subnetId")
         self.packageSize = params.get("packageSize")
+        self.bandwidth = params.get("bandwidth")
         self.internetChargeType = params.get("internetChargeType")
+        self.clusterId = params.get("clusterId")
         self.resourceGroupId = params.get("resourceGroupId")
 
 
@@ -2224,11 +1974,15 @@ class AssignNicIpv6Request(AbstractModel):
         self.nicId = None
         self.internetChargeType = None
         self.packageSize = None
+        self.bandwidth = None
+        self.clusterId = None
 
     def _deserialize(self, params):
         self.nicId = params.get("nicId")
         self.internetChargeType = params.get("internetChargeType")
         self.packageSize = params.get("packageSize")
+        self.bandwidth = params.get("bandwidth")
+        self.clusterId = params.get("clusterId")
 
 
 class AssignNicIpv6Response(AbstractModel):
@@ -2314,6 +2068,9 @@ class DetachNicResponse(AbstractModel):
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
 
+class DescribeNicRegionsRequest(AbstractModel):
+    def __init__(self):
+        super().__init__()
 
 class DescribeNicRegionsResponse(AbstractModel):
 
@@ -2332,10 +2089,12 @@ class InquiryPricePublicIpv6Request(AbstractModel):
     def __init__(self):
         self.regionId = None
         self.packageSize = None
+        self.bandwidth = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
         self.packageSize = params.get("packageSize")
+        self.bandwidth = params.get("bandwidth")
 
 
 class InquiryPricePublicIpv6Response(AbstractModel):
@@ -2405,13 +2164,16 @@ class CreateZecInstancesRequest(AbstractModel):
         self.keyId = None
         self.internetChargeType = None
         self.trafficPackageSize = None
+        self.bandwidth = None
         self.subnetId = None
+        self.lanIp = None
         self.systemDisk = None
         self.dataDisks = None
         self.timeZone = None
         self.enableAgent = None
         self.enableIpForward = None
         self.eipV4Type = None
+        self.clusterId = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -2424,7 +2186,9 @@ class CreateZecInstancesRequest(AbstractModel):
         self.keyId = params.get("keyId")
         self.internetChargeType = params.get("internetChargeType")
         self.trafficPackageSize = params.get("trafficPackageSize")
+        self.bandwidth = params.get("bandwidth")
         self.subnetId = params.get("subnetId")
+        self.lanIp = params.get("lanIp")
         if params.get("systemDisk") is not None:
             self.systemDisk = SystemDisk(params.get("systemDisk"))
         if params.get("dataDisks") is not None:
@@ -2436,6 +2200,7 @@ class CreateZecInstancesRequest(AbstractModel):
         self.enableAgent = params.get("enableAgent")
         self.enableIpForward = params.get("enableIpForward")
         self.eipV4Type = params.get("eipV4Type")
+        self.clusterId = params.get("clusterId")
 
 
 class CreateZecInstancesResponse(AbstractModel):
@@ -2694,6 +2459,7 @@ class ImageInfo(AbstractModel):
         self.imageDescription = None
         self.imageVersion = None
         self.imageStatus = None
+        self.nicNetworkType = None
         self.category = None
         self.osType = None
 
@@ -2705,6 +2471,7 @@ class ImageInfo(AbstractModel):
         self.imageDescription = params.get("imageDescription")
         self.imageVersion = params.get("imageVersion")
         self.imageStatus = params.get("imageStatus")
+        self.nicNetworkType = params.get("nicNetworkType")
         self.category = params.get("category")
         self.osType = params.get("osType")
 
@@ -2762,3 +2529,826 @@ class KeyPair(AbstractModel):
         self.publicKey = params.get("publicKey")
         self.keyDescription = params.get("keyDescription")
         self.createTime = params.get("createTime")
+
+
+class DescribeEipRegionsRequest(AbstractModel):
+    def __init__(self):
+        super().__init__()
+
+
+class DescribeEipRegionsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.regionIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.regionIds = params.get("regionIds")
+
+
+class DescribeEipRemoteRegionsRequest(AbstractModel):
+    def __init__(self):
+        self.regionId = None
+        self.eipV4Type = None
+
+    def _deserialize(self, params):
+        self.regionId = params.get("regionId")
+        self.eipV4Type = params.get("eipV4Type")
+
+
+class DescribeEipRemoteRegionsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.peerRegionIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.peerRegionIds = params.get("peerRegionIds")
+
+
+class DescribeEipInternetChargeTypesRequest(AbstractModel):
+
+    def __init__(self):
+        self.regionId = None
+        self.eipV4Type = None
+
+
+    def _deserialize(self, params):
+        self.regionId = params.get("regionId")
+        self.eipV4Type = params.get("eipV4Type")
+
+
+class DescribeEipInternetChargeTypesResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.internetChargeTypes = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.internetChargeTypes = params.get("internetChargeTypes")
+
+
+
+class DescribeEipsRequest(AbstractModel):
+
+    def __init__(self):
+        self.eipIds = None
+        self.regionId = None
+        self.name = None
+        self.status = None
+        self.isDefault = None
+        self.pageSize = None
+        self.pageNum = None
+
+
+    def _deserialize(self, params):
+        self.eipIds = params.get("eipIds")
+        self.regionId = params.get("regionId")
+        self.name = params.get("name")
+        self.status = params.get("status")
+        self.isDefault = params.get("isDefault")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+
+
+
+class DescribeEipsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = EipInfo(item)
+                self.dataSet.append(obj)
+
+
+class EipInfo(AbstractModel):
+
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.eipId = None
+        self.name = None
+        self.regionId = None
+        self.peerRegionId = None
+        self.isDefault = None
+        self.status = None
+        self.publicIpAddresses = None
+        self.eipV4Type = None
+        self.internetChargeType = None
+        self.cidrId = None
+        self.nicId = None
+        self.flowPackage = None
+        self.bandwidth = None
+        self.createTime = None
+        self.expiredTime = None
+        self.resourceGroupId = None
+        self.resourceGroupName = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.name = params.get("name")
+        self.regionId = params.get("regionId")
+        self.peerRegionId = params.get("peerRegionId")
+        self.isDefault = params.get("isDefault")
+        self.status = params.get("status")
+        self.publicIpAddresses = params.get("publicIpAddresses")
+        self.eipV4Type = params.get("eipV4Type")
+        self.internetChargeType = params.get("internetChargeType")
+        self.cidrId = params.get("cidrId")
+        self.nicId = params.get("nicId")
+        self.flowPackage = params.get("flowPackage")
+        self.bandwidth = params.get("bandwidth")
+        self.createTime = params.get("createTime")
+        self.expiredTime = params.get("expiredTime")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.resourceGroupName = params.get("resourceGroupName")
+
+
+
+class CreateEipsRequest(AbstractModel):
+
+    def __init__(self):
+        self.regionId = None
+        self.amount = None
+        self.name = None
+        self.internetChargeType = None
+        self.eipV4Type = None
+        self.primaryIsp = None
+        self.bandwidth = None
+        self.flowPackage = None
+        self.cidrId = None
+        self.publicIp = None
+        self.resourceGroupId = None
+        self.clusterId = None
+        self.peerRegionId = None
+
+
+    def _deserialize(self, params):
+        self.regionId = params.get("regionId")
+        self.amount = params.get("amount")
+        self.name = params.get("name")
+        self.internetChargeType = params.get("internetChargeType")
+        self.eipV4Type = params.get("eipV4Type")
+        self.primaryIsp = params.get("primaryIsp")
+        self.bandwidth = params.get("bandwidth")
+        self.flowPackage = params.get("flowPackage")
+        self.cidrId = params.get("cidrId")
+        self.publicIp = params.get("publicIp")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.clusterId = params.get("clusterId")
+        self.peerRegionId = params.get("peerRegionId")
+
+
+
+class CreateEipsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.eipIds = None
+        self.orderNumber = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.eipIds = params.get("eipIds")
+        self.orderNumber = params.get("orderNumber")
+
+
+
+class DeleteEipRequest(AbstractModel):
+
+    def __init__(self):
+        self.eipId = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+
+
+class DeleteEipResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+
+class RenewEipRequest(AbstractModel):
+
+    def __init__(self):
+        self.eipId = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+
+
+class RenewEipResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class BatchAttachEipLanIpRequest(AbstractModel):
+
+    def __init__(self):
+        self.nicId = None
+        self.lanIp = None
+        self.eipIds = None
+
+    def _deserialize(self, params):
+        self.nicId = params.get("nicId")
+        self.lanIp = params.get("lanIp")
+        self.eipIds = params.get("eipIds")
+
+
+class BatchAttachEipLanIpResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+
+class DetachEipLanIpRequest(AbstractModel):
+
+    def __init__(self):
+        self.eipId = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+
+
+class DetachEipLanIpResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+
+class ConfigEipEgressIpRequest(AbstractModel):
+
+    def __init__(self):
+        self.eipId = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+
+
+class ConfigEipEgressIpResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+
+class DescribeEipPriceRequest(AbstractModel):
+
+    def __init__(self):
+        self.regionId = None
+        self.amount = None
+        self.internetChargeType = None
+        self.eipV4Type = None
+        self.bandwidth = None
+        self.flowPackage = None
+        self.cidrId = None
+        self.peerRegionId = None
+
+    def _deserialize(self, params):
+        self.regionId = params.get("regionId")
+        self.amount = params.get("amount")
+        self.internetChargeType = params.get("internetChargeType")
+        self.eipV4Type = params.get("eipV4Type")
+        self.bandwidth = params.get("bandwidth")
+        self.flowPackage = params.get("flowPackage")
+        self.cidrId = params.get("cidrId")
+        self.peerRegionId = params.get("peerRegionId")
+
+
+class DescribeEipPriceResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.eipPrice = None
+        self.bandwidthPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("eipPrice") is not None:
+            self.eipPrice = Price(params.get("eipPrice"))
+        if params.get("bandwidthPrice") is not None:
+            self.bandwidthPrice = Price(params.get("bandwidthPrice"))
+
+
+
+class ChangeEipInternetChargeTypeRequest(AbstractModel):
+
+    def __init__(self):
+        self.eipId = None
+        self.internetChargeType = None
+        self.clusterId = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.internetChargeType = params.get("internetChargeType")
+        self.clusterId = params.get("clusterId")
+
+
+class ChangeEipInternetChargeTypeResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.orderNumber = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.orderNumber = params.get("orderNumber")
+
+
+
+class InquiryPriceCreateInstanceRequest(AbstractModel):
+
+    def __init__(self):
+        self.zoneId = None
+        self.instanceType = None
+        self.eipV4Type = None
+        self.internetChargeType = None
+        self.trafficPackageSize = None
+        self.bandwidth = None
+        self.instanceCount = None
+        self.systemDisk = None
+        self.dataDisk = None
+
+    def _deserialize(self, params):
+        self.zoneId = params.get("zoneId")
+        self.instanceType = params.get("instanceType")
+        self.eipV4Type = params.get("eipV4Type")
+        self.internetChargeType = params.get("internetChargeType")
+        self.trafficPackageSize = params.get("trafficPackageSize")
+        self.bandwidth = params.get("bandwidth")
+        self.instanceCount = params.get("instanceCount")
+        if params.get("systemDisk") is not None:
+            self.systemDisk = SystemDisk(params.get("systemDisk"))
+        if params.get("dataDisk") is not None:
+            self.dataDisk = DataDisk(params.get("dataDisk"))
+
+
+class InquiryPriceCreateInstanceResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.specPrice = None
+        self.gpuPrice = None
+        self.ipv4Price = None
+        self.ipv6Price = None
+        self.ipv4BandwidthPrice = None
+        self.ipv6BandwidthPrice = None
+        self.systemDiskPrice = None
+        self.dataDiskPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("specPrice") is not None:
+            self.specPrice = Price(params.get("specPrice"))
+        if params.get("gpuPrice") is not None:
+            self.gpuPrice = Price(params.get("gpuPrice"))
+        if params.get("ipv4Price") is not None:
+            self.ipv4Price = Price(params.get("ipv4Price"))
+        if params.get("ipv6Price") is not None:
+            self.ipv6Price = Price(params.get("ipv6Price"))
+        if params.get("ipv4BandwidthPrice") is not None:
+            self.ipv4BandwidthPrice = Price(params.get("ipv4BandwidthPrice"))
+        if params.get("ipv6BandwidthPrice") is not None:
+            self.ipv6BandwidthPrice = Price(params.get("ipv6BandwidthPrice"))
+        if params.get("systemDiskPrice") is not None:
+            self.systemDiskPrice = Price(params.get("systemDiskPrice"))
+        if params.get("dataDiskPrice") is not None:
+            self.dataDiskPrice = Price(params.get("dataDiskPrice"))
+
+
+
+class ReleaseInstancesRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceIds = None
+
+    def _deserialize(self, params):
+        self.instanceIds = params.get("instanceIds")
+
+
+class ReleaseInstancesResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.instanceIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.instanceIds = params.get("instanceIds")
+
+
+
+class ModifyInstanceTypeRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceId = None
+        self.instanceType = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+        self.instanceType = params.get("instanceType")
+
+
+class ModifyInstanceTypeResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.orderNumber = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.orderNumber = params.get("orderNumber")
+
+
+class DescribeTimeZonesRequest(AbstractModel):
+
+    def __init__(self):
+        super().__init__()
+
+
+class DescribeTimeZonesResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.timeZones = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.timeZones = params.get("timeZones")
+
+
+class StartIpForwardRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceId = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+
+
+class StartIpForwardResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+
+class StopIpForwardRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceId = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+
+
+class StopIpForwardResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class StartAgentMonitorRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceId = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+
+
+class StartAgentMonitorResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class StopAgentMonitorRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceId = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+
+
+class StopAgentMonitorResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+
+class DescribeVncUrlRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceId = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+
+
+class DescribeVncUrlResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.url = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.url = params.get("url")
+
+
+class ChangeNicNetworkTypeRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceId = None
+        self.nicNetworkType = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+        self.nicNetworkType = params.get("nicNetworkType")
+
+
+class ChangeNicNetworkTypeResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+
+class DescribeEipTrafficRequest(AbstractModel):
+
+    def __init__(self):
+        self.eipId = None
+        self.startTime = None
+        self.endTime = None
+        self.step = None
+        self.wanIp = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+        self.step = params.get("step")
+        self.wanIp = params.get("wanIp")
+
+
+class DescribeEipTrafficResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.dataList = None
+        self.in95 = None
+        self.inAvg = None
+        self.inMax = None
+        self.inMin = None
+        self.inTotal = None
+        self.out95 = None
+        self.outAvg = None
+        self.outMax = None
+        self.outMin = None
+        self.outTotal = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("dataList") is not None:
+            self.dataList = []
+            for item in params.get("dataList"):
+                obj = EipTrafficData(item)
+                self.dataList.append(obj)
+        self.in95 = params.get("in95")
+        self.inAvg = params.get("inAvg")
+        self.inMax = params.get("inMax")
+        self.inMin = params.get("inMin")
+        self.inTotal = params.get("inTotal")
+        self.out95 = params.get("out95")
+        self.outAvg = params.get("outAvg")
+        self.outMax = params.get("outMax")
+        self.outMin = params.get("outMin")
+        self.outTotal = params.get("outTotal")
+
+
+
+class EipTrafficData(AbstractModel):
+
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.internetRX = None
+        self.internetTX = None
+        self.time = None
+
+    def _deserialize(self, params):
+        self.internetRX = params.get("internetRX")
+        self.internetTX = params.get("internetTX")
+        self.time = params.get("time")
+
+
+
+class CreateBorderGatewayRequest(AbstractModel):
+
+    def __init__(self):
+        self.regionId = None
+        self.vpcId = None
+        self.label = None
+        self.asn = None
+
+    def _deserialize(self, params):
+        self.regionId = params.get("regionId")
+        self.vpcId = params.get("vpcId")
+        self.label = params.get("label")
+        self.asn = params.get("asn")
+
+
+
+class CreateBorderGatewayResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.zbgId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.zbgId = params.get("zbgId")
+
+
+
+class DeleteBorderGatewayRequest(AbstractModel):
+
+    def __init__(self):
+        self.zbgId = None
+
+    def _deserialize(self, params):
+        self.zbgId = params.get("zbgId")
+
+
+class DeleteBorderGatewayResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+
+
+
+class ModifyBorderGatewaysAttributeRequest(AbstractModel):
+
+    def __init__(self):
+        self.zbgIds = None
+        self.name = None
+
+    def _deserialize(self, params):
+        self.zbgIds = params.get("zbgIds")
+        self.name = params.get("name")
+
+
+class ModifyBorderGatewaysAttributeResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+
+class ModifyBorderGatewayAsnRequest(AbstractModel):
+
+    def __init__(self):
+        self.zbgId = None
+        self.asn = None
+
+    def _deserialize(self, params):
+        self.zbgId = params.get("zbgId")
+        self.asn = params.get("asn")
+
+
+class ModifyBorderGatewayAsnResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+
+class DescribeBorderGatewaysRequest(AbstractModel):
+
+    def __init__(self):
+        self.zbgIds = None
+        self.name = None
+        self.regionId = None
+        self.pageSize = None
+        self.pageNum = None
+
+    def _deserialize(self, params):
+        self.zbgIds = params.get("zbgIds")
+        self.name = params.get("name")
+        self.regionId = params.get("regionId")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+
+
+
+class DescribeBorderGatewaysResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = ZbgInfo(item)
+                self.dataSet.append(obj)
+
+
+class ZbgInfo(AbstractModel):
+
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.zbgId = None
+        self.name = None
+        self.vpcId = None
+        self.regionId = None
+        self.asn = None
+        self.interConnectCidr = None
+        self.createTime = None
+        self.cloudRouterIds = None
+
+
+    def _deserialize(self, params):
+        self.zbgId = params.get("zbgId")
+        self.name = params.get("name")
+        self.vpcId = params.get("vpcId")
+        self.regionId = params.get("regionId")
+        self.asn = params.get("asn")
+        self.interConnectCidr = params.get("interConnectCidr")
+        self.createTime = params.get("createTime")
+        self.cloudRouterIds = params.get("cloudRouterIds")
+

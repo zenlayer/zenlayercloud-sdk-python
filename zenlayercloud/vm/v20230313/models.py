@@ -37,12 +37,16 @@ class ZoneInfo(AbstractModel):
         self.zoneName = None
         self.supportSecurityGroup = None
         self.supportNetworkType = None
+        self.supportIpv6 = None
+        self.supportCpuPassThrough = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
         self.zoneName = params.get("zoneName")
         self.supportSecurityGroup = params.get("supportSecurityGroup")
         self.supportNetworkType = params.get("supportNetworkType")
+        self.supportIpv6 = params.get("supportIpv6")
+        self.supportCpuPassThrough = params.get("supportCpuPassThrough")
 
 
 class DescribeZoneInstanceConfigInfosRequest(AbstractModel):
@@ -281,9 +285,16 @@ class CreateInstancesRequest(AbstractModel):
         self.internetMaxBandwidthOut = None
         self.trafficPackageSize = None
         self.subnetId = None
+        self.enableIpv6 = None
+        self.cpuPassThrough = None
+        self.initScript = None
         self.systemDisk = None
         self.dataDisks = None
         self.securityGroupId = None
+        self.nic = None
+        self.clusterId = None
+        self.networkMode = None
+        self.diskPreAllocated = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -301,6 +312,9 @@ class CreateInstancesRequest(AbstractModel):
         self.internetMaxBandwidthOut = params.get("internetMaxBandwidthOut")
         self.trafficPackageSize = params.get("trafficPackageSize")
         self.subnetId = params.get("subnetId")
+        self.enableIpv6 = params.get("enableIpv6")
+        self.cpuPassThrough = params.get("cpuPassThrough")
+        self.initScript = params.get("initScript")
         if params.get("systemDisk") is not None:
             self.systemDisk = SystemDisk(params.get("systemDisk"))
         if params.get("dataDisks") is not None:
@@ -309,6 +323,37 @@ class CreateInstancesRequest(AbstractModel):
                 obj = DataDisk(item)
                 self.dataDisks.append(obj)
         self.securityGroupId = params.get("securityGroupId")
+        if params.get("nic") is not None:
+            self.nic = Nic(params.get("nic"))
+        self.clusterId = params.get("clusterId")
+        self.networkMode = params.get("networkMode")
+        self.diskPreAllocated = params.get("diskPreAllocated")
+
+
+class Nic(AbstractModel):
+
+
+    def __init__(self, params=None):
+        r"""
+
+        :param wanName: 公网网卡名称。
+只能是数字和小写字母，且必须以字母开头，长度限制为4-15。
+
+        :param lanName: 内网网卡名称。
+只能是数字和小写字母，且必须以字母开头，长度限制为4-15。
+
+        """
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.wanName = None
+        self.lanName = None
+
+    def _deserialize(self, params):
+        self.wanName = params.get("wanName")
+        self.lanName = params.get("lanName")
 
 
 class CreateInstancesResponse(AbstractModel):
@@ -399,6 +444,7 @@ class InstanceInfo(AbstractModel):
         self.internetChargeType = None
         self.period = None
         self.publicIpAddresses = None
+        self.publicIpv6Addresses = None
         self.privateIpAddresses = None
         self.subnetId = None
         self.createTime = None
@@ -412,6 +458,7 @@ class InstanceInfo(AbstractModel):
         self.dataDisks = None
         self.autoRenew = None
         self.keyId = None
+        self.nic = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
@@ -427,6 +474,7 @@ class InstanceInfo(AbstractModel):
         self.internetChargeType = params.get("internetChargeType")
         self.period = params.get("period")
         self.publicIpAddresses = params.get("publicIpAddresses")
+        self.publicIpv6Addresses = params.get("publicIpv6Addresses")
         self.privateIpAddresses = params.get("privateIpAddresses")
         self.subnetId = params.get("subnetId")
         self.createTime = params.get("createTime")
@@ -445,7 +493,8 @@ class InstanceInfo(AbstractModel):
                 self.dataDisks.append(obj)
         self.autoRenew = params.get("autoRenew")
         self.keyId = params.get("keyId")
-
+        if params.get("nic") is not None:
+            self.nic = Nic(params.get("nic"))
 
 class DescribeInstancesStatusRequest(AbstractModel):
 
@@ -574,12 +623,16 @@ class ResetInstanceRequest(AbstractModel):
         self.imageId = None
         self.password = None
         self.keyId = None
+        self.wanName = None
+        self.lanName = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
         self.imageId = params.get("imageId")
         self.password = params.get("password")
         self.keyId = params.get("keyId")
+        self.wanName = params.get("wanName")
+        self.lanName = params.get("lanName")
 
 
 class ResetInstanceResponse(AbstractModel):
@@ -1623,6 +1676,7 @@ class RuleInfo(AbstractModel):
         self.ipProtocol = None
         self.portRange = None
         self.cidrIp = None
+        self.description = None
 
     def _deserialize(self, params):
         self.direction = params.get("direction")
@@ -1630,6 +1684,7 @@ class RuleInfo(AbstractModel):
         self.ipProtocol = params.get("ipProtocol")
         self.portRange = params.get("portRange")
         self.cidrIp = params.get("cidrIp")
+        self.description = params.get("description")
 
 
 class ModifySecurityGroupsAttributeRequest(AbstractModel):
@@ -1799,6 +1854,7 @@ class AuthorizeSecurityGroupRuleRequest(AbstractModel):
         self.ipProtocol = None
         self.portRange = None
         self.cidrIp = None
+        self.description = None
 
     def _deserialize(self, params):
         self.securityGroupId = params.get("securityGroupId")
@@ -1807,6 +1863,7 @@ class AuthorizeSecurityGroupRuleRequest(AbstractModel):
         self.ipProtocol = params.get("ipProtocol")
         self.portRange = params.get("portRange")
         self.cidrIp = params.get("cidrIp")
+        self.description = params.get("description")
 
 
 class AuthorizeSecurityGroupRuleResponse(AbstractModel):

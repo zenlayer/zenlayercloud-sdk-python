@@ -153,10 +153,10 @@ class ZecClient(AbstractClient):
         return model
 
 
-    def ResetInstancesPassword(self, request):
-        response = self._api_call("ResetInstancesPassword", request)
+    def ResetInstancePassword(self, request):
+        response = self._api_call("ResetInstancePassword", request)
 
-        model = models.ResetInstancesPasswordResponse()
+        model = models.ResetInstancePasswordResponse()
         model._deserialize(response)
         return model
 
@@ -176,6 +176,13 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ReleaseInstances(self, request):
+        response = self._api_call("ReleaseInstances", request)
+
+        model = models.ReleaseInstancesResponse()
+        model._deserialize(response)
+        return model
+
 
     def DescribeCidrs(self, request):
         response = self._api_call("DescribeCidrs", request)
@@ -184,19 +191,17 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribePools(self, request):
+        response = self._api_call("DescribePools", request)
+
+        model = models.DescribePoolsResponse()
+        model._deserialize(response)
+        return model
 
     def DescribeCidrRegions(self, request):
         response = self._api_call("DescribeCidrRegions", request)
 
         model = models.DescribeCidrRegionsResponse()
-        model._deserialize(response)
-        return model
-
-
-    def DescribeOwnCidrPrice(self, request):
-        response = self._api_call("DescribeOwnCidrPrice", request)
-
-        model = models.DescribeOwnCidrPriceResponse()
         model._deserialize(response)
         return model
 
@@ -208,20 +213,6 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
-    def DescribeCidrUsedIps(self, request):
-        response = self._api_call("DescribeCidrUsedIps", request)
-
-        model = models.DescribeCidrUsedIpsResponse()
-        model._deserialize(response)
-        return model
-
-    def CreateOwnCidr(self, request):
-        response = self._api_call("CreateOwnCidr", request)
-
-        model = models.CreateOwnCidrResponse()
-        model._deserialize(response)
-        return model
 
     def CreateCidr(self, request):
         response = self._api_call("CreateCidr", request)
@@ -247,53 +238,6 @@ class ZecClient(AbstractClient):
         return model
 
 
-    def UnAssignCidrIp(self, request):
-        response = self._api_call("UnAssignCidrIp", request)
-
-        model = models.UnAssignCidrIpResponse()
-        model._deserialize(response)
-        return model
-
-
-    def AssignCidrIp(self, request):
-        response = self._api_call("AssignCidrIp", request)
-
-        model = models.AssignCidrIpResponse()
-        model._deserialize(response)
-        return model
-
-    def BatchAssignCidrIp(self, request):
-        response = self._api_call("BatchAssignCidrIp", request)
-
-        model = models.BatchAssignCidrIpResponse()
-        model._deserialize(response)
-        return model
-
-
-    def AvailableCidrIp(self, request):
-        response = self._api_call("AvailableCidrIp", request)
-
-        model = models.AvailableCidrIpResponse()
-        model._deserialize(response)
-        return model
-
-
-    def ConfigEgressIp(self, request):
-        response = self._api_call("ConfigEgressIp", request)
-
-        model = models.ConfigEgressIpResponse()
-        model._deserialize(response)
-        return model
-
-
-    def DescribeOwnCidrs(self, request):
-        response = self._api_call("DescribeOwnCidrs", request)
-
-        model = models.DescribeOwnCidrsResponse()
-        model._deserialize(response)
-        return model
-
-
     def AvailableLanIp(self, request):
         response = self._api_call("AvailableLanIp", request)
 
@@ -302,14 +246,12 @@ class ZecClient(AbstractClient):
         return model
 
 
-
     def DescribeDiskRegions(self, request):
         response = self._api_call("DescribeDiskRegions", request)
 
         model = models.DescribeDiskRegionsResponse()
         model._deserialize(response)
         return model
-
 
 
     def CreateDisks(self, request):
@@ -608,5 +550,219 @@ class ZecClient(AbstractClient):
         response = self._api_call("DescribeKeyPairs", request)
 
         model = models.DescribeKeyPairsResponse()
+        model._deserialize(response)
+        return model
+
+
+    def DescribeEipRegions(self, request):
+        response = self._api_call("DescribeEipRegions", request)
+
+        model = models.DescribeEipRegionsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeEipRemoteRegions(self, request):
+        response = self._api_call("DescribeEipRemoteRegions", request)
+
+        model = models.DescribeEipRemoteRegionsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeEipInternetChargeTypes(self, request):
+        response = self._api_call("DescribeEipInternetChargeTypes", request)
+
+        model = models.DescribeEipInternetChargeTypesResponse()
+        model._deserialize(response)
+        return model
+
+
+    def DescribeEips(self, request):
+        response = self._api_call("DescribeEips", request)
+
+        model = models.DescribeEipsResponse()
+        model._deserialize(response)
+        return model
+
+
+    def CreateEips(self, request):
+        response = self._api_call("CreateEips", request)
+
+        model = models.CreateEipsResponse()
+        model._deserialize(response)
+        return model
+
+
+    def DeleteEip(self, request):
+        response = self._api_call("DeleteEip", request)
+
+        model = models.DeleteEipResponse()
+        model._deserialize(response)
+        return model
+
+
+    def RenewEip(self, request):
+        response = self._api_call("RenewEip", request)
+
+        model = models.RenewEipResponse()
+        model._deserialize(response)
+        return model
+
+
+    def BatchAttachEipLanIp(self, request):
+        response = self._api_call("BatchAttachEipLanIp", request)
+
+        model = models.BatchAttachEipLanIpResponse()
+        model._deserialize(response)
+        return model
+
+
+    def DetachEipLanIp(self, request):
+        response = self._api_call("DetachEipLanIp", request)
+
+        model = models.DetachEipLanIpResponse()
+        model._deserialize(response)
+        return model
+
+
+    def ConfigEipEgressIp(self, request):
+        response = self._api_call("ConfigEipEgressIp", request)
+
+        model = models.ConfigEipEgressIpResponse()
+        model._deserialize(response)
+        return model
+
+
+    def DescribeEipPrice(self, request):
+        response = self._api_call("DescribeEipPrice", request)
+
+        model = models.DescribeEipPriceResponse()
+        model._deserialize(response)
+        return model
+
+
+    def ChangeEipInternetChargeType(self, request):
+        response = self._api_call("ChangeEipInternetChargeType", request)
+
+        model = models.ChangeEipInternetChargeTypeResponse()
+        model._deserialize(response)
+        return model
+
+
+    def InquiryPriceCreateInstance(self, request):
+        response = self._api_call("InquiryPriceCreateInstance", request)
+
+        model = models.InquiryPriceCreateInstanceResponse()
+        model._deserialize(response)
+        return model
+
+
+    def ModifyInstanceType(self, request):
+        response = self._api_call("ModifyInstanceType", request)
+
+        model = models.ModifyInstanceTypeResponse()
+        model._deserialize(response)
+        return model
+
+
+    def DescribeTimeZones(self, request):
+        response = self._api_call("DescribeTimeZones", request)
+
+        model = models.DescribeTimeZonesResponse()
+        model._deserialize(response)
+        return model
+
+
+    def StartIpForward(self, request):
+        response = self._api_call("StartIpForward", request)
+
+        model = models.StartIpForwardResponse()
+        model._deserialize(response)
+        return model
+
+
+    def StopIpForward(self, request):
+        response = self._api_call("StopIpForward", request)
+
+        model = models.StopIpForwardResponse()
+        model._deserialize(response)
+        return model
+
+
+    def StartAgentMonitor(self, request):
+        response = self._api_call("StartAgentMonitor", request)
+
+        model = models.StartAgentMonitorResponse()
+        model._deserialize(response)
+        return model
+
+
+    def StopAgentMonitor(self, request):
+        response = self._api_call("StopAgentMonitor", request)
+
+        model = models.StopAgentMonitorResponse()
+        model._deserialize(response)
+        return model
+
+
+    def DescribeVncUrl(self, request):
+        response = self._api_call("DescribeVncUrl", request)
+
+        model = models.DescribeVncUrlResponse()
+        model._deserialize(response)
+        return model
+
+
+    def ChangeNicNetworkType(self, request):
+        response = self._api_call("ChangeNicNetworkType", request)
+
+        model = models.ChangeNicNetworkTypeResponse()
+        model._deserialize(response)
+        return model
+
+
+    def DescribeEipTraffic(self, request):
+        response = self._api_call("DescribeEipTraffic", request)
+
+        model = models.DescribeEipTrafficResponse()
+        model._deserialize(response)
+        return model
+
+
+    def CreateBorderGateway(self, request):
+        response = self._api_call("CreateBorderGateway", request)
+
+        model = models.CreateBorderGatewayResponse()
+        model._deserialize(response)
+        return model
+
+
+    def DeleteBorderGateway(self, request):
+        response = self._api_call("DeleteBorderGateway", request)
+
+        model = models.DeleteBorderGatewayResponse()
+        model._deserialize(response)
+        return model
+
+
+    def ModifyBorderGatewaysAttribute(self, request):
+        response = self._api_call("ModifyBorderGatewaysAttribute", request)
+
+        model = models.ModifyBorderGatewaysAttributeResponse()
+        model._deserialize(response)
+        return model
+
+
+    def ModifyBorderGatewayAsn(self, request):
+        response = self._api_call("ModifyBorderGatewayAsn", request)
+
+        model = models.ModifyBorderGatewayAsnResponse()
+        model._deserialize(response)
+        return model
+
+
+    def DescribeBorderGateways(self, request):
+        response = self._api_call("DescribeBorderGateways", request)
+
+        model = models.DescribeBorderGatewaysResponse()
         model._deserialize(response)
         return model
