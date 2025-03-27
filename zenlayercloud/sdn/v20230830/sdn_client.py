@@ -15,6 +15,53 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
+
+    def DescribeDatacentersWithService(self, request):
+        response = self._api_call("DescribeDatacentersWithService", request)
+
+        model = models.DescribeDatacentersWithServiceResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeVirtualEdgeDatacenters(self, request):
+        response = self._api_call("DescribeVirtualEdgeDatacenters", request)
+        model = models.DescribeVirtualEdgeDatacentersResponse()
+        model._deserialize(response)
+        return model
+
+
+    def QueryDataCenterPortPrice(self, request):
+        response = self._api_call("QueryDataCenterPortPrice", request)
+
+        model = models.QueryDataCenterPortPriceResponse()
+        model._deserialize(response)
+        return model
+
+
+    def QueryPrivateConnectBandwidthPrice(self, request):
+        response = self._api_call("QueryPrivateConnectBandwidthPrice", request)
+
+        model = models.QueryPrivateConnectBandwidthPriceResponse()
+        model._deserialize(response)
+        return model
+
+
+    def QueryCloudRouterBandwidthPrice(self, request):
+        response = self._api_call("QueryCloudRouterBandwidthPrice", request)
+
+        model = models.QueryCloudRouterBandwidthPriceResponse()
+        model._deserialize(response)
+        return model
+
+
+    def QueryCloudOnrampPrice(self, request):
+        response = self._api_call("QueryCloudOnrampPrice", request)
+
+        model = models.QueryCloudOnrampPriceResponse()
+        model._deserialize(response)
+        return model
+
+
     def CreatePort(self, request):
         response = self._api_call("CreatePort", request)
 
