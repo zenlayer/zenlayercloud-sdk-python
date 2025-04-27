@@ -4,24 +4,22 @@ from zenlayercloud.common.abstract_model import AbstractModel
 
 
 class DescribeBandwidthClustersRequest(AbstractModel):
-
     def __init__(self):
         self.bandwidthClusterIds = None
         self.bandwidthClusterName = None
         self.cityName = None
-        self.pageSize = None
         self.pageNum = None
+        self.pageSize = None
 
     def _deserialize(self, params):
         self.bandwidthClusterIds = params.get("bandwidthClusterIds")
         self.bandwidthClusterName = params.get("bandwidthClusterName")
         self.cityName = params.get("cityName")
-        self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
+        self.pageSize = params.get("pageSize")
 
 
 class DescribeBandwidthClustersResponse(AbstractModel):
-
     def __init__(self):
         self.requestId = None
         self.totalCount = None
@@ -38,7 +36,6 @@ class DescribeBandwidthClustersResponse(AbstractModel):
 
 
 class BandwidthClusterInfo(AbstractModel):
-
     def __init__(self, params=None):
         if params is None:
             params = {}
@@ -47,31 +44,101 @@ class BandwidthClusterInfo(AbstractModel):
             return
         self.bandwidthClusterId = None
         self.bandwidthClusterName = None
+        self.networkType = None
+        self.areaCode = None
+        self.internetChargeType = None
+        self.commitBandwidthMbps = None
         self.location = None
         self.createTime = None
+        self.resourceNumber = None
+        self.cities = None
 
     def _deserialize(self, params):
         self.bandwidthClusterId = params.get("bandwidthClusterId")
         self.bandwidthClusterName = params.get("bandwidthClusterName")
+        self.networkType = params.get("networkType")
+        self.areaCode = params.get("areaCode")
+        self.internetChargeType = params.get("internetChargeType")
+        self.commitBandwidthMbps = params.get("commitBandwidthMbps")
         self.location = params.get("location")
         self.createTime = params.get("createTime")
+        self.resourceNumber = params.get("resourceNumber")
+        if params.get("cities") is not None:
+            self.cities = []
+            for item in params.get("cities"):
+                obj = CityInfo(item)
+                self.cities.append(obj)
+
+
+class CityInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.cityName = None
+        self.cityCode = None
+
+    def _deserialize(self, params):
+        self.cityName = params.get("cityName")
+        self.cityCode = params.get("cityCode")
+
+
+class DescribeBandwidthClusterAreasRequest(AbstractModel):
+    def __init__(self):
+        pass
+
+    def _deserialize(self, params):
+        pass
+
+
+class DescribeBandwidthClusterAreasResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.areas = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("areas") is not None:
+            self.areas = []
+            for item in params.get("areas"):
+                obj = BandwidthClusterAreaInfo(item)
+                self.areas.append(obj)
+
+
+class BandwidthClusterAreaInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.areaCode = None
+        self.areaName = None
+        self.networkTypes = None
+
+    def _deserialize(self, params):
+        self.areaCode = params.get("areaCode")
+        self.areaName = params.get("areaName")
+        self.networkTypes = params.get("networkTypes")
 
 
 class DescribeBandwidthClusterTrafficRequest(AbstractModel):
-
     def __init__(self):
         self.bandwidthClusterId = None
         self.startTime = None
         self.endTime = None
+        self.city = None
 
     def _deserialize(self, params):
         self.bandwidthClusterId = params.get("bandwidthClusterId")
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
+        self.city = params.get("city")
 
 
 class DescribeBandwidthClusterTrafficResponse(AbstractModel):
-
     def __init__(self):
         self.requestId = None
         self.dataList = None
@@ -81,13 +148,13 @@ class DescribeBandwidthClusterTrafficResponse(AbstractModel):
         self.inMax = None
         self.inMin = None
         self.inTotal = None
-        self.maxBandwidth95ValueMbps = None
         self.out95 = None
         self.out95Time = None
         self.outAvg = None
         self.outMax = None
         self.outMin = None
         self.outTotal = None
+        self.maxBandwidth95ValueMbps = None
         self.totalUnit = None
         self.unit = None
 
@@ -104,19 +171,18 @@ class DescribeBandwidthClusterTrafficResponse(AbstractModel):
         self.inMax = params.get("inMax")
         self.inMin = params.get("inMin")
         self.inTotal = params.get("inTotal")
-        self.maxBandwidth95ValueMbps = params.get("maxBandwidth95ValueMbps")
         self.out95 = params.get("out95")
         self.out95Time = params.get("out95Time")
         self.outAvg = params.get("outAvg")
         self.outMax = params.get("outMax")
         self.outMin = params.get("outMin")
         self.outTotal = params.get("outTotal")
+        self.maxBandwidth95ValueMbps = params.get("maxBandwidth95ValueMbps")
         self.totalUnit = params.get("totalUnit")
         self.unit = params.get("unit")
 
 
 class BandwidthClusterTrafficData(AbstractModel):
-
     def __init__(self, params=None):
         if params is None:
             params = {}
@@ -131,3 +197,147 @@ class BandwidthClusterTrafficData(AbstractModel):
         self.internetRX = params.get("internetRX")
         self.internetTX = params.get("internetTX")
         self.time = params.get("time")
+
+
+class InquiryBandwidthClusterPriceRequest(AbstractModel):
+    def __init__(self):
+        self.areaCode = None
+        self.commitBandwidthMbps = None
+        self.networkType = None
+        self.internetChargeType = None
+
+    def _deserialize(self, params):
+        self.areaCode = params.get("areaCode")
+        self.commitBandwidthMbps = params.get("commitBandwidthMbps")
+        self.networkType = params.get("networkType")
+        self.internetChargeType = params.get("internetChargeType")
+
+
+class InquiryBandwidthClusterPriceResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.price = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.price = params.get("price")
+
+
+class PriceItem(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.discount = None
+        self.discountPrice = None
+        self.originalPrice = None
+        self.unitPrice = None
+        self.discountUnitPrice = None
+        self.chargeUnit = None
+        self.stepPrices = None
+        self.amountUnit = None
+        self.excessUnitPrice = None
+        self.excessDiscountUnitPrice = None
+        self.excessAmountUnit = None
+
+    def _deserialize(self, params):
+        self.discount = params.get("discount")
+        self.discountPrice = params.get("discountPrice")
+        self.originalPrice = params.get("originalPrice")
+        self.unitPrice = params.get("unitPrice")
+        self.discountUnitPrice = params.get("discountUnitPrice")
+        self.chargeUnit = params.get("chargeUnit")
+        if params.get("stepPrices") is not None:
+            self.stepPrices = []
+            for item in params.get("stepPrices"):
+                obj = StepPrice(item)
+                self.stepPrices.append(obj)
+        self.amountUnit = params.get("amountUnit")
+        self.excessUnitPrice = params.get("excessUnitPrice")
+        self.excessDiscountUnitPrice = params.get("excessDiscountUnitPrice")
+        self.excessAmountUnit = params.get("excessAmountUnit")
+
+
+class StepPrice(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.stepStart = None
+        self.stepEnd = None
+        self.unitPrice = None
+        self.discountUnitPrice = None
+
+    def _deserialize(self, params):
+        self.stepStart = params.get("stepStart")
+        self.stepEnd = params.get("stepEnd")
+        self.unitPrice = params.get("unitPrice")
+        self.discountUnitPrice = params.get("discountUnitPrice")
+
+
+class CreateBandwidthClusterRequest(AbstractModel):
+    def __init__(self):
+        self.areaCode = None
+        self.commitBandwidthMbps = None
+        self.networkType = None
+        self.internetChargeType = None
+        self.name = None
+
+    def _deserialize(self, params):
+        self.areaCode = params.get("areaCode")
+        self.commitBandwidthMbps = params.get("commitBandwidthMbps")
+        self.networkType = params.get("networkType")
+        self.internetChargeType = params.get("internetChargeType")
+        self.name = params.get("name")
+
+
+class CreateBandwidthClusterResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.orderNumber = None
+        self.bandwidthClusterId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.orderNumber = params.get("orderNumber")
+        self.bandwidthClusterId = params.get("bandwidthClusterId")
+
+
+class DeleteBandwidthClustersRequest(AbstractModel):
+    def __init__(self):
+        self.bandwidthClusterIds = None
+
+    def _deserialize(self, params):
+        self.bandwidthClusterIds = params.get("bandwidthClusterIds")
+
+
+class DeleteBandwidthClustersResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class UpdateBandwidthClusterCommitBandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.bandwidthClusterId = None
+        self.commitBandwidthMbps = None
+
+    def _deserialize(self, params):
+        self.bandwidthClusterId = params.get("bandwidthClusterId")
+        self.commitBandwidthMbps = params.get("commitBandwidthMbps")
+
+
+class UpdateBandwidthClusterCommitBandwidthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+

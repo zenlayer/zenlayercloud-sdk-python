@@ -27,6 +27,8 @@ class CreateInstancesRequest(AbstractModel):
         self.raidConfig = None
         self.partitions = None
         self.nic = None
+        self.clusterId = None
+        self.enablePrimaryIPv6 = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -55,6 +57,8 @@ class CreateInstancesRequest(AbstractModel):
                 self.partitions.append(obj)
         if params.get("nic") is not None:
             self.nic = Nic(params.get("nic"))
+        self.clusterId = params.get("clusterId")
+        self.enablePrimaryIPv6 = params.get("enablePrimaryIPv6")
 
 
 class CreateInstancesResponse(AbstractModel):
@@ -1184,6 +1188,15 @@ class InstanceHealth(AbstractModel):
         self.wanPortStatus = None
         self.serverBrand = None
         self.serverModel = None
+        self.fanStatus = None
+        self.serverBrand = None
+        self.serverModel = None
+        self.cpuTemp = None
+        self.cpu0Temp = None
+        self.cpu1Temp = None
+        self.cpu2Temp = None
+        self.inletTemp = None
+        self.tempUnit = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
@@ -1196,7 +1209,15 @@ class InstanceHealth(AbstractModel):
         self.wanPortStatus = params.get("wanPortStatus")
         self.serverBrand = params.get("serverBrand")
         self.serverModel = params.get("serverModel")
-
+        self.fanStatus = params.get("fanStatus")
+        self.serverBrand = params.get("serverBrand")
+        self.serverModel = params.get("serverModel")
+        self.cpuTemp = params.get("cpuTemp")
+        self.cpu0Temp = params.get("cpu0Temp")
+        self.cpu1Temp = params.get("cpu1Temp")
+        self.cpu2Temp = params.get("cpu2Temp")
+        self.inletTemp = params.get("inletTemp")
+        self.tempUnit = params.get("tempUnit")
 
 class DescribeEipAddressesRequest(AbstractModel):
 

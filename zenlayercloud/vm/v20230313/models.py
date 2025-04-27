@@ -564,9 +564,11 @@ class StopInstancesRequest(AbstractModel):
 
     def __init__(self):
         self.instanceIds = None
+        self.forceShutdown = None
 
     def _deserialize(self, params):
         self.instanceIds = params.get("instanceIds")
+        self.forceShutdown = params.get("forceShutdown")
 
 
 class StopInstancesResponse(AbstractModel):

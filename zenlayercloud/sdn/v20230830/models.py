@@ -28,7 +28,6 @@ class DescribeDatacentersResponse(AbstractModel):
                 self.dcSet.append(obj)
 
 
-
 class DescribeDatacentersWithServiceRequest(AbstractModel):
     def __init__(self):
         self.cloudRegionId = None
@@ -90,11 +89,12 @@ class DescribeVirtualEdgeDatacentersRequest(AbstractModel):
     def _deserialize(self, params):
         self.primaryDcId = params.get("primaryDcId")
 
+
 # 响应模型
 class DescribeVirtualEdgeDatacentersResponse(AbstractModel):
     def __init__(self):
-        self.requestId = None    # 请求ID
-        self.dcSet = None        # 虚拟边缘数据中心集合
+        self.requestId = None  # 请求ID
+        self.dcSet = None  # 虚拟边缘数据中心集合
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
@@ -132,6 +132,133 @@ class QueryDataCenterPortPriceResponse(AbstractModel):
         self.crossConnectPrice = Price(params.get("crossConnectPrice"))
         self.crossConnectOneTimeConstructionPrice = Price(params.get("crossConnectOneTimeConstructionPrice"))
         self.stock = params.get("stock")
+
+
+class QueryDataCenterPortPricesRequest(AbstractModel):
+    def __init__(self):
+        self.dcIds = None
+        self.portType = None
+        self.buildCrossConnectWithAssisted = None
+
+    def _deserialize(self, params):
+        self.dcIds = params.get("dcIds")
+        self.portType = params.get("portType")
+        self.buildCrossConnectWithAssisted = params.get("buildCrossConnectWithAssisted")
+
+
+class QueryDataCenterPortPricesResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.prices = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("prices") is not None:
+            self.prices = []
+            for item in params.get("prices"):
+                obj = DatacenterPortPrice(item)
+                self.prices.append(obj)
+
+
+class DatacenterPortPrice(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.price = None
+        self.crossConnectPrice = None
+        self.crossConnectOneTimeConstructionPrice = None
+        self.stock = None
+        self.dcId = None
+
+    def _deserialize(self, params):
+        self.price = Price(params.get("price"))
+        self.crossConnectPrice = Price(params.get("crossConnectPrice"))
+        self.crossConnectOneTimeConstructionPrice = Price(params.get("crossConnectOneTimeConstructionPrice"))
+        self.stock = params.get("stock")
+        self.dcId = params.get("dcId")
+
+
+class QueryPrivateConnectPriceRequest(AbstractModel):
+    def __init__(self):
+        self.internetType = None
+        self.bandwidthMbps = None
+        self.endpointA = None
+        self.endpointZ = None
+
+    def _deserialize(self, params):
+        self.internetType = params.get("internetType")
+        self.bandwidthMbps = params.get("bandwidthMbps")
+        if params.get("endpointA") is not None:
+            self.endpointA = PrivateConnectEndpointInfo(params.get("endpointA"))
+        if params.get("endpointZ") is not None:
+            self.endpointZ = PrivateConnectEndpointInfo(params.get("endpointZ"))
+
+
+class PrivateConnectEndpointInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.dcId = None
+        self.portType = None
+        self.buildCrossConnectWithAssisted = None
+        self.cloudType = None
+        self.vlanId = None
+        self.cloudRegionId = None
+        self.bandwidthMbps = None
+
+    def _deserialize(self, params):
+        self.dcId = params.get("dcId")
+        self.portType = params.get("portType")
+        self.buildCrossConnectWithAssisted = params.get("buildCrossConnectWithAssisted")
+        self.cloudType = params.get("cloudType")
+        self.vlanId = params.get("vlanId")
+        self.cloudRegionId = params.get("cloudRegionId")
+        self.bandwidthMbps = params.get("bandwidthMbps")
+
+
+class QueryPrivateConnectPriceResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.price = None
+        self.stock = None
+        self.endpointAPrice = None
+        self.endpointZPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.price = Price(params.get("price"))
+        self.stock = params.get("stock")
+        if params.get("endpointAPrice") is not None:
+            self.endpointAPrice = PrivateConnectEndpointPrice(params.get("endpointAPrice"))
+        if params.get("endpointZPrice") is not None:
+            self.endpointZPrice = PrivateConnectEndpointPrice(params.get("endpointZPrice"))
+
+
+class PrivateConnectEndpointPrice(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.price = None
+        self.stock = None
+        self.crossConnectPrice = None
+        self.crossConnectOneTimeConstructionPrice = None
+
+    def _deserialize(self, params):
+        self.price = Price(params.get("price"))
+        self.stock = params.get("stock")
+        self.crossConnectPrice = Price(params.get("crossConnectPrice"))
+        self.crossConnectOneTimeConstructionPrice = Price(params.get("crossConnectOneTimeConstructionPrice"))
 
 
 class QueryPrivateConnectBandwidthPriceRequest(AbstractModel):
@@ -1310,8 +1437,6 @@ class CreateCloudRouterEdgePoint(AbstractModel):
         self.ipSecStaticRoutes = None
         self.backupIpSec = None
 
-
-
     def _deserialize(self, params):
         self.vpcId = params.get("vpcId")
         self.bandwidthMbps = params.get("bandwidthMbps")
@@ -1366,7 +1491,6 @@ class IPSecBGPConnection(AbstractModel):
         self.password = params.get("password")
 
 
-
 class IPSecStaticRoute(AbstractModel):
     def __init__(self, params=None):
         if params is None:
@@ -1378,7 +1502,6 @@ class IPSecStaticRoute(AbstractModel):
 
     def _deserialize(self, params):
         self.cidr = params.get("cidr")
-
 
 
 class BackupIPSecConfig(AbstractModel):
@@ -1663,6 +1786,7 @@ class CloudRegion(AbstractModel):
             for item in params.get("haTypes"):
                 obj = HAType(item)
                 self.haTypes.append(obj)
+
 
 class HAType(AbstractModel):
     def __init__(self, params=None):

@@ -99,7 +99,6 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeRoutes(self, request):
         response = self._api_call("DescribeRoutes", request)
 
@@ -128,14 +127,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def ModifyInstancesAttribute(self, request):
         response = self._api_call("ModifyInstancesAttribute", request)
 
         model = models.ModifyInstancesAttributeResponse()
         model._deserialize(response)
         return model
-
 
     def RebootInstances(self, request):
         response = self._api_call("RebootInstances", request)
@@ -144,14 +141,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def ResetInstance(self, request):
         response = self._api_call("ResetInstance", request)
 
         model = models.ResetInstanceResponse()
         model._deserialize(response)
         return model
-
 
     def ResetInstancePassword(self, request):
         response = self._api_call("ResetInstancePassword", request)
@@ -160,14 +155,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def StartInstances(self, request):
         response = self._api_call("StartInstances", request)
 
         model = models.StartInstancesResponse()
         model._deserialize(response)
         return model
-
 
     def StopInstances(self, request):
         response = self._api_call("StopInstances", request)
@@ -182,7 +175,6 @@ class ZecClient(AbstractClient):
         model = models.ReleaseInstancesResponse()
         model._deserialize(response)
         return model
-
 
     def DescribeCidrs(self, request):
         response = self._api_call("DescribeCidrs", request)
@@ -205,14 +197,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeCidrPrice(self, request):
         response = self._api_call("DescribeCidrPrice", request)
 
         model = models.DescribeCidrPriceResponse()
         model._deserialize(response)
         return model
-
 
     def CreateCidr(self, request):
         response = self._api_call("CreateCidr", request)
@@ -221,14 +211,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DeleteCidr(self, request):
         response = self._api_call("DeleteCidr", request)
 
         model = models.DeleteCidrResponse()
         model._deserialize(response)
         return model
-
 
     def RenewCidr(self, request):
         response = self._api_call("RenewCidr", request)
@@ -237,14 +225,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def AvailableLanIp(self, request):
         response = self._api_call("AvailableLanIp", request)
 
         model = models.AvailableLanIpResponse()
         model._deserialize(response)
         return model
-
 
     def DescribeDiskRegions(self, request):
         response = self._api_call("DescribeDiskRegions", request)
@@ -253,14 +239,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def CreateDisks(self, request):
         response = self._api_call("CreateDisks", request)
 
         model = models.CreateDisksResponse()
         model._deserialize(response)
         return model
-
 
     def DescribeDisks(self, request):
         response = self._api_call("DescribeDisks", request)
@@ -269,14 +253,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def AttachDisks(self, request):
         response = self._api_call("AttachDisks", request)
 
         model = models.AttachDisksResponse()
         model._deserialize(response)
         return model
-
 
     def ChangeDisksAttach(self, request):
         response = self._api_call("ChangeDisksAttach", request)
@@ -285,14 +267,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DetachDisks(self, request):
         response = self._api_call("DetachDisks", request)
 
         model = models.DetachDisksResponse()
         model._deserialize(response)
         return model
-
 
     def ModifyDisksAttributes(self, request):
         response = self._api_call("ModifyDisksAttributes", request)
@@ -301,14 +281,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def InquiryPriceCreateDisks(self, request):
         response = self._api_call("InquiryPriceCreateDisks", request)
 
         model = models.InquiryPriceCreateDisksResponse()
         model._deserialize(response)
         return model
-
 
     def TerminateDisk(self, request):
         response = self._api_call("TerminateDisk", request)
@@ -317,14 +295,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def ReleaseDisk(self, request):
         response = self._api_call("ReleaseDisk", request)
 
         model = models.ReleaseDiskResponse()
         model._deserialize(response)
         return model
-
 
     def RenewDisk(self, request):
         response = self._api_call("RenewDisk", request)
@@ -333,14 +309,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def ModifyDisksResourceGroup(self, request):
         response = self._api_call("ModifyDisksResourceGroup", request)
 
         model = models.ModifyDisksResourceGroupResponse()
         model._deserialize(response)
         return model
-
 
     def DescribeDiskCategory(self, request):
         response = self._api_call("DescribeDiskCategory", request)
@@ -349,7 +323,6 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeSecurityGroups(self, request):
         response = self._api_call("DescribeSecurityGroups", request)
 
@@ -357,14 +330,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def ModifySecurityGroupsAttribute(self, request):
         response = self._api_call("ModifySecurityGroupsAttribute", request)
 
         model = models.ModifySecurityGroupsAttributeResponse()
         model._deserialize(response)
         return model
-
 
     def DescribeSecurityGroupRule(self, request):
         response = self._api_call("DescribeSecurityGroupRule", request)
@@ -380,14 +351,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DeleteSecurityGroup(self, request):
         response = self._api_call("DeleteSecurityGroup", request)
 
         model = models.DeleteSecurityGroupResponse()
         model._deserialize(response)
         return model
-
 
     def ConfigureSecurityGroupRules(self, request):
         response = self._api_call("ConfigureSecurityGroupRules", request)
@@ -396,14 +365,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def AssignSecurityGroupVpc(self, request):
         response = self._api_call("AssignSecurityGroupVpc", request)
 
         model = models.AssignSecurityGroupVpcResponse()
         model._deserialize(response)
         return model
-
 
     def UnAssignSecurityGroupVpc(self, request):
         response = self._api_call("UnAssignSecurityGroupVpc", request)
@@ -412,7 +379,6 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeNetworkInterfaces(self, request):
         response = self._api_call("DescribeNetworkInterfaces", request)
 
@@ -420,14 +386,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def ModifyNetworkInterfacesAttribute(self, request):
         response = self._api_call("ModifyNetworkInterfacesAttribute", request)
 
         model = models.ModifyNicsAttributeResponse()
         model._deserialize(response)
         return model
-
 
     def CreateNetworkInterface(self, request):
         response = self._api_call("CreateNetworkInterface", request)
@@ -443,14 +407,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def AttachNetworkInterface(self, request):
         response = self._api_call("AttachNetworkInterface", request)
 
         model = models.AttachNicResponse()
         model._deserialize(response)
         return model
-
 
     def AssignNetworkInterfaceIpv6(self, request):
         response = self._api_call("AssignNetworkInterfaceIpv6", request)
@@ -459,14 +421,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def UnassignNetworkInterfaceIpv4(self, request):
         response = self._api_call("UnAssignNetworkInterfaceIpv4", request)
 
         model = models.UnAssignNicIpv4Response()
         model._deserialize(response)
         return model
-
 
     def AssignNetworkInterfaceIpv4(self, request):
         response = self._api_call("AssignNetworkInterfaceIpv4", request)
@@ -489,14 +449,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeNetworkInterfaceRegions(self, request):
         response = self._api_call("DescribeNetworkInterfaceRegions", request)
 
         model = models.DescribeNicRegionsResponse()
         model._deserialize(response)
         return model
-
 
     def InquiryPricePublicIpv6(self, request):
         response = self._api_call("InquiryPricePublicIpv6", request)
@@ -505,14 +463,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def CreateZecInstances(self, request):
         response = self._api_call("CreateZecInstances", request)
 
         model = models.CreateZecInstancesResponse()
         model._deserialize(response)
         return model
-
 
     def CreateInstances(self, request):
         response = self._api_call("CreateInstances", request)
@@ -521,14 +477,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeZoneInstanceConfigInfos(self, request):
         response = self._api_call("DescribeZoneInstanceConfigInfos", request)
 
         model = models.DescribeZoneInstanceConfigInfosResponse()
         model._deserialize(response)
         return model
-
 
     def DescribeZones(self, request):
         response = self._api_call("DescribeZones", request)
@@ -537,7 +491,6 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeImages(self, request):
         response = self._api_call("DescribeImages", request)
 
@@ -545,14 +498,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeKeyPairs(self, request):
         response = self._api_call("DescribeKeyPairs", request)
 
         model = models.DescribeKeyPairsResponse()
         model._deserialize(response)
         return model
-
 
     def DescribeEipRegions(self, request):
         response = self._api_call("DescribeEipRegions", request)
@@ -575,14 +526,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeEips(self, request):
         response = self._api_call("DescribeEips", request)
 
         model = models.DescribeEipsResponse()
         model._deserialize(response)
         return model
-
 
     def CreateEips(self, request):
         response = self._api_call("CreateEips", request)
@@ -591,14 +540,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DeleteEip(self, request):
         response = self._api_call("DeleteEip", request)
 
         model = models.DeleteEipResponse()
         model._deserialize(response)
         return model
-
 
     def RenewEip(self, request):
         response = self._api_call("RenewEip", request)
@@ -607,7 +554,6 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def BatchAttachEipLanIp(self, request):
         response = self._api_call("BatchAttachEipLanIp", request)
 
@@ -615,6 +561,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def AssociateEipAddress(self, request):
+        response = self._api_call("AssociateEipAddress", request)
+
+        model = models.AssociateEipAddressResponse()
+        model._deserialize(response)
+        return model
 
     def DetachEipLanIp(self, request):
         response = self._api_call("DetachEipLanIp", request)
@@ -623,6 +575,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def UnassociateEipAddress(self, request):
+        response = self._api_call("UnassociateEipAddress", request)
+
+        model = models.UnassociateEipAddressResponse()
+        model._deserialize(response)
+        return model
 
     def ConfigEipEgressIp(self, request):
         response = self._api_call("ConfigEipEgressIp", request)
@@ -631,14 +589,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeEipPrice(self, request):
         response = self._api_call("DescribeEipPrice", request)
 
         model = models.DescribeEipPriceResponse()
         model._deserialize(response)
         return model
-
 
     def ChangeEipInternetChargeType(self, request):
         response = self._api_call("ChangeEipInternetChargeType", request)
@@ -647,14 +603,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def InquiryPriceCreateInstance(self, request):
         response = self._api_call("InquiryPriceCreateInstance", request)
 
         model = models.InquiryPriceCreateInstanceResponse()
         model._deserialize(response)
         return model
-
 
     def ModifyInstanceType(self, request):
         response = self._api_call("ModifyInstanceType", request)
@@ -663,14 +617,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeTimeZones(self, request):
         response = self._api_call("DescribeTimeZones", request)
 
         model = models.DescribeTimeZonesResponse()
         model._deserialize(response)
         return model
-
 
     def StartIpForward(self, request):
         response = self._api_call("StartIpForward", request)
@@ -679,14 +631,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def StopIpForward(self, request):
         response = self._api_call("StopIpForward", request)
 
         model = models.StopIpForwardResponse()
         model._deserialize(response)
         return model
-
 
     def StartAgentMonitor(self, request):
         response = self._api_call("StartAgentMonitor", request)
@@ -695,14 +645,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def StopAgentMonitor(self, request):
         response = self._api_call("StopAgentMonitor", request)
 
         model = models.StopAgentMonitorResponse()
         model._deserialize(response)
         return model
-
 
     def DescribeVncUrl(self, request):
         response = self._api_call("DescribeVncUrl", request)
@@ -711,14 +659,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def ChangeNicNetworkType(self, request):
         response = self._api_call("ChangeNicNetworkType", request)
 
         model = models.ChangeNicNetworkTypeResponse()
         model._deserialize(response)
         return model
-
 
     def DescribeEipTraffic(self, request):
         response = self._api_call("DescribeEipTraffic", request)
@@ -727,14 +673,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def CreateBorderGateway(self, request):
         response = self._api_call("CreateBorderGateway", request)
 
         model = models.CreateBorderGatewayResponse()
         model._deserialize(response)
         return model
-
 
     def DeleteBorderGateway(self, request):
         response = self._api_call("DeleteBorderGateway", request)
@@ -743,7 +687,6 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def ModifyBorderGatewaysAttribute(self, request):
         response = self._api_call("ModifyBorderGatewaysAttribute", request)
 
@@ -751,14 +694,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def ModifyBorderGatewayAsn(self, request):
         response = self._api_call("ModifyBorderGatewayAsn", request)
 
         model = models.ModifyBorderGatewayAsnResponse()
         model._deserialize(response)
         return model
-
 
     def DescribeBorderGateways(self, request):
         response = self._api_call("DescribeBorderGateways", request)

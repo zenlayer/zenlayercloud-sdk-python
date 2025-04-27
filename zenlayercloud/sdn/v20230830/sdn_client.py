@@ -15,7 +15,6 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeDatacentersWithService(self, request):
         response = self._api_call("DescribeDatacentersWithService", request)
 
@@ -29,7 +28,6 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def QueryDataCenterPortPrice(self, request):
         response = self._api_call("QueryDataCenterPortPrice", request)
 
@@ -37,6 +35,19 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def QueryDataCenterPortPrices(self, request):
+        response = self._api_call("QueryDataCenterPortPrices", request)
+
+        model = models.QueryDataCenterPortPricesResponse()
+        model._deserialize(response)
+        return model
+
+    def QueryPrivateConnectPrice(self, request):
+        response = self._api_call("QueryPrivateConnectPrice", request)
+
+        model = models.QueryPrivateConnectPriceResponse()
+        model._deserialize(response)
+        return model
 
     def QueryPrivateConnectBandwidthPrice(self, request):
         response = self._api_call("QueryPrivateConnectBandwidthPrice", request)
@@ -45,7 +56,6 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def QueryCloudRouterBandwidthPrice(self, request):
         response = self._api_call("QueryCloudRouterBandwidthPrice", request)
 
@@ -53,14 +63,12 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def QueryCloudOnrampPrice(self, request):
         response = self._api_call("QueryCloudOnrampPrice", request)
 
         model = models.QueryCloudOnrampPriceResponse()
         model._deserialize(response)
         return model
-
 
     def CreatePort(self, request):
         response = self._api_call("CreatePort", request)
@@ -362,4 +370,3 @@ class SdnClient(AbstractClient):
         model = models.DescribeAzureVlanUsageResponse()
         model._deserialize(response)
         return model
-
