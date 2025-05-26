@@ -505,3 +505,18 @@ class BmcClient(AbstractClient):
         return model
 
 
+    def DescribeManagedInstances(self, request):
+        response = self._api_call("DescribeManagedInstances", request)
+        model = models.DescribeManagedInstancesResponse()
+        model._deserialize(response)
+        return model
+
+
+    def DescribeManagedInstanceTraffic(self, request):
+        response = self._api_call("DescribeManagedInstanceTraffic", request)
+
+        model = models.DescribeManagedInstanceTrafficResponse()
+        model._deserialize(response)
+        return model
+
+

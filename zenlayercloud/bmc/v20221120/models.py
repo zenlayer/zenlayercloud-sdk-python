@@ -2493,3 +2493,123 @@ class DescribeSubnetAvailableResourcesResponse(AbstractModel):
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
         self.zoneIdSet = params.get("zoneIdSet")
+
+
+class DescribeManagedInstancesRequest(AbstractModel):
+    def __init__(self):
+        self.instanceIds = None
+        self.instanceName = None
+        self.ip = None
+        self.lanIp = None
+        self.facName = None
+        self.cityCode = None
+        self.pageNum = None
+        self.pageSize = None
+
+    def _deserialize(self, params):
+        self.instanceIds = params.get("instanceIds")
+        self.instanceName = params.get("instanceName")
+        self.ip = params.get("ip")
+        self.lanIp = params.get("lanIp")
+        self.facName = params.get("facName")
+        self.cityCode = params.get("cityCode")
+        self.pageNum = params.get("pageNum")
+        self.pageSize = params.get("pageSize")
+
+
+class DescribeManagedInstancesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = ManagedInstanceInfo(item)
+                self.dataSet.append(obj)
+
+
+class ManagedInstanceInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.instanceId = None
+        self.instanceName = None
+        self.facName = None
+        self.ips = None
+        self.lanIps = None
+        self.createTime = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+        self.instanceName = params.get("instanceName")
+        self.facName = params.get("facName")
+        self.ips = params.get("ips")
+        self.lanIps = params.get("lanIps")
+        self.createTime = params.get("createTime")
+
+
+
+class DescribeManagedInstanceTrafficRequest(AbstractModel):
+
+    def __init__(self):
+        self.instanceId = None
+        self.startTime = None
+        self.endTime = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+
+
+class DescribeManagedInstanceTrafficResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.dataList = None
+        self.in95 = None
+        self.in95Time = None
+        self.inAvg = None
+        self.inMax = None
+        self.inMin = None
+        self.inTotal = None
+        self.maxBandwidth95ValueMbps = None
+        self.out95 = None
+        self.out95Time = None
+        self.outAvg = None
+        self.outMax = None
+        self.outMin = None
+        self.outTotal = None
+        self.totalUnit = None
+        self.unit = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("dataList") is not None:
+            self.dataList = []
+            for item in params.get("dataList"):
+                obj = InstanceTrafficData(item)
+                self.dataList.append(obj)
+        self.in95 = params.get("in95")
+        self.in95Time = params.get("in95Time")
+        self.inAvg = params.get("inAvg")
+        self.inMax = params.get("inMax")
+        self.inMin = params.get("inMin")
+        self.inTotal = params.get("inTotal")
+        self.maxBandwidth95ValueMbps = params.get("maxBandwidth95ValueMbps")
+        self.out95 = params.get("out95")
+        self.out95Time = params.get("out95Time")
+        self.outAvg = params.get("outAvg")
+        self.outMax = params.get("outMax")
+        self.outMin = params.get("outMin")
+        self.outTotal = params.get("outTotal")
+        self.totalUnit = params.get("totalUnit")
+        self.unit = params.get("unit")

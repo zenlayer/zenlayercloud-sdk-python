@@ -2,12 +2,15 @@
 #  Copyright (c) 2014-2023 All Rights Reserved.
 from zenlayercloud.common.abstract_model import AbstractModel
 
+
 class DescribeOriginRegionsRequest(AbstractModel):
     def __init__(self):
         pass
+
     def _deserialize(self, params):
         pass
-    
+
+
 class DescribeOriginRegionsResponse(AbstractModel):
     def __init__(self):
         self.regionSet = None
@@ -21,6 +24,7 @@ class DescribeOriginRegionsResponse(AbstractModel):
                 obj = Region(item)
                 self.regionSet.append(obj)
 
+
 class DescribeAccelerateRegionsRequest(AbstractModel):
     def __init__(self, originRegionId):
         self.originRegionId = originRegionId
@@ -28,11 +32,13 @@ class DescribeAccelerateRegionsRequest(AbstractModel):
     def _deserialize(self, params):
         self.originRegionId = params.get("originRegionId")
 
+
 class DescribeAccelerateRegionsResponse(DescribeOriginRegionsResponse):
     pass
 
+
 class DescribeCertificatesRequest(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -55,8 +61,9 @@ class DescribeCertificatesRequest(AbstractModel):
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
 
+
 class DescribeCertificatesResponse(AbstractModel):
-    def __init__(self): 
+    def __init__(self):
         self.requestId = None
         self.totalCount = None
         self.dataSet = None
@@ -69,6 +76,7 @@ class DescribeCertificatesResponse(AbstractModel):
             for item in params.get("dataSet"):
                 obj = CertificateInfo(item)
                 self.dataSet.append(obj)
+
 
 class CreateCertificateRequest(AbstractModel):
     def __init__(self, certificateContent, certificateKey):
@@ -83,14 +91,16 @@ class CreateCertificateRequest(AbstractModel):
         self.certificateLabel = params.get("certificateLabel")
         self.resourceGroupId = params.get("resourceGroupId")
 
+
 class CreateCertificateResponse(AbstractModel):
-    def __init__(self): 
+    def __init__(self):
         self.requestId = None
         self.certificateId = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
         self.certificateId = params.get("certificateId")
+
 
 class ModifyCertificateRequest(AbstractModel):
     def __init__(self, certificateId, certificateContent, certificateKey):
@@ -103,25 +113,29 @@ class ModifyCertificateRequest(AbstractModel):
         self.certificateContent = params.get("certificateContent")
         self.certificateKey = params.get("certificateKey")
 
+
 class ModifyCertificateResponse(CreateCertificateResponse):
     pass
 
+
 class DeleteCertificateRequest(AbstractModel):
-    def __init__(self, certificateId): 
+    def __init__(self, certificateId):
         self.certificateId = certificateId
 
     def _deserialize(self, params):
         self.certificateId = params.get("certificateId")
 
+
 class DeleteCertificateResponse(AbstractModel):
-    def __init__(self): 
+    def __init__(self):
         self.requestId = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
 
+
 class DescribeAcceleratorsRequest(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -154,8 +168,9 @@ class DescribeAcceleratorsRequest(AbstractModel):
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
 
+
 class DescribeAcceleratorsResponse(AbstractModel):
-    def __init__(self): 
+    def __init__(self):
         self.requestId = None
         self.totalCount = None
         self.dataSet = None
@@ -169,8 +184,9 @@ class DescribeAcceleratorsResponse(AbstractModel):
                 obj = AcceleratorInfo(item)
                 self.dataSet.append(obj)
 
+
 class CreateAcceleratorRequest(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -217,8 +233,9 @@ class CreateAcceleratorRequest(AbstractModel):
         if params.get("healthCheck") is not None:
             self.healthCheck = HealthCheck(params.get("healthCheck"))
 
+
 class CreateAcceleratorResponse(AbstractModel):
-    def __init__(self): 
+    def __init__(self):
         self.requestId = None
         self.acceleratorId = None
 
@@ -226,40 +243,49 @@ class CreateAcceleratorResponse(AbstractModel):
         self.requestId = params.get("requestId")
         self.acceleratorId = params.get("acceleratorId")
 
+
 class DeleteAcceleratorRequest(AbstractModel):
-    def __init__(self, acceleratorId): 
+    def __init__(self, acceleratorId):
         self.acceleratorId = acceleratorId
 
     def _deserialize(self, params):
         self.acceleratorId = params.get("acceleratorId")
 
+
 class DeleteAcceleratorResponse(AbstractModel):
-    def __init__(self): 
+    def __init__(self):
         self.requestId = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
 
+
 class StartAcceleratorRequest(DeleteAcceleratorRequest):
     pass
+
 
 class StartAcceleratorResponse(DeleteAcceleratorResponse):
     pass
 
+
 class RedeployAcceleratorRequest(DeleteAcceleratorRequest):
     pass
+
 
 class RedeployAcceleratorResponse(DeleteAcceleratorResponse):
     pass
 
+
 class PauseAcceleratorRequest(DeleteAcceleratorRequest):
     pass
+
 
 class PauseAcceleratorResponse(DeleteAcceleratorResponse):
     pass
 
+
 class ModifyAcceleratorDomainRequest(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -273,11 +299,13 @@ class ModifyAcceleratorDomainRequest(AbstractModel):
         if params.get("domain") is not None:
             self.domain = Domain(params.get("domain"))
 
+
 class ModifyAcceleratorDomainResponse(DeleteAcceleratorResponse):
     pass
 
+
 class ModifyAcceleratorNameRequest(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -290,11 +318,13 @@ class ModifyAcceleratorNameRequest(AbstractModel):
         self.acceleratorId = params.get("acceleratorId")
         self.acceleratorName = params.get("acceleratorName")
 
+
 class ModifyAcceleratorNameResponse(DeleteAcceleratorResponse):
     pass
 
+
 class ModifyAcceleratorOriginRequest(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -308,11 +338,13 @@ class ModifyAcceleratorOriginRequest(AbstractModel):
         if params.get("origin") is not None:
             self.origin = Origin(params.get("origin"))
 
+
 class ModifyAcceleratorOriginResponse(DeleteAcceleratorResponse):
     pass
 
+
 class ModifyAcceleratorAccRegionRequest(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -329,11 +361,13 @@ class ModifyAcceleratorAccRegionRequest(AbstractModel):
                 obj = AccelerateRegion(item)
                 self.accelerateRegions.append(obj)
 
+
 class ModifyAcceleratorAccRegionResponse(DeleteAcceleratorResponse):
     pass
 
+
 class ModifyAcceleratorRuleRequest(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -356,11 +390,13 @@ class ModifyAcceleratorRuleRequest(AbstractModel):
                 obj = AccelerationRuleL7Listener(item)
                 self.l7Listeners.append(obj)
 
+
 class ModifyAcceleratorRuleResponse(DeleteAcceleratorResponse):
     pass
 
+
 class ModifyAcceleratorProtocolOptsRequest(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -374,8 +410,10 @@ class ModifyAcceleratorProtocolOptsRequest(AbstractModel):
         if params.get("protocolOpts") is not None:
             self.protocolOpts = AccelerationRuleProtocolOpts(params.get("protocolOpts"))
 
+
 class ModifyAcceleratorProtocolOptsResponse(DeleteAcceleratorResponse):
     pass
+
 
 class ModifyAcceleratorCertificateRequest(AbstractModel):
     def __init__(self, acceleratorId, certificateId):
@@ -386,11 +424,13 @@ class ModifyAcceleratorCertificateRequest(AbstractModel):
         self.acceleratorId = params.get("acceleratorId")
         self.certificateId = params.get("certificateId")
 
+
 class ModifyAcceleratorCertificateResponse(DeleteAcceleratorResponse):
     pass
 
+
 class ModifyAcceleratorHealthCheckRequest(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -404,11 +444,13 @@ class ModifyAcceleratorHealthCheckRequest(AbstractModel):
         if params.get("healthCheck") is not None:
             self.healthCheck = HealthCheck(params.get("healthCheck"))
 
+
 class ModifyAcceleratorHealthCheckResponse(DeleteAcceleratorResponse):
     pass
 
+
 class ModifyAcceleratorAccessControlRequest(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -425,23 +467,29 @@ class ModifyAcceleratorAccessControlRequest(AbstractModel):
                 obj = AccessControlRule(item)
                 self.accessControlRules.append(obj)
 
+
 class ModifyAcceleratorAccessControlResponse(DeleteAcceleratorResponse):
     pass
 
+
 class OpenAcceleratorAccessControlRequest(DeleteAcceleratorRequest):
-   pass
+    pass
+
 
 class OpenAcceleratorAccessControlResponse(DeleteAcceleratorResponse):
     pass
 
+
 class CloseAcceleratorAccessControlRequest(DeleteAcceleratorRequest):
     pass
+
 
 class CloseAcceleratorAccessControlResponse(DeleteAcceleratorResponse):
     pass
 
+
 class DescribeAcceleratorsAlertsRequest(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -472,6 +520,7 @@ class DescribeAcceleratorsAlertsRequest(AbstractModel):
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
 
+
 class DescribeAcceleratorsAlertsResponse(AbstractModel):
     def __init__(self, params=None):
         self.requestId = None
@@ -487,8 +536,9 @@ class DescribeAcceleratorsAlertsResponse(AbstractModel):
                 obj = AcceleratorAlert(item)
                 self.dataSet.append(obj)
 
+
 class DescribeAcceleratorLogsRequest(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -505,6 +555,7 @@ class DescribeAcceleratorLogsRequest(AbstractModel):
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
 
+
 class DescribeAcceleratorLogsResponse(AbstractModel):
     def __init__(self, params=None):
         self.requestId = None
@@ -520,8 +571,9 @@ class DescribeAcceleratorLogsResponse(AbstractModel):
                 obj = AcceleratorLog(item)
                 self.logSet.append(obj)
 
+
 class DescribeAcceleratorTrafficRequest(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -540,8 +592,9 @@ class DescribeAcceleratorTrafficRequest(AbstractModel):
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
 
+
 class DescribeAcceleratorTrafficResponse(AbstractModel):
-    def __init__(self, params=None): 
+    def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
@@ -574,13 +627,14 @@ class DescribeAcceleratorTrafficResponse(AbstractModel):
                 obj = AcceleratorTrafficData(item)
                 self.dataList.append(obj)
 
+
 class AcceleratorTrafficData(AbstractModel):
     def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
             self._deserialize(params)
-            return 
+            return
         self.internetRX = None
         self.internetTX = None
         self.time = None
@@ -590,13 +644,14 @@ class AcceleratorTrafficData(AbstractModel):
         self.internetTX = params.get("internetTX")
         self.time = params.get("time")
 
+
 class AcceleratorLog(AbstractModel):
     def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
             self._deserialize(params)
-            return 
+            return
         self.logUrl = None
         self.logName = None
         self.logSize = None
@@ -605,7 +660,8 @@ class AcceleratorLog(AbstractModel):
         self.logUrl = params.get("logUrl")
         self.logName = params.get("logName")
         self.logSize = params.get("logSize")
-       
+
+
 class AcceleratorAlert(AbstractModel):
     def __init__(self, params=None):
         if params is None:
@@ -628,13 +684,14 @@ class AcceleratorAlert(AbstractModel):
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
 
+
 class AcceleratorInfo(AbstractModel):
     def __init__(self, params=None):
         if params is None:
             params = {}
         if len(params) > 0:
             self._deserialize(params)
-            return 
+            return
         self.acceleratorId = None
         self.acceleratorType = None
         self.acceleratorName = None
@@ -690,6 +747,7 @@ class AcceleratorInfo(AbstractModel):
         self.createTime = params.get("createTime")
         self.resourceGroupId = params.get("resourceGroupId")
 
+
 class AccelerateRegion(AbstractModel):
     def __init__(self, params=None):
         if params is None:
@@ -705,6 +763,7 @@ class AccelerateRegion(AbstractModel):
         self.accelerateRegionId = params.get("accelerateRegionId")
         self.bandwidth = params.get("bandwidth")
         self.vip = params.get("vip")
+
 
 class AccelerateRegionInfo(AbstractModel):
     def __init__(self, params=None):
@@ -726,6 +785,7 @@ class AccelerateRegionInfo(AbstractModel):
         self.bandwidth = params.get("bandwidth")
         self.vip = params.get("vip")
 
+
 class AccelerationRuleL4Listener(AbstractModel):
     def __init__(self, params=None):
         if params is None:
@@ -745,6 +805,7 @@ class AccelerationRuleL4Listener(AbstractModel):
         self.portRange = params.get("portRange")
         self.backPortRange = params.get("backPortRange")
         self.protocol = params.get("protocol")
+
 
 class AccelerationRuleL7Listener(AbstractModel):
     def __init__(self, params=None):
@@ -770,6 +831,7 @@ class AccelerationRuleL7Listener(AbstractModel):
         self.backProtocol = params.get("backProtocol")
         self.host = params.get("host")
 
+
 class AccelerationRuleProtocolOpts(AbstractModel):
     def __init__(self, params=None):
         if params is None:
@@ -794,6 +856,7 @@ class AccelerationRuleProtocolOpts(AbstractModel):
         self.sniCheck = params.get("sniCheck")
         self.httpRedirect = params.get("httpRedirect")
 
+
 class AccessControl(AbstractModel):
     def __init__(self, params=None):
         if params is None:
@@ -811,6 +874,7 @@ class AccessControl(AbstractModel):
             for item in params.get("rules"):
                 obj = AccessControlRule(item)
                 self.rules.append(obj)
+
 
 class AccessControlRule(AbstractModel):
     def __init__(self, params=None):
@@ -831,6 +895,7 @@ class AccessControlRule(AbstractModel):
         self.cidrIp = params.get("cidrIp")
         self.policy = params.get("policy")
         self.note = params.get("note")
+
 
 class CertificateInfo(AbstractModel):
     def __init__(self, params=None):
@@ -866,6 +931,7 @@ class CertificateInfo(AbstractModel):
         self.expired = params.get("expired")
         self.resourceGroupId = params.get("resourceGroupId")
 
+
 class Domain(AbstractModel):
     def __init__(self, params=None):
         if params is None:
@@ -879,6 +945,7 @@ class Domain(AbstractModel):
     def _deserialize(self, params):
         self.domain = params.get("domain")
         self.relateDomains = params.get("relateDomains")
+
 
 class HealthCheck(AbstractModel):
     def __init__(self, params=None):
@@ -896,6 +963,7 @@ class HealthCheck(AbstractModel):
         self.alarm = params.get("alarm")
         self.port = params.get("port")
 
+
 class Origin(AbstractModel):
     def __init__(self, params=None):
         if params is None:
@@ -911,6 +979,7 @@ class Origin(AbstractModel):
         self.originRegionId = params.get("originRegionId")
         self.origin = params.get("origin")
         self.backupOrigin = params.get("backupOrigin")
+
 
 class OriginInfo(AbstractModel):
     def __init__(self, params=None):
@@ -930,6 +999,7 @@ class OriginInfo(AbstractModel):
         self.origin = params.get("origin")
         self.backupOrigin = params.get("backupOrigin")
 
+
 class Region(AbstractModel):
     def __init__(self, params=None):
         if params is None:
@@ -944,3 +1014,65 @@ class Region(AbstractModel):
         self.regionId = params.get("regionId")
         self.regionName = params.get("regionName")
 
+
+class DescribeAcceleratorMetricsRequest(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.acceleratorId = None
+        self.startTime = None
+        self.endTime = None
+
+    def _deserialize(self, params):
+        self.acceleratorId = params.get("acceleratorId")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+
+
+class DescribeAcceleratorMetricsResponse(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.requestId = None
+        self.dataList = None
+        self.speedUnit = None
+        self.timeUnit = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.speedUnit = params.get("speedUnit")
+        self.timeUnit = params.get("timeUnit")
+        if params.get("dataList") is not None:
+            self.dataList = []
+            for item in params.get("dataList"):
+                obj = AcceleratorMetricsData(item)
+                self.dataList.append(obj)
+
+
+class AcceleratorMetricsData(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.requestCount = None
+        self.averageDownloadSpeed = None
+        self.averageFirstByteTime = None
+        self.averageSslHandshakeTime = None
+        self.averageRequestTime = None
+        self.time = None
+
+    def _deserialize(self, params):
+        self.requestCount = params.get("requestCount")
+        self.averageDownloadSpeed = params.get("averageDownloadSpeed")
+        self.averageFirstByteTime = params.get("averageFirstByteTime")
+        self.averageSslHandshakeTime = params.get("averageSslHandshakeTime")
+        self.averageRequestTime = params.get("averageRequestTime")
+        self.time = params.get("time")
