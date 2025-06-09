@@ -309,6 +309,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ResizeDisk(self, request):
+        response = self._api_call("ResizeDisk", request)
+        model = models.ResizeDiskResponse()
+        model._deserialize(response)
+        return model
+
     def ModifyDisksResourceGroup(self, request):
         response = self._api_call("ModifyDisksResourceGroup", request)
 

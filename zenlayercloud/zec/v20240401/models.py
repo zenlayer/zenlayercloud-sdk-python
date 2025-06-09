@@ -570,6 +570,7 @@ class InstanceInfo(AbstractModel):
         self.zoneId = None
         self.cpu = None
         self.memory = None
+        self.instanceType = None
         self.imageId = None
         self.imageName = None
         self.status = None
@@ -607,6 +608,7 @@ class InstanceInfo(AbstractModel):
         self.expiredTime = params.get("expiredTime")
         self.resourceGroupId = params.get("resourceGroupId")
         self.resourceGroupName = params.get("resourceGroupName")
+        self.instanceType = params.get("instanceType")
 
 
 class DescribeInstancesStatusRequest(AbstractModel):
@@ -1302,6 +1304,7 @@ class DiskInfo(AbstractModel):
         self.period = None
         self.resourceGroupId = None
         self.resourceGroupName = None
+        self.serial = None
 
     def _deserialize(self, params):
         self.diskId = params.get("diskId")
@@ -1320,6 +1323,7 @@ class DiskInfo(AbstractModel):
         self.period = params.get("period")
         self.resourceGroupId = params.get("resourceGroupId")
         self.resourceGroupName = params.get("resourceGroupName")
+        self.serial = params.get("serial")
 
 
 class AttachDisksRequest(AbstractModel):
@@ -1366,9 +1370,11 @@ class DetachDisksRequest(AbstractModel):
 
     def __init__(self):
         self.diskIds = None
+        self.instanceCheckFlag = None
 
     def _deserialize(self, params):
         self.diskIds = params.get("diskIds")
+        self.instanceCheckFlag = params.get("instanceCheckFlag")
 
 
 class DetachDisksResponse(AbstractModel):
@@ -1474,6 +1480,24 @@ class RenewDiskRequest(AbstractModel):
 
 class RenewDiskResponse(AbstractModel):
 
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class ResizeDiskRequest(AbstractModel):
+    def __init__(self):
+        self.diskId = None
+        self.diskSize = None
+
+    def _deserialize(self, params):
+        self.diskId = params.get("diskId")
+        self.diskSize = params.get("diskSize")
+
+
+class ResizeDiskResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
 
@@ -1791,6 +1815,7 @@ class DescribeNicsRequest(AbstractModel):
         self.regionId = None
         self.vpcId = None
         self.subnetId = None
+        self.instanceId = None
         self.status = None
         self.pageSize = None
         self.pageNum = None
@@ -1804,6 +1829,7 @@ class DescribeNicsRequest(AbstractModel):
         self.status = params.get("status")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
+        self.instanceId = params.get("instanceId")
 
 
 class DescribeNicsResponse(AbstractModel):
@@ -2569,6 +2595,10 @@ class DescribeEipsRequest(AbstractModel):
         self.isDefault = None
         self.pageSize = None
         self.pageNum = None
+        self.privateIpAddress = None
+        self.ipAddress = None
+        self.instanceId = None
+        self.associatedId = None
 
     def _deserialize(self, params):
         self.eipIds = params.get("eipIds")
@@ -2578,6 +2608,10 @@ class DescribeEipsRequest(AbstractModel):
         self.isDefault = params.get("isDefault")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
+        self.privateIpAddress = params.get("privateIpAddress")
+        self.ipAddress = params.get("ipAddress")
+        self.instanceId = params.get("instanceId")
+        self.associatedId = params.get("associatedId")
 
 
 class DescribeEipsResponse(AbstractModel):
@@ -2612,16 +2646,41 @@ class EipInfo(AbstractModel):
         self.isDefault = None
         self.status = None
         self.publicIpAddresses = None
+        self.privateIpAddress = None
         self.eipV4Type = None
         self.internetChargeType = None
         self.cidrId = None
         self.nicId = None
+        self.associatedId = None
+        self.associatedType = None
         self.flowPackage = None
         self.bandwidth = None
         self.createTime = None
         self.expiredTime = None
         self.resourceGroupId = None
         self.resourceGroupName = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.name = params.get("name")
+        self.regionId = params.get("regionId")
+        self.peerRegionId = params.get("peerRegionId")
+        self.isDefault = params.get("isDefault")
+        self.status = params.get("status")
+        self.publicIpAddresses = params.get("publicIpAddresses")
+        self.privateIpAddress = params.get("privateIpAddress")
+        self.eipV4Type = params.get("eipV4Type")
+        self.internetChargeType = params.get("internetChargeType")
+        self.cidrId = params.get("cidrId")
+        self.nicId = params.get("nicId")
+        self.associatedId = params.get("associatedId")
+        self.associatedType = params.get("associatedType")
+        self.flowPackage = params.get("flowPackage")
+        self.bandwidth = params.get("bandwidth")
+        self.createTime = params.get("createTime")
+        self.expiredTime = params.get("expiredTime")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.resourceGroupName = params.get("resourceGroupName")
 
     def _deserialize(self, params):
         self.eipId = params.get("eipId")
