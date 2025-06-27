@@ -523,6 +523,7 @@ class InstanceInfo(AbstractModel):
         self.instanceType = None
         self.imageId = None
         self.imageName = None
+        self.nicNetworkType = None
         self.status = None
         self.systemDisk = None
         self.dataDisks = None
@@ -542,6 +543,7 @@ class InstanceInfo(AbstractModel):
         self.memory = params.get("memory")
         self.imageId = params.get("imageId")
         self.imageName = params.get("imageName")
+        self.nicNetworkType = params.get("nicNetworkType")
         self.status = params.get("status")
         if params.get("systemDisk") is not None:
             self.systemDisk = SystemDisk(params.get("systemDisk"))

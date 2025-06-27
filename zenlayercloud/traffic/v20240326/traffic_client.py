@@ -14,6 +14,12 @@ class TrafficClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeBandwidthClusterResources(self, request):
+        response = self._api_call("DescribeBandwidthClusterResources", request)
+        model = models.DescribeBandwidthClusterResourcesResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeBandwidthClusterAreas(self, request):
         response = self._api_call("DescribeBandwidthClusterAreas", request)
         model = models.DescribeBandwidthClusterAreasResponse()
@@ -47,6 +53,12 @@ class TrafficClient(AbstractClient):
     def UpdateBandwidthClusterCommitBandwidth(self, request):
         response = self._api_call("UpdateBandwidthClusterCommitBandwidth", request)
         model = models.UpdateBandwidthClusterCommitBandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def MigrateBandwidthClusterResources(self, request):
+        response = self._api_call("MigrateBandwidthClusterResources", request)
+        model = models.MigrateBandwidthClusterResourcesResponse()
         model._deserialize(response)
         return model
 

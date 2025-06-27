@@ -85,6 +85,45 @@ class CityInfo(AbstractModel):
         self.cityCode = params.get("cityCode")
 
 
+class DescribeBandwidthClusterResourcesRequest(AbstractModel):
+    def __init__(self):
+        self.bandwidthClusterId = None
+
+    def _deserialize(self, params):
+        self.bandwidthClusterId = params.get("bandwidthClusterId")
+
+
+class DescribeBandwidthClusterResourcesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.resources = None
+        self.totalCount = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("resources") is not None:
+            self.resources = []
+            for item in params.get("resources"):
+                obj = BandwidthClusterResource(item)
+                self.resources.append(obj)
+        self.totalCount = params.get("totalCount")
+
+
+class BandwidthClusterResource(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.resourceId = None
+        self.resourceType = None
+
+    def _deserialize(self, params):
+        self.resourceId = params.get("resourceId")
+        self.resourceType = params.get("resourceType")
+
+
 class DescribeBandwidthClusterAreasRequest(AbstractModel):
     def __init__(self):
         pass
@@ -341,3 +380,19 @@ class UpdateBandwidthClusterCommitBandwidthResponse(AbstractModel):
         self.requestId = params.get("requestId")
 
 
+class MigrateBandwidthClusterResourcesRequest(AbstractModel):
+    def __init__(self):
+        self.targetBandwidthClusterId = None
+        self.resourceIdList = None
+
+    def _deserialize(self, params):
+        self.targetBandwidthClusterId = params.get("targetBandwidthClusterId")
+        self.resourceIdList = params.get("resourceIdList")
+
+
+class MigrateBandwidthClusterResourcesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
