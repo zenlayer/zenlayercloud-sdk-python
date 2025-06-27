@@ -1219,6 +1219,7 @@ class InstanceHealth(AbstractModel):
         self.inletTemp = params.get("inletTemp")
         self.tempUnit = params.get("tempUnit")
 
+
 class DescribeEipAddressesRequest(AbstractModel):
 
     def __init__(self):
@@ -2556,7 +2557,6 @@ class ManagedInstanceInfo(AbstractModel):
         self.createTime = params.get("createTime")
 
 
-
 class DescribeManagedInstanceTrafficRequest(AbstractModel):
 
     def __init__(self):
@@ -2613,3 +2613,685 @@ class DescribeManagedInstanceTrafficResponse(AbstractModel):
         self.outTotal = params.get("outTotal")
         self.totalUnit = params.get("totalUnit")
         self.unit = params.get("unit")
+
+
+class DescribeLoadBalancerZonesRequest(AbstractModel):
+    def __init__(self):
+        self.chargeType = None
+
+    def _deserialize(self, params):
+        self.chargeType = params.get("chargeType")
+
+
+class DescribeLoadBalancerZonesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.zoneIdSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.zoneIdSet = params.get("zoneIdSet")
+
+
+class DescribeLoadBalancerSpecsRequest(AbstractModel):
+    def __init__(self):
+        self.chargeType = None
+        self.zoneId = None
+
+    def _deserialize(self, params):
+        self.chargeType = params.get("chargeType")
+        self.zoneId = params.get("zoneId")
+
+
+class DescribeLoadBalancerSpecsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.specSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("specSet") is not None:
+            self.specSet = []
+            for item in params.get("specSet"):
+                obj = LoadBalancerSpec(item)
+                self.specSet.append(obj)
+
+
+class LoadBalancerSpec(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.specName = None
+        self.maxConnection = None
+        self.cps = None
+        self.qps = None
+
+    def _deserialize(self, params):
+        self.specName = params.get("specName")
+        self.maxConnection = params.get("maxConnection")
+        self.cps = params.get("cps")
+        self.qps = params.get("qps")
+
+
+class DescribeLoadBalancersRequest(AbstractModel):
+    def __init__(self):
+        self.loadBalancerIds = None
+        self.zoneId = None
+        self.loadBalancerName = None
+        self.pageNum = None
+        self.pageSize = None
+
+    def _deserialize(self, params):
+        self.loadBalancerIds = params.get("loadBalancerIds")
+        self.zoneId = params.get("zoneId")
+        self.loadBalancerName = params.get("loadBalancerName")
+        self.pageNum = params.get("pageNum")
+        self.pageSize = params.get("pageSize")
+
+
+class DescribeLoadBalancersResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = LoadBalancerInfo(item)
+                self.dataSet.append(obj)
+
+
+class LoadBalancerInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.loadBalancerId = None
+        self.zoneId = None
+        self.loadBalancerName = None
+        self.specName = None
+        self.vipList = None
+        self.chargeType = None
+        self.period = None
+        self.createTime = None
+        self.expiredTime = None
+        self.status = None
+        self.resourceGroupId = None
+        self.resourceGroupName = None
+        self.masterIp = None
+        self.backupIp = None
+        self.ipType = None
+        self.bandwidth = None
+        self.isWorking = None
+        self.listenerList = None
+        self.backendList = None
+
+    def _deserialize(self, params):
+        self.loadBalancerId = params.get("loadBalancerId")
+        self.zoneId = params.get("zoneId")
+        self.loadBalancerName = params.get("loadBalancerName")
+        self.specName = params.get("specName")
+        if params.get("vipList") is not None:
+            self.vipList = []
+            for item in params.get("vipList"):
+                obj = LoadBalancerIp(item)
+                self.vipList.append(obj)
+        self.chargeType = params.get("chargeType")
+        self.period = params.get("period")
+        self.createTime = params.get("createTime")
+        self.expiredTime = params.get("expiredTime")
+        self.status = params.get("status")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.resourceGroupName = params.get("resourceGroupName")
+        self.masterIp = params.get("masterIp")
+        self.backupIp = params.get("backupIp")
+        self.ipType = params.get("ipType")
+        self.bandwidth = params.get("bandwidth")
+        self.isWorking = params.get("isWorking")
+        if params.get("listenerList") is not None:
+            self.listenerList = []
+            for item in params.get("listenerList"):
+                obj = ListenerInfo(item)
+                self.listenerList.append(obj)
+        if params.get("backendList") is not None:
+            self.backendList = []
+            for item in params.get("backendList"):
+                obj = BackendInfo(item)
+                self.backendList.append(obj)
+
+
+class LoadBalancerIp(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.vipId = None
+        self.ipAddress = None
+        self.type = None
+        self.status = None
+
+    def _deserialize(self, params):
+        self.vipId = params.get("vipId")
+        self.ipAddress = params.get("ipAddress")
+        self.type = params.get("type")
+        self.status = params.get("status")
+
+
+class ListenerInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.loadBalancerId = None
+        self.listenerId = None
+        self.listenerName = None
+        self.status = None
+        self.port = None
+        self.protocol = None
+        self.backendProtocol = None
+        self.scheduler = None
+        self.kind = None
+        self.healthCheck = None
+        self.notify = None
+        self.createTime = None
+
+    def _deserialize(self, params):
+        self.loadBalancerId = params.get("loadBalancerId")
+        self.listenerId = params.get("listenerId")
+        self.listenerName = params.get("listenerName")
+        self.status = params.get("status")
+        self.port = params.get("port")
+        self.protocol = params.get("protocol")
+        self.backendProtocol = params.get("backendProtocol")
+        self.scheduler = params.get("scheduler")
+        self.kind = params.get("kind")
+        self.healthCheck = params.get("healthCheck")
+        self.notify = params.get("notify")
+        self.createTime = params.get("createTime")
+
+
+class HealthCheck(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.checkEnabled = None
+        self.checkType = None
+        self.checkConnectTimeout = None
+        self.checkRetry = None
+        self.checkDelayBeforeRetry = None
+        self.checkIntervalTime = None
+        self.checkPort = None
+        self.httpVersion = None
+        self.httpCheckPath = None
+        self.httpCheckDigest = None
+        self.httpCode = None
+        self.miscCheckPath = None
+        self.miscTimeout = None
+
+    def _deserialize(self, params):
+        self.checkEnabled = params.get("checkEnabled")
+        self.checkType = params.get("checkType")
+        self.checkConnectTimeout = params.get("checkConnectTimeout")
+        self.checkRetry = params.get("checkRetry")
+        self.checkDelayBeforeRetry = params.get("checkDelayBeforeRetry")
+        self.checkIntervalTime = params.get("checkIntervalTime")
+        self.checkPort = params.get("checkPort")
+        self.httpVersion = params.get("httpVersion")
+        self.httpCheckPath = params.get("httpCheckPath")
+        self.httpCheckDigest = params.get("httpCheckDigest")
+        self.httpCode = params.get("httpCode")
+        self.miscCheckPath = params.get("miscCheckPath")
+        self.miscTimeout = params.get("miscTimeout")
+
+
+class Notify(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.enable = None
+        self.apiAddress = None
+
+    def _deserialize(self, params):
+        self.enable = params.get("enable")
+        self.apiAddress = params.get("apiAddress")
+
+
+class BackendInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.listenerId = None
+        self.backendId = None
+        self.backendName = None
+        self.status = None
+        self.port = None
+        self.weight = None
+        self.instanceId = None
+        self.instanceName = None
+        self.createTime = None
+
+    def _deserialize(self, params):
+        self.listenerId = params.get("listenerId")
+        self.backendId = params.get("backendId")
+        self.backendName = params.get("backendName")
+        self.status = params.get("status")
+        self.port = params.get("port")
+        self.weight = params.get("weight")
+        self.instanceId = params.get("instanceId")
+        self.instanceName = params.get("instanceName")
+        self.createTime = params.get("createTime")
+
+
+class CreateLoadBalancerRequest(AbstractModel):
+    def __init__(self):
+        self.clientToken = None
+        self.zoneId = None
+        self.loadBalancerName = None
+        self.specName = None
+        self.chargeType = None
+        self.instanceChargePrepaid = None
+        self.bandwidth = None
+        self.ipType = None
+        self.vipCount = None
+        self.subnetId = None
+        self.cidrBlockId = None
+        self.masterIp = None
+        self.backupIp = None
+
+    def _deserialize(self, params):
+        self.clientToken = params.get("clientToken")
+        self.zoneId = params.get("zoneId")
+        self.loadBalancerName = params.get("loadBalancerName")
+        self.specName = params.get("specName")
+        self.chargeType = params.get("chargeType")
+        self.instanceChargePrepaid = params.get("instanceChargePrepaid")
+        self.bandwidth = params.get("bandwidth")
+        self.ipType = params.get("ipType")
+        self.vipCount = params.get("vipCount")
+        self.subnetId = params.get("subnetId")
+        self.cidrBlockId = params.get("cidrBlockId")
+        self.masterIp = params.get("masterIp")
+        self.backupIp = params.get("backupIp")
+
+
+class InstanceChargePrepaid(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.period = None
+        self.periodUnit = None
+        self.noConfirmPay = None
+
+    def _deserialize(self, params):
+        self.period = params.get("period")
+        self.periodUnit = params.get("periodUnit")
+        self.noConfirmPay = params.get("noConfirmPay")
+
+
+class CreateLoadBalancerResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.orderNumber = None
+        self.loadBalancerId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.orderNumber = params.get("orderNumber")
+        self.loadBalancerId = params.get("loadBalancerId")
+
+
+class ModifyLoadBalancersNameRequest(AbstractModel):
+    def __init__(self):
+        self.loadBalancerName = None
+        self.loadBalancerIds = None
+
+    def _deserialize(self, params):
+        self.loadBalancerName = params.get("loadBalancerName")
+        self.loadBalancerIds = params.get("loadBalancerIds")
+
+
+class ModifyLoadBalancersNameResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribeListenersRequest(AbstractModel):
+    def __init__(self):
+        self.listenerIds = None
+        self.loadBalancerIds = None
+        self.listenerName = None
+        self.pageNum = None
+        self.pageSize = None
+
+    def _deserialize(self, params):
+        self.listenerIds = params.get("listenerIds")
+        self.loadBalancerIds = params.get("loadBalancerIds")
+        self.listenerName = params.get("listenerName")
+        self.pageNum = params.get("pageNum")
+        self.pageSize = params.get("pageSize")
+
+
+class DescribeListenersResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = ListenerInfo(item)
+                self.dataSet.append(obj)
+
+
+class CreateListenerRequest(AbstractModel):
+    def __init__(self):
+        self.loadBalancerId = None
+        self.listenerName = None
+        self.portList = None
+        self.clientToken = None
+        self.protocol = None
+        self.backendProtocol = None
+        self.scheduler = None
+        self.kind = None
+        self.healthCheck = None
+        self.notify = None
+
+    def _deserialize(self, params):
+        self.loadBalancerId = params.get("loadBalancerId")
+        self.listenerName = params.get("listenerName")
+        self.portList = params.get("portList")
+        self.clientToken = params.get("clientToken")
+        self.protocol = params.get("protocol")
+        self.backendProtocol = params.get("backendProtocol")
+        self.scheduler = params.get("scheduler")
+        self.kind = params.get("kind")
+        self.healthCheck = params.get("healthCheck")
+        self.notify = params.get("notify")
+
+
+class CreateListenerResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.listenerId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.listenerId = params.get("listenerId")
+
+
+class ModifyListenerAttributeRequest(AbstractModel):
+    def __init__(self):
+        self.listenerId = None
+        self.listenerName = None
+        self.protocol = None
+        self.backendProtocol = None
+        self.scheduler = None
+        self.kind = None
+        self.healthCheck = None
+        self.notify = None
+
+    def _deserialize(self, params):
+        self.listenerId = params.get("listenerId")
+        self.listenerName = params.get("listenerName")
+        self.protocol = params.get("protocol")
+        self.backendProtocol = params.get("backendProtocol")
+        self.scheduler = params.get("scheduler")
+        self.kind = params.get("kind")
+        self.healthCheck = params.get("healthCheck")
+        self.notify = params.get("notify")
+
+
+class ModifyListenerAttributeResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DeleteListenerRequest(AbstractModel):
+    def __init__(self):
+        self.listenerId = None
+
+    def _deserialize(self, params):
+        self.listenerId = params.get("listenerId")
+
+
+class DeleteListenerResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribeBackendsRequest(AbstractModel):
+    def __init__(self):
+        self.listenerId = None
+        self.backendIds = None
+        self.backendName = None
+        self.pageNum = None
+        self.pageSize = None
+
+    def _deserialize(self, params):
+        self.listenerId = params.get("listenerId")
+        self.backendIds = params.get("backendIds")
+        self.backendName = params.get("backendName")
+        self.pageNum = params.get("pageNum")
+        self.pageSize = params.get("pageSize")
+
+
+class DescribeBackendsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = BackendInfo(item)
+                self.dataSet.append(obj)
+
+
+class RegisterBackendRequest(AbstractModel):
+    def __init__(self):
+        self.listenerId = None
+        self.backendName = None
+        self.instanceId = None
+        self.clientToken = None
+        self.portList = None
+        self.weight = None
+
+    def _deserialize(self, params):
+        self.listenerId = params.get("listenerId")
+        self.backendName = params.get("backendName")
+        self.instanceId = params.get("instanceId")
+        self.clientToken = params.get("clientToken")
+        self.portList = params.get("portList")
+        self.weight = params.get("weight")
+
+
+class RegisterBackendResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.backendId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.backendId = params.get("backendId")
+
+
+class DeregisterBackendRequest(AbstractModel):
+    def __init__(self):
+        self.backendId = None
+
+    def _deserialize(self, params):
+        self.backendId = params.get("backendId")
+
+
+class DeregisterBackendResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class ModifyBackendWeightRequest(AbstractModel):
+    def __init__(self):
+        self.backendId = None
+        self.weight = None
+
+    def _deserialize(self, params):
+        self.backendId = params.get("backendId")
+        self.weight = params.get("weight")
+
+
+class ModifyBackendWeightResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class CreateLoadBalancerVIPsRequest(AbstractModel):
+    def __init__(self):
+        self.loadBalancerId = None
+        self.count = None
+
+    def _deserialize(self, params):
+        self.loadBalancerId = params.get("loadBalancerId")
+        self.count = params.get("count")
+
+
+class CreateLoadBalancerVIPsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.orderNumber = None
+        self.vipIdSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.orderNumber = params.get("orderNumber")
+        self.vipIdSet = params.get("vipIdSet")
+
+
+class DeleteLoadBalancerVIPRequest(AbstractModel):
+    def __init__(self):
+        self.vipId = None
+
+    def _deserialize(self, params):
+        self.vipId = params.get("vipId")
+
+
+class DeleteLoadBalancerVIPResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class ModifyLoadBalancerBandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.loadBalancerId = None
+        self.bandwidth = None
+
+    def _deserialize(self, params):
+        self.loadBalancerId = params.get("loadBalancerId")
+        self.bandwidth = params.get("bandwidth")
+
+
+class ModifyLoadBalancerBandwidthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class TerminateLoadBalancerRequest(AbstractModel):
+    def __init__(self):
+        self.loadBalancerId = None
+
+    def _deserialize(self, params):
+        self.loadBalancerId = params.get("loadBalancerId")
+
+
+class TerminateLoadBalancerResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class ReleaseLoadBalancerRequest(AbstractModel):
+    def __init__(self):
+        self.loadBalancerId = None
+
+    def _deserialize(self, params):
+        self.loadBalancerId = params.get("loadBalancerId")
+
+
+class ReleaseLoadBalancerResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class RestoreLoadBalancerRequest(AbstractModel):
+    def __init__(self):
+        self.loadBalancerId = None
+
+    def _deserialize(self, params):
+        self.loadBalancerId = params.get("loadBalancerId")
+
+
+class RestoreLoadBalancerResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.orderNumber = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.orderNumber = params.get("orderNumber")

@@ -3,56 +3,6 @@
 from zenlayercloud.common.abstract_model import AbstractModel
 
 
-class DescribeInstanceMonitorDataRequest(AbstractModel):
-    def __init__(self):
-        self.instanceId = None
-        self.metricType = None
-        self.ipAddress = None
-        self.startTime = None
-        self.endTime = None
-
-    def _deserialize(self, params):
-        self.instanceId = params.get("instanceId")
-        self.metricType = params.get("metricType")
-        self.ipAddress = params.get("ipAddress")
-        self.startTime = params.get("startTime")
-        self.endTime = params.get("endTime")
-
-
-class DescribeInstanceMonitorDataResponse(AbstractModel):
-
-    def __init__(self):
-        self.requestId = None
-        self.maxValue = None
-        self.avgValue = None
-        self.dataList = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-        self.maxValue = params.get("maxValue")
-        self.avgValue = params.get("avgValue")
-        if params.get("dataList") is not None:
-            self.dataList = []
-            for item in params.get("dataList"):
-                obj = MetricValue(item)
-                self.dataList.append(obj)
-
-
-class MetricValue(AbstractModel):
-    def __init__(self, params=None):
-        if params is None:
-            params = {}
-        if len(params) > 0:
-            self._deserialize(params)
-            return
-        self.value = None
-        self.timeInSecond = None
-
-    def _deserialize(self, params):
-        self.value = params.get("value")
-        self.timeInSecond = params.get("timeInSecond")
-
-
 class CreateVpcRequest(AbstractModel):
     def __init__(self):
         self.name = None
@@ -609,6 +559,7 @@ class InstanceInfo(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         self.resourceGroupName = params.get("resourceGroupName")
         self.instanceType = params.get("instanceType")
+
 
 
 class DescribeInstancesStatusRequest(AbstractModel):
@@ -1324,7 +1275,6 @@ class DiskInfo(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         self.resourceGroupName = params.get("resourceGroupName")
         self.serial = params.get("serial")
-
 
 class AttachDisksRequest(AbstractModel):
 
@@ -2176,6 +2126,7 @@ class CreateZecInstancesRequest(AbstractModel):
         self.enableAgent = None
         self.enableIpForward = None
         self.eipV4Type = None
+        self.eipBindType = None
         self.clusterId = None
 
     def _deserialize(self, params):
@@ -2203,6 +2154,7 @@ class CreateZecInstancesRequest(AbstractModel):
         self.enableAgent = params.get("enableAgent")
         self.enableIpForward = params.get("enableIpForward")
         self.eipV4Type = params.get("eipV4Type")
+        self.eipBindType = params.get("eipBindType")
         self.clusterId = params.get("clusterId")
 
 
@@ -2586,7 +2538,6 @@ class DescribeEipInternetChargeTypesResponse(AbstractModel):
 
 
 class DescribeEipsRequest(AbstractModel):
-
     def __init__(self):
         self.eipIds = None
         self.regionId = None
@@ -2597,8 +2548,10 @@ class DescribeEipsRequest(AbstractModel):
         self.pageNum = None
         self.privateIpAddress = None
         self.ipAddress = None
+        self.ipAddresses = None
         self.instanceId = None
         self.associatedId = None
+        self.cidrIds = None
 
     def _deserialize(self, params):
         self.eipIds = params.get("eipIds")
@@ -2610,8 +2563,10 @@ class DescribeEipsRequest(AbstractModel):
         self.pageNum = params.get("pageNum")
         self.privateIpAddress = params.get("privateIpAddress")
         self.ipAddress = params.get("ipAddress")
+        self.ipAddresses = params.get("ipAddresses")
         self.instanceId = params.get("instanceId")
         self.associatedId = params.get("associatedId")
+        self.cidrIds = params.get("cidrIds")
 
 
 class DescribeEipsResponse(AbstractModel):
@@ -2632,7 +2587,6 @@ class DescribeEipsResponse(AbstractModel):
 
 
 class EipInfo(AbstractModel):
-
     def __init__(self, params=None):
         if params is None:
             params = {}
@@ -2653,6 +2607,7 @@ class EipInfo(AbstractModel):
         self.nicId = None
         self.associatedId = None
         self.associatedType = None
+        self.bindType = None
         self.flowPackage = None
         self.bandwidth = None
         self.createTime = None
@@ -2675,25 +2630,7 @@ class EipInfo(AbstractModel):
         self.nicId = params.get("nicId")
         self.associatedId = params.get("associatedId")
         self.associatedType = params.get("associatedType")
-        self.flowPackage = params.get("flowPackage")
-        self.bandwidth = params.get("bandwidth")
-        self.createTime = params.get("createTime")
-        self.expiredTime = params.get("expiredTime")
-        self.resourceGroupId = params.get("resourceGroupId")
-        self.resourceGroupName = params.get("resourceGroupName")
-
-    def _deserialize(self, params):
-        self.eipId = params.get("eipId")
-        self.name = params.get("name")
-        self.regionId = params.get("regionId")
-        self.peerRegionId = params.get("peerRegionId")
-        self.isDefault = params.get("isDefault")
-        self.status = params.get("status")
-        self.publicIpAddresses = params.get("publicIpAddresses")
-        self.eipV4Type = params.get("eipV4Type")
-        self.internetChargeType = params.get("internetChargeType")
-        self.cidrId = params.get("cidrId")
-        self.nicId = params.get("nicId")
+        self.bindType = params.get("bindType")
         self.flowPackage = params.get("flowPackage")
         self.bandwidth = params.get("bandwidth")
         self.createTime = params.get("createTime")
@@ -2810,11 +2747,20 @@ class AssociateEipAddressRequest(AbstractModel):
 
     def __init__(self):
         self.loadBalancerId = None
+        self.nicId = None
+        self.lanIp = None
+        self.natId = None
         self.eipIds = None
+        self.bindType = None
 
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
+        self.nicId = params.get("nicId")
+        self.lanIp = params.get("lanIp")
+        self.natId = params.get("natId")
         self.eipIds = params.get("eipIds")
+        self.bindType = params.get("bindType")
+        self.eipIds = None
 
 
 class AssociateEipAddressResponse(AbstractModel):
@@ -2856,6 +2802,48 @@ class UnassociateEipAddressRequest(AbstractModel):
 
 
 class UnassociateEipAddressResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.failedEipIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.failedEipIds = params.get("failedEipIds")
+
+
+class ReplaceEipAddressRequest(AbstractModel):
+
+    def __init__(self):
+        self.replaceIps = None
+
+    def _deserialize(self, params):
+        if params.get("replaceIps") is not None:
+            self.replaceIps = []
+            for item in params.get("replaceIps"):
+                obj = ReplaceIp(item)
+                self.replaceIps.append(obj)
+
+
+class ReplaceIp(AbstractModel):
+
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.eipId = None
+        self.ownIp = None
+        self.targetIp = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.ownIp = params.get("ownIp")
+        self.targetIp = params.get("targetIp")
+
+
+class ReplaceEipAddressResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None
@@ -3256,12 +3244,16 @@ class CreateBorderGatewayRequest(AbstractModel):
         self.vpcId = None
         self.label = None
         self.asn = None
+        self.advertisedSubnet = None
+        self.advertisedCidrs = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
         self.vpcId = params.get("vpcId")
         self.label = params.get("label")
         self.asn = params.get("asn")
+        self.advertisedSubnet = params.get("advertisedSubnet")
+        self.advertisedCidrs = params.get("advertisedCidrs")
 
 
 class CreateBorderGatewayResponse(AbstractModel):
@@ -3298,10 +3290,14 @@ class ModifyBorderGatewaysAttributeRequest(AbstractModel):
     def __init__(self):
         self.zbgIds = None
         self.name = None
+        self.advertisedSubnet = None
+        self.advertisedCidrs = None
 
     def _deserialize(self, params):
         self.zbgIds = params.get("zbgIds")
         self.name = params.get("name")
+        self.advertisedSubnet = params.get("advertisedSubnet")
+        self.advertisedCidrs = params.get("advertisedCidrs")
 
 
 class ModifyBorderGatewaysAttributeResponse(AbstractModel):
@@ -3325,6 +3321,64 @@ class ModifyBorderGatewayAsnRequest(AbstractModel):
 
 
 class ModifyBorderGatewayAsnResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribeAvailableNatsRequest(AbstractModel):
+
+    def __init__(self):
+        self.zbgId = None
+
+    def _deserialize(self, params):
+        self.zbgId = params.get("zbgId")
+
+
+class DescribeAvailableNatsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.natIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.natIds = params.get("natIds")
+
+
+class AssignBorderGatewayRequest(AbstractModel):
+
+    def __init__(self):
+        self.zbgId = None
+        self.natId = None
+
+    def _deserialize(self, params):
+        self.zbgId = params.get("zbgId")
+        self.natId = params.get("natId")
+
+
+class AssignBorderGatewayResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class UnassignBorderGatewayRequest(AbstractModel):
+
+    def __init__(self):
+        self.zbgId = None
+
+    def _deserialize(self, params):
+        self.zbgId = params.get("zbgId")
+
+
+class UnassignBorderGatewayResponse(AbstractModel):
 
     def __init__(self):
         self.requestId = None
@@ -3383,6 +3437,9 @@ class ZbgInfo(AbstractModel):
         self.interConnectCidr = None
         self.createTime = None
         self.cloudRouterIds = None
+        self.advertisedSubnet = None
+        self.advertisedCidrs = None
+        self.natId = None
 
     def _deserialize(self, params):
         self.zbgId = params.get("zbgId")
@@ -3393,3 +3450,576 @@ class ZbgInfo(AbstractModel):
         self.interConnectCidr = params.get("interConnectCidr")
         self.createTime = params.get("createTime")
         self.cloudRouterIds = params.get("cloudRouterIds")
+        self.advertisedSubnet = params.get("advertisedSubnet")
+        self.advertisedCidrs = params.get("advertisedCidrs")
+        self.natId = params.get("natId")
+
+
+class CreateNatGatewayRequest(AbstractModel):
+    def __init__(self):
+        self.regionId = None
+        self.vpcId = None
+        self.name = None
+        self.subnetIds = None
+        self.resourceGroupId = None
+
+    def _deserialize(self, params):
+        self.regionId = params.get("regionId")
+        self.vpcId = params.get("vpcId")
+        self.name = params.get("name")
+        self.subnetIds = params.get("subnetIds")
+        self.resourceGroupId = params.get("resourceGroupId")
+
+
+class CreateNatGatewayResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.orderNumber = None
+        self.natGatewayId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.orderNumber = params.get("orderNumber")
+        self.natGatewayId = params.get("natGatewayId")
+
+
+class DescribeNatGatewaysRequest(AbstractModel):
+    def __init__(self):
+        self.regionId = None
+        self.vpcId = None
+        self.natGatewayIds = None
+        self.name = None
+        self.status = None
+        self.pageSize = None
+        self.pageNum = None
+
+    def _deserialize(self, params):
+        self.regionId = params.get("regionId")
+        self.vpcId = params.get("vpcId")
+        self.natGatewayIds = params.get("natGatewayIds")
+        self.name = params.get("name")
+        self.status = params.get("status")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+
+
+class DescribeNatGatewaysResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = NatGateway(item)
+                self.dataSet.append(obj)
+
+
+class NatGateway(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.natGatewayId = None
+        self.vpcId = None
+        self.regionId = None
+        self.status = None
+        self.name = None
+        self.subnetIds = None
+        self.eipIds = None
+        self.zbgId = None
+        self.resourceGroupId = None
+        self.resourceGroupName = None
+        self.createTime = None
+        self.expiredTime = None
+
+    def _deserialize(self, params):
+        self.natGatewayId = params.get("natGatewayId")
+        self.vpcId = params.get("vpcId")
+        self.regionId = params.get("regionId")
+        self.status = params.get("status")
+        self.name = params.get("name")
+        self.subnetIds = params.get("subnetIds")
+        self.eipIds = params.get("eipIds")
+        self.zbgId = params.get("zbgId")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.resourceGroupName = params.get("resourceGroupName")
+        self.createTime = params.get("createTime")
+        self.expiredTime = params.get("expiredTime")
+
+
+class DescribeNatGatewayDetailRequest(AbstractModel):
+    def __init__(self):
+        self.natGatewayId = None
+
+    def _deserialize(self, params):
+        self.natGatewayId = params.get("natGatewayId")
+
+
+class DescribeNatGatewayDetailResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.natGatewayId = None
+        self.name = None
+        self.snats = None
+        self.dnats = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.natGatewayId = params.get("natGatewayId")
+        self.name = params.get("name")
+        if params.get("snats") is not None:
+            self.snats = []
+            for item in params.get("snats"):
+                obj = SnatEntry(item)
+                self.snats.append(obj)
+        if params.get("dnats") is not None:
+            self.dnats = []
+            for item in params.get("dnats"):
+                obj = DnatEntry(item)
+                self.dnats.append(obj)
+
+
+class SnatEntry(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.snatEntryId = None
+        self.cidrs = None
+        self.eipIds = None
+
+    def _deserialize(self, params):
+        self.snatEntryId = params.get("snatEntryId")
+        self.cidrs = params.get("cidrs")
+        self.eipIds = params.get("eipIds")
+
+
+class DnatEntry(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.dnatEntryId = None
+        self.status = None
+        self.privateIp = None
+        self.eipId = None
+        self.protocol = None
+        self.listenerPort = None
+        self.internalPort = None
+
+    def _deserialize(self, params):
+        self.dnatEntryId = params.get("dnatEntryId")
+        self.status = params.get("status")
+        self.privateIp = params.get("privateIp")
+        self.eipId = params.get("eipId")
+        self.protocol = params.get("protocol")
+        self.listenerPort = params.get("listenerPort")
+        self.internalPort = params.get("internalPort")
+
+
+class DeleteNatGatewayRequest(AbstractModel):
+    def __init__(self):
+        self.natGatewayId = None
+
+    def _deserialize(self, params):
+        self.natGatewayId = params.get("natGatewayId")
+
+
+class DeleteNatGatewayResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class RenewNatGatewayRequest(AbstractModel):
+    def __init__(self):
+        self.natGatewayId = None
+
+    def _deserialize(self, params):
+        self.natGatewayId = params.get("natGatewayId")
+
+
+class RenewNatGatewayResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class InquiryPriceCreateNatGatewayRequest(AbstractModel):
+    def __init__(self):
+        self.regionId = None
+
+    def _deserialize(self, params):
+        self.regionId = params.get("regionId")
+
+
+class InquiryPriceCreateNatGatewayResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.natGatewayPrice = None
+        self.cuPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.natGatewayPrice = params.get("natGatewayPrice")
+        self.cuPrice = params.get("cuPrice")
+
+
+class PriceItem(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.discount = None
+        self.discountPrice = None
+        self.originalPrice = None
+        self.unitPrice = None
+        self.discountUnitPrice = None
+        self.chargeUnit = None
+        self.stepPrices = None
+        self.amountUnit = None
+        self.excessUnitPrice = None
+        self.excessDiscountUnitPrice = None
+        self.excessAmountUnit = None
+
+    def _deserialize(self, params):
+        self.discount = params.get("discount")
+        self.discountPrice = params.get("discountPrice")
+        self.originalPrice = params.get("originalPrice")
+        self.unitPrice = params.get("unitPrice")
+        self.discountUnitPrice = params.get("discountUnitPrice")
+        self.chargeUnit = params.get("chargeUnit")
+        if params.get("stepPrices") is not None:
+            self.stepPrices = []
+            for item in params.get("stepPrices"):
+                obj = StepPrice(item)
+                self.stepPrices.append(obj)
+        self.amountUnit = params.get("amountUnit")
+        self.excessUnitPrice = params.get("excessUnitPrice")
+        self.excessDiscountUnitPrice = params.get("excessDiscountUnitPrice")
+        self.excessAmountUnit = params.get("excessAmountUnit")
+
+
+class StepPrice(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.stepStart = None
+        self.stepEnd = None
+        self.unitPrice = None
+        self.discountUnitPrice = None
+
+    def _deserialize(self, params):
+        self.stepStart = params.get("stepStart")
+        self.stepEnd = params.get("stepEnd")
+        self.unitPrice = params.get("unitPrice")
+        self.discountUnitPrice = params.get("discountUnitPrice")
+
+
+class CreateSnatEntryRequest(AbstractModel):
+    def __init__(self):
+        self.natGatewayId = None
+        self.cidrs = None
+        self.eipIds = None
+
+    def _deserialize(self, params):
+        self.natGatewayId = params.get("natGatewayId")
+        self.cidrs = params.get("cidrs")
+        self.eipIds = params.get("eipIds")
+
+
+class CreateSnatEntryResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.snatEntryId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.snatEntryId = params.get("snatEntryId")
+
+
+class ModifySnatEntryRequest(AbstractModel):
+    def __init__(self):
+        self.snatEntryId = None
+        self.cidrs = None
+        self.eipIds = None
+
+    def _deserialize(self, params):
+        self.snatEntryId = params.get("snatEntryId")
+        self.cidrs = params.get("cidrs")
+        self.eipIds = params.get("eipIds")
+
+
+class ModifySnatEntryResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DeleteSnatEntryRequest(AbstractModel):
+    def __init__(self):
+        self.snatEntryId = None
+
+    def _deserialize(self, params):
+        self.snatEntryId = params.get("snatEntryId")
+
+
+class DeleteSnatEntryResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class CreateDnatEntryRequest(AbstractModel):
+    def __init__(self):
+        self.natGatewayId = None
+        self.eipId = None
+        self.privateIp = None
+        self.protocol = None
+        self.listenerPort = None
+        self.internalPort = None
+
+    def _deserialize(self, params):
+        self.natGatewayId = params.get("natGatewayId")
+        self.eipId = params.get("eipId")
+        self.privateIp = params.get("privateIp")
+        self.protocol = params.get("protocol")
+        self.listenerPort = params.get("listenerPort")
+        self.internalPort = params.get("internalPort")
+
+
+class CreateDnatEntryResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.dnatEntryId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.dnatEntryId = params.get("dnatEntryId")
+
+
+class ModifyDnatEntryRequest(AbstractModel):
+    def __init__(self):
+        self.dnatEntryId = None
+        self.eipId = None
+        self.privateIp = None
+        self.protocol = None
+        self.listenerPort = None
+        self.internalPort = None
+
+    def _deserialize(self, params):
+        self.dnatEntryId = params.get("dnatEntryId")
+        self.eipId = params.get("eipId")
+        self.privateIp = params.get("privateIp")
+        self.protocol = params.get("protocol")
+        self.listenerPort = params.get("listenerPort")
+        self.internalPort = params.get("internalPort")
+
+
+class ModifyDnatEntryResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DeleteDnatEntryRequest(AbstractModel):
+    def __init__(self):
+        self.dnatEntryId = None
+
+    def _deserialize(self, params):
+        self.dnatEntryId = params.get("dnatEntryId")
+
+
+class DeleteDnatEntryResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribeNatGatewayRegionsRequest(AbstractModel):
+    def __init__(self):
+        super().__init__()
+
+
+class DescribeNatGatewayRegionsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.regionIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.regionIds = params.get("regionIds")
+
+
+class ModifyEipBandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.eipId = None
+        self.bandwidth = None
+        self.commitBandwidth = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.bandwidth = params.get("bandwidth")
+        self.commitBandwidth = params.get("commitBandwidth")
+
+
+class ModifyEipBandwidthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribeEipMonitorDataRequest(AbstractModel):
+    def __init__(self):
+        self.eipId = None
+        self.metricType = None
+        self.startTime = None
+        self.endTime = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.metricType = params.get("metricType")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+
+
+class DescribeEipMonitorDataResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.inMaxValue = None
+        self.inAvgValue = None
+        self.inMinValue = None
+        self.inTotalValue = None
+        self.outMaxValue = None
+        self.outAvgValue = None
+        self.outMinValue = None
+        self.outTotalValue = None
+        self.loseOutMaxValue = None
+        self.loseOutMinValue = None
+        self.loseOutTotalValue = None
+        self.loseInMaxValue = None
+        self.loseInMinValue = None
+        self.loseInTotalValue = None
+        self.dataList = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.inMaxValue = params.get("inMaxValue")
+        self.inAvgValue = params.get("inAvgValue")
+        self.inMinValue = params.get("inMinValue")
+        self.inTotalValue = params.get("inTotalValue")
+        self.outMaxValue = params.get("outMaxValue")
+        self.outAvgValue = params.get("outAvgValue")
+        self.outMinValue = params.get("outMinValue")
+        self.outTotalValue = params.get("outTotalValue")
+        self.loseOutMaxValue = params.get("loseOutMaxValue")
+        self.loseOutMinValue = params.get("loseOutMinValue")
+        self.loseOutTotalValue = params.get("loseOutTotalValue")
+        self.loseInMaxValue = params.get("loseInMaxValue")
+        self.loseInMinValue = params.get("loseInMinValue")
+        self.loseInTotalValue = params.get("loseInTotalValue")
+        if params.get("dataList") is not None:
+            self.dataList = []
+            for item in params.get("dataList"):
+                obj = EipMetricValue(item)
+                self.dataList.append(obj)
+
+
+class EipMetricValue(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.time = None
+        self.inValue = None
+        self.outValue = None
+        self.loseIn = None
+        self.loseOut = None
+
+    def _deserialize(self, params):
+        self.time = params.get("time")
+        self.inValue = params.get("inValue")
+        self.outValue = params.get("outValue")
+        self.loseIn = params.get("loseIn")
+        self.loseOut = params.get("loseOut")
+
+
+class DescribeInstanceMonitorDataRequest(AbstractModel):
+    def __init__(self):
+        self.instanceId = None
+        self.metricType = None
+        self.startTime = None
+        self.endTime = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+        self.metricType = params.get("metricType")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+
+
+class DescribeInstanceMonitorDataResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.maxValue = None
+        self.minValue = None
+        self.avgValue = None
+        self.metrics = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.maxValue = params.get("maxValue")
+        self.minValue = params.get("minValue")
+        self.avgValue = params.get("avgValue")
+        if params.get("metrics") is not None:
+            self.metrics = []
+            for item in params.get("metrics"):
+                obj = MetricValue(item)
+                self.metrics.append(obj)
+
+class MetricValue(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.time = None
+        self.value = None
+
+    def _deserialize(self, params):
+        self.time = params.get("time")
+        self.value = params.get("value")

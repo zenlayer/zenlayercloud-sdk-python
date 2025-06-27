@@ -360,7 +360,6 @@ class DescribeLoadBalancersRequest(AbstractModel):
         self.vpcId = None
         self.loadBalancerIds = None
         self.loadBalancerName = None
-        self.resourceGroupId = None
         self.pageSize = None
         self.pageNum = None
 
@@ -369,7 +368,6 @@ class DescribeLoadBalancersRequest(AbstractModel):
         self.vpcId = params.get("vpcId")
         self.loadBalancerIds = params.get("loadBalancerIds")
         self.loadBalancerName = params.get("loadBalancerName")
-        self.resourceGroupId = params.get("resourceGroupId")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
 
@@ -403,6 +401,7 @@ class LoadBalancer(AbstractModel):
         self.vpcId = None
         self.status = None
         self.publicIpAddress = None
+        self.privateIpAddress = None
         self.listenerCount = None
         self.createTime = None
 
@@ -413,6 +412,7 @@ class LoadBalancer(AbstractModel):
         self.vpcId = params.get("vpcId")
         self.status = params.get("status")
         self.publicIpAddress = params.get("publicIpAddress")
+        self.privateIpAddress = params.get("privateIpAddress")
         self.listenerCount = params.get("listenerCount")
         self.createTime = params.get("createTime")
 
@@ -490,7 +490,6 @@ class CreateLoadBalancerResponse(AbstractModel):
 class InquiryPriceCreateLoadBalancerRequest(AbstractModel):
     def __init__(self):
         self.regionId = None
-        self.vpcId = None
         self.internetChargeType = None
         self.ipNetworkType = None
         self.bandwidthMbps = None
@@ -499,7 +498,6 @@ class InquiryPriceCreateLoadBalancerRequest(AbstractModel):
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
-        self.vpcId = params.get("vpcId")
         self.internetChargeType = params.get("internetChargeType")
         self.ipNetworkType = params.get("ipNetworkType")
         self.bandwidthMbps = params.get("bandwidthMbps")
@@ -523,7 +521,7 @@ class InquiryPriceCreateLoadBalancerResponse(AbstractModel):
         self.lcuPrice = params.get("lcuPrice")
 
 
-class NewPriceItem(AbstractModel):
+class PriceItem(AbstractModel):
     def __init__(self, params=None):
         if params is None:
             params = {}

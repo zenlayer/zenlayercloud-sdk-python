@@ -15,7 +15,6 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     #
     def DescribeImages(self, request):
         response = self._api_call("DescribeImages", request)
@@ -32,7 +31,6 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def CreateInstances(self, request):
         """ 本接口 (CreateInstances) 用于创建一个或多个指定配置的BMC实例。
 
@@ -44,7 +42,6 @@ class BmcClient(AbstractClient):
         model = models.CreateInstancesResponse()
         model._deserialize(response)
         return model
-
 
     #
     def StartInstances(self, request):
@@ -70,7 +67,6 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     #
     def ReinstallInstance(self, request):
         response = self._api_call("ReinstallInstance", request)
@@ -78,7 +74,6 @@ class BmcClient(AbstractClient):
         model = models.ReinstallInstanceResponse()
         model._deserialize(response)
         return model
-
 
     #
     def TerminateInstance(self, request):
@@ -88,7 +83,6 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     #
     def ReleaseInstances(self, request):
         response = self._api_call("ReleaseInstances", request)
@@ -96,7 +90,6 @@ class BmcClient(AbstractClient):
         model = models.ReleaseInstancesResponse()
         model._deserialize(response)
         return model
-
 
     #
     def RenewInstance(self, request):
@@ -106,7 +99,6 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     #
     def ModifyInstancesAttribute(self, request):
         response = self._api_call("ModifyInstancesAttribute", request)
@@ -115,7 +107,6 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     #
     def InquiryPriceCreateInstance(self, request):
         response = self._api_call("InquiryPriceCreateInstance", request)
@@ -123,7 +114,6 @@ class BmcClient(AbstractClient):
         model = models.InquiryPriceCreateInstanceResponse()
         model._deserialize(response)
         return model
-
 
     #
     def DescribeInstanceTypes(self, request):
@@ -141,7 +131,6 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     #
     def ModifyInstanceBandwidth(self, request):
         response = self._api_call("ModifyInstanceBandwidth", request)
@@ -149,7 +138,6 @@ class BmcClient(AbstractClient):
         model = models.ModifyInstanceBandwidthResponse()
         model._deserialize(response)
         return model
-
 
     #
     def CancelInstanceBandwidthDowngrade(self, request):
@@ -159,7 +147,6 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     #
     def InquiryPriceInstanceBandwidth(self, request):
         response = self._api_call("InquiryPriceInstanceBandwidth", request)
@@ -167,7 +154,6 @@ class BmcClient(AbstractClient):
         model = models.InquiryPriceInstanceBandwidthResponse()
         model._deserialize(response)
         return model
-
 
     #
     def ModifyInstanceTrafficPackage(self, request):
@@ -177,7 +163,6 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     #
     def CancelInstanceTrafficPackageDowngrade(self, request):
         response = self._api_call("CancelInstanceTrafficPackageDowngrade", request)
@@ -185,7 +170,6 @@ class BmcClient(AbstractClient):
         model = models.CancelInstanceTrafficPackageDowngradeResponse()
         model._deserialize(response)
         return model
-
 
     #
     def InquiryPriceInstanceTrafficPackage(self, request):
@@ -195,7 +179,6 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     #
     def DescribeInstanceInternetStatus(self, request):
         response = self._api_call("DescribeInstanceInternetStatus", request)
@@ -204,7 +187,6 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     #
     def ModifyInstancesResourceGroup(self, request):
         response = self._api_call("ModifyInstancesResourceGroup", request)
@@ -212,7 +194,6 @@ class BmcClient(AbstractClient):
         model = models.ModifyInstancesResourceGroupResponse()
         model._deserialize(response)
         return model
-
 
     #
     def DescribeInstanceTraffic(self, request):
@@ -237,7 +218,6 @@ class BmcClient(AbstractClient):
         model = models.DescribeEipAddressesResponse()
         model._deserialize(response)
         return model
-
 
     def DescribeEipAvailableResources(self, request):
         response = self._api_call("DescribeEipAvailableResources", request)
@@ -273,7 +253,6 @@ class BmcClient(AbstractClient):
         model = models.RenewEipAddressResponse()
         model._deserialize(response)
         return model
-
 
     def AssociateEipAddress(self, request):
         response = self._api_call("AssociateEipAddress", request)
@@ -332,7 +311,6 @@ class BmcClient(AbstractClient):
         model = models.DescribeAvailableIpv4ResourcesResponse()
         model._deserialize(response)
         return model
-
 
     def DescribeAvailableIpv6Resources(self, request):
         response = self._api_call("DescribeAvailableIpv6Resources", request)
@@ -504,13 +482,11 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
-
     def DescribeManagedInstances(self, request):
         response = self._api_call("DescribeManagedInstances", request)
         model = models.DescribeManagedInstancesResponse()
         model._deserialize(response)
         return model
-
 
     def DescribeManagedInstanceTraffic(self, request):
         response = self._api_call("DescribeManagedInstanceTraffic", request)
@@ -519,4 +495,116 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeLoadBalancerZones(self, request):
+        response = self._api_call("DescribeLoadBalancerZones", request)
+        model = models.DescribeLoadBalancerZonesResponse()
+        model._deserialize(response)
+        return model
 
+    def DescribeLoadBalancerSpecs(self, request):
+        response = self._api_call("DescribeLoadBalancerSpecs", request)
+        model = models.DescribeLoadBalancerSpecsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeLoadBalancers(self, request):
+        response = self._api_call("DescribeLoadBalancers", request)
+        model = models.DescribeLoadBalancersResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateLoadBalancer(self, request):
+        response = self._api_call("CreateLoadBalancer", request)
+        model = models.CreateLoadBalancerResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyLoadBalancersName(self, request):
+        response = self._api_call("ModifyLoadBalancersName", request)
+        model = models.ModifyLoadBalancersNameResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeListeners(self, request):
+        response = self._api_call("DescribeListeners", request)
+        model = models.DescribeListenersResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateListener(self, request):
+        response = self._api_call("CreateListener", request)
+        model = models.CreateListenerResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyListenerAttribute(self, request):
+        response = self._api_call("ModifyListenerAttribute", request)
+        model = models.ModifyListenerAttributeResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteListener(self, request):
+        response = self._api_call("DeleteListener", request)
+        model = models.DeleteListenerResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeBackends(self, request):
+        response = self._api_call("DescribeBackends", request)
+        model = models.DescribeBackendsResponse()
+        model._deserialize(response)
+        return model
+
+    def RegisterBackend(self, request):
+        response = self._api_call("RegisterBackend", request)
+        model = models.RegisterBackendResponse()
+        model._deserialize(response)
+        return model
+
+    def DeregisterBackend(self, request):
+        response = self._api_call("DeregisterBackend", request)
+        model = models.DeregisterBackendResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyBackendWeight(self, request):
+        response = self._api_call("ModifyBackendWeight", request)
+        model = models.ModifyBackendWeightResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateLoadBalancerVIPs(self, request):
+        response = self._api_call("CreateLoadBalancerVIPs", request)
+        model = models.CreateLoadBalancerVIPsResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteLoadBalancerVIP(self, request):
+        response = self._api_call("DeleteLoadBalancerVIP", request)
+        model = models.DeleteLoadBalancerVIPResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyLoadBalancerBandwidth(self, request):
+        response = self._api_call("ModifyLoadBalancerBandwidth", request)
+        model = models.ModifyLoadBalancerBandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def TerminateLoadBalancer(self, request):
+        response = self._api_call("TerminateLoadBalancer", request)
+        model = models.TerminateLoadBalancerResponse()
+        model._deserialize(response)
+        return model
+
+    def ReleaseLoadBalancer(self, request):
+        response = self._api_call("ReleaseLoadBalancer", request)
+        model = models.ReleaseLoadBalancerResponse()
+        model._deserialize(response)
+        return model
+
+    def RestoreLoadBalancer(self, request):
+        response = self._api_call("RestoreLoadBalancer", request)
+        model = models.RestoreLoadBalancerResponse()
+        model._deserialize(response)
+        return model

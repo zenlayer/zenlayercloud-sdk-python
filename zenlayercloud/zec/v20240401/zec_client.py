@@ -8,13 +8,6 @@ class ZecClient(AbstractClient):
     _api_version = "2024-04-01"
     _service = "zec"
 
-    def DescribeInstanceMonitorData(self, request):
-        response = self._api_call("DescribeInstanceMonitorData", request)
-
-        model = models.DescribeInstanceMonitorDataResponse()
-        model._deserialize(response)
-        return model
-
     def CreateVpc(self, request):
         response = self._api_call("CreateVpc", request)
 
@@ -588,6 +581,13 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ReplaceEipAddress(self, request):
+        response = self._api_call("ReplaceEipAddress", request)
+
+        model = models.ReplaceEipAddressResponse()
+        model._deserialize(response)
+        return model
+
     def ConfigEipEgressIp(self, request):
         response = self._api_call("ConfigEipEgressIp", request)
 
@@ -707,9 +707,126 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeAvailableNats(self, request):
+        response = self._api_call("DescribeAvailableNats", request)
+
+        model = models.DescribeAvailableNatsResponse()
+        model._deserialize(response)
+        return model
+
+    def AssignBorderGateway(self, request):
+        response = self._api_call("AssignBorderGateway", request)
+
+        model = models.AssignBorderGatewayResponse()
+        model._deserialize(response)
+        return model
+
+    def UnassignBorderGateway(self, request):
+        response = self._api_call("UnassignBorderGateway", request)
+
+        model = models.UnassignBorderGatewayResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeBorderGateways(self, request):
         response = self._api_call("DescribeBorderGateways", request)
 
         model = models.DescribeBorderGatewaysResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateNatGateway(self, request):
+        response = self._api_call("CreateNatGateway", request)
+        model = models.CreateNatGatewayResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeNatGateways(self, request):
+        response = self._api_call("DescribeNatGateways", request)
+        model = models.DescribeNatGatewaysResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeNatGatewayDetail(self, request):
+        response = self._api_call("DescribeNatGatewayDetail", request)
+        model = models.DescribeNatGatewayDetailResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteNatGateway(self, request):
+        response = self._api_call("DeleteNatGateway", request)
+        model = models.DeleteNatGatewayResponse()
+        model._deserialize(response)
+        return model
+
+    def RenewNatGateway(self, request):
+        response = self._api_call("RenewNatGateway", request)
+        model = models.RenewNatGatewayResponse()
+        model._deserialize(response)
+        return model
+
+    def InquiryPriceCreateNatGateway(self, request):
+        response = self._api_call("InquiryPriceCreateNatGateway", request)
+        model = models.InquiryPriceCreateNatGatewayResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateSnatEntry(self, request):
+        response = self._api_call("CreateSnatEntry", request)
+        model = models.CreateSnatEntryResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifySnatEntry(self, request):
+        response = self._api_call("ModifySnatEntry", request)
+        model = models.ModifySnatEntryResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteSnatEntry(self, request):
+        response = self._api_call("DeleteSnatEntry", request)
+        model = models.DeleteSnatEntryResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateDnatEntry(self, request):
+        response = self._api_call("CreateDnatEntry", request)
+        model = models.CreateDnatEntryResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyDnatEntry(self, request):
+        response = self._api_call("ModifyDnatEntry", request)
+        model = models.ModifyDnatEntryResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteDnatEntry(self, request):
+        response = self._api_call("DeleteDnatEntry", request)
+        model = models.DeleteDnatEntryResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeNatGatewayRegions(self, request):
+        response = self._api_call("DescribeNatGatewayRegions", request)
+        model = models.DescribeNatGatewayRegionsResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyEipBandwidth(self, request):
+        response = self._api_call("ModifyEipBandwidth", request)
+        model = models.ModifyEipBandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeEipMonitorData(self, request):
+        response = self._api_call("DescribeEipMonitorData", request)
+        model = models.DescribeEipMonitorDataResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeInstanceMonitorData(self, request):
+        response = self._api_call("DescribeInstanceMonitorData", request)
+        model = models.DescribeInstanceMonitorDataResponse()
         model._deserialize(response)
         return model
