@@ -76,6 +76,7 @@ class DescribeVpcsRequest(AbstractModel):
         self.cidrBlock = None
         self.pageSize = None
         self.pageNum = None
+        self.resourceGroupId = None
 
     def _deserialize(self, params):
         self.vpcIds = params.get("vpcIds")
@@ -83,6 +84,7 @@ class DescribeVpcsRequest(AbstractModel):
         self.cidrBlock = params.get("cidrBlock")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
+        self.resourceGroupId = params.get("resourceGroupId")
 
 
 class DescribeVpcsResponse(AbstractModel):
@@ -346,6 +348,8 @@ class CreateRouteRequest(AbstractModel):
     def __init__(self):
         self.vpcId = None
         self.ipVersion = None
+        self.routeType = None
+        self.sourceCidrBlock = None
         self.cidrBlock = None
         self.priority = None
         self.nextHotId = None
@@ -354,6 +358,8 @@ class CreateRouteRequest(AbstractModel):
     def _deserialize(self, params):
         self.vpcId = params.get("vpcId")
         self.ipVersion = params.get("ipVersion")
+        self.routeType = params.get("routeType")
+        self.sourceCidrBlock = params.get("sourceCidrBlock")
         self.cidrBlock = params.get("cidrBlock")
         self.priority = params.get("priority")
         self.nextHotId = params.get("nextHotId")
@@ -443,6 +449,7 @@ class RouteInfo(AbstractModel):
         self.vpcName = None
         self.ipVersion = None
         self.type = None
+        self.sourceCidrBlock = None
         self.cidrBlock = None
         self.priority = None
         self.nextHopId = None
@@ -457,6 +464,7 @@ class RouteInfo(AbstractModel):
         self.vpcName = params.get("vpcName")
         self.ipVersion = params.get("ipVersion")
         self.type = params.get("type")
+        self.sourceCidrBlock = params.get("sourceCidrBlock")
         self.cidrBlock = params.get("cidrBlock")
         self.priority = params.get("priority")
         self.nextHopId = params.get("nextHopId")
@@ -477,6 +485,7 @@ class DescribeInstancesRequest(AbstractModel):
         self.ipv6Address = None
         self.pageSize = None
         self.pageNum = None
+        self.resourceGroupId = None
 
     def _deserialize(self, params):
         self.instanceIds = params.get("instanceIds")
@@ -488,6 +497,7 @@ class DescribeInstancesRequest(AbstractModel):
         self.ipv6Address = params.get("ipv6Address")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
+        self.resourceGroupId = params.get("resourceGroupId")
 
 
 class DescribeInstancesResponse(AbstractModel):
@@ -563,18 +573,19 @@ class InstanceInfo(AbstractModel):
         self.instanceType = params.get("instanceType")
 
 
-
 class DescribeInstancesStatusRequest(AbstractModel):
 
     def __init__(self):
         self.instanceIds = None
         self.pageSize = None
         self.pageNum = None
+        self.resourceGroupId = None
 
     def _deserialize(self, params):
         self.instanceIds = params.get("instanceIds")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
+        self.resourceGroupId = params.get("resourceGroupId")
 
 
 class DescribeInstancesStatusResponse(AbstractModel):
@@ -770,6 +781,7 @@ class DescribeCidrsRequest(AbstractModel):
         self.source = None
         self.pageSize = None
         self.pageNum = None
+        self.resourceGroupId = None
 
     def _deserialize(self, params):
         self.cidrIds = params.get("cidrIds")
@@ -779,6 +791,7 @@ class DescribeCidrsRequest(AbstractModel):
         self.source = params.get("source")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
+        self.resourceGroupId = params.get("resourceGroupId")
 
 
 class DescribeCidrsResponse(AbstractModel):
@@ -1203,6 +1216,7 @@ class DescribeDisksRequest(AbstractModel):
         self.zoneId = None
         self.pageSize = None
         self.pageNum = None
+        self.resourceGroupId = None
 
     def _deserialize(self, params):
         self.diskIds = params.get("diskIds")
@@ -1214,6 +1228,7 @@ class DescribeDisksRequest(AbstractModel):
         self.zoneId = params.get("zoneId")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
+        self.resourceGroupId = params.get("resourceGroupId")
 
 
 class DescribeDisksResponse(AbstractModel):
@@ -1277,6 +1292,7 @@ class DiskInfo(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         self.resourceGroupName = params.get("resourceGroupName")
         self.serial = params.get("serial")
+
 
 class AttachDisksRequest(AbstractModel):
 
@@ -1771,6 +1787,7 @@ class DescribeNicsRequest(AbstractModel):
         self.status = None
         self.pageSize = None
         self.pageNum = None
+        self.resourceGroupId = None
 
     def _deserialize(self, params):
         self.nicIds = params.get("nicIds")
@@ -1782,6 +1799,7 @@ class DescribeNicsRequest(AbstractModel):
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
         self.instanceId = params.get("instanceId")
+        self.resourceGroupId = params.get("resourceGroupId")
 
 
 class DescribeNicsResponse(AbstractModel):
@@ -1968,6 +1986,26 @@ class UnAssignNicIpv4Response(AbstractModel):
         self.requestId = params.get("requestId")
 
 
+class UnassignNetworkInterfaceIpv4Request(AbstractModel):
+    def __init__(self):
+        self.nicId = None
+        self.ipAddress = None
+        self.ipAddresses = None
+
+    def _deserialize(self, params):
+        self.nicId = params.get("nicId")
+        self.ipAddress = params.get("ipAddress")
+        self.ipAddresses = params.get("ipAddresses")
+
+
+class UnassignNetworkInterfaceIpv4Response(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
 class AssignNicIpv4Request(AbstractModel):
     def __init__(self):
         self.nicId = None
@@ -2004,6 +2042,28 @@ class BatchAssignNicIpv4Response(AbstractModel):
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+
+
+class BatchAssignNetworkInterfaceIpv4Request(AbstractModel):
+    def __init__(self):
+        self.nicId = None
+        self.ipAddresses = None
+        self.ipAddressCount = None
+
+    def _deserialize(self, params):
+        self.nicId = params.get("nicId")
+        self.ipAddresses = params.get("ipAddresses")
+        self.ipAddressCount = params.get("ipAddressCount")
+
+
+class BatchAssignNetworkInterfaceIpv4Response(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.ipAddresses = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.ipAddresses = params.get("ipAddresses")
 
 
 class DetachNicRequest(AbstractModel):
@@ -2297,6 +2357,7 @@ class InstanceTypeQuotaItem(AbstractModel):
         self.instanceType = None
         self.cpuCount = None
         self.memory = None
+        self.withStock = None
         self.frequency = None
         self.internetMaxBandwidthOutLimit = None
         self.instanceTypeName = None
@@ -2307,6 +2368,7 @@ class InstanceTypeQuotaItem(AbstractModel):
         self.instanceType = params.get("instanceType")
         self.cpuCount = params.get("cpuCount")
         self.memory = params.get("memory")
+        self.withStock = params.get("withStock")
         self.frequency = params.get("frequency")
         self.internetMaxBandwidthOutLimit = params.get("internetMaxBandwidthOutLimit")
         self.instanceTypeName = params.get("instanceTypeName")
@@ -2540,6 +2602,7 @@ class DescribeEipInternetChargeTypesResponse(AbstractModel):
 
 
 class DescribeEipsRequest(AbstractModel):
+
     def __init__(self):
         self.eipIds = None
         self.regionId = None
@@ -2554,6 +2617,7 @@ class DescribeEipsRequest(AbstractModel):
         self.instanceId = None
         self.associatedId = None
         self.cidrIds = None
+        self.resourceGroupId = None
 
     def _deserialize(self, params):
         self.eipIds = params.get("eipIds")
@@ -2569,6 +2633,7 @@ class DescribeEipsRequest(AbstractModel):
         self.instanceId = params.get("instanceId")
         self.associatedId = params.get("associatedId")
         self.cidrIds = params.get("cidrIds")
+        self.resourceGroupId = params.get("resourceGroupId")
 
 
 class DescribeEipsResponse(AbstractModel):
@@ -2589,6 +2654,7 @@ class DescribeEipsResponse(AbstractModel):
 
 
 class EipInfo(AbstractModel):
+
     def __init__(self, params=None):
         if params is None:
             params = {}
@@ -3494,6 +3560,7 @@ class DescribeNatGatewaysRequest(AbstractModel):
         self.status = None
         self.pageSize = None
         self.pageNum = None
+        self.resourceGroupId = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -3503,6 +3570,7 @@ class DescribeNatGatewaysRequest(AbstractModel):
         self.status = params.get("status")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
+        self.resourceGroupId = params.get("resourceGroupId")
 
 
 class DescribeNatGatewaysResponse(AbstractModel):
@@ -4006,11 +4074,13 @@ class DescribeInstanceMonitorDataResponse(AbstractModel):
         self.maxValue = params.get("maxValue")
         self.minValue = params.get("minValue")
         self.avgValue = params.get("avgValue")
+
         if params.get("metrics") is not None:
             self.metrics = []
             for item in params.get("metrics"):
                 obj = MetricValue(item)
                 self.metrics.append(obj)
+
 
 class MetricValue(AbstractModel):
     def __init__(self, params=None):
@@ -4025,3 +4095,21 @@ class MetricValue(AbstractModel):
     def _deserialize(self, params):
         self.time = params.get("time")
         self.value = params.get("value")
+
+
+class DescribeAvailableBorderGatewayRequest(AbstractModel):
+    def __init__(self):
+        self.natGatewayId = None
+
+    def _deserialize(self, params):
+        self.natGatewayId = params.get("natGatewayId")
+
+
+class DescribeAvailableBorderGatewayResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.zbgId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.zbgId = params.get("zbgId")

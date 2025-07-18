@@ -423,7 +423,7 @@ class ZecClient(AbstractClient):
     def UnassignNetworkInterfaceIpv4(self, request):
         response = self._api_call("UnAssignNetworkInterfaceIpv4", request)
 
-        model = models.UnAssignNicIpv4Response()
+        model = models.UnassignNetworkInterfaceIpv4Response()
         model._deserialize(response)
         return model
 
@@ -437,7 +437,7 @@ class ZecClient(AbstractClient):
     def BatchAssignNetworkInterfaceIpv4(self, request):
         response = self._api_call("BatchAssignNetworkInterfaceIpv4", request)
 
-        model = models.BatchAssignNicIpv4Response()
+        model = models.BatchAssignNetworkInterfaceIpv4Response()
         model._deserialize(response)
         return model
 
@@ -828,5 +828,11 @@ class ZecClient(AbstractClient):
     def DescribeInstanceMonitorData(self, request):
         response = self._api_call("DescribeInstanceMonitorData", request)
         model = models.DescribeInstanceMonitorDataResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeAvailableBorderGateway(self, request):
+        response = self._api_call("DescribeAvailableBorderGateway", request)
+        model = models.DescribeAvailableBorderGatewayResponse()
         model._deserialize(response)
         return model
