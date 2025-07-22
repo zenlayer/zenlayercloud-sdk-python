@@ -573,6 +573,7 @@ class InstanceInfo(AbstractModel):
         self.instanceType = params.get("instanceType")
 
 
+
 class DescribeInstancesStatusRequest(AbstractModel):
 
     def __init__(self):
@@ -1292,7 +1293,6 @@ class DiskInfo(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         self.resourceGroupName = params.get("resourceGroupName")
         self.serial = params.get("serial")
-
 
 class AttachDisksRequest(AbstractModel):
 
@@ -2828,7 +2828,6 @@ class AssociateEipAddressRequest(AbstractModel):
         self.natId = params.get("natId")
         self.eipIds = params.get("eipIds")
         self.bindType = params.get("bindType")
-        self.eipIds = None
 
 
 class AssociateEipAddressResponse(AbstractModel):
@@ -4074,7 +4073,6 @@ class DescribeInstanceMonitorDataResponse(AbstractModel):
         self.maxValue = params.get("maxValue")
         self.minValue = params.get("minValue")
         self.avgValue = params.get("avgValue")
-
         if params.get("metrics") is not None:
             self.metrics = []
             for item in params.get("metrics"):

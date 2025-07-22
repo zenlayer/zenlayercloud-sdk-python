@@ -2506,6 +2506,7 @@ class DescribeManagedInstancesRequest(AbstractModel):
         self.cityCode = None
         self.pageNum = None
         self.pageSize = None
+        self.resourceGroupId = None
 
     def _deserialize(self, params):
         self.instanceIds = params.get("instanceIds")
@@ -2516,6 +2517,7 @@ class DescribeManagedInstancesRequest(AbstractModel):
         self.cityCode = params.get("cityCode")
         self.pageNum = params.get("pageNum")
         self.pageSize = params.get("pageSize")
+        self.resourceGroupId = params.get("resourceGroupId")
 
 
 class DescribeManagedInstancesResponse(AbstractModel):
@@ -2683,6 +2685,7 @@ class DescribeLoadBalancersRequest(AbstractModel):
         self.loadBalancerName = None
         self.pageNum = None
         self.pageSize = None
+        self.resourceGroupId = None
 
     def _deserialize(self, params):
         self.loadBalancerIds = params.get("loadBalancerIds")
@@ -2690,6 +2693,7 @@ class DescribeLoadBalancersRequest(AbstractModel):
         self.loadBalancerName = params.get("loadBalancerName")
         self.pageNum = params.get("pageNum")
         self.pageSize = params.get("pageSize")
+        self.resourceGroupId = params.get("resourceGroupId")
 
 
 class DescribeLoadBalancersResponse(AbstractModel):

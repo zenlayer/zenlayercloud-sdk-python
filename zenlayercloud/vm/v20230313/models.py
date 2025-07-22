@@ -1129,9 +1129,21 @@ class DescribeDisksRequest(AbstractModel):
         self.zoneId = None
         self.pageSize = None
         self.pageNum = None
+        self.resourceGroupId = None
 
     def _deserialize(self, params):
-        self.instanceIds = params.get("instanceIds")
+        self.diskIds = params.get("diskIds")
+        self.diskName = params.get("diskName")
+        self.diskStatus = params.get("diskStatus")
+        self.diskType = params.get("diskType")
+        self.diskSize = params.get("diskSize")
+        self.diskCategory = params.get("diskCategory")
+        self.portable = params.get("portable")
+        self.instanceId = params.get("instanceId")
+        self.zoneId = params.get("zoneId")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+        self.resourceGroupId = params.get("resourceGroupId")
 
 
 class DescribeDisksResponse(AbstractModel):

@@ -8,11 +8,13 @@ class DescribeListenersRequest(AbstractModel):
         self.loadBalancerId = None
         self.listenerIds = None
         self.protocol = None
+        self.resourceGroupId = None
 
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
         self.listenerIds = params.get("listenerIds")
         self.protocol = params.get("protocol")
+        self.resourceGroupId = params.get("resourceGroupId")
 
 
 class DescribeListenersResponse(AbstractModel):
@@ -362,6 +364,7 @@ class DescribeLoadBalancersRequest(AbstractModel):
         self.loadBalancerName = None
         self.pageSize = None
         self.pageNum = None
+        self.resourceGroupId = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -370,6 +373,7 @@ class DescribeLoadBalancersRequest(AbstractModel):
         self.loadBalancerName = params.get("loadBalancerName")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
+        self.resourceGroupId = params.get("resourceGroupId")
 
 
 class DescribeLoadBalancersResponse(AbstractModel):
