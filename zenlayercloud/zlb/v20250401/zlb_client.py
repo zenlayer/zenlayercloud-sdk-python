@@ -62,6 +62,12 @@ class ZLBClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeBackendHealth(self, request):
+        response = self._api_call("DescribeBackendHealth", request)
+        model = models.DescribeBackendHealthResponse()
+        model._deserialize(response)
+        return model
+
     def ModifyLoadBalancersAttribute(self, request):
         response = self._api_call("ModifyLoadBalancersAttribute", request)
         model = models.ModifyLoadBalancersAttributeResponse()
@@ -95,6 +101,12 @@ class ZLBClient(AbstractClient):
     def InquiryPriceCreateLoadBalancer(self, request):
         response = self._api_call("InquiryPriceCreateLoadBalancer", request)
         model = models.InquiryPriceCreateLoadBalancerResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeLoadBalancerMonitorData(self, request):
+        response = self._api_call("DescribeLoadBalancerMonitorData", request)
+        model = models.DescribeLoadBalancerMonitorDataResponse()
         model._deserialize(response)
         return model
 

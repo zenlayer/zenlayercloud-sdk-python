@@ -544,6 +544,7 @@ class InstanceInfo(AbstractModel):
         self.expiredTime = None
         self.resourceGroupId = None
         self.resourceGroupName = None
+        self.nics = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
@@ -571,7 +572,11 @@ class InstanceInfo(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         self.resourceGroupName = params.get("resourceGroupName")
         self.instanceType = params.get("instanceType")
-
+        if params.get("nics") is not None:
+            self.nics = []
+            for item in params.get("nics"):
+                obj = NicInfo(item)
+                self.nics.append(obj)
 
 
 class DescribeInstancesStatusRequest(AbstractModel):
@@ -1293,6 +1298,7 @@ class DiskInfo(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         self.resourceGroupName = params.get("resourceGroupName")
         self.serial = params.get("serial")
+
 
 class AttachDisksRequest(AbstractModel):
 

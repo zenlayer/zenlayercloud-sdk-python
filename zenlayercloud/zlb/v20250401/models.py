@@ -44,6 +44,7 @@ class Listener(AbstractModel):
         self.port = None
         self.healthCheck = None
         self.scheduler = None
+        self.kind = None
         self.createTime = None
 
     def _deserialize(self, params):
@@ -53,6 +54,7 @@ class Listener(AbstractModel):
         self.port = params.get("port")
         self.healthCheck = params.get("healthCheck")
         self.scheduler = params.get("scheduler")
+        self.kind = params.get("kind")
         self.createTime = params.get("createTime")
 
 
@@ -93,6 +95,7 @@ class CreateListenerRequest(AbstractModel):
         self.protocol = None
         self.scheduler = None
         self.port = None
+        self.kind = None
 
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
@@ -101,6 +104,7 @@ class CreateListenerRequest(AbstractModel):
         self.protocol = params.get("protocol")
         self.scheduler = params.get("scheduler")
         self.port = params.get("port")
+        self.kind = params.get("kind")
 
 
 class CreateListenerResponse(AbstractModel):
@@ -139,6 +143,7 @@ class ModifyListenerRequest(AbstractModel):
         self.healthCheck = None
         self.scheduler = None
         self.port = None
+        self.kind = None
 
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
@@ -147,6 +152,7 @@ class ModifyListenerRequest(AbstractModel):
         self.healthCheck = params.get("healthCheck")
         self.scheduler = params.get("scheduler")
         self.port = params.get("port")
+        self.kind = params.get("kind")
 
 
 class ModifyListenerResponse(AbstractModel):
@@ -336,6 +342,80 @@ class ListenerBackend(AbstractModel):
         self.listenerName = params.get("listenerName")
         self.protocol = params.get("protocol")
         self.listenerPort = params.get("listenerPort")
+
+
+class DescribeBackendHealthRequest(AbstractModel):
+    def __init__(self):
+        self.loadBalancerId = None
+        self.listenerId = None
+
+    def _deserialize(self, params):
+        self.loadBalancerId = params.get("loadBalancerId")
+        self.listenerId = params.get("listenerId")
+
+
+class DescribeBackendHealthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.backends = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("backends") is not None:
+            self.backends = []
+            for item in params.get("backends"):
+                obj = ListenerBackendHealth(item)
+                self.backends.append(obj)
+
+
+class ListenerBackendHealth(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.healthStatus = None
+        self.healthStatusDetail = None
+        self.instanceId = None
+        self.privateIpAddress = None
+        self.weight = None
+        self.backendPort = None
+        self.listenerId = None
+        self.listenerName = None
+        self.protocol = None
+        self.listenerPort = None
+
+    def _deserialize(self, params):
+        self.healthStatus = params.get("healthStatus")
+        if params.get("healthStatusDetail") is not None:
+            self.healthStatusDetail = []
+            for item in params.get("healthStatusDetail"):
+                obj = BackendHealthStatusDetail(item)
+                self.healthStatusDetail.append(obj)
+        self.instanceId = params.get("instanceId")
+        self.privateIpAddress = params.get("privateIpAddress")
+        self.weight = params.get("weight")
+        self.backendPort = params.get("backendPort")
+        self.listenerId = params.get("listenerId")
+        self.listenerName = params.get("listenerName")
+        self.protocol = params.get("protocol")
+        self.listenerPort = params.get("listenerPort")
+
+
+class BackendHealthStatusDetail(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.port = None
+        self.healthStatus = None
+
+    def _deserialize(self, params):
+        self.port = params.get("port")
+        self.healthStatus = params.get("healthStatus")
 
 
 class ModifyLoadBalancersAttributeRequest(AbstractModel):
@@ -579,5 +659,56 @@ class StepPrice(AbstractModel):
         self.stepEnd = params.get("stepEnd")
         self.unitPrice = params.get("unitPrice")
         self.discountUnitPrice = params.get("discountUnitPrice")
+
+
+class DescribeLoadBalancerMonitorDataRequest(AbstractModel):
+    def __init__(self):
+        self.loadBalancerId = None
+        self.listenerId = None
+        self.metricType = None
+        self.startTime = None
+        self.endTime = None
+
+    def _deserialize(self, params):
+        self.loadBalancerId = params.get("loadBalancerId")
+        self.listenerId = params.get("listenerId")
+        self.metricType = params.get("metricType")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+
+
+class DescribeLoadBalancerMonitorDataResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.maxValue = None
+        self.minValue = None
+        self.avgValue = None
+        self.metrics = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.maxValue = params.get("maxValue")
+        self.minValue = params.get("minValue")
+        self.avgValue = params.get("avgValue")
+        if params.get("metrics") is not None:
+            self.metrics = []
+            for item in params.get("metrics"):
+                obj = MetricValue(item)
+                self.metrics.append(obj)
+
+
+class MetricValue(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.time = None
+        self.value = None
+
+    def _deserialize(self, params):
+        self.time = params.get("time")
+        self.value = params.get("value")
 
 
