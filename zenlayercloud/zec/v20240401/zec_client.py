@@ -5,6 +5,13 @@ from zenlayercloud.zec.v20240401 import models
 
 
 class ZecClient(AbstractClient):
+    """
+    For maintaining enhanced SDK consistency. This client is no longer maintained.
+
+    .. deprecated:: v20240401
+       Using :class:`v20250901.ZecClient` instead。
+    """
+
     _api_version = "2024-04-01"
     _service = "zec"
 
@@ -19,6 +26,12 @@ class ZecClient(AbstractClient):
         response = self._api_call("DeleteVpc", request)
 
         model = models.DeleteVpcResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyVpcAttribute(self, request):
+        response = self._api_call("ModifyVpcAttribute", request)
+        model = models.ModifyVpcAttributeResponse()
         model._deserialize(response)
         return model
 
@@ -54,6 +67,12 @@ class ZecClient(AbstractClient):
         response = self._api_call("DeleteSubnet", request)
 
         model = models.DeleteSubnetResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifySubnetAttribute(self, request):
+        response = self._api_call("ModifySubnetAttribute", request)
+        model = models.ModifySubnetAttributeResponse()
         model._deserialize(response)
         return model
 
@@ -281,12 +300,6 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-    def TerminateDisk(self, request):
-        response = self._api_call("TerminateDisk", request)
-
-        model = models.TerminateDiskResponse()
-        model._deserialize(response)
-        return model
 
     def ReleaseDisk(self, request):
         response = self._api_call("ReleaseDisk", request)
@@ -728,6 +741,22 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def AssignBorderGatewayRoute(self, request):
+        response = self._api_call("AssignBorderGatewayRoute", request)
+
+        model = models.AssignBorderGatewayRouteResponse()
+        model._deserialize(response)
+        return model
+
+
+
+    def UnassignBorderGatewayRoute(self, request):
+        response = self._api_call("UnassignBorderGatewayRoute", request)
+
+        model = models.UnassignBorderGatewayRouteResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeBorderGateways(self, request):
         response = self._api_call("DescribeBorderGateways", request)
 
@@ -813,9 +842,21 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ModifyEipAttribute(self, request):
+        response = self._api_call("ModifyEipAttribute", request)
+        model = models.ModifyEipAttributeResponse()
+        model._deserialize(response)
+        return model
+
     def ModifyEipBandwidth(self, request):
         response = self._api_call("ModifyEipBandwidth", request)
         model = models.ModifyEipBandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def ChangeEipBindType(self, request):
+        response = self._api_call("ChangeEipBindType", request)
+        model = models.ChangeEipBindTypeResponse()
         model._deserialize(response)
         return model
 
@@ -834,5 +875,49 @@ class ZecClient(AbstractClient):
     def DescribeAvailableBorderGateway(self, request):
         response = self._api_call("DescribeAvailableBorderGateway", request)
         model = models.DescribeAvailableBorderGatewayResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateSnapshot(self, request):
+        response = self._api_call("CreateSnapshot", request)
+        model = models.CreateSnapshotResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifySnapshotsAttribute(self, request):
+        response = self._api_call("ModifySnapshotsAttribute", request)
+        model = models.ModifySnapshotsAttributeResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteSnapshots(self, request):
+        response = self._api_call("DeleteSnapshots", request)
+        model = models.DeleteSnapshotsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeSnapshots(self, request):
+        response = self._api_call("DescribeSnapshots", request)
+        model = models.DescribeSnapshotsResponse()
+        model._deserialize(response)
+        return model
+
+    def ApplySnapshot(self, request):
+        response = self._api_call("ApplySnapshot", request)
+        model = models.ApplySnapshotResponse()
+        model._deserialize(response)
+        return model
+
+
+    def ModifyNatGatewaysAttribute(self, request):
+        response = self._api_call("ModifyNatGatewaysAttribute", request)
+        model = models.ModifyNatGatewaysAttributeResponse()
+        model._deserialize(response)
+        return model
+
+
+    def ModifyNatGateway(self, request):
+        response = self._api_call("ModifyNatGateway", request)
+        model = models.ModifyNatGatewayResponse()
         model._deserialize(response)
         return model

@@ -14,6 +14,7 @@ class CreateInstancesRequest(AbstractModel):
         self.instanceTypeId = None
         self.imageId = None
         self.ipxeUrl = None
+        self.keyId = None
         self.resourceGroupId = None
         self.instanceName = None
         self.hostname = None
@@ -29,6 +30,8 @@ class CreateInstancesRequest(AbstractModel):
         self.nic = None
         self.clusterId = None
         self.enablePrimaryIPv6 = None
+        self.marketingOptions = None
+        self.userData = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -38,6 +41,7 @@ class CreateInstancesRequest(AbstractModel):
         self.instanceTypeId = params.get("instanceTypeId")
         self.imageId = params.get("imageId")
         self.ipxeUrl = params.get("ipxeUrl")
+        self.keyId = params.get("keyId")
         self.resourceGroupId = params.get("imageId")
         self.instanceName = params.get("instanceName")
         self.hostname = params.get("hostname")
@@ -59,6 +63,9 @@ class CreateInstancesRequest(AbstractModel):
             self.nic = Nic(params.get("nic"))
         self.clusterId = params.get("clusterId")
         self.enablePrimaryIPv6 = params.get("enablePrimaryIPv6")
+        if params.get("marketingOptions") is not None:
+            self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
+        self.userData = params.get("userData")
 
 
 class CreateInstancesResponse(AbstractModel):
@@ -72,6 +79,23 @@ class CreateInstancesResponse(AbstractModel):
     def _deserialize(self, params):
         self.instanceIdSet = params.get("instanceIdSet")
         self.requestId = params.get("requestId")
+
+
+
+class MarketingInfo(AbstractModel):
+
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.discountCode = None
+        self.usePocVoucher = None
+
+    def _deserialize(self, params):
+        self.discountCode = params.get("discountCode")
+        self.usePocVoucher = params.get("usePocVoucher")
 
 
 class ChargePrepaid(AbstractModel):
@@ -395,6 +419,7 @@ class InstanceInfo(AbstractModel):
         self.imageId = None
         self.imageName = None
         self.ipxeUrl = None
+        self.keyId = None
         self.instanceChargeType = None
         self.bandwidthOutMbps = None
         self.internetChargeType = None
@@ -425,6 +450,7 @@ class InstanceInfo(AbstractModel):
         self.imageId = params.get("imageId")
         self.imageName = params.get("imageName")
         self.ipxeUrl = params.get("ipxeUrl")
+        self.keyId = params.get("keyId")
         self.instanceChargeType = params.get("instanceChargeType")
         self.bandwidthOutMbps = params.get("bandwidthOutMbps")
         self.internetChargeType = params.get("internetChargeType")
@@ -512,17 +538,20 @@ class ReinstallInstanceRequest(AbstractModel):
         self.instanceId = None
         self.imageId = None
         self.ipxeUrl = None
+        self.keyId = None
         self.hostname = None
         self.password = None
         self.sshKeys = None
         self.raidConfig = None
         self.partitions = None
         self.nic = None
+        self.userData = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
         self.imageId = params.get("imageId")
         self.ipxeUrl = params.get("ipxeUrl")
+        self.keyId = params.get("keyId")
         self.hostname = params.get("hostname")
         self.password = params.get("password")
         self.sshKeys = params.get("sshKeys")
@@ -535,6 +564,7 @@ class ReinstallInstanceRequest(AbstractModel):
                 self.partitions.append(obj)
         if params.get("nic") is not None:
             self.nic = Nic(params.get("nic"))
+        self.userData = params.get("userData")
 
 
 class ReinstallInstanceResponse(AbstractModel):
@@ -1350,6 +1380,7 @@ class AllocateEipAddressesRequest(AbstractModel):
         self.eipChargePrepaid = None
         self.amount = None
         self.resourceGroupId = None
+        self.marketingOptions = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -1358,6 +1389,9 @@ class AllocateEipAddressesRequest(AbstractModel):
             self.eipChargePrepaid = ChargePrepaid(params.get("eipChargePrepaid"))
         self.amount = params.get("amount")
         self.resourceGroupId = params.get("resourceGroupId")
+        if params.get("marketingOptions") is not None:
+            self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
+
 
 
 class AllocateEipAddressesResponse(AbstractModel):
@@ -1865,6 +1899,7 @@ class CreateIpv4BlockRequest(AbstractModel):
         self.netmask = None
         self.amount = None
         self.resourceGroupId = None
+        self.marketingOptions = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -1875,6 +1910,8 @@ class CreateIpv4BlockRequest(AbstractModel):
         self.netmask = params.get("netmask")
         self.amount = params.get("amount")
         self.resourceGroupId = params.get("resourceGroupId")
+        if params.get("marketingOptions") is not None:
+            self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
 
 
 class CreateIpv4BlockResponse(AbstractModel):
@@ -2923,6 +2960,7 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.cidrBlockId = None
         self.masterIp = None
         self.backupIp = None
+        self.marketingOptions = None
 
     def _deserialize(self, params):
         self.clientToken = params.get("clientToken")
@@ -2938,6 +2976,8 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.cidrBlockId = params.get("cidrBlockId")
         self.masterIp = params.get("masterIp")
         self.backupIp = params.get("backupIp")
+        if params.get("marketingOptions") is not None:
+            self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
 
 
 class InstanceChargePrepaid(AbstractModel):

@@ -672,6 +672,7 @@ class AcceleratorAlert(AbstractModel):
         self.acceleratorId = None
         self.alertId = None
         self.alertType = None
+        self.labels = None
         self.message = None
         self.startTime = None
         self.endTime = None
@@ -680,6 +681,7 @@ class AcceleratorAlert(AbstractModel):
         self.acceleratorId = params.get("acceleratorId")
         self.alertId = params.get("alertId")
         self.alertType = params.get("alertType")
+        self.labels = params.get("labels")
         self.message = params.get("message")
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
@@ -1076,3 +1078,74 @@ class AcceleratorMetricsData(AbstractModel):
         self.averageSslHandshakeTime = params.get("averageSslHandshakeTime")
         self.averageRequestTime = params.get("averageRequestTime")
         self.time = params.get("time")
+
+class ModifyResourceGroupBandwidthLimitRequest(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.resourceGroupId = None
+        self.enable = None
+        self.bandwidth = None
+
+    def _deserialize(self, params):
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.enable = params.get("enable")
+        self.bandwidth = params.get("bandwidth")
+
+class ModifyResourceGroupBandwidthLimitResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.resourceGroupId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.resourceGroupId = params.get("resourceGroupId")
+
+class DescribeResourceGroupsBandwidthLimitRequest(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.resourceGroupIds = None
+
+    def _deserialize(self, params):
+        self.resourceGroupIds = params.get("resourceGroupIds")
+
+class DescribeResourceGroupsBandwidthLimitResponse(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.requestId = None
+        self.resourceGroups = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("resourceGroups") is not None:
+            self.resourceGroups = []
+            for item in params.get("resourceGroups"):
+                obj = ResourceGroupBandwidthLimitInfo(item)
+                self.resourceGroups.append(obj)
+
+class ResourceGroupBandwidthLimitInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.resourceGroupId = None
+        self.enable = None
+        self.bandwidth = None
+
+    def _deserialize(self, params):
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.enable = params.get("enable")
+        self.bandwidth = params.get("bandwidth")

@@ -31,3 +31,34 @@ class UserClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def CreateResourceGroup(self, request):
+            response = self._api_call("CreateResourceGroup", request)
+
+            model = models.CreateResourceGroupResponse()
+            model._deserialize(response)
+            return model
+
+    def ModifyResourceGroup(self, request):
+        response = self._api_call("ModifyResourceGroup", request)
+
+        model = models.ModifyResourceGroupResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteResourceGroup(self, request):
+         response = self._api_call("DeleteResourceGroup", request)
+
+         model = models.DeleteResourceGroupResponse()
+         model._deserialize(response)
+         return model
+
+    def AddResourceResourceGroup(self, request):
+        response = self._api_call("AddResourceResourceGroup", request)
+
+        model = models.AddResourceResourceGroupResponse()
+        model._deserialize(response)
+        return model
+
+
+
+

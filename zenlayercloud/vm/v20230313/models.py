@@ -286,6 +286,7 @@ class CreateInstancesRequest(AbstractModel):
         self.trafficPackageSize = None
         self.subnetId = None
         self.enableIpv6 = None
+        self.enableIpv4 = None
         self.cpuPassThrough = None
         self.initScript = None
         self.systemDisk = None
@@ -295,6 +296,7 @@ class CreateInstancesRequest(AbstractModel):
         self.clusterId = None
         self.networkMode = None
         self.diskPreAllocated = None
+        self.marketingOptions = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -313,6 +315,7 @@ class CreateInstancesRequest(AbstractModel):
         self.trafficPackageSize = params.get("trafficPackageSize")
         self.subnetId = params.get("subnetId")
         self.enableIpv6 = params.get("enableIpv6")
+        self.enableIpv4 = params.get("enableIpv4")
         self.cpuPassThrough = params.get("cpuPassThrough")
         self.initScript = params.get("initScript")
         if params.get("systemDisk") is not None:
@@ -328,6 +331,24 @@ class CreateInstancesRequest(AbstractModel):
         self.clusterId = params.get("clusterId")
         self.networkMode = params.get("networkMode")
         self.diskPreAllocated = params.get("diskPreAllocated")
+        if params.get("marketingOptions") is not None:
+            self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
+
+
+class MarketingInfo(AbstractModel):
+
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.discountCode = None
+        self.usePocVoucher = None
+
+    def _deserialize(self, params):
+        self.discountCode = params.get("discountCode")
+        self.usePocVoucher = params.get("usePocVoucher")
 
 
 class Nic(AbstractModel):
@@ -1088,6 +1109,7 @@ class CreateDisksRequest(AbstractModel):
         self.zoneId = None
         self.diskAmount = None
         self.resourceGroupId = None
+        self.marketingOptions = None
 
     def _deserialize(self, params):
         self.chargeType = params.get("chargeType")
@@ -1100,6 +1122,8 @@ class CreateDisksRequest(AbstractModel):
         self.zoneId = params.get("zoneId")
         self.diskAmount = params.get("diskAmount")
         self.resourceGroupId = params.get("resourceGroupId")
+        if params.get("marketingOptions") is not None:
+            self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
 
 
 class CreateDisksResponse(AbstractModel):

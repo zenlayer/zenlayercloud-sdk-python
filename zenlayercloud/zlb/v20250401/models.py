@@ -488,6 +488,7 @@ class LoadBalancer(AbstractModel):
         self.privateIpAddress = None
         self.listenerCount = None
         self.createTime = None
+        self.resourceGroup = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -499,6 +500,22 @@ class LoadBalancer(AbstractModel):
         self.privateIpAddress = params.get("privateIpAddress")
         self.listenerCount = params.get("listenerCount")
         self.createTime = params.get("createTime")
+        self.resourceGroup = ResourceGroupInfo(params.get("resourceGroup"))
+
+
+class ResourceGroupInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.resourceGroupId = None
+        self.resourceGroupName = None
+
+    def _deserialize(self, params):
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.resourceGroupName = params.get("resourceGroupName")
 
 
 class RestoreLoadBalancerRequest(AbstractModel):
@@ -545,6 +562,7 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.bandwidthClusterId = None
         self.resourceGroupId = None
         self.number = None
+        self.marketingOptions = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -557,6 +575,26 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.bandwidthClusterId = params.get("bandwidthClusterId")
         self.resourceGroupId = params.get("resourceGroupId")
         self.number = params.get("number")
+        if params.get("marketingOptions") is not None:
+            self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
+
+
+class MarketingInfo(AbstractModel):
+
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.discountCode = None
+        self.usePocVoucher = None
+
+    def _deserialize(self, params):
+        self.discountCode = params.get("discountCode")
+        self.usePocVoucher = params.get("usePocVoucher")
+
+
 
 
 class CreateLoadBalancerResponse(AbstractModel):

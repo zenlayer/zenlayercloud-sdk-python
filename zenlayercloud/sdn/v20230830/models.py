@@ -347,6 +347,7 @@ class CreatePortRequest(AbstractModel):
         self.portRemarks = None
         self.portType = None
         self.businessEntityName = None
+        self.marketingOptions = None
 
     def _deserialize(self, params):
         self.dcId = params.get("dcId")
@@ -354,6 +355,8 @@ class CreatePortRequest(AbstractModel):
         self.portRemarks = params.get("portRemarks")
         self.portType = params.get("portType")
         self.businessEntityName = params.get("businessEntityName")
+        if params.get("marketingOptions") is not None:
+            self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
 
 
 class CreatePortResponse(AbstractModel):
@@ -365,6 +368,24 @@ class CreatePortResponse(AbstractModel):
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
         self.portId = params.get("portId")
+
+
+
+class MarketingInfo(AbstractModel):
+
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.discountCode = None
+        self.usePocVoucher = None
+
+    def _deserialize(self, params):
+        self.discountCode = params.get("discountCode")
+        self.usePocVoucher = params.get("usePocVoucher")
+
 
 
 class DescribeDataCenterPortPriceRequest(AbstractModel):
@@ -870,6 +891,7 @@ class CreatePrivateConnectRequest(AbstractModel):
         self.endpointZ = None
         self.bandwidthMbps = None
         self.resourceGroupId = None
+        self.marketingOptions = None
 
     def _deserialize(self, params):
         self.privateConnectName = params.get("privateConnectName")
@@ -879,6 +901,8 @@ class CreatePrivateConnectRequest(AbstractModel):
             self.endpointZ = CreateEndpointParam(params.get("endpointZ"))
         self.bandwidthMbps = params.get("bandwidthMbps")
         self.resourceGroupId = params.get("resourceGroupId")
+        if params.get("marketingOptions") is not None:
+            self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
 
 
 class CreatePrivateConnectResponse(AbstractModel):
@@ -1383,6 +1407,7 @@ class CreateCloudRouterRequest(AbstractModel):
         self.cloudRouterDescription = None
         self.edgePoints = None
         self.resourceGroupId = None
+        self.marketingOptions = None
 
     def _deserialize(self, params):
         self.cloudRouterName = params.get("cloudRouterName")
@@ -1393,6 +1418,8 @@ class CreateCloudRouterRequest(AbstractModel):
                 obj = CreateCloudRouterEdgePoint(item)
                 self.edgePoints.append(obj)
         self.resourceGroupId = params.get("resourceGroupId")
+        if params.get("marketingOptions") is not None:
+            self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
 
 
 class CreateCloudRouterResponse(AbstractModel):

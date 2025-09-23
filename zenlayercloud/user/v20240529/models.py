@@ -112,3 +112,93 @@ class ResourceInfo(AbstractModel):
         self.resourceType = params.get("resourceType")
         self.createTime = params.get("createTime")
         self.updateTime = params.get("updateTime")
+
+
+class CreateResourceGroupRequest(AbstractModel):
+
+    def __init__(self):
+        self.name = None
+
+    def _deserialize(self, params):
+        self.name = params.get("name")
+
+
+class CreateResourceGroupResponse(AbstractModel):
+
+    def __init__(self):
+        self.name = None
+        self.resourceGroupId = None
+        self.createTime = None
+
+    def _deserialize(self, params):
+        self.name = params.get("name")
+        self.createTime = params.get("createTime")
+        self.resourceGroupId = params.get("resourceGroupId")
+
+class AddResourceResourceGroupRequest(AbstractModel):
+
+    def __init__(self):
+        self.resources = None
+        self.resourceGroupId = None
+
+
+    def _deserialize(self, params):
+        self.resources = params.get("resources")
+        self.resourceGroupId = params.get("resourceGroupId")
+
+
+class AddResourceResourceGroupResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+class DeleteResourceGroupRequest(AbstractModel):
+
+    def __init__(self):
+        self.resourceGroupId = None
+
+
+    def _deserialize(self, params):
+        self.resourceGroupId = params.get("resourceGroupId")
+
+class DeleteResourceGroupResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class ModifyResourceGroupRequest(AbstractModel):
+
+    def __init__(self):
+        self.resourceGroupId = None
+        self.name = None
+
+    def _deserialize(self, params):
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.name = params.get("name")
+
+class ModifyResourceGroupResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.name = None
+        self.resourceGroupId = None
+        self.createTime = None
+
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.name = params.get("name")
+        self.createTime = params.get("createTime")
+        self.resourceGroupId = params.get("resourceGroupId")
+
+
+

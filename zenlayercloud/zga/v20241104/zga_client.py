@@ -198,3 +198,17 @@ class ZgaClient(AbstractClient):
         model = models.DescribeAcceleratorMetricsResponse()
         model._deserialize(response)
         return model
+
+    def DescribeResourceGroupsBandwidthLimit(self, request):
+        response = self._api_call("DescribeResourceGroupsBandwidthLimit", request)
+
+        model = models.DescribeResourceGroupsBandwidthLimitResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyResourceGroupBandwidthLimit(self, request):
+        response = self._api_call("ModifyResourceGroupBandwidthLimit", request)
+
+        model = models.ModifyResourceGroupBandwidthLimitResponse()
+        model._deserialize(response)
+        return model
