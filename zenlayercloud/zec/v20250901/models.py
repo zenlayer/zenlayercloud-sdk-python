@@ -17,6 +17,8 @@ class DescribeDisksRequest(AbstractModel):
         self.regionId = None
         self.snapshotAbility = None
         self.resourceGroupId = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.diskIds = params.get("diskIds")
@@ -31,6 +33,27 @@ class DescribeDisksRequest(AbstractModel):
         self.regionId = params.get("regionId")
         self.snapshotAbility = params.get("snapshotAbility")
         self.resourceGroupId = params.get("resourceGroupId")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+
+
+class Tag(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.key = None
+        self.value = None
+
+    def _deserialize(self, params):
+        self.key = params.get("key")
+        self.value = params.get("value")
 
 
 class DescribeDisksResponse(AbstractModel):
@@ -75,6 +98,7 @@ class DiskInfo(AbstractModel):
         self.serial = None
         self.snapshotAbility = None
         self.autoSnapshotPolicyId = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.diskId = params.get("diskId")
@@ -96,6 +120,25 @@ class DiskInfo(AbstractModel):
         self.serial = params.get("serial")
         self.snapshotAbility = params.get("snapshotAbility")
         self.autoSnapshotPolicyId = params.get("autoSnapshotPolicyId")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
+
+
+class Tags(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.tags = None
+
+    def _deserialize(self, params):
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
 class DescribeDiskRegionsRequest(AbstractModel):
@@ -208,6 +251,7 @@ class CreateDisksRequest(AbstractModel):
         self.diskCategory = None
         self.snapshotId = None
         self.marketingOptions = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -220,6 +264,8 @@ class CreateDisksRequest(AbstractModel):
         self.snapshotId = params.get("snapshotId")
         if params.get("marketingOptions") is not None:
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 
 class MarketingInfo(AbstractModel):
@@ -235,6 +281,23 @@ class MarketingInfo(AbstractModel):
     def _deserialize(self, params):
         self.discountCode = params.get("discountCode")
         self.usePocVoucher = params.get("usePocVoucher")
+
+
+class TagAssociation(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.tags = None
+
+    def _deserialize(self, params):
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
 class CreateDisksResponse(AbstractModel):
@@ -417,6 +480,7 @@ class CreateVpcRequest(AbstractModel):
         self.mtu = None
         self.enablePriIpv6 = None
         self.resourceGroupId = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.name = params.get("name")
@@ -424,6 +488,8 @@ class CreateVpcRequest(AbstractModel):
         self.mtu = params.get("mtu")
         self.enablePriIpv6 = params.get("enablePriIpv6")
         self.resourceGroupId = params.get("resourceGroupId")
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 
 class CreateVpcResponse(AbstractModel):
@@ -605,6 +671,8 @@ class DescribeVpcsRequest(AbstractModel):
         self.pageSize = None
         self.pageNum = None
         self.resourceGroupId = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.vpcIds = params.get("vpcIds")
@@ -613,6 +681,12 @@ class DescribeVpcsRequest(AbstractModel):
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
         self.resourceGroupId = params.get("resourceGroupId")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
 class DescribeVpcsResponse(AbstractModel):
@@ -649,6 +723,7 @@ class VpcInfo(AbstractModel):
         self.usageIpv6Count = None
         self.securityGroupId = None
         self.resourceGroup = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.vpcId = params.get("vpcId")
@@ -663,6 +738,8 @@ class VpcInfo(AbstractModel):
         self.securityGroupId = params.get("securityGroupId")
         if params.get("resourceGroup") is not None:
             self.resourceGroup = ResourceGroupInfo(params.get("resourceGroup"))
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
 
 
 class ResourceGroupInfo(AbstractModel):
@@ -749,7 +826,9 @@ class SubnetInfo(AbstractModel):
         self.regionId = None
         self.name = None
         self.cidrBlock = None
+        self.gatewayIpAddress = None
         self.ipv6CidrBlock = None
+        self.ipv6GatewayIpAddress = None
         self.stackType = None
         self.ipv6Type = None
         self.vpcId = None
@@ -764,7 +843,9 @@ class SubnetInfo(AbstractModel):
         self.regionId = params.get("regionId")
         self.name = params.get("name")
         self.cidrBlock = params.get("cidrBlock")
+        self.gatewayIpAddress = params.get("gatewayIpAddress")
         self.ipv6CidrBlock = params.get("ipv6CidrBlock")
+        self.ipv6GatewayIpAddress = params.get("ipv6GatewayIpAddress")
         self.stackType = params.get("stackType")
         self.ipv6Type = params.get("ipv6Type")
         self.vpcId = params.get("vpcId")
@@ -955,6 +1036,7 @@ class CreateAutoSnapshotPolicyRequest(AbstractModel):
         self.hours = None
         self.retentionDays = None
         self.resourceGroupId = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -963,6 +1045,8 @@ class CreateAutoSnapshotPolicyRequest(AbstractModel):
         self.hours = params.get("hours")
         self.retentionDays = params.get("retentionDays")
         self.resourceGroupId = params.get("resourceGroupId")
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 
 class CreateAutoSnapshotPolicyResponse(AbstractModel):
@@ -1019,6 +1103,8 @@ class DescribeAutoSnapshotPoliciesRequest(AbstractModel):
         self.resourceGroupId = None
         self.pageSize = None
         self.pageNum = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.autoSnapshotPolicyIds = params.get("autoSnapshotPolicyIds")
@@ -1027,6 +1113,12 @@ class DescribeAutoSnapshotPoliciesRequest(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
 class DescribeAutoSnapshotPoliciesResponse(AbstractModel):
@@ -1062,6 +1154,7 @@ class AutoSnapshotPolicy(AbstractModel):
         self.createTime = None
         self.resourceGroup = None
         self.diskIdSet = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.autoSnapshotPolicyId = params.get("autoSnapshotPolicyId")
@@ -1075,6 +1168,8 @@ class AutoSnapshotPolicy(AbstractModel):
         if params.get("resourceGroup") is not None:
             self.resourceGroup = ResourceGroupInfo(params.get("resourceGroup"))
         self.diskIdSet = params.get("diskIdSet")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
 
 
 class ModifyAutoSnapshotPolicyRequest(AbstractModel):
@@ -1149,6 +1244,8 @@ class DescribeNetworkInterfacesRequest(AbstractModel):
         self.nicType = None
         self.resourceGroupId = None
         self.securityGroupId = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.nicIds = params.get("nicIds")
@@ -1163,6 +1260,12 @@ class DescribeNetworkInterfacesRequest(AbstractModel):
         self.nicType = params.get("nicType")
         self.resourceGroupId = params.get("resourceGroupId")
         self.securityGroupId = params.get("securityGroupId")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
 class DescribeNetworkInterfacesResponse(AbstractModel):
@@ -1208,6 +1311,7 @@ class NicInfo(AbstractModel):
         self.updateTime = None
         self.resourceGroup = None
         self.securityGroupId = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.nicId = params.get("nicId")
@@ -1231,6 +1335,8 @@ class NicInfo(AbstractModel):
         if params.get("resourceGroup") is not None:
             self.resourceGroup = ResourceGroupInfo(params.get("resourceGroup"))
         self.securityGroupId = params.get("securityGroupId")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
 
 
 class ModifyNetworkInterfaceAttributeRequest(AbstractModel):
@@ -1283,6 +1389,7 @@ class CreateNetworkInterfaceRequest(AbstractModel):
         self.packageSize = None
         self.clusterId = None
         self.marketingOptions = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.name = params.get("name")
@@ -1296,6 +1403,8 @@ class CreateNetworkInterfaceRequest(AbstractModel):
         self.clusterId = params.get("clusterId")
         if params.get("marketingOptions") is not None:
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 
 class CreateNetworkInterfaceResponse(AbstractModel):
@@ -1536,6 +1645,8 @@ class DescribeImagesRequest(AbstractModel):
         self.imageStatus = None
         self.pageNum = None
         self.pageSize = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -1547,6 +1658,12 @@ class DescribeImagesRequest(AbstractModel):
         self.imageStatus = params.get("imageStatus")
         self.pageNum = params.get("pageNum")
         self.pageSize = params.get("pageSize")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
 class DescribeImagesResponse(AbstractModel):
@@ -1582,6 +1699,7 @@ class Image(AbstractModel):
         self.nicNetworkType = None
         self.category = None
         self.osType = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.imageId = params.get("imageId")
@@ -1594,6 +1712,71 @@ class Image(AbstractModel):
         self.nicNetworkType = params.get("nicNetworkType")
         self.category = params.get("category")
         self.osType = params.get("osType")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
+
+
+class CreateImageRequest(AbstractModel):
+    def __init__(self):
+        self.instanceId = None
+        self.imageName = None
+        self.resourceGroupId = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+        self.imageName = params.get("imageName")
+        self.resourceGroupId = params.get("resourceGroupId")
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
+
+
+class CreateImageResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.imageId = None
+        self.imageName = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.imageId = params.get("imageId")
+        self.imageName = params.get("imageName")
+
+
+class ModifyImagesAttributesRequest(AbstractModel):
+    def __init__(self):
+        self.imageIds = None
+        self.imageName = None
+
+    def _deserialize(self, params):
+        self.imageIds = params.get("imageIds")
+        self.imageName = params.get("imageName")
+
+
+class ModifyImagesAttributesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DeleteImagesRequest(AbstractModel):
+    def __init__(self):
+        self.imageIds = None
+
+    def _deserialize(self, params):
+        self.imageIds = params.get("imageIds")
+
+
+class DeleteImagesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.imageIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.imageIds = params.get("imageIds")
 
 
 class DescribeSecurityGroupsRequest(AbstractModel):
@@ -1896,6 +2079,8 @@ class DescribeEipsRequest(AbstractModel):
         self.associatedId = None
         self.cidrIds = None
         self.resourceGroupId = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.eipIds = params.get("eipIds")
@@ -1912,6 +2097,12 @@ class DescribeEipsRequest(AbstractModel):
         self.associatedId = params.get("associatedId")
         self.cidrIds = params.get("cidrIds")
         self.resourceGroupId = params.get("resourceGroupId")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
 class DescribeEipsResponse(AbstractModel):
@@ -1951,6 +2142,7 @@ class EipInfo(AbstractModel):
         self.nicId = None
         self.associatedId = None
         self.associatedType = None
+        self.instanceId = None
         self.bindType = None
         self.flowPackage = None
         self.bandwidth = None
@@ -1961,6 +2153,7 @@ class EipInfo(AbstractModel):
         self.resourceGroupId = None
         self.resourceGroupName = None
         self.bandwidthCluster = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.eipId = params.get("eipId")
@@ -1977,6 +2170,7 @@ class EipInfo(AbstractModel):
         self.nicId = params.get("nicId")
         self.associatedId = params.get("associatedId")
         self.associatedType = params.get("associatedType")
+        self.instanceId = params.get("instanceId")
         self.bindType = params.get("bindType")
         self.flowPackage = params.get("flowPackage")
         self.bandwidth = params.get("bandwidth")
@@ -1996,6 +2190,8 @@ class EipInfo(AbstractModel):
         self.resourceGroupName = params.get("resourceGroupName")
         if params.get("bandwidthCluster") is not None:
             self.bandwidthCluster = BandwidthClusterInfo(params.get("bandwidthCluster"))
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
 
 
 class EipGeoInfo(AbstractModel):
@@ -2058,6 +2254,7 @@ class CreateEipsRequest(AbstractModel):
         self.clusterId = None
         self.peerRegionId = None
         self.marketingOptions = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -2075,6 +2272,8 @@ class CreateEipsRequest(AbstractModel):
         self.peerRegionId = params.get("peerRegionId")
         if params.get("marketingOptions") is not None:
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 
 class CreateEipsResponse(AbstractModel):
@@ -2684,6 +2883,8 @@ class DescribeCidrsRequest(AbstractModel):
         self.resourceGroupId = None
         self.pageSize = None
         self.pageNum = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.cidrIds = params.get("cidrIds")
@@ -2694,6 +2895,12 @@ class DescribeCidrsRequest(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
 class DescribeCidrsResponse(AbstractModel):
@@ -2734,6 +2941,7 @@ class CidrInfo(AbstractModel):
         self.resourceGroupId = None
         self.resourceGroupName = None
         self.status = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.cidrId = params.get("cidrId")
@@ -2751,6 +2959,8 @@ class CidrInfo(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         self.resourceGroupName = params.get("resourceGroupName")
         self.status = params.get("status")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
 
 
 class CreateCidrRequest(AbstractModel):
@@ -2761,6 +2971,7 @@ class CreateCidrRequest(AbstractModel):
         self.name = None
         self.resourceGroupId = None
         self.marketingOptions = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -2771,6 +2982,8 @@ class CreateCidrRequest(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         if params.get("marketingOptions") is not None:
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 
 class CreateCidrResponse(AbstractModel):
@@ -3276,6 +3489,7 @@ class CreateZecInstancesRequest(AbstractModel):
         self.clusterId = None
         self.resourceGroupId = None
         self.marketingOptions = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -3307,6 +3521,8 @@ class CreateZecInstancesRequest(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         if params.get("marketingOptions") is not None:
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 
 class CreateZecInstancesResponse(AbstractModel):
@@ -3354,6 +3570,8 @@ class DescribeInstancesRequest(AbstractModel):
         self.pageSize = None
         self.pageNum = None
         self.resourceGroupId = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.instanceIds = params.get("instanceIds")
@@ -3366,6 +3584,12 @@ class DescribeInstancesRequest(AbstractModel):
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
         self.resourceGroupId = params.get("resourceGroupId")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
 class DescribeInstancesResponse(AbstractModel):
@@ -3417,6 +3641,7 @@ class InstanceInfo(AbstractModel):
         self.resourceGroupId = None
         self.resourceGroupName = None
         self.nics = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
@@ -3454,6 +3679,8 @@ class InstanceInfo(AbstractModel):
             for item in params.get("nics"):
                 obj = NicInfo(item)
                 self.nics.append(obj)
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
 
 
 class DescribeInstancesStatusRequest(AbstractModel):
@@ -3816,6 +4043,7 @@ class CreateNatGatewayRequest(AbstractModel):
         self.subnetIds = None
         self.securityGroupId = None
         self.resourceGroupId = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -3824,6 +4052,8 @@ class CreateNatGatewayRequest(AbstractModel):
         self.subnetIds = params.get("subnetIds")
         self.securityGroupId = params.get("securityGroupId")
         self.resourceGroupId = params.get("resourceGroupId")
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 
 class CreateNatGatewayResponse(AbstractModel):
@@ -3893,6 +4123,8 @@ class DescribeNatGatewaysRequest(AbstractModel):
         self.pageSize = None
         self.pageNum = None
         self.resourceGroupId = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -3904,6 +4136,12 @@ class DescribeNatGatewaysRequest(AbstractModel):
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
         self.resourceGroupId = params.get("resourceGroupId")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
 class DescribeNatGatewaysResponse(AbstractModel):
@@ -3944,6 +4182,7 @@ class NatGateway(AbstractModel):
         self.resourceGroupName = None
         self.createTime = None
         self.expiredTime = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.natGatewayId = params.get("natGatewayId")
@@ -3961,6 +4200,8 @@ class NatGateway(AbstractModel):
         self.resourceGroupName = params.get("resourceGroupName")
         self.createTime = params.get("createTime")
         self.expiredTime = params.get("expiredTime")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
 
 
 class DescribeNatGatewayDetailRequest(AbstractModel):
@@ -4005,12 +4246,14 @@ class SnatEntry(AbstractModel):
         self.snatEntryId = None
         self.cidrs = None
         self.eipIds = None
+        self.isAllEip = None
         self.snatSubnets = None
 
     def _deserialize(self, params):
         self.snatEntryId = params.get("snatEntryId")
         self.cidrs = params.get("cidrs")
         self.eipIds = params.get("eipIds")
+        self.isAllEip = params.get("isAllEip")
         if params.get("snatSubnets") is not None:
             self.snatSubnets = []
             for item in params.get("snatSubnets"):
@@ -4115,14 +4358,16 @@ class InquiryPriceCreateNatGatewayResponse(AbstractModel):
 class CreateSnatEntryRequest(AbstractModel):
     def __init__(self):
         self.natGatewayId = None
-        self.cidr = None
         self.eipIds = None
+        self.cidr = None
+        self.sourceCidrBlocks = None
         self.subnetIds = None
 
     def _deserialize(self, params):
         self.natGatewayId = params.get("natGatewayId")
-        self.cidr = params.get("cidr")
         self.eipIds = params.get("eipIds")
+        self.cidr = params.get("cidr")
+        self.sourceCidrBlocks = params.get("sourceCidrBlocks")
         self.subnetIds = params.get("subnetIds")
 
 
@@ -4139,14 +4384,18 @@ class CreateSnatEntryResponse(AbstractModel):
 class ModifySnatEntryRequest(AbstractModel):
     def __init__(self):
         self.snatEntryId = None
-        self.cidr = None
         self.eipIds = None
+        self.isAllEip = None
+        self.cidr = None
+        self.sourceCidrBlocks = None
         self.subnetIds = None
 
     def _deserialize(self, params):
         self.snatEntryId = params.get("snatEntryId")
-        self.cidr = params.get("cidr")
         self.eipIds = params.get("eipIds")
+        self.isAllEip = params.get("isAllEip")
+        self.cidr = params.get("cidr")
+        self.sourceCidrBlocks = params.get("sourceCidrBlocks")
         self.subnetIds = params.get("subnetIds")
 
 
@@ -4407,3 +4656,5 @@ class RouteInfo(AbstractModel):
         self.nextHopName = params.get("nextHopName")
         self.nextHopType = params.get("nextHopType")
         self.createTime = params.get("createTime")
+
+

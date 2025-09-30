@@ -308,6 +308,24 @@ class ZECClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def CreateImage(self, request):
+        response = self._api_call("CreateImage", request)
+        model = models.CreateImageResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyImagesAttributes(self, request):
+        response = self._api_call("ModifyImagesAttributes", request)
+        model = models.ModifyImagesAttributesResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteImages(self, request):
+        response = self._api_call("DeleteImages", request)
+        model = models.DeleteImagesResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeSecurityGroups(self, request):
         response = self._api_call("DescribeSecurityGroups", request)
         model = models.DescribeSecurityGroupsResponse()

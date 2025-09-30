@@ -8,13 +8,11 @@ class DescribeListenersRequest(AbstractModel):
         self.loadBalancerId = None
         self.listenerIds = None
         self.protocol = None
-        self.resourceGroupId = None
 
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
         self.listenerIds = params.get("listenerIds")
         self.protocol = params.get("protocol")
-        self.resourceGroupId = params.get("resourceGroupId")
 
 
 class DescribeListenersResponse(AbstractModel):
@@ -52,7 +50,8 @@ class Listener(AbstractModel):
         self.listenerName = params.get("listenerName")
         self.protocol = params.get("protocol")
         self.port = params.get("port")
-        self.healthCheck = params.get("healthCheck")
+        if params.get("healthCheck") is not None:
+            self.healthCheck = HealthCheck(params.get("healthCheck"))
         self.scheduler = params.get("scheduler")
         self.kind = params.get("kind")
         self.createTime = params.get("createTime")
@@ -100,7 +99,8 @@ class CreateListenerRequest(AbstractModel):
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
         self.listenerName = params.get("listenerName")
-        self.healthCheck = params.get("healthCheck")
+        if params.get("healthCheck") is not None:
+            self.healthCheck = HealthCheck(params.get("healthCheck"))
         self.protocol = params.get("protocol")
         self.scheduler = params.get("scheduler")
         self.port = params.get("port")
@@ -149,7 +149,8 @@ class ModifyListenerRequest(AbstractModel):
         self.loadBalancerId = params.get("loadBalancerId")
         self.listenerId = params.get("listenerId")
         self.listenerName = params.get("listenerName")
-        self.healthCheck = params.get("healthCheck")
+        if params.get("healthCheck") is not None:
+            self.healthCheck = HealthCheck(params.get("healthCheck"))
         self.scheduler = params.get("scheduler")
         self.port = params.get("port")
         self.kind = params.get("kind")
@@ -445,6 +446,8 @@ class DescribeLoadBalancersRequest(AbstractModel):
         self.pageSize = None
         self.pageNum = None
         self.resourceGroupId = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -454,6 +457,27 @@ class DescribeLoadBalancersRequest(AbstractModel):
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
         self.resourceGroupId = params.get("resourceGroupId")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+
+
+class Tag(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.key = None
+        self.value = None
+
+    def _deserialize(self, params):
+        self.key = params.get("key")
+        self.value = params.get("value")
 
 
 class DescribeLoadBalancersResponse(AbstractModel):
@@ -489,6 +513,7 @@ class LoadBalancer(AbstractModel):
         self.listenerCount = None
         self.createTime = None
         self.resourceGroup = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -500,7 +525,10 @@ class LoadBalancer(AbstractModel):
         self.privateIpAddress = params.get("privateIpAddress")
         self.listenerCount = params.get("listenerCount")
         self.createTime = params.get("createTime")
-        self.resourceGroup = ResourceGroupInfo(params.get("resourceGroup"))
+        if params.get("resourceGroup") is not None:
+            self.resourceGroup = ResourceGroupInfo(params.get("resourceGroup"))
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
 
 
 class ResourceGroupInfo(AbstractModel):
@@ -516,6 +544,23 @@ class ResourceGroupInfo(AbstractModel):
     def _deserialize(self, params):
         self.resourceGroupId = params.get("resourceGroupId")
         self.resourceGroupName = params.get("resourceGroupName")
+
+
+class Tags(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.tags = None
+
+    def _deserialize(self, params):
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
 class RestoreLoadBalancerRequest(AbstractModel):
@@ -563,6 +608,7 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.resourceGroupId = None
         self.number = None
         self.marketingOptions = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -577,10 +623,11 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.number = params.get("number")
         if params.get("marketingOptions") is not None:
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 
 class MarketingInfo(AbstractModel):
-
     def __init__(self, params=None):
         if params is None:
             params = {}
@@ -595,6 +642,21 @@ class MarketingInfo(AbstractModel):
         self.usePocVoucher = params.get("usePocVoucher")
 
 
+class TagAssociation(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.tags = None
+
+    def _deserialize(self, params):
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
 class CreateLoadBalancerResponse(AbstractModel):
@@ -637,10 +699,14 @@ class InquiryPriceCreateLoadBalancerResponse(AbstractModel):
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
-        self.loadBalancerInstancePrice = params.get("loadBalancerInstancePrice")
-        self.eipPrice = params.get("eipPrice")
-        self.eipNetworkPrice = params.get("eipNetworkPrice")
-        self.lcuPrice = params.get("lcuPrice")
+        if params.get("loadBalancerInstancePrice") is not None:
+            self.loadBalancerInstancePrice = PriceItem(params.get("loadBalancerInstancePrice"))
+        if params.get("eipPrice") is not None:
+            self.eipPrice = PriceItem(params.get("eipPrice"))
+        if params.get("eipNetworkPrice") is not None:
+            self.eipNetworkPrice = PriceItem(params.get("eipNetworkPrice"))
+        if params.get("lcuPrice") is not None:
+            self.lcuPrice = PriceItem(params.get("lcuPrice"))
 
 
 class PriceItem(AbstractModel):
