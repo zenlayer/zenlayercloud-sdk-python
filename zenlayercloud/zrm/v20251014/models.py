@@ -92,11 +92,11 @@ class DescribeTagsResponse(AbstractModel):
         if params.get("dataSet") is not None:
             self.dataSet = []
             for item in params.get("dataSet"):
-                obj = Tag(item)
+                obj = TagInfo(item)
                 self.dataSet.append(obj)
 
 
-class Tag(AbstractModel):
+class TagInfo(AbstractModel):
     def __init__(self, params=None):
         if params is None:
             params = {}
@@ -166,21 +166,6 @@ class TagUnbindResourcesRequest(AbstractModel):
             for item in params.get("resources"):
                 obj = Resource(item)
                 self.resources.append(obj)
-
-
-class Resource(AbstractModel):
-    def __init__(self, params=None):
-        if params is None:
-            params = {}
-        if len(params) > 0:
-            self._deserialize(params)
-            return
-        self.type = None
-        self.uuid = None
-
-    def _deserialize(self, params):
-        self.type = params.get("type")
-        self.uuid = params.get("uuid")
 
 
 class TagUnbindResourcesResponse(AbstractModel):
