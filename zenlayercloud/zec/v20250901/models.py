@@ -3490,6 +3490,7 @@ class CreateZecInstancesRequest(AbstractModel):
         self.resourceGroupId = None
         self.marketingOptions = None
         self.tags = None
+        self.userData = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -3523,6 +3524,7 @@ class CreateZecInstancesRequest(AbstractModel):
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
         if params.get("tags") is not None:
             self.tags = TagAssociation(params.get("tags"))
+        self.userData = params.get("userData")
 
 
 class CreateZecInstancesResponse(AbstractModel):
@@ -3829,6 +3831,7 @@ class ResetInstanceRequest(AbstractModel):
         self.timezone = None
         self.enableAgent = None
         self.instanceName = None
+        self.userData = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
@@ -3838,7 +3841,7 @@ class ResetInstanceRequest(AbstractModel):
         self.timezone = params.get("timezone")
         self.enableAgent = params.get("enableAgent")
         self.instanceName = params.get("instanceName")
-
+        self.userData = params.get("userData")
 
 class ResetInstanceResponse(AbstractModel):
     def __init__(self):
