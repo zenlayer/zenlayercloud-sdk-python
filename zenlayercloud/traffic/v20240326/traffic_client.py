@@ -44,6 +44,12 @@ class TrafficClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ModifyBandwidthClusterAttribute(self, request):
+        response = self._api_call("ModifyBandwidthClusterAttribute", request)
+        model = models.ModifyBandwidthClusterAttributeResponse()
+        model._deserialize(response)
+        return model
+
     def DeleteBandwidthClusters(self, request):
         response = self._api_call("DeleteBandwidthClusters", request)
         model = models.DeleteBandwidthClustersResponse()
