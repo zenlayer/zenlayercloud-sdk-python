@@ -252,6 +252,7 @@ class CreateDisksRequest(AbstractModel):
         self.snapshotId = None
         self.marketingOptions = None
         self.tags = None
+        self.instanceIds = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -266,6 +267,7 @@ class CreateDisksRequest(AbstractModel):
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
         if params.get("tags") is not None:
             self.tags = TagAssociation(params.get("tags"))
+        self.instanceIds = params.get("instanceIds")
 
 
 class MarketingInfo(AbstractModel):
@@ -343,9 +345,11 @@ class DetachDisksRequest(AbstractModel):
 class DetachDisksResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
+        self.failedDiskIds = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+        self.failedDiskIds = params.get("failedDiskIds")
 
 
 class ModifyDisksAttributesRequest(AbstractModel):
@@ -2255,6 +2259,8 @@ class CreateEipsRequest(AbstractModel):
         self.peerRegionId = None
         self.marketingOptions = None
         self.tags = None
+        self.instanceIds = None
+        self.bindType = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -2274,6 +2280,8 @@ class CreateEipsRequest(AbstractModel):
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
         if params.get("tags") is not None:
             self.tags = TagAssociation(params.get("tags"))
+        self.instanceIds = params.get("instanceIds")
+        self.bindType = params.get("bindType")
 
 
 class CreateEipsResponse(AbstractModel):
@@ -3842,6 +3850,7 @@ class ResetInstanceRequest(AbstractModel):
         self.enableAgent = params.get("enableAgent")
         self.instanceName = params.get("instanceName")
         self.userData = params.get("userData")
+
 
 class ResetInstanceResponse(AbstractModel):
     def __init__(self):
