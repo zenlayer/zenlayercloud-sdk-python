@@ -32,6 +32,7 @@ class CreateInstancesRequest(AbstractModel):
         self.enablePrimaryIPv6 = None
         self.marketingOptions = None
         self.userData = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -66,6 +67,8 @@ class CreateInstancesRequest(AbstractModel):
         if params.get("marketingOptions") is not None:
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
         self.userData = params.get("userData")
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 
 class CreateInstancesResponse(AbstractModel):
@@ -130,12 +133,14 @@ class Zone(AbstractModel):
         self.zoneName = None
         self.cityName = None
         self.areaName = None
+        self.isCloudRouterAvailable = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
         self.zoneName = params.get("zoneName")
         self.cityName = params.get("cityName")
         self.areaName = params.get("areaName")
+        self.isCloudRouterAvailable = params.get("isCloudRouterAvailable")
 
 
 class RaidConfig(AbstractModel):
@@ -274,9 +279,11 @@ class Nic(AbstractModel):
 class DescribeZonesRequest(AbstractModel):
     def __init__(self):
         self.acceptLanguage = None
+        self.isCloudRouterAvailable = None
 
     def _deserialize(self, params):
         self.acceptLanguage = params.get("acceptLanguage")
+        self.isCloudRouterAvailable = params.get("isCloudRouterAvailable")
 
 
 class DescribeZonesResponse(AbstractModel):
@@ -367,6 +374,8 @@ class DescribeInstancesRequest(AbstractModel):
         self.privateIpAddresses = None
         self.pageSize = None
         self.pageNum = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.instanceIds = params.get("instanceIds")
@@ -383,7 +392,12 @@ class DescribeInstancesRequest(AbstractModel):
         self.privateIpAddresses = params.get("privateIpAddresses")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
-
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 class DescribeInstancesResponse(AbstractModel):
 
@@ -439,6 +453,7 @@ class InstanceInfo(AbstractModel):
         self.partitions = None
         self.nic = None
         self.autoRenew = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
@@ -476,7 +491,8 @@ class InstanceInfo(AbstractModel):
         if params.get("nic") is not None:
             self.nic = Nic(params.get("nic"))
         self.autoRenew = params.get("autoRenew")
-
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
 
 class StartInstancesRequest(AbstractModel):
 
@@ -1263,6 +1279,8 @@ class DescribeEipAddressesRequest(AbstractModel):
         self.resourceGroupId = None
         self.pageNum = None
         self.pageSize = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.eipChargeType = params.get("eipChargeType")
@@ -1275,7 +1293,12 @@ class DescribeEipAddressesRequest(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         self.pageNum = params.get("pageNum")
         self.pageSize = params.get("pageSize")
-
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 class DescribeEipAddressesResponse(AbstractModel):
 
@@ -1314,6 +1337,7 @@ class EipAddress(AbstractModel):
         self.eipStatus = None
         self.resourceGroupId = None
         self.resourceGroupName = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.eipId = params.get("eipId")
@@ -1328,7 +1352,8 @@ class EipAddress(AbstractModel):
         self.eipStatus = params.get("eipStatus")
         self.resourceGroupId = params.get("resourceGroupId")
         self.resourceGroupName = params.get("resourceGroupName")
-
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
 
 class DescribeEipAvailableResourcesRequest(AbstractModel):
 
@@ -1381,6 +1406,7 @@ class AllocateEipAddressesRequest(AbstractModel):
         self.amount = None
         self.resourceGroupId = None
         self.marketingOptions = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -1391,7 +1417,40 @@ class AllocateEipAddressesRequest(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         if params.get("marketingOptions") is not None:
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
+
+class TagAssociation(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.tags = None
+
+    def _deserialize(self, params):
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+
+
+class Tag(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.key = None
+        self.value = None
+
+    def _deserialize(self, params):
+        self.key = params.get("key")
+        self.value = params.get("value")
 
 
 class AllocateEipAddressesResponse(AbstractModel):
@@ -1600,6 +1659,8 @@ class DescribeCidrBlocksRequest(AbstractModel):
         self.resourceGroupId = None
         self.pageSize = None
         self.pageNum = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.cidrBlockIds = params.get("cidrBlockIds")
@@ -1612,7 +1673,12 @@ class DescribeCidrBlocksRequest(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
-
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 class DescribeCidrBlocksResponse(AbstractModel):
 
@@ -1655,6 +1721,7 @@ class CidrBlockInfo(AbstractModel):
         self.expireTime = None
         self.resourceGroupId = None
         self.resourceGroupName = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.cidrBlockId = params.get("cidrBlockId")
@@ -1673,6 +1740,25 @@ class CidrBlockInfo(AbstractModel):
         self.expireTime = params.get("expireTime")
         self.resourceGroupId = params.get("resourceGroupId")
         self.resourceGroupName = params.get("resourceGroupName")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
+
+
+class Tags(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.tags = None
+
+    def _deserialize(self, params):
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
 class DescribeCidrBlockIpsRequest(AbstractModel):
@@ -1900,6 +1986,7 @@ class CreateIpv4BlockRequest(AbstractModel):
         self.amount = None
         self.resourceGroupId = None
         self.marketingOptions = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -1912,7 +1999,8 @@ class CreateIpv4BlockRequest(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         if params.get("marketingOptions") is not None:
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
-
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 class CreateIpv4BlockResponse(AbstractModel):
 
@@ -1934,13 +2022,15 @@ class CreateIpv6BlockRequest(AbstractModel):
         self.name = None
         self.amount = None
         self.resourceGroupId = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
         self.name = params.get("name")
         self.amount = params.get("amount")
         self.resourceGroupId = params.get("resourceGroupId")
-
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 class CreateIpv6BlockResponse(AbstractModel):
 
@@ -2162,6 +2252,8 @@ class DescribeVpcsRequest(AbstractModel):
         self.resourceGroupId = None
         self.pageSize = None
         self.pageNum = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.vpcIds = params.get("vpcIds")
@@ -2172,7 +2264,12 @@ class DescribeVpcsRequest(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
-
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 class DescribeVpcsResponse(AbstractModel):
 
@@ -2208,6 +2305,7 @@ class VpcInfo(AbstractModel):
         self.resourceGroupId = None
         self.resourceGroupName = None
         self.vpcStatus = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.vpcId = params.get("vpcId")
@@ -2219,6 +2317,8 @@ class VpcInfo(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         self.resourceGroupName = params.get("resourceGroupName")
         self.vpcStatus = params.get("vpcStatus")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
 
 
 class CreateVpcRequest(AbstractModel):
@@ -2228,13 +2328,15 @@ class CreateVpcRequest(AbstractModel):
         self.cidrBlock = None
         self.vpcName = None
         self.resourceGroupId = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.vpcRegionId = params.get("vpcRegionId")
         self.cidrBlock = params.get("cidrBlock")
         self.vpcName = params.get("vpcName")
         self.resourceGroupId = params.get("resourceGroupId")
-
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 class CreateVpcResponse(AbstractModel):
 
