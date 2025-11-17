@@ -477,6 +477,55 @@ class DescribeDiskCategoryItem(AbstractModel):
         self.categorySet = params.get("categorySet")
 
 
+class DescribeDiskMonitorDataRequest(AbstractModel):
+    def __init__(self):
+        self.diskId = None
+        self.metricType = None
+        self.startTime = None
+        self.endTime = None
+
+    def _deserialize(self, params):
+        self.diskId = params.get("diskId")
+        self.metricType = params.get("metricType")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+
+
+class DescribeDiskMonitorDataResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.maxValue = None
+        self.minValue = None
+        self.avgValue = None
+        self.metrics = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.maxValue = params.get("maxValue")
+        self.minValue = params.get("minValue")
+        self.avgValue = params.get("avgValue")
+        if params.get("metrics") is not None:
+            self.metrics = []
+            for item in params.get("metrics"):
+                obj = MetricValue(item)
+                self.metrics.append(obj)
+
+
+class MetricValue(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.time = None
+        self.value = None
+
+    def _deserialize(self, params):
+        self.time = params.get("time")
+        self.value = params.get("value")
+
+
 class CreateVpcRequest(AbstractModel):
     def __init__(self):
         self.name = None
@@ -1783,6 +1832,453 @@ class DeleteImagesResponse(AbstractModel):
         self.imageIds = params.get("imageIds")
 
 
+class CreatePolicyRequest(AbstractModel):
+    def __init__(self):
+        self.policyName = None
+        self.resourceGroupId = None
+        self.blackIpList = None
+        self.whiteIpList = None
+        self.ipBlackTimeout = None
+        self.ports = None
+        self.blockProtocol = None
+        self.blockRegions = None
+        self.finger = None
+        self.reflectUdpPort = None
+        self.trafficControl = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.policyName = params.get("policyName")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.blackIpList = params.get("blackIpList")
+        self.whiteIpList = params.get("whiteIpList")
+        self.ipBlackTimeout = params.get("ipBlackTimeout")
+        if params.get("ports") is not None:
+            self.ports = []
+            for item in params.get("ports"):
+                obj = DdosPolicyPort(item)
+                self.ports.append(obj)
+        self.blockProtocol = params.get("blockProtocol")
+        self.blockRegions = params.get("blockRegions")
+        if params.get("finger") is not None:
+            self.finger = []
+            for item in params.get("finger"):
+                obj = DdosFingerprintRule(item)
+                self.finger.append(obj)
+        if params.get("reflectUdpPort") is not None:
+            self.reflectUdpPort = []
+            for item in params.get("reflectUdpPort"):
+                obj = DdosReflectUdpPort(item)
+                self.reflectUdpPort.append(obj)
+        if params.get("trafficControl") is not None:
+            self.trafficControl = DdosTrafficControl(params.get("trafficControl"))
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
+
+
+class DdosPolicyPort(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.protocol = None
+        self.srcPortStart = None
+        self.srcPortEnd = None
+        self.dstPortStart = None
+        self.dstPortEnd = None
+        self.action = None
+
+    def _deserialize(self, params):
+        self.protocol = params.get("protocol")
+        self.srcPortStart = params.get("srcPortStart")
+        self.srcPortEnd = params.get("srcPortEnd")
+        self.dstPortStart = params.get("dstPortStart")
+        self.dstPortEnd = params.get("dstPortEnd")
+        self.action = params.get("action")
+
+
+class DdosFingerprintRule(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.protocol = None
+        self.srcPortStart = None
+        self.srcPortEnd = None
+        self.dstPortStart = None
+        self.dstPortEnd = None
+        self.minPktLength = None
+        self.maxPktLength = None
+        self.offset = None
+        self.matchBytes = None
+        self.action = None
+
+    def _deserialize(self, params):
+        self.protocol = params.get("protocol")
+        self.srcPortStart = params.get("srcPortStart")
+        self.srcPortEnd = params.get("srcPortEnd")
+        self.dstPortStart = params.get("dstPortStart")
+        self.dstPortEnd = params.get("dstPortEnd")
+        self.minPktLength = params.get("minPktLength")
+        self.maxPktLength = params.get("maxPktLength")
+        self.offset = params.get("offset")
+        self.matchBytes = params.get("matchBytes")
+        self.action = params.get("action")
+
+
+class DdosReflectUdpPort(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.port = None
+
+    def _deserialize(self, params):
+        self.port = params.get("port")
+
+
+class DdosTrafficControl(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.bpsEnabled = None
+        self.bps = None
+        self.ppsEnabled = None
+        self.pps = None
+        self.synBPSEnabled = None
+        self.synBPS = None
+        self.synPPSEnabled = None
+        self.synPPS = None
+
+    def _deserialize(self, params):
+        self.bpsEnabled = params.get("bpsEnabled")
+        self.bps = params.get("bps")
+        self.ppsEnabled = params.get("ppsEnabled")
+        self.pps = params.get("pps")
+        self.synBPSEnabled = params.get("synBPSEnabled")
+        self.synBPS = params.get("synBPS")
+        self.synPPSEnabled = params.get("synPPSEnabled")
+        self.synPPS = params.get("synPPS")
+
+
+class CreatePolicyResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.policyId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.policyId = params.get("policyId")
+
+
+class DeletePolicyRequest(AbstractModel):
+    def __init__(self):
+        self.policyId = None
+
+    def _deserialize(self, params):
+        self.policyId = params.get("policyId")
+
+
+class DeletePolicyResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class ModifyPolicyRequest(AbstractModel):
+    def __init__(self):
+        self.policyId = None
+        self.policyName = None
+        self.configType = None
+        self.blackIpList = None
+        self.whiteIpList = None
+        self.ipBlackTimeout = None
+        self.ports = None
+        self.blockProtocol = None
+        self.blockRegions = None
+        self.finger = None
+        self.reflectUdpPort = None
+        self.trafficControl = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.policyId = params.get("policyId")
+        self.policyName = params.get("policyName")
+        self.configType = params.get("configType")
+        self.blackIpList = params.get("blackIpList")
+        self.whiteIpList = params.get("whiteIpList")
+        self.ipBlackTimeout = params.get("ipBlackTimeout")
+        if params.get("ports") is not None:
+            self.ports = []
+            for item in params.get("ports"):
+                obj = DdosPolicyPort(item)
+                self.ports.append(obj)
+        self.blockProtocol = params.get("blockProtocol")
+        self.blockRegions = params.get("blockRegions")
+        if params.get("finger") is not None:
+            self.finger = []
+            for item in params.get("finger"):
+                obj = DdosFingerprintRule(item)
+                self.finger.append(obj)
+        if params.get("reflectUdpPort") is not None:
+            self.reflectUdpPort = []
+            for item in params.get("reflectUdpPort"):
+                obj = DdosReflectUdpPort(item)
+                self.reflectUdpPort.append(obj)
+        if params.get("trafficControl") is not None:
+            self.trafficControl = DdosTrafficControl(params.get("trafficControl"))
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
+
+
+class ModifyPolicyResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribePolicysRequest(AbstractModel):
+    def __init__(self):
+        self.policyIds = None
+        self.policyName = None
+        self.pageSize = None
+        self.pageNum = None
+        self.tagKeys = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.policyIds = params.get("policyIds")
+        self.policyName = params.get("policyName")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+
+
+class DescribePolicysResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = PolicyInfo(item)
+                self.dataSet.append(obj)
+
+
+class PolicyInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.policyId = None
+        self.policyName = None
+        self.createTime = None
+        self.resourceGroupId = None
+        self.resourceGroupName = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.policyId = params.get("policyId")
+        self.policyName = params.get("policyName")
+        self.createTime = params.get("createTime")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.resourceGroupName = params.get("resourceGroupName")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
+
+
+class DescribePolicyDetailRequest(AbstractModel):
+    def __init__(self):
+        self.policyId = None
+
+    def _deserialize(self, params):
+        self.policyId = params.get("policyId")
+
+
+class DescribePolicyDetailResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.policyId = None
+        self.policyName = None
+        self.attachmentIps = None
+        self.createTime = None
+        self.blackIps = None
+        self.whiteIps = None
+        self.blackIpListExpireAt = None
+        self.blockProtocols = None
+        self.ports = None
+        self.blockRegions = None
+        self.reflectUdpPort = None
+        self.trafficControl = None
+        self.fingerPrintRules = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.policyId = params.get("policyId")
+        self.policyName = params.get("policyName")
+        self.attachmentIps = params.get("attachmentIps")
+        self.createTime = params.get("createTime")
+        self.blackIps = params.get("blackIps")
+        self.whiteIps = params.get("whiteIps")
+        self.blackIpListExpireAt = params.get("blackIpListExpireAt")
+        self.blockProtocols = params.get("blockProtocols")
+        if params.get("ports") is not None:
+            self.ports = []
+            for item in params.get("ports"):
+                obj = DdosPolicyPort(item)
+                self.ports.append(obj)
+        self.blockRegions = params.get("blockRegions")
+        if params.get("reflectUdpPort") is not None:
+            self.reflectUdpPort = []
+            for item in params.get("reflectUdpPort"):
+                obj = DdosReflectUdpPort(item)
+                self.reflectUdpPort.append(obj)
+        if params.get("trafficControl") is not None:
+            self.trafficControl = DdosTrafficControl(params.get("trafficControl"))
+        if params.get("fingerPrintRules") is not None:
+            self.fingerPrintRules = []
+            for item in params.get("fingerPrintRules"):
+                obj = DdosFingerprintRule(item)
+                self.fingerPrintRules.append(obj)
+
+
+class AttachToPolicyRequest(AbstractModel):
+    def __init__(self):
+        self.policyId = None
+        self.ipv4IdList = None
+
+    def _deserialize(self, params):
+        self.policyId = params.get("policyId")
+        self.ipv4IdList = params.get("ipv4IdList")
+
+
+class AttachToPolicyResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DetachFromPolicyRequest(AbstractModel):
+    def __init__(self):
+        self.policyId = None
+        self.ipv4IdList = None
+
+    def _deserialize(self, params):
+        self.policyId = params.get("policyId")
+        self.ipv4IdList = params.get("ipv4IdList")
+
+
+class DetachFromPolicyResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribePolicyRegionsRequest(AbstractModel):
+    def __init__(self):
+        pass
+
+    def _deserialize(self, params):
+        pass
+
+
+class DescribePolicyRegionsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.regions = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("regions") is not None:
+            self.regions = []
+            for item in params.get("regions"):
+                obj = PolicyRegion(item)
+                self.regions.append(obj)
+
+
+class PolicyRegion(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.regionId = None
+        self.regionName = None
+        self.areaName = None
+
+    def _deserialize(self, params):
+        self.regionId = params.get("regionId")
+        self.regionName = params.get("regionName")
+        self.areaName = params.get("areaName")
+
+
+class DescribeReflectUdpPortOptionsRequest(AbstractModel):
+    def __init__(self):
+        pass
+
+    def _deserialize(self, params):
+        pass
+
+
+class DescribeReflectUdpPortOptionsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.reflectUdpPorts = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("reflectUdpPorts") is not None:
+            self.reflectUdpPorts = []
+            for item in params.get("reflectUdpPorts"):
+                obj = ReflectUdpPortPolicy(item)
+                self.reflectUdpPorts.append(obj)
+
+
+class ReflectUdpPortPolicy(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.name = None
+        self.port = None
+
+    def _deserialize(self, params):
+        self.name = params.get("name")
+        self.port = params.get("port")
+
+
 class DescribeSecurityGroupsRequest(AbstractModel):
     def __init__(self):
         self.securityGroupIds = None
@@ -2732,6 +3228,142 @@ class EipMetricValue(AbstractModel):
         self.loseOut = params.get("loseOut")
 
 
+class DescribeDDosAllEventListRequest(AbstractModel):
+    def __init__(self):
+        self.status = None
+        self.ipAddress = None
+        self.startTime = None
+        self.endTime = None
+        self.pageSize = None
+        self.pageNum = None
+
+    def _deserialize(self, params):
+        self.status = params.get("status")
+        self.ipAddress = params.get("ipAddress")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+
+
+class DescribeDDosAllEventListResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = AttackEventInfo(item)
+                self.dataSet.append(obj)
+
+
+class AttackEventInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.eventId = None
+        self.status = None
+        self.ipAddress = None
+        self.protecting = None
+        self.startTime = None
+        self.endTime = None
+        self.endBlackholeTime = None
+        self.attackBandwidthMax = None
+        self.attackPackageMax = None
+        self.regionId = None
+
+    def _deserialize(self, params):
+        self.eventId = params.get("eventId")
+        self.status = params.get("status")
+        self.ipAddress = params.get("ipAddress")
+        self.protecting = params.get("protecting")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+        self.endBlackholeTime = params.get("endBlackholeTime")
+        self.attackBandwidthMax = params.get("attackBandwidthMax")
+        self.attackPackageMax = params.get("attackPackageMax")
+        self.regionId = params.get("regionId")
+
+
+class DescribeDDosEventDetailRequest(AbstractModel):
+    def __init__(self):
+        self.eventId = None
+        self.regionId = None
+
+    def _deserialize(self, params):
+        self.eventId = params.get("eventId")
+        self.regionId = params.get("regionId")
+
+
+class DescribeDDosEventDetailResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.eventId = None
+        self.status = None
+        self.type = None
+        self.ipAddress = None
+        self.protecting = None
+        self.startTime = None
+        self.endTime = None
+        self.endBlackholeTime = None
+        self.attackBandwidthMax = None
+        self.protectedBandwidthMax = None
+        self.attackPackageMax = None
+        self.protectedPackageMax = None
+        self.sourceIp = None
+        self.sourcePort = None
+        self.desertionPort = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.eventId = params.get("eventId")
+        self.status = params.get("status")
+        self.type = params.get("type")
+        self.ipAddress = params.get("ipAddress")
+        self.protecting = params.get("protecting")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+        self.endBlackholeTime = params.get("endBlackholeTime")
+        self.attackBandwidthMax = params.get("attackBandwidthMax")
+        self.protectedBandwidthMax = params.get("protectedBandwidthMax")
+        self.attackPackageMax = params.get("attackPackageMax")
+        self.protectedPackageMax = params.get("protectedPackageMax")
+        self.sourceIp = params.get("sourceIp")
+        if params.get("sourcePort") is not None:
+            self.sourcePort = []
+            for item in params.get("sourcePort"):
+                obj = TopPort(item)
+                self.sourcePort.append(obj)
+        if params.get("desertionPort") is not None:
+            self.desertionPort = []
+            for item in params.get("desertionPort"):
+                obj = TopPort(item)
+                self.desertionPort.append(obj)
+
+
+class TopPort(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.protocol = None
+        self.port = None
+
+    def _deserialize(self, params):
+        self.protocol = params.get("protocol")
+        self.port = params.get("port")
+
+
 class DescribeZonesRequest(AbstractModel):
     def __init__(self):
         self.zoneIds = None
@@ -3481,6 +4113,7 @@ class CreateZecInstancesRequest(AbstractModel):
         self.instanceName = None
         self.password = None
         self.keyId = None
+        self.nicNetworkType = None
         self.instanceCount = None
         self.systemDisk = None
         self.dataDisks = None
@@ -3508,6 +4141,7 @@ class CreateZecInstancesRequest(AbstractModel):
         self.instanceName = params.get("instanceName")
         self.password = params.get("password")
         self.keyId = params.get("keyId")
+        self.nicNetworkType = params.get("nicNetworkType")
         self.instanceCount = params.get("instanceCount")
         if params.get("systemDisk") is not None:
             self.systemDisk = SystemDisk(params.get("systemDisk"))
@@ -3652,6 +4286,7 @@ class InstanceInfo(AbstractModel):
         self.resourceGroupName = None
         self.nics = None
         self.tags = None
+        self.loadBalancerIds = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
@@ -3691,6 +4326,7 @@ class InstanceInfo(AbstractModel):
                 self.nics.append(obj)
         if params.get("tags") is not None:
             self.tags = Tags(params.get("tags"))
+        self.loadBalancerIds = params.get("loadBalancerIds")
 
 
 class DescribeInstancesStatusRequest(AbstractModel):
@@ -4030,21 +4666,6 @@ class DescribeInstanceMonitorDataResponse(AbstractModel):
             for item in params.get("metrics"):
                 obj = MetricValue(item)
                 self.metrics.append(obj)
-
-
-class MetricValue(AbstractModel):
-    def __init__(self, params=None):
-        if params is None:
-            params = {}
-        if len(params) > 0:
-            self._deserialize(params)
-            return
-        self.time = None
-        self.value = None
-
-    def _deserialize(self, params):
-        self.time = params.get("time")
-        self.value = params.get("value")
 
 
 class CreateNatGatewayRequest(AbstractModel):

@@ -80,6 +80,12 @@ class ZECClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeDiskMonitorData(self, request):
+        response = self._api_call("DescribeDiskMonitorData", request)
+        model = models.DescribeDiskMonitorDataResponse()
+        model._deserialize(response)
+        return model
+
     def CreateVpc(self, request):
         response = self._api_call("CreateVpc", request)
         model = models.CreateVpcResponse()
@@ -326,6 +332,60 @@ class ZECClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def CreatePolicy(self, request):
+        response = self._api_call("CreatePolicy", request)
+        model = models.CreatePolicyResponse()
+        model._deserialize(response)
+        return model
+
+    def DeletePolicy(self, request):
+        response = self._api_call("DeletePolicy", request)
+        model = models.DeletePolicyResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyPolicy(self, request):
+        response = self._api_call("ModifyPolicy", request)
+        model = models.ModifyPolicyResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribePolicys(self, request):
+        response = self._api_call("DescribePolicys", request)
+        model = models.DescribePolicysResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribePolicyDetail(self, request):
+        response = self._api_call("DescribePolicyDetail", request)
+        model = models.DescribePolicyDetailResponse()
+        model._deserialize(response)
+        return model
+
+    def AttachToPolicy(self, request):
+        response = self._api_call("AttachToPolicy", request)
+        model = models.AttachToPolicyResponse()
+        model._deserialize(response)
+        return model
+
+    def DetachFromPolicy(self, request):
+        response = self._api_call("DetachFromPolicy", request)
+        model = models.DetachFromPolicyResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribePolicyRegions(self, request):
+        response = self._api_call("DescribePolicyRegions", request)
+        model = models.DescribePolicyRegionsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeReflectUdpPortOptions(self, request):
+        response = self._api_call("DescribeReflectUdpPortOptions", request)
+        model = models.DescribeReflectUdpPortOptionsResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeSecurityGroups(self, request):
         response = self._api_call("DescribeSecurityGroups", request)
         model = models.DescribeSecurityGroupsResponse()
@@ -485,6 +545,18 @@ class ZECClient(AbstractClient):
     def DescribeEipMonitorData(self, request):
         response = self._api_call("DescribeEipMonitorData", request)
         model = models.DescribeEipMonitorDataResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeDDosAllEventList(self, request):
+        response = self._api_call("DescribeDDosAllEventList", request)
+        model = models.DescribeDDosAllEventListResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeDDosEventDetail(self, request):
+        response = self._api_call("DescribeDDosEventDetail", request)
+        model = models.DescribeDDosEventDetailResponse()
         model._deserialize(response)
         return model
 
