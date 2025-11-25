@@ -775,6 +775,7 @@ class VpcInfo(AbstractModel):
         self.usageIpv4Count = None
         self.usageIpv6Count = None
         self.securityGroupId = None
+        self.dnsZoneIds = None
         self.resourceGroup = None
         self.tags = None
 
@@ -789,6 +790,7 @@ class VpcInfo(AbstractModel):
         self.usageIpv4Count = params.get("usageIpv4Count")
         self.usageIpv6Count = params.get("usageIpv6Count")
         self.securityGroupId = params.get("securityGroupId")
+        self.dnsZoneIds = params.get("dnsZoneIds")
         if params.get("resourceGroup") is not None:
             self.resourceGroup = ResourceGroupInfo(params.get("resourceGroup"))
         if params.get("tags") is not None:
