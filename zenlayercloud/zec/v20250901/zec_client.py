@@ -614,6 +614,72 @@ class ZECClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DeleteCidrs(self, request):
+        response = self._api_call("DeleteCidrs", request)
+        model = models.DeleteCidrsResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateCrossRegionBandwidth(self, request):
+        response = self._api_call("CreateCrossRegionBandwidth", request)
+        model = models.CreateCrossRegionBandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def InquiryPriceCreateCrossRegionBandwidth(self, request):
+        response = self._api_call("InquiryPriceCreateCrossRegionBandwidth", request)
+        model = models.InquiryPriceCreateCrossRegionBandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyCrossRegionBandwidthAttribute(self, request):
+        response = self._api_call("ModifyCrossRegionBandwidthAttribute", request)
+        model = models.ModifyCrossRegionBandwidthAttributeResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteCrossRegionBandwidth(self, request):
+        response = self._api_call("DeleteCrossRegionBandwidth", request)
+        model = models.DeleteCrossRegionBandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeCrossRegionBandwidthMonitorData(self, request):
+        response = self._api_call("DescribeCrossRegionBandwidthMonitorData", request)
+        model = models.DescribeCrossRegionBandwidthMonitorDataResponse()
+        model._deserialize(response)
+        return model
+
+    def InquiryPriceModifyCrossRegionBandwidth(self, request):
+        response = self._api_call("InquiryPriceModifyCrossRegionBandwidth", request)
+        model = models.InquiryPriceModifyCrossRegionBandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeCrossRegionBandwidthRegions(self, request):
+        response = self._api_call("DescribeCrossRegionBandwidthRegions", request)
+        model = models.DescribeCrossRegionBandwidthRegionsResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyCrossRegionBandwidth(self, request):
+        response = self._api_call("ModifyCrossRegionBandwidth", request)
+        model = models.ModifyCrossRegionBandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def RenewCrossRegionBandwidth(self, request):
+        response = self._api_call("RenewCrossRegionBandwidth", request)
+        model = models.RenewCrossRegionBandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeCrossRegionBandwidth(self, request):
+        response = self._api_call("DescribeCrossRegionBandwidth", request)
+        model = models.DescribeCrossRegionBandwidthResponse()
+        model._deserialize(response)
+        return model
+
     def CreateBorderGateway(self, request):
         response = self._api_call("CreateBorderGateway", request)
         model = models.CreateBorderGatewayResponse()

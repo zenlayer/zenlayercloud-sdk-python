@@ -546,6 +546,7 @@ class DescribeAcceleratorLogsRequest(AbstractModel):
             return
         self.acceleratorId = None
         self.vips = None
+        self.domains = None
         self.startTime = None
         self.endTime = None
 
@@ -554,6 +555,7 @@ class DescribeAcceleratorLogsRequest(AbstractModel):
         self.vips = params.get("vips")
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
+        self.domains = params.get("domains")
 
 
 class DescribeAcceleratorLogsResponse(AbstractModel):
@@ -1149,3 +1151,102 @@ class ResourceGroupBandwidthLimitInfo(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         self.enable = params.get("enable")
         self.bandwidth = params.get("bandwidth")
+
+class DescribeTrafficRequest(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.acceleratorIds = None
+        self.startTime = None
+        self.endTime = None
+        self.originRegionId = None
+        self.accelerateRegionId = None
+        self.resourceGroupId = None
+
+    def _deserialize(self, params):
+        self.acceleratorIds = params.get("acceleratorIds")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+        self.originRegionId = params.get("originRegionId")
+        self.accelerateRegionId = params.get("accelerateRegionId")
+        self.resourceGroupId = params.get("resourceGroupId")
+
+class DescribeTrafficResponse(DescribeAcceleratorTrafficResponse):
+   pass
+
+
+class DescribeStatusCodeRequest(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.acceleratorIds = None
+        self.startTime = None
+        self.endTime = None
+        self.originRegionId = None
+        self.accelerateRegionId = None
+        self.resourceGroupId = None
+
+    def _deserialize(self, params):
+        self.acceleratorIds = params.get("acceleratorIds")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+        self.originRegionId = params.get("originRegionId")
+        self.accelerateRegionId = params.get("accelerateRegionId")
+        self.resourceGroupId = params.get("resourceGroupId")
+
+class DescribeStatusCodeResponse(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.requestId = None
+        self.dataList = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("dataList") is not None:
+            self.dataList = []
+            for item in params.get("dataList"):
+                obj = StatusCodeData(item)
+                self.dataList.append(obj)
+
+
+class StatusCodeData(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.detail = None
+        self.time = None
+
+    def _deserialize(self, params):
+        self.time = params.get("time")
+        if params.get("detail") is not None:
+            self.detail = []
+            for item in params.get("detail"):
+                obj = StatusCodeDetailData(item)
+                self.detail.append(obj)
+
+class StatusCodeDetailData(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.code = None
+        self.count = None
+
+    def _deserialize(self, params):
+        self.code = params.get("code")
+        self.count = params.get("count")

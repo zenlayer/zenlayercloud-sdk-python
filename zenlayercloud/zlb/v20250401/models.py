@@ -73,6 +73,7 @@ class HealthCheck(AbstractModel):
         self.checkDelayTry = None
         self.checkHttpGetUrl = None
         self.checkHttpStatusCode = None
+        self.failOpen = None
 
     def _deserialize(self, params):
         self.enabled = params.get("enabled")
@@ -84,6 +85,7 @@ class HealthCheck(AbstractModel):
         self.checkDelayTry = params.get("checkDelayTry")
         self.checkHttpGetUrl = params.get("checkHttpGetUrl")
         self.checkHttpStatusCode = params.get("checkHttpStatusCode")
+        self.failOpen = params.get("failOpen")
 
 
 class CreateListenerRequest(AbstractModel):
@@ -448,6 +450,7 @@ class DescribeLoadBalancersRequest(AbstractModel):
         self.resourceGroupId = None
         self.tagKeys = None
         self.tags = None
+        self.securityGroupId = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -463,6 +466,7 @@ class DescribeLoadBalancersRequest(AbstractModel):
             for item in params.get("tags"):
                 obj = Tag(item)
                 self.tags.append(obj)
+        self.securityGroupId = params.get("securityGroupId")
 
 
 class Tag(AbstractModel):
@@ -510,10 +514,12 @@ class LoadBalancer(AbstractModel):
         self.status = None
         self.publicIpAddress = None
         self.privateIpAddress = None
+        self.healthCheckPrivateIps = None
         self.listenerCount = None
         self.createTime = None
         self.resourceGroup = None
         self.tags = None
+        self.securityGroupId = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -523,12 +529,14 @@ class LoadBalancer(AbstractModel):
         self.status = params.get("status")
         self.publicIpAddress = params.get("publicIpAddress")
         self.privateIpAddress = params.get("privateIpAddress")
+        self.healthCheckPrivateIps = params.get("healthCheckPrivateIps")
         self.listenerCount = params.get("listenerCount")
         self.createTime = params.get("createTime")
         if params.get("resourceGroup") is not None:
             self.resourceGroup = ResourceGroupInfo(params.get("resourceGroup"))
         if params.get("tags") is not None:
             self.tags = Tags(params.get("tags"))
+        self.securityGroupId = params.get("securityGroupId")
 
 
 class ResourceGroupInfo(AbstractModel):
@@ -609,6 +617,9 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.number = None
         self.marketingOptions = None
         self.tags = None
+        self.subnetId = None
+        self.healthCheckPrivateIps = None
+        self.securityGroupId = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -625,6 +636,9 @@ class CreateLoadBalancerRequest(AbstractModel):
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
         if params.get("tags") is not None:
             self.tags = TagAssociation(params.get("tags"))
+        self.subnetId = params.get("subnetId")
+        self.healthCheckPrivateIps = params.get("healthCheckPrivateIps")
+        self.securityGroupId = params.get("securityGroupId")
 
 
 class MarketingInfo(AbstractModel):
@@ -814,5 +828,63 @@ class MetricValue(AbstractModel):
     def _deserialize(self, params):
         self.time = params.get("time")
         self.value = params.get("value")
+
+
+class SetSecurityGroupForLoadBalancersRequest(AbstractModel):
+    def __init__(self):
+        self.securityGroupId = None
+        self.loadBalancerIds = None
+
+    def _deserialize(self, params):
+        self.securityGroupId = params.get("securityGroupId")
+        self.loadBalancerIds = params.get("loadBalancerIds")
+
+
+class SetSecurityGroupForLoadBalancersResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.failedLoadBalancerIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.failedLoadBalancerIds = params.get("failedLoadBalancerIds")
+
+
+class AddLoadBalancersPrivateIpsRequest(AbstractModel):
+    def __init__(self):
+        self.privateIps = None
+        self.loadBalancerId = None
+        self.subnetId = None
+
+    def _deserialize(self, params):
+        self.privateIps = params.get("privateIps")
+        self.loadBalancerId = params.get("loadBalancerId")
+        self.subnetId = params.get("subnetId")
+
+
+class AddLoadBalancersPrivateIpsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DeleteLoadBalancersPrivateIpsRequest(AbstractModel):
+    def __init__(self):
+        self.privateIps = None
+        self.loadBalancerId = None
+
+    def _deserialize(self, params):
+        self.privateIps = params.get("privateIps")
+        self.loadBalancerId = params.get("loadBalancerId")
+
+
+class DeleteLoadBalancersPrivateIpsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
 
 

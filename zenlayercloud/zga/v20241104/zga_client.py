@@ -212,3 +212,18 @@ class ZgaClient(AbstractClient):
         model = models.ModifyResourceGroupBandwidthLimitResponse()
         model._deserialize(response)
         return model
+
+
+    def DescribeTraffic(self, request):
+        response = self._api_call("DescribeTraffic", request)
+
+        model = models.DescribeTrafficResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeStatusCode(self, request):
+        response = self._api_call("DescribeStatusCode", request)
+
+        model = models.DescribeStatusCodeResponse()
+        model._deserialize(response)
+        return model

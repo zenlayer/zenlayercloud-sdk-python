@@ -814,6 +814,10 @@ class InstanceType(AbstractModel):
         self.instanceTypeId = None
         self.description = None
         self.cpuCoreCount = None
+        self.cpuDetail = None
+        self.cpuCores = None
+        self.cpuThreads = None
+        self.baseFrequency = None
         self.memorySize = None
         self.supportRaids = None
         self.supportSubnet = None
@@ -826,6 +830,10 @@ class InstanceType(AbstractModel):
         self.instanceTypeId = params.get("instanceTypeId")
         self.description = params.get("description")
         self.cpuCoreCount = params.get("cpuCoreCount")
+        self.cpuDetail = params.get("cpuDetail")
+        self.cpuCores = params.get("cpuCores")
+        self.cpuThreads = params.get("cpuThreads")
+        self.baseFrequency = params.get("baseFrequency")
         self.memorySize = params.get("memorySize")
         self.supportRaids = params.get("supportRaids")
         self.supportSubnet = params.get("supportSubnet")

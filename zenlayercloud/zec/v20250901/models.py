@@ -844,6 +844,7 @@ class DescribeSubnetsRequest(AbstractModel):
         self.regionId = None
         self.pageSize = None
         self.pageNum = None
+        self.vpcIds = None
 
     def _deserialize(self, params):
         self.subnetIds = params.get("subnetIds")
@@ -852,6 +853,7 @@ class DescribeSubnetsRequest(AbstractModel):
         self.regionId = params.get("regionId")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
+        self.vpcIds = params.get("vpcIds")
 
 
 class DescribeSubnetsResponse(AbstractModel):
@@ -1696,6 +1698,7 @@ class DescribeImagesRequest(AbstractModel):
         self.imageName = None
         self.category = None
         self.imageType = None
+        self.imageSource = None
         self.osType = None
         self.imageStatus = None
         self.pageNum = None
@@ -1709,6 +1712,7 @@ class DescribeImagesRequest(AbstractModel):
         self.imageName = params.get("imageName")
         self.category = params.get("category")
         self.imageType = params.get("imageType")
+        self.imageSource = params.get("imageSource")
         self.osType = params.get("osType")
         self.imageStatus = params.get("imageStatus")
         self.pageNum = params.get("pageNum")
@@ -1747,6 +1751,7 @@ class Image(AbstractModel):
         self.imageId = None
         self.imageName = None
         self.imageType = None
+        self.imageSource = None
         self.imageSize = None
         self.imageDescription = None
         self.imageVersion = None
@@ -1760,6 +1765,7 @@ class Image(AbstractModel):
         self.imageId = params.get("imageId")
         self.imageName = params.get("imageName")
         self.imageType = params.get("imageType")
+        self.imageSource = params.get("imageSource")
         self.imageSize = params.get("imageSize")
         self.imageDescription = params.get("imageDescription")
         self.imageVersion = params.get("imageVersion")
@@ -2326,6 +2332,7 @@ class SecurityGroupInfo(AbstractModel):
         self.isDefault = None
         self.nicIdList = None
         self.natIdList = None
+        self.loadBalancerIdList = None
 
     def _deserialize(self, params):
         self.securityGroupId = params.get("securityGroupId")
@@ -2336,6 +2343,7 @@ class SecurityGroupInfo(AbstractModel):
         self.isDefault = params.get("isDefault")
         self.nicIdList = params.get("nicIdList")
         self.natIdList = params.get("natIdList")
+        self.loadBalancerIdList = params.get("loadBalancerIdList")
 
 
 class ModifySecurityGroupsAttributeRequest(AbstractModel):
@@ -2583,6 +2591,7 @@ class DescribeEipsRequest(AbstractModel):
         self.resourceGroupId = None
         self.tagKeys = None
         self.tags = None
+        self.internetChargeType = None
 
     def _deserialize(self, params):
         self.eipIds = params.get("eipIds")
@@ -2605,6 +2614,7 @@ class DescribeEipsRequest(AbstractModel):
             for item in params.get("tags"):
                 obj = Tag(item)
                 self.tags.append(obj)
+        self.internetChargeType = params.get("internetChargeType")
 
 
 class DescribeEipsResponse(AbstractModel):
@@ -3686,6 +3696,334 @@ class RenewCidrResponse(AbstractModel):
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+
+
+class DeleteCidrsRequest(AbstractModel):
+    def __init__(self):
+        self.cidrIds = None
+
+    def _deserialize(self, params):
+        self.cidrIds = params.get("cidrIds")
+
+
+class DeleteCidrsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.failedCidrIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.failedCidrIds = params.get("failedCidrIds")
+
+
+class CreateCrossRegionBandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.vpcId = None
+        self.internetChargeType = None
+        self.crossRegionBandwidthName = None
+        self.marketingInfo = None
+        self.regionA = None
+        self.regionZ = None
+        self.bandwidth = None
+        self.bandwidthCap = None
+
+    def _deserialize(self, params):
+        self.vpcId = params.get("vpcId")
+        self.internetChargeType = params.get("internetChargeType")
+        self.crossRegionBandwidthName = params.get("crossRegionBandwidthName")
+        if params.get("marketingInfo") is not None:
+            self.marketingInfo = MarketingInfo(params.get("marketingInfo"))
+        self.regionA = params.get("regionA")
+        self.regionZ = params.get("regionZ")
+        self.bandwidth = params.get("bandwidth")
+        self.bandwidthCap = params.get("bandwidthCap")
+
+
+class CreateCrossRegionBandwidthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.orderNumber = None
+        self.crossRegionBandwidthId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.orderNumber = params.get("orderNumber")
+        self.crossRegionBandwidthId = params.get("crossRegionBandwidthId")
+
+
+class InquiryPriceCreateCrossRegionBandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.internetChargeType = None
+        self.marketingInfo = None
+        self.regionA = None
+        self.regionZ = None
+        self.bandwidth = None
+
+    def _deserialize(self, params):
+        self.internetChargeType = params.get("internetChargeType")
+        if params.get("marketingInfo") is not None:
+            self.marketingInfo = MarketingInfo(params.get("marketingInfo"))
+        self.regionA = params.get("regionA")
+        self.regionZ = params.get("regionZ")
+        self.bandwidth = params.get("bandwidth")
+
+
+class InquiryPriceCreateCrossRegionBandwidthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.crossRegionBandwidthPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("crossRegionBandwidthPrice") is not None:
+            self.crossRegionBandwidthPrice = PriceItem(params.get("crossRegionBandwidthPrice"))
+
+
+class ModifyCrossRegionBandwidthAttributeRequest(AbstractModel):
+    def __init__(self):
+        self.crossRegionBandwidthIds = None
+        self.crossRegionBandwidthName = None
+
+    def _deserialize(self, params):
+        self.crossRegionBandwidthIds = params.get("crossRegionBandwidthIds")
+        self.crossRegionBandwidthName = params.get("crossRegionBandwidthName")
+
+
+class ModifyCrossRegionBandwidthAttributeResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DeleteCrossRegionBandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.crossRegionBandwidthId = None
+
+    def _deserialize(self, params):
+        self.crossRegionBandwidthId = params.get("crossRegionBandwidthId")
+
+
+class DeleteCrossRegionBandwidthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribeCrossRegionBandwidthMonitorDataRequest(AbstractModel):
+    def __init__(self):
+        self.crossRegionBandwidthId = None
+        self.metricType = None
+        self.startTime = None
+        self.endTime = None
+
+    def _deserialize(self, params):
+        self.crossRegionBandwidthId = params.get("crossRegionBandwidthId")
+        self.metricType = params.get("metricType")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+
+
+class DescribeCrossRegionBandwidthMonitorDataResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.inMaxValue = None
+        self.inAvgValue = None
+        self.inMinValue = None
+        self.inTotalValue = None
+        self.outMaxValue = None
+        self.outAvgValue = None
+        self.outMinValue = None
+        self.outTotalValue = None
+        self.dataList = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.inMaxValue = params.get("inMaxValue")
+        self.inAvgValue = params.get("inAvgValue")
+        self.inMinValue = params.get("inMinValue")
+        self.inTotalValue = params.get("inTotalValue")
+        self.outMaxValue = params.get("outMaxValue")
+        self.outAvgValue = params.get("outAvgValue")
+        self.outMinValue = params.get("outMinValue")
+        self.outTotalValue = params.get("outTotalValue")
+        if params.get("dataList") is not None:
+            self.dataList = []
+            for item in params.get("dataList"):
+                obj = CrossRegionBandwidthMetricValue(item)
+                self.dataList.append(obj)
+
+
+class CrossRegionBandwidthMetricValue(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.time = None
+        self.inValue = None
+        self.outValue = None
+
+    def _deserialize(self, params):
+        self.time = params.get("time")
+        self.inValue = params.get("inValue")
+        self.outValue = params.get("outValue")
+
+
+class InquiryPriceModifyCrossRegionBandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.crossRegionBandwidthId = None
+        self.bandwidth = None
+
+    def _deserialize(self, params):
+        self.crossRegionBandwidthId = params.get("crossRegionBandwidthId")
+        self.bandwidth = params.get("bandwidth")
+
+
+class InquiryPriceModifyCrossRegionBandwidthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.crossRegionBandwidthPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("crossRegionBandwidthPrice") is not None:
+            self.crossRegionBandwidthPrice = PriceItem(params.get("crossRegionBandwidthPrice"))
+
+
+class DescribeCrossRegionBandwidthRegionsRequest(AbstractModel):
+    def __init__(self):
+        pass
+
+    def _deserialize(self, params):
+        pass
+
+
+class DescribeCrossRegionBandwidthRegionsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.regionIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.regionIds = params.get("regionIds")
+
+
+class ModifyCrossRegionBandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.crossRegionBandwidthId = None
+        self.bandwidth = None
+        self.bandwidthCap = None
+
+    def _deserialize(self, params):
+        self.crossRegionBandwidthId = params.get("crossRegionBandwidthId")
+        self.bandwidth = params.get("bandwidth")
+        self.bandwidthCap = params.get("bandwidthCap")
+
+
+class ModifyCrossRegionBandwidthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class RenewCrossRegionBandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.crossRegionBandwidthId = None
+
+    def _deserialize(self, params):
+        self.crossRegionBandwidthId = params.get("crossRegionBandwidthId")
+
+
+class RenewCrossRegionBandwidthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribeCrossRegionBandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.crossRegionBandwidthIds = None
+        self.crossRegionBandwidthName = None
+        self.vpcId = None
+        self.regionA = None
+        self.regionZ = None
+        self.status = None
+        self.pageSize = None
+        self.pageNum = None
+        self.resourceGroupId = None
+
+    def _deserialize(self, params):
+        self.crossRegionBandwidthIds = params.get("crossRegionBandwidthIds")
+        self.crossRegionBandwidthName = params.get("crossRegionBandwidthName")
+        self.vpcId = params.get("vpcId")
+        self.regionA = params.get("regionA")
+        self.regionZ = params.get("regionZ")
+        self.status = params.get("status")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+        self.resourceGroupId = params.get("resourceGroupId")
+
+
+class DescribeCrossRegionBandwidthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = CrossRegionBandwidthInfo(item)
+                self.dataSet.append(obj)
+
+
+class CrossRegionBandwidthInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.crossRegionBandwidthId = None
+        self.crossRegionBandwidthName = None
+        self.status = None
+        self.vpcId = None
+        self.regionA = None
+        self.regionZ = None
+        self.bandwidth = None
+        self.bandwidthCap = None
+        self.createTime = None
+        self.internetChargeType = None
+        self.expiredTime = None
+        self.resourceGroupId = None
+        self.resourceGroupName = None
+
+    def _deserialize(self, params):
+        self.crossRegionBandwidthId = params.get("crossRegionBandwidthId")
+        self.crossRegionBandwidthName = params.get("crossRegionBandwidthName")
+        self.status = params.get("status")
+        self.vpcId = params.get("vpcId")
+        self.regionA = params.get("regionA")
+        self.regionZ = params.get("regionZ")
+        self.bandwidth = params.get("bandwidth")
+        self.bandwidthCap = params.get("bandwidthCap")
+        self.createTime = params.get("createTime")
+        self.internetChargeType = params.get("internetChargeType")
+        self.expiredTime = params.get("expiredTime")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.resourceGroupName = params.get("resourceGroupName")
 
 
 class CreateBorderGatewayRequest(AbstractModel):
