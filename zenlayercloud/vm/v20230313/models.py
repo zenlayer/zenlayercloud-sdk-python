@@ -297,6 +297,7 @@ class CreateInstancesRequest(AbstractModel):
         self.networkMode = None
         self.diskPreAllocated = None
         self.marketingOptions = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -333,6 +334,26 @@ class CreateInstancesRequest(AbstractModel):
         self.diskPreAllocated = params.get("diskPreAllocated")
         if params.get("marketingOptions") is not None:
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
+
+
+class TagAssociation(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.tags = None
+
+    def _deserialize(self, params):
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+
 
 
 class MarketingInfo(AbstractModel):
@@ -408,6 +429,8 @@ class DescribeInstancesRequest(AbstractModel):
         self.privateIpAddresses = None
         self.pageSize = None
         self.pageNum = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.instanceIds = params.get("instanceIds")
@@ -425,6 +448,27 @@ class DescribeInstancesRequest(AbstractModel):
         self.privateIpAddresses = params.get("privateIpAddresses")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+
+
+class Tag(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.key = None
+        self.value = None
+
+    def _deserialize(self, params):
+        self.key = params.get("key")
+        self.value = params.get("value")
 
 
 class DescribeInstancesResponse(AbstractModel):
@@ -480,6 +524,7 @@ class InstanceInfo(AbstractModel):
         self.autoRenew = None
         self.keyId = None
         self.nic = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
@@ -516,6 +561,26 @@ class InstanceInfo(AbstractModel):
         self.keyId = params.get("keyId")
         if params.get("nic") is not None:
             self.nic = Nic(params.get("nic"))
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
+
+
+class Tags(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.tags = None
+
+    def _deserialize(self, params):
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+
 
 class DescribeInstancesStatusRequest(AbstractModel):
 
@@ -1110,6 +1175,7 @@ class CreateDisksRequest(AbstractModel):
         self.diskAmount = None
         self.resourceGroupId = None
         self.marketingOptions = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.chargeType = params.get("chargeType")
@@ -1124,6 +1190,8 @@ class CreateDisksRequest(AbstractModel):
         self.resourceGroupId = params.get("resourceGroupId")
         if params.get("marketingOptions") is not None:
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 
 class CreateDisksResponse(AbstractModel):
@@ -1137,6 +1205,25 @@ class CreateDisksResponse(AbstractModel):
         self.requestId = params.get("requestId")
         self.orderNumber = params.get("orderNumber")
         self.diskIds = params.get("diskIds")
+
+
+
+class ResizeDiskRequest(AbstractModel):
+    def __init__(self):
+        self.diskId = None
+        self.diskSize = None
+
+    def _deserialize(self, params):
+        self.diskId = params.get("diskId")
+        self.diskSize = params.get("diskSize")
+
+
+class ResizeDiskResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
 
 
 class DescribeDisksRequest(AbstractModel):
@@ -1154,6 +1241,8 @@ class DescribeDisksRequest(AbstractModel):
         self.pageSize = None
         self.pageNum = None
         self.resourceGroupId = None
+        self.tagKeys = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.diskIds = params.get("diskIds")
@@ -1168,6 +1257,12 @@ class DescribeDisksRequest(AbstractModel):
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
         self.resourceGroupId = params.get("resourceGroupId")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
 class DescribeDisksResponse(AbstractModel):
@@ -1210,6 +1305,8 @@ class DiskInfo(AbstractModel):
         self.expiredTime = None
         self.period = None
         self.autoRenew = None
+        self.tags = None
+
 
     def _deserialize(self, params):
         self.diskId = params.get("diskId")
@@ -1227,6 +1324,8 @@ class DiskInfo(AbstractModel):
         self.expiredTime = params.get("expiredTime")
         self.period = params.get("period")
         self.autoRenew = params.get("autoRenew")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
 
 
 class AttachDisksRequest(AbstractModel):

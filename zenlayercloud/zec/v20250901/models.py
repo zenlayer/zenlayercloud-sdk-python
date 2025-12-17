@@ -2881,6 +2881,7 @@ class DescribeEipPriceResponse(AbstractModel):
         self.requestId = None
         self.eipPrice = None
         self.bandwidthPrice = None
+        self.remoteBandwidthPrice = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
@@ -2888,6 +2889,8 @@ class DescribeEipPriceResponse(AbstractModel):
             self.eipPrice = PriceItem(params.get("eipPrice"))
         if params.get("bandwidthPrice") is not None:
             self.bandwidthPrice = PriceItem(params.get("bandwidthPrice"))
+        if params.get("remoteBandwidthPrice") is not None:
+            self.remoteBandwidthPrice = PriceItem(params.get("remoteBandwidthPrice"))
 
 
 class ChangeEipInternetChargeTypeRequest(AbstractModel):
@@ -4836,6 +4839,38 @@ class ResetInstanceResponse(AbstractModel):
         self.requestId = params.get("requestId")
 
 
+class ResetInstancesRequest(AbstractModel):
+    def __init__(self):
+        self.instanceIds = None
+        self.password = None
+        self.keyId = None
+        self.imageId = None
+        self.timezone = None
+        self.enableAgent = None
+        self.instanceName = None
+        self.userData = None
+
+    def _deserialize(self, params):
+        self.instanceIds = params.get("instanceIds")
+        self.password = params.get("password")
+        self.keyId = params.get("keyId")
+        self.imageId = params.get("imageId")
+        self.timezone = params.get("timezone")
+        self.enableAgent = params.get("enableAgent")
+        self.instanceName = params.get("instanceName")
+        self.userData = params.get("userData")
+
+
+class ResetInstancesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.instanceIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.instanceIds = params.get("instanceIds")
+
+
 class StartIpForwardRequest(AbstractModel):
     def __init__(self):
         self.instanceId = None
@@ -4913,11 +4948,9 @@ class ModifyInstanceTypeRequest(AbstractModel):
 class ModifyInstanceTypeResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
-        self.orderNumber = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
-        self.orderNumber = params.get("orderNumber")
 
 
 class ChangeNicNetworkTypeRequest(AbstractModel):

@@ -812,6 +812,12 @@ class ZECClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ResetInstances(self, request):
+        response = self._api_call("ResetInstances", request)
+        model = models.ResetInstancesResponse()
+        model._deserialize(response)
+        return model
+
     def StartIpForward(self, request):
         response = self._api_call("StartIpForward", request)
         model = models.StartIpForwardResponse()

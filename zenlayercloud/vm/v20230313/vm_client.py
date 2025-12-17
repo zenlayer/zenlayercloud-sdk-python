@@ -205,6 +205,12 @@ class VmClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ResizeDisk(self, request):
+        response = self._api_call("ResizeDisk", request)
+        model = models.ResizeDiskResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeDisks(self, request):
         response = self._api_call("DescribeDisks", request)
 
