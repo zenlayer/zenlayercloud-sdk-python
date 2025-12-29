@@ -116,6 +116,12 @@ class ZLBClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def UnbindSecurityGroupFromLoadBalancers(self, request):
+        response = self._api_call("UnbindSecurityGroupFromLoadBalancers", request)
+        model = models.UnbindSecurityGroupFromLoadBalancersResponse()
+        model._deserialize(response)
+        return model
+
     def AddLoadBalancersPrivateIps(self, request):
         response = self._api_call("AddLoadBalancersPrivateIps", request)
         model = models.AddLoadBalancersPrivateIpsResponse()

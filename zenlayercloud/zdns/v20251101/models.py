@@ -281,7 +281,10 @@ class DescribePrivateZoneRecordsRequest(AbstractModel):
     def __init__(self):
         self.zoneId = None
         self.recordIds = None
+        self.recordName = None
         self.type = None
+        self.line = None
+        self.status = None
         self.value = None
         self.pageSize = None
         self.pageNum = None
@@ -289,7 +292,10 @@ class DescribePrivateZoneRecordsRequest(AbstractModel):
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
         self.recordIds = params.get("recordIds")
+        self.recordName = params.get("recordName")
         self.type = params.get("type")
+        self.line = params.get("line")
+        self.status = params.get("status")
         self.value = params.get("value")
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
@@ -326,6 +332,7 @@ class PrivateZoneRecord(AbstractModel):
         self.weight = None
         self.ttl = None
         self.line = None
+        self.lineInfo = None
         self.priority = None
         self.remark = None
         self.status = None
@@ -340,10 +347,27 @@ class PrivateZoneRecord(AbstractModel):
         self.weight = params.get("weight")
         self.ttl = params.get("ttl")
         self.line = params.get("line")
+        if params.get("lineInfo") is not None:
+            self.lineInfo = LineInfo(params.get("lineInfo"))
         self.priority = params.get("priority")
         self.remark = params.get("remark")
         self.status = params.get("status")
         self.createTime = params.get("createTime")
+
+
+class LineInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.line = None
+        self.city = None
+
+    def _deserialize(self, params):
+        self.line = params.get("line")
+        self.city = params.get("city")
 
 
 class ModifyPrivateZoneRecordRequest(AbstractModel):

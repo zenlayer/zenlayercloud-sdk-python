@@ -202,6 +202,7 @@ class PriceItem(AbstractModel):
         self.excessUnitPrice = None
         self.excessDiscountUnitPrice = None
         self.excessAmountUnit = None
+        self.category = None
 
     def _deserialize(self, params):
         self.discount = params.get("discount")
@@ -219,6 +220,7 @@ class PriceItem(AbstractModel):
         self.excessUnitPrice = params.get("excessUnitPrice")
         self.excessDiscountUnitPrice = params.get("excessDiscountUnitPrice")
         self.excessAmountUnit = params.get("excessAmountUnit")
+        self.category = params.get("category")
 
 
 class StepPrice(AbstractModel):

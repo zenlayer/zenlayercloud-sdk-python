@@ -33,6 +33,7 @@ class CreateInstancesRequest(AbstractModel):
         self.marketingOptions = None
         self.userData = None
         self.tags = None
+        self.enableGatewayMode = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -69,6 +70,7 @@ class CreateInstancesRequest(AbstractModel):
         self.userData = params.get("userData")
         if params.get("tags") is not None:
             self.tags = TagAssociation(params.get("tags"))
+        self.enableGatewayMode = params.get("enableGatewayMode")
 
 
 class CreateInstancesResponse(AbstractModel):
@@ -454,6 +456,7 @@ class InstanceInfo(AbstractModel):
         self.nic = None
         self.autoRenew = None
         self.tags = None
+        self.enableGatewayMode = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
@@ -493,6 +496,7 @@ class InstanceInfo(AbstractModel):
         self.autoRenew = params.get("autoRenew")
         if params.get("tags") is not None:
             self.tags = Tags(params.get("tags"))
+        self.enableGatewayMode = params.get("enableGatewayMode")
 
 class StartInstancesRequest(AbstractModel):
 

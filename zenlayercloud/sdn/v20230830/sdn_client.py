@@ -28,6 +28,12 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeBorderGatewayDatacenters(self, request):
+        response = self._api_call("DescribeBorderGatewayDatacenters", request)
+        model = models.DescribeBorderGatewayDatacentersResponse()
+        model._deserialize(response)
+        return model
+
     def QueryDataCenterPortPrice(self, request):
         response = self._api_call("QueryDataCenterPortPrice", request)
 

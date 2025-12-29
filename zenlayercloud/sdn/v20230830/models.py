@@ -105,6 +105,30 @@ class DescribeVirtualEdgeDatacentersResponse(AbstractModel):
                 self.dcSet.append(obj)
 
 
+class DescribeBorderGatewayDatacentersRequest(AbstractModel):
+    def __init__(self):
+        self.dcId = None
+        self.regionId = None
+
+    def _deserialize(self, params):
+        self.dcId = params.get("dcId")
+        self.regionId = params.get("regionId")
+
+
+class DescribeBorderGatewayDatacentersResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None  # 请求ID
+        self.dcSet = None  # 虚拟边缘数据中心集合
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("dcSet") is not None:
+            self.dcSet = []
+            for item in params.get("dcSet"):
+                obj = DatacenterInfo(item)  # 复用已有的DatacenterInfo结构
+                self.dcSet.append(obj)
+
+
 class QueryDataCenterPortPriceRequest(AbstractModel):
     def __init__(self):
         self.dcId = None
@@ -788,6 +812,7 @@ class DatacenterInfo(AbstractModel):
         self.longitude = None
         self.isPortAvailable = None
         self.availableBandwidth = None
+        self.regionId = None
 
     def _deserialize(self, params):
         self.dcId = params.get("dcId")
@@ -800,6 +825,7 @@ class DatacenterInfo(AbstractModel):
         self.longitude = params.get("longitude")
         self.isPortAvailable = params.get("isPortAvailable")
         self.availableBandwidth = params.get("availableBandwidth")
+        self.regionId = params.get("regionId")
 
 
 class DescribeCreatePrivateConnectAvailableSubnetsRequest(AbstractModel):
