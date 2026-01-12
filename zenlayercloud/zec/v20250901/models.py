@@ -1,7 +1,7 @@
 #  Zenlayer.com Inc.
 #  Copyright (c) 2014-2024 All Rights Reserved.
 from zenlayercloud.common.abstract_model import AbstractModel
-
+import warnings
 
 class DescribeDisksRequest(AbstractModel):
     def __init__(self):
@@ -99,6 +99,7 @@ class DiskInfo(AbstractModel):
         self.snapshotAbility = None
         self.autoSnapshotPolicyId = None
         self.tags = None
+        self.burstingEnabled = None
 
     def _deserialize(self, params):
         self.diskId = params.get("diskId")
@@ -122,6 +123,7 @@ class DiskInfo(AbstractModel):
         self.autoSnapshotPolicyId = params.get("autoSnapshotPolicyId")
         if params.get("tags") is not None:
             self.tags = Tags(params.get("tags"))
+        self.burstingEnabled = params.get("burstingEnabled")
 
 
 class Tags(AbstractModel):
@@ -255,6 +257,7 @@ class CreateDisksRequest(AbstractModel):
         self.marketingOptions = None
         self.tags = None
         self.instanceIds = None
+        self.burstingEnabled = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -270,6 +273,7 @@ class CreateDisksRequest(AbstractModel):
         if params.get("tags") is not None:
             self.tags = TagAssociation(params.get("tags"))
         self.instanceIds = params.get("instanceIds")
+        self.burstingEnabled = params.get("burstingEnabled")
 
 
 class MarketingInfo(AbstractModel):
@@ -640,6 +644,7 @@ class CreateSubnetRequest(AbstractModel):
         self.stackType = None
         self.cidrBlock = None
         self.ipv6Type = None
+        self.dhcpOptionsSetId = None
 
     def _deserialize(self, params):
         self.vpcId = params.get("vpcId")
@@ -648,6 +653,7 @@ class CreateSubnetRequest(AbstractModel):
         self.stackType = params.get("stackType")
         self.cidrBlock = params.get("cidrBlock")
         self.ipv6Type = params.get("ipv6Type")
+        self.dhcpOptionsSetId = params.get("dhcpOptionsSetId")
 
 
 class CreateSubnetResponse(AbstractModel):
@@ -847,6 +853,7 @@ class DescribeSubnetsRequest(AbstractModel):
         self.pageSize = None
         self.pageNum = None
         self.vpcIds = None
+        self.dhcpOptionsSetId = None
 
     def _deserialize(self, params):
         self.subnetIds = params.get("subnetIds")
@@ -856,6 +863,7 @@ class DescribeSubnetsRequest(AbstractModel):
         self.pageSize = params.get("pageSize")
         self.pageNum = params.get("pageNum")
         self.vpcIds = params.get("vpcIds")
+        self.dhcpOptionsSetId = params.get("dhcpOptionsSetId")
 
 
 class DescribeSubnetsResponse(AbstractModel):
@@ -896,6 +904,7 @@ class SubnetInfo(AbstractModel):
         self.usageIpv6Count = None
         self.createTime = None
         self.isDefault = None
+        self.dhcpOptionsSetId = None
 
     def _deserialize(self, params):
         self.subnetId = params.get("subnetId")
@@ -913,6 +922,7 @@ class SubnetInfo(AbstractModel):
         self.usageIpv6Count = params.get("usageIpv6Count")
         self.createTime = params.get("createTime")
         self.isDefault = params.get("isDefault")
+        self.dhcpOptionsSetId = params.get("dhcpOptionsSetId")
 
 
 class ModifySubnetsAttributeRequest(AbstractModel):
@@ -1574,6 +1584,12 @@ class UnassignNetworkInterfaceIpv4Request(AbstractModel):
 
     def _deserialize(self, params):
         self.nicId = params.get("nicId")
+        if params.get("ipAddress") is not None:
+            warnings.warn(
+                "ipAddress 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.ipAddress = params.get("ipAddress")
         self.ipAddresses = params.get("ipAddresses")
 
@@ -2681,6 +2697,12 @@ class EipInfo(AbstractModel):
         self.eipV4Type = params.get("eipV4Type")
         self.internetChargeType = params.get("internetChargeType")
         self.cidrId = params.get("cidrId")
+        if params.get("nicId") is not None:
+            warnings.warn(
+                "nicId 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.nicId = params.get("nicId")
         self.associatedId = params.get("associatedId")
         self.associatedType = params.get("associatedType")
@@ -3245,6 +3267,197 @@ class EipMetricValue(AbstractModel):
         self.loseOut = params.get("loseOut")
 
 
+class CreateDhcpOptionsSetRequest(AbstractModel):
+    def __init__(self):
+        self.dhcpOptionsSetName = None
+        self.domainNameServers = None
+        self.ipv6DomainNameServers = None
+        self.leaseTime = None
+        self.ipv6LeaseTime = None
+        self.tags = None
+        self.resourceGroupId = None
+        self.description = None
+
+    def _deserialize(self, params):
+        self.dhcpOptionsSetName = params.get("dhcpOptionsSetName")
+        self.domainNameServers = params.get("domainNameServers")
+        self.ipv6DomainNameServers = params.get("ipv6DomainNameServers")
+        self.leaseTime = params.get("leaseTime")
+        self.ipv6LeaseTime = params.get("ipv6LeaseTime")
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.description = params.get("description")
+
+
+class CreateDhcpOptionsSetResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.dhcpOptionsSetId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.dhcpOptionsSetId = params.get("dhcpOptionsSetId")
+
+
+class DeleteDhcpOptionsSetRequest(AbstractModel):
+    def __init__(self):
+        self.dhcpOptionsSetId = None
+
+    def _deserialize(self, params):
+        self.dhcpOptionsSetId = params.get("dhcpOptionsSetId")
+
+
+class DeleteDhcpOptionsSetResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class AttachDhcpOptionsSetToSubnetRequest(AbstractModel):
+    def __init__(self):
+        self.dhcpOptionsSetId = None
+        self.subnetIds = None
+
+    def _deserialize(self, params):
+        self.dhcpOptionsSetId = params.get("dhcpOptionsSetId")
+        self.subnetIds = params.get("subnetIds")
+
+
+class AttachDhcpOptionsSetToSubnetResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.failedSubnetIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.failedSubnetIds = params.get("failedSubnetIds")
+
+
+class DetachDhcpOptionsSetFromSubnetRequest(AbstractModel):
+    def __init__(self):
+        self.subnetIds = None
+
+    def _deserialize(self, params):
+        self.subnetIds = params.get("subnetIds")
+
+
+class DetachDhcpOptionsSetFromSubnetResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.failedSubnetIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.failedSubnetIds = params.get("failedSubnetIds")
+
+
+class DescribeDhcpOptionsSetsRequest(AbstractModel):
+    def __init__(self):
+        self.dhcpOptionsSetIds = None
+        self.dhcpOptionsSetName = None
+        self.subnetId = None
+        self.pageSize = None
+        self.pageNum = None
+        self.resourceGroupId = None
+        self.tagKeys = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.dhcpOptionsSetIds = params.get("dhcpOptionsSetIds")
+        self.dhcpOptionsSetName = params.get("dhcpOptionsSetName")
+        self.subnetId = params.get("subnetId")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+
+
+class DescribeDhcpOptionsSetsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = DhcpOptionsSet(item)
+                self.dataSet.append(obj)
+
+
+class DhcpOptionsSet(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.dhcpOptionsSetId = None
+        self.dhcpOptionsSetName = None
+        self.domainNameServers = None
+        self.ipv6DomainNameServers = None
+        self.leaseTime = None
+        self.ipv6LeaseTime = None
+        self.createTime = None
+        self.description = None
+        self.resourceGroupId = None
+        self.resourceGroupName = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.dhcpOptionsSetId = params.get("dhcpOptionsSetId")
+        self.dhcpOptionsSetName = params.get("dhcpOptionsSetName")
+        self.domainNameServers = params.get("domainNameServers")
+        self.ipv6DomainNameServers = params.get("ipv6DomainNameServers")
+        self.leaseTime = params.get("leaseTime")
+        self.ipv6LeaseTime = params.get("ipv6LeaseTime")
+        self.createTime = params.get("createTime")
+        self.description = params.get("description")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.resourceGroupName = params.get("resourceGroupName")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
+
+
+class ModifyDhcpOptionsSetAttributesRequest(AbstractModel):
+    def __init__(self):
+        self.dhcpOptionsSetId = None
+        self.dhcpOptionsSetName = None
+        self.domainNameServers = None
+        self.ipv6DomainNameServers = None
+        self.leaseTime = None
+        self.ipv6LeaseTime = None
+        self.description = None
+
+    def _deserialize(self, params):
+        self.dhcpOptionsSetId = params.get("dhcpOptionsSetId")
+        self.dhcpOptionsSetName = params.get("dhcpOptionsSetName")
+        self.domainNameServers = params.get("domainNameServers")
+        self.ipv6DomainNameServers = params.get("ipv6DomainNameServers")
+        self.leaseTime = params.get("leaseTime")
+        self.ipv6LeaseTime = params.get("ipv6LeaseTime")
+        self.description = params.get("description")
+
+
+class ModifyDhcpOptionsSetAttributesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
 class DescribeDDosAllEventListRequest(AbstractModel):
     def __init__(self):
         self.status = None
@@ -3419,6 +3632,12 @@ class ZoneInfo(AbstractModel):
         self.zoneId = params.get("zoneId")
         self.regionId = params.get("regionId")
         self.zoneName = params.get("zoneName")
+        if params.get("supportSecurityGroup") is not None:
+            warnings.warn(
+                "supportSecurityGroup 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.supportSecurityGroup = params.get("supportSecurityGroup")
 
 
@@ -4387,11 +4606,13 @@ class SystemDisk(AbstractModel):
         self.diskId = None
         self.diskSize = None
         self.diskCategory = None
+        self.burstingEnabled = None
 
     def _deserialize(self, params):
         self.diskId = params.get("diskId")
         self.diskSize = params.get("diskSize")
         self.diskCategory = params.get("diskCategory")
+        self.burstingEnabled = params.get("burstingEnabled")
 
 
 class DataDisk(AbstractModel):
@@ -4406,6 +4627,7 @@ class DataDisk(AbstractModel):
         self.diskSize = None
         self.diskAmount = None
         self.portable = None
+        self.burstingEnabled = None
         self.diskCategory = None
 
     def _deserialize(self, params):
@@ -4414,6 +4636,7 @@ class DataDisk(AbstractModel):
         self.diskSize = params.get("diskSize")
         self.diskAmount = params.get("diskAmount")
         self.portable = params.get("portable")
+        self.burstingEnabled = params.get("burstingEnabled")
         self.diskCategory = params.get("diskCategory")
 
 

@@ -44,3 +44,9 @@ class ZrmClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ModifyResourceTags(self, request):
+        response = self._api_call("ModifyResourceTags", request)
+        model = models.ModifyResourceTagsResponse()
+        model._deserialize(response)
+        return model
+

@@ -548,6 +548,42 @@ class ZECClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def CreateDhcpOptionsSet(self, request):
+        response = self._api_call("CreateDhcpOptionsSet", request)
+        model = models.CreateDhcpOptionsSetResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteDhcpOptionsSet(self, request):
+        response = self._api_call("DeleteDhcpOptionsSet", request)
+        model = models.DeleteDhcpOptionsSetResponse()
+        model._deserialize(response)
+        return model
+
+    def AttachDhcpOptionsSetToSubnet(self, request):
+        response = self._api_call("AttachDhcpOptionsSetToSubnet", request)
+        model = models.AttachDhcpOptionsSetToSubnetResponse()
+        model._deserialize(response)
+        return model
+
+    def DetachDhcpOptionsSetFromSubnet(self, request):
+        response = self._api_call("DetachDhcpOptionsSetFromSubnet", request)
+        model = models.DetachDhcpOptionsSetFromSubnetResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeDhcpOptionsSets(self, request):
+        response = self._api_call("DescribeDhcpOptionsSets", request)
+        model = models.DescribeDhcpOptionsSetsResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyDhcpOptionsSetAttributes(self, request):
+        response = self._api_call("ModifyDhcpOptionsSetAttributes", request)
+        model = models.ModifyDhcpOptionsSetAttributesResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeDDosAllEventList(self, request):
         response = self._api_call("DescribeDDosAllEventList", request)
         model = models.DescribeDDosAllEventListResponse()

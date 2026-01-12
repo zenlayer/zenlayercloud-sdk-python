@@ -194,3 +194,27 @@ class ResourceTag(AbstractModel):
         self.createdDate = params.get("createdDate")
 
 
+class ModifyResourceTagsRequest(AbstractModel):
+    def __init__(self):
+        self.resourceUuid = None
+        self.replaceTags = None
+        self.deleteTagKeys = None
+
+    def _deserialize(self, params):
+        self.resourceUuid = params.get("resourceUuid")
+        if params.get("replaceTags") is not None:
+            self.replaceTags = []
+            for item in params.get("replaceTags"):
+                obj = Tag(item)
+                self.replaceTags.append(obj)
+        self.deleteTagKeys = params.get("deleteTagKeys")
+
+
+class ModifyResourceTagsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
