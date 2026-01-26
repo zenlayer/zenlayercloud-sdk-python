@@ -1,7 +1,7 @@
 #  Zenlayer.com Inc.
 #  Copyright (c) 2014-2024 All Rights Reserved.
 from zenlayercloud.common.abstract_model import AbstractModel
-
+import warnings
 
 class DescribeBandwidthClustersRequest(AbstractModel):
     def __init__(self):
@@ -45,6 +45,7 @@ class BandwidthClusterInfo(AbstractModel):
         self.bandwidthClusterId = None
         self.bandwidthClusterName = None
         self.networkType = None
+        self.networkLineType = None
         self.product = None
         self.areaCode = None
         self.internetChargeType = None
@@ -57,7 +58,14 @@ class BandwidthClusterInfo(AbstractModel):
     def _deserialize(self, params):
         self.bandwidthClusterId = params.get("bandwidthClusterId")
         self.bandwidthClusterName = params.get("bandwidthClusterName")
+        if params.get("networkType") is not None:
+            warnings.warn(
+                "networkType 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.networkType = params.get("networkType")
+        self.networkLineType = params.get("networkLineType")
         self.product = params.get("product")
         self.areaCode = params.get("areaCode")
         self.internetChargeType = params.get("internetChargeType")
@@ -287,6 +295,7 @@ class PriceItem(AbstractModel):
         self.excessUnitPrice = None
         self.excessDiscountUnitPrice = None
         self.excessAmountUnit = None
+        self.category = None
 
     def _deserialize(self, params):
         self.discount = params.get("discount")
@@ -304,6 +313,7 @@ class PriceItem(AbstractModel):
         self.excessUnitPrice = params.get("excessUnitPrice")
         self.excessDiscountUnitPrice = params.get("excessDiscountUnitPrice")
         self.excessAmountUnit = params.get("excessAmountUnit")
+        self.category = params.get("category")
 
 
 class StepPrice(AbstractModel):
@@ -329,6 +339,7 @@ class CreateBandwidthClusterRequest(AbstractModel):
     def __init__(self):
         self.areaCode = None
         self.commitBandwidthMbps = None
+        self.networkLineType = None
         self.networkType = None
         self.internetChargeType = None
         self.name = None
@@ -337,6 +348,13 @@ class CreateBandwidthClusterRequest(AbstractModel):
     def _deserialize(self, params):
         self.areaCode = params.get("areaCode")
         self.commitBandwidthMbps = params.get("commitBandwidthMbps")
+        self.networkLineType = params.get("networkLineType")
+        if params.get("networkType") is not None:
+            warnings.warn(
+                "networkType 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.networkType = params.get("networkType")
         self.internetChargeType = params.get("internetChargeType")
         self.name = params.get("name")

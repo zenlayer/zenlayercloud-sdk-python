@@ -332,6 +332,18 @@ class ZECClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeDDosAllEventList(self, request):
+        response = self._api_call("DescribeDDosAllEventList", request)
+        model = models.DescribeDDosAllEventListResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeDDosEventDetail(self, request):
+        response = self._api_call("DescribeDDosEventDetail", request)
+        model = models.DescribeDDosEventDetailResponse()
+        model._deserialize(response)
+        return model
+
     def CreatePolicy(self, request):
         response = self._api_call("CreatePolicy", request)
         model = models.CreatePolicyResponse()
@@ -581,18 +593,6 @@ class ZECClient(AbstractClient):
     def ModifyDhcpOptionsSetAttributes(self, request):
         response = self._api_call("ModifyDhcpOptionsSetAttributes", request)
         model = models.ModifyDhcpOptionsSetAttributesResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribeDDosAllEventList(self, request):
-        response = self._api_call("DescribeDDosAllEventList", request)
-        model = models.DescribeDDosAllEventListResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribeDDosEventDetail(self, request):
-        response = self._api_call("DescribeDDosEventDetail", request)
-        model = models.DescribeDDosEventDetailResponse()
         model._deserialize(response)
         return model
 

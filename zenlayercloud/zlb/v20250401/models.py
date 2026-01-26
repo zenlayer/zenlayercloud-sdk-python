@@ -610,6 +610,7 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.loadBalancerName = None
         self.internetChargeType = None
         self.ipNetworkType = None
+        self.networkLineType = None
         self.bandwidthMbps = None
         self.trafficPackageSize = None
         self.bandwidthClusterId = None
@@ -626,7 +627,14 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.vpcId = params.get("vpcId")
         self.loadBalancerName = params.get("loadBalancerName")
         self.internetChargeType = params.get("internetChargeType")
+        if params.get("ipNetworkType") is not None:
+            warnings.warn(
+                "ipNetworkType 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.ipNetworkType = params.get("ipNetworkType")
+        self.networkLineType = params.get("networkLineType")
         self.bandwidthMbps = params.get("bandwidthMbps")
         self.trafficPackageSize = params.get("trafficPackageSize")
         self.bandwidthClusterId = params.get("bandwidthClusterId")
@@ -690,6 +698,7 @@ class InquiryPriceCreateLoadBalancerRequest(AbstractModel):
         self.regionId = None
         self.internetChargeType = None
         self.ipNetworkType = None
+        self.networkLineType = None
         self.bandwidthMbps = None
         self.trafficPackageSize = None
         self.bandwidthClusterId = None
@@ -697,7 +706,14 @@ class InquiryPriceCreateLoadBalancerRequest(AbstractModel):
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
         self.internetChargeType = params.get("internetChargeType")
+        if params.get("ipNetworkType") is not None:
+            warnings.warn(
+                "ipNetworkType 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.ipNetworkType = params.get("ipNetworkType")
+        self.networkLineType = params.get("networkLineType")
         self.bandwidthMbps = params.get("bandwidthMbps")
         self.trafficPackageSize = params.get("trafficPackageSize")
         self.bandwidthClusterId = params.get("bandwidthClusterId")

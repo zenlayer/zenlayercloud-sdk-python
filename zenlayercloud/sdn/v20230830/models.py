@@ -129,6 +129,30 @@ class DescribeBorderGatewayDatacentersResponse(AbstractModel):
                 self.dcSet.append(obj)
 
 
+class DescribeVPCDatacentersRequest(AbstractModel):
+    def __init__(self):
+        self.dcId = None
+        self.regionId = None
+
+    def _deserialize(self, params):
+        self.dcId = params.get("dcId")
+        self.regionId = params.get("regionId")
+
+
+class DescribeVPCDatacentersResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None  # 请求ID
+        self.dcSet = None  # 虚拟边缘数据中心集合
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("dcSet") is not None:
+            self.dcSet = []
+            for item in params.get("dcSet"):
+                obj = DatacenterInfo(item)  # 复用已有的DatacenterInfo结构
+                self.dcSet.append(obj)
+
+
 class QueryDataCenterPortPriceRequest(AbstractModel):
     def __init__(self):
         self.dcId = None
@@ -1736,7 +1760,6 @@ class DescribeCloudRouterEdgePointTrafficResponse(AbstractModel):
         self.inAvg = None
         self.inMax = None
         self.inMin = None
-        self.inTotal = None
         self.out95 = None
         self.outAvg = None
         self.outMax = None
@@ -1754,7 +1777,56 @@ class DescribeCloudRouterEdgePointTrafficResponse(AbstractModel):
         self.inAvg = params.get("inAvg")
         self.inMax = params.get("inMax")
         self.inMin = params.get("inMin")
-        self.inTotal = params.get("inTotal")
+        self.out95 = params.get("out95")
+        self.outAvg = params.get("outAvg")
+        self.outMax = params.get("outMax")
+        self.outMin = params.get("outMin")
+        self.unit = params.get("unit")
+
+
+
+class DescribeCloudRouterDCToDCTrafficRequest(AbstractModel):
+    def __init__(self):
+        self.cloudRouterId = None
+        self.sourceDcId = None
+        self.destinationDcId = None
+        self.startTime = None
+        self.endTime = None
+
+    def _deserialize(self, params):
+        self.cloudRouterId = params.get("cloudRouterId")
+        self.sourceDcId = params.get("sourceDcId")
+        self.destinationDcId = params.get("destinationDcId")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+
+
+class DescribeCloudRouterDCToDCTrafficResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.dataList = None
+        self.in95 = None
+        self.inAvg = None
+        self.inMax = None
+        self.inMin = None
+        self.out95 = None
+        self.outAvg = None
+        self.outMax = None
+        self.outMin = None
+        self.unit = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("dataList") is not None:
+            self.dataList = []
+            for item in params.get("dataList"):
+                obj = TrafficData(item)
+                self.dataList.append(obj)
+        self.in95 = params.get("in95")
+        self.inAvg = params.get("inAvg")
+        self.inMax = params.get("inMax")
+        self.inMin = params.get("inMin")
         self.out95 = params.get("out95")
         self.outAvg = params.get("outAvg")
         self.outMax = params.get("outMax")

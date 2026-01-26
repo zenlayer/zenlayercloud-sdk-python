@@ -34,6 +34,13 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
+
+    def DescribeVPCDatacenters(self, request):
+        response = self._api_call("DescribeVPCDatacenters", request)
+        model = models.DescribeVPCDatacentersResponse()
+        model._deserialize(response)
+        return model
+
     def QueryDataCenterPortPrice(self, request):
         response = self._api_call("QueryDataCenterPortPrice", request)
 
@@ -299,6 +306,15 @@ class SdnClient(AbstractClient):
         model = models.DescribeCloudRouterEdgePointTrafficResponse()
         model._deserialize(response)
         return model
+
+
+    def DescribeCloudRouterDCToDCTraffic(self, request):
+        response = self._api_call("DescribeCloudRouterDCToDCTraffic", request)
+
+        model = models.DescribeCloudRouterDCToDCTrafficResponse()
+        model._deserialize(response)
+        return model
+
 
     def ModifyCloudRouterEdgePoint(self, request):
         response = self._api_call("ModifyCloudRouterEdgePoint", request)

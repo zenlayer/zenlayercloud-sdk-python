@@ -1858,6 +1858,142 @@ class DeleteImagesResponse(AbstractModel):
         self.imageIds = params.get("imageIds")
 
 
+class DescribeDDosAllEventListRequest(AbstractModel):
+    def __init__(self):
+        self.status = None
+        self.ipAddress = None
+        self.startTime = None
+        self.endTime = None
+        self.pageSize = None
+        self.pageNum = None
+
+    def _deserialize(self, params):
+        self.status = params.get("status")
+        self.ipAddress = params.get("ipAddress")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+
+
+class DescribeDDosAllEventListResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = AttackEventInfo(item)
+                self.dataSet.append(obj)
+
+
+class AttackEventInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.eventId = None
+        self.status = None
+        self.ipAddress = None
+        self.protecting = None
+        self.startTime = None
+        self.endTime = None
+        self.endBlackholeTime = None
+        self.attackBandwidthMax = None
+        self.attackPackageMax = None
+        self.regionId = None
+
+    def _deserialize(self, params):
+        self.eventId = params.get("eventId")
+        self.status = params.get("status")
+        self.ipAddress = params.get("ipAddress")
+        self.protecting = params.get("protecting")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+        self.endBlackholeTime = params.get("endBlackholeTime")
+        self.attackBandwidthMax = params.get("attackBandwidthMax")
+        self.attackPackageMax = params.get("attackPackageMax")
+        self.regionId = params.get("regionId")
+
+
+class DescribeDDosEventDetailRequest(AbstractModel):
+    def __init__(self):
+        self.eventId = None
+        self.regionId = None
+
+    def _deserialize(self, params):
+        self.eventId = params.get("eventId")
+        self.regionId = params.get("regionId")
+
+
+class DescribeDDosEventDetailResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.eventId = None
+        self.status = None
+        self.type = None
+        self.ipAddress = None
+        self.protecting = None
+        self.startTime = None
+        self.endTime = None
+        self.endBlackholeTime = None
+        self.attackBandwidthMax = None
+        self.protectedBandwidthMax = None
+        self.attackPackageMax = None
+        self.protectedPackageMax = None
+        self.sourceIp = None
+        self.sourcePort = None
+        self.desertionPort = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.eventId = params.get("eventId")
+        self.status = params.get("status")
+        self.type = params.get("type")
+        self.ipAddress = params.get("ipAddress")
+        self.protecting = params.get("protecting")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+        self.endBlackholeTime = params.get("endBlackholeTime")
+        self.attackBandwidthMax = params.get("attackBandwidthMax")
+        self.protectedBandwidthMax = params.get("protectedBandwidthMax")
+        self.attackPackageMax = params.get("attackPackageMax")
+        self.protectedPackageMax = params.get("protectedPackageMax")
+        self.sourceIp = params.get("sourceIp")
+        if params.get("sourcePort") is not None:
+            self.sourcePort = []
+            for item in params.get("sourcePort"):
+                obj = TopPort(item)
+                self.sourcePort.append(obj)
+        if params.get("desertionPort") is not None:
+            self.desertionPort = []
+            for item in params.get("desertionPort"):
+                obj = TopPort(item)
+                self.desertionPort.append(obj)
+
+
+class TopPort(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.protocol = None
+        self.port = None
+
+    def _deserialize(self, params):
+        self.protocol = params.get("protocol")
+        self.port = params.get("port")
+
+
 class CreatePolicyRequest(AbstractModel):
     def __init__(self):
         self.policyName = None
@@ -2555,10 +2691,18 @@ class DescribeEipInternetChargeTypesRequest(AbstractModel):
     def __init__(self):
         self.regionId = None
         self.eipV4Type = None
+        self.networkLineType = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
+        if params.get("eipV4Type") is not None:
+            warnings.warn(
+                "eipV4Type 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.eipV4Type = params.get("eipV4Type")
+        self.networkLineType = params.get("networkLineType")
 
 
 class DescribeEipInternetChargeTypesResponse(AbstractModel):
@@ -2575,10 +2719,18 @@ class DescribeEipRemoteRegionsRequest(AbstractModel):
     def __init__(self):
         self.regionId = None
         self.eipV4Type = None
+        self.networkLineType = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
+        if params.get("eipV4Type") is not None:
+            warnings.warn(
+                "eipV4Type 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.eipV4Type = params.get("eipV4Type")
+        self.networkLineType = params.get("networkLineType")
 
 
 class DescribeEipRemoteRegionsResponse(AbstractModel):
@@ -2667,6 +2819,7 @@ class EipInfo(AbstractModel):
         self.publicIpAddresses = None
         self.privateIpAddress = None
         self.eipV4Type = None
+        self.networkLineType = None
         self.internetChargeType = None
         self.cidrId = None
         self.nicId = None
@@ -2694,7 +2847,14 @@ class EipInfo(AbstractModel):
         self.status = params.get("status")
         self.publicIpAddresses = params.get("publicIpAddresses")
         self.privateIpAddress = params.get("privateIpAddress")
+        if params.get("eipV4Type") is not None:
+            warnings.warn(
+                "eipV4Type 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.eipV4Type = params.get("eipV4Type")
+        self.networkLineType = params.get("networkLineType")
         self.internetChargeType = params.get("internetChargeType")
         self.cidrId = params.get("cidrId")
         if params.get("nicId") is not None:
@@ -2781,6 +2941,7 @@ class CreateEipsRequest(AbstractModel):
         self.internetChargeType = None
         self.amount = None
         self.eipV4Type = None
+        self.networkLineType = None
         self.primaryIsp = None
         self.bandwidth = None
         self.cidrId = None
@@ -2799,7 +2960,14 @@ class CreateEipsRequest(AbstractModel):
         self.name = params.get("name")
         self.internetChargeType = params.get("internetChargeType")
         self.amount = params.get("amount")
+        if params.get("eipV4Type") is not None:
+            warnings.warn(
+                "eipV4Type 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.eipV4Type = params.get("eipV4Type")
+        self.networkLineType = params.get("networkLineType")
         self.primaryIsp = params.get("primaryIsp")
         self.bandwidth = params.get("bandwidth")
         self.cidrId = params.get("cidrId")
@@ -2882,6 +3050,7 @@ class DescribeEipPriceRequest(AbstractModel):
         self.internetChargeType = None
         self.amount = None
         self.eipV4Type = None
+        self.networkLineType = None
         self.bandwidth = None
         self.flowPackage = None
         self.cidrId = None
@@ -2892,7 +3061,14 @@ class DescribeEipPriceRequest(AbstractModel):
         self.regionId = params.get("regionId")
         self.internetChargeType = params.get("internetChargeType")
         self.amount = params.get("amount")
+        if params.get("eipV4Type") is not None:
+            warnings.warn(
+                "eipV4Type 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.eipV4Type = params.get("eipV4Type")
+        self.networkLineType = params.get("networkLineType")
         self.bandwidth = params.get("bandwidth")
         self.flowPackage = params.get("flowPackage")
         self.cidrId = params.get("cidrId")
@@ -3458,142 +3634,6 @@ class ModifyDhcpOptionsSetAttributesResponse(AbstractModel):
         self.requestId = params.get("requestId")
 
 
-class DescribeDDosAllEventListRequest(AbstractModel):
-    def __init__(self):
-        self.status = None
-        self.ipAddress = None
-        self.startTime = None
-        self.endTime = None
-        self.pageSize = None
-        self.pageNum = None
-
-    def _deserialize(self, params):
-        self.status = params.get("status")
-        self.ipAddress = params.get("ipAddress")
-        self.startTime = params.get("startTime")
-        self.endTime = params.get("endTime")
-        self.pageSize = params.get("pageSize")
-        self.pageNum = params.get("pageNum")
-
-
-class DescribeDDosAllEventListResponse(AbstractModel):
-    def __init__(self):
-        self.requestId = None
-        self.totalCount = None
-        self.dataSet = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-        self.totalCount = params.get("totalCount")
-        if params.get("dataSet") is not None:
-            self.dataSet = []
-            for item in params.get("dataSet"):
-                obj = AttackEventInfo(item)
-                self.dataSet.append(obj)
-
-
-class AttackEventInfo(AbstractModel):
-    def __init__(self, params=None):
-        if params is None:
-            params = {}
-        if len(params) > 0:
-            self._deserialize(params)
-            return
-        self.eventId = None
-        self.status = None
-        self.ipAddress = None
-        self.protecting = None
-        self.startTime = None
-        self.endTime = None
-        self.endBlackholeTime = None
-        self.attackBandwidthMax = None
-        self.attackPackageMax = None
-        self.regionId = None
-
-    def _deserialize(self, params):
-        self.eventId = params.get("eventId")
-        self.status = params.get("status")
-        self.ipAddress = params.get("ipAddress")
-        self.protecting = params.get("protecting")
-        self.startTime = params.get("startTime")
-        self.endTime = params.get("endTime")
-        self.endBlackholeTime = params.get("endBlackholeTime")
-        self.attackBandwidthMax = params.get("attackBandwidthMax")
-        self.attackPackageMax = params.get("attackPackageMax")
-        self.regionId = params.get("regionId")
-
-
-class DescribeDDosEventDetailRequest(AbstractModel):
-    def __init__(self):
-        self.eventId = None
-        self.regionId = None
-
-    def _deserialize(self, params):
-        self.eventId = params.get("eventId")
-        self.regionId = params.get("regionId")
-
-
-class DescribeDDosEventDetailResponse(AbstractModel):
-    def __init__(self):
-        self.requestId = None
-        self.eventId = None
-        self.status = None
-        self.type = None
-        self.ipAddress = None
-        self.protecting = None
-        self.startTime = None
-        self.endTime = None
-        self.endBlackholeTime = None
-        self.attackBandwidthMax = None
-        self.protectedBandwidthMax = None
-        self.attackPackageMax = None
-        self.protectedPackageMax = None
-        self.sourceIp = None
-        self.sourcePort = None
-        self.desertionPort = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-        self.eventId = params.get("eventId")
-        self.status = params.get("status")
-        self.type = params.get("type")
-        self.ipAddress = params.get("ipAddress")
-        self.protecting = params.get("protecting")
-        self.startTime = params.get("startTime")
-        self.endTime = params.get("endTime")
-        self.endBlackholeTime = params.get("endBlackholeTime")
-        self.attackBandwidthMax = params.get("attackBandwidthMax")
-        self.protectedBandwidthMax = params.get("protectedBandwidthMax")
-        self.attackPackageMax = params.get("attackPackageMax")
-        self.protectedPackageMax = params.get("protectedPackageMax")
-        self.sourceIp = params.get("sourceIp")
-        if params.get("sourcePort") is not None:
-            self.sourcePort = []
-            for item in params.get("sourcePort"):
-                obj = TopPort(item)
-                self.sourcePort.append(obj)
-        if params.get("desertionPort") is not None:
-            self.desertionPort = []
-            for item in params.get("desertionPort"):
-                obj = TopPort(item)
-                self.desertionPort.append(obj)
-
-
-class TopPort(AbstractModel):
-    def __init__(self, params=None):
-        if params is None:
-            params = {}
-        if len(params) > 0:
-            self._deserialize(params)
-            return
-        self.protocol = None
-        self.port = None
-
-    def _deserialize(self, params):
-        self.protocol = params.get("protocol")
-        self.port = params.get("port")
-
-
 class DescribeZonesRequest(AbstractModel):
     def __init__(self):
         self.zoneIds = None
@@ -3714,11 +3754,19 @@ class DescribeCidrPriceRequest(AbstractModel):
     def __init__(self):
         self.regionId = None
         self.eipV4Type = None
+        self.networkLineType = None
         self.netmask = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
+        if params.get("eipV4Type") is not None:
+            warnings.warn(
+                "eipV4Type 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.eipV4Type = params.get("eipV4Type")
+        self.networkLineType = params.get("networkLineType")
         if params.get("netmask") is not None:
             self.netmask = NetmaskInfo(params.get("netmask"))
 
@@ -3810,6 +3858,7 @@ class CidrInfo(AbstractModel):
         self.usedCount = None
         self.source = None
         self.eipV4Type = None
+        self.networkLineType = None
         self.netmask = None
         self.poolId = None
         self.createTime = None
@@ -3827,7 +3876,14 @@ class CidrInfo(AbstractModel):
         self.totalCount = params.get("totalCount")
         self.usedCount = params.get("usedCount")
         self.source = params.get("source")
+        if params.get("eipV4Type") is not None:
+            warnings.warn(
+                "eipV4Type 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.eipV4Type = params.get("eipV4Type")
+        self.networkLineType = params.get("networkLineType")
         self.netmask = params.get("netmask")
         self.poolId = params.get("poolId")
         self.createTime = params.get("createTime")
@@ -3843,6 +3899,7 @@ class CreateCidrRequest(AbstractModel):
     def __init__(self):
         self.regionId = None
         self.eipV4Type = None
+        self.networkLineType = None
         self.netmask = None
         self.name = None
         self.resourceGroupId = None
@@ -3851,7 +3908,14 @@ class CreateCidrRequest(AbstractModel):
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
+        if params.get("eipV4Type") is not None:
+            warnings.warn(
+                "eipV4Type 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.eipV4Type = params.get("eipV4Type")
+        self.networkLineType = params.get("networkLineType")
         if params.get("netmask") is not None:
             self.netmask = NetmaskInfo(params.get("netmask"))
         self.name = params.get("name")
@@ -4575,6 +4639,7 @@ class InquiryPriceCreateInstanceRequest(AbstractModel):
         self.zoneId = None
         self.instanceType = None
         self.eipV4Type = None
+        self.networkLineType = None
         self.internetChargeType = None
         self.trafficPackageSize = None
         self.bandwidth = None
@@ -4585,7 +4650,14 @@ class InquiryPriceCreateInstanceRequest(AbstractModel):
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
         self.instanceType = params.get("instanceType")
+        if params.get("eipV4Type") is not None:
+            warnings.warn(
+                "eipV4Type 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.eipV4Type = params.get("eipV4Type")
+        self.networkLineType = params.get("networkLineType")
         self.internetChargeType = params.get("internetChargeType")
         self.trafficPackageSize = params.get("trafficPackageSize")
         self.bandwidth = params.get("bandwidth")
@@ -4695,6 +4767,7 @@ class CreateZecInstancesRequest(AbstractModel):
         self.bandwidth = None
         self.eipBindType = None
         self.eipV4Type = None
+        self.networkLineType = None
         self.clusterId = None
         self.resourceGroupId = None
         self.marketingOptions = None
@@ -4727,7 +4800,14 @@ class CreateZecInstancesRequest(AbstractModel):
         self.trafficPackageSize = params.get("trafficPackageSize")
         self.bandwidth = params.get("bandwidth")
         self.eipBindType = params.get("eipBindType")
+        if params.get("eipV4Type") is not None:
+            warnings.warn(
+                "eipV4Type 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.eipV4Type = params.get("eipV4Type")
+        self.networkLineType = params.get("networkLineType")
         self.clusterId = params.get("clusterId")
         self.resourceGroupId = params.get("resourceGroupId")
         if params.get("marketingOptions") is not None:
