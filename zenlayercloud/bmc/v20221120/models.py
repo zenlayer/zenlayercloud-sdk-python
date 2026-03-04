@@ -1340,6 +1340,7 @@ class EipAddress(AbstractModel):
         self.eipId = None
         self.zoneId = None
         self.ipAddress = None
+        self.netmask = None
         self.instanceId = None
         self.instanceName = None
         self.eipChargeType = None
@@ -1355,6 +1356,7 @@ class EipAddress(AbstractModel):
         self.eipId = params.get("eipId")
         self.zoneId = params.get("zoneId")
         self.ipAddress = params.get("ipAddress")
+        self.netmask = params.get("netmask")
         self.instanceId = params.get("instanceId")
         self.instanceName = params.get("instanceName")
         self.eipChargeType = params.get("eipChargeType")
@@ -1403,10 +1405,12 @@ class EipAvailable(AbstractModel):
             return
         self.zoneId = None
         self.status = None
+        self.netmask = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
         self.status = params.get("status")
+        self.netmask = params.get("netmask")
 
 
 class AllocateEipAddressesRequest(AbstractModel):
@@ -1416,6 +1420,7 @@ class AllocateEipAddressesRequest(AbstractModel):
         self.eipChargeType = None
         self.eipChargePrepaid = None
         self.amount = None
+        self.netmask = None
         self.resourceGroupId = None
         self.marketingOptions = None
         self.tags = None
@@ -1426,6 +1431,7 @@ class AllocateEipAddressesRequest(AbstractModel):
         if params.get("eipChargePrepaid") is not None:
             self.eipChargePrepaid = ChargePrepaid(params.get("eipChargePrepaid"))
         self.amount = params.get("amount")
+        self.netmask = params.get("netmask")
         self.resourceGroupId = params.get("resourceGroupId")
         if params.get("marketingOptions") is not None:
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
@@ -1577,6 +1583,7 @@ class InquiryPriceCreateEipAddressRequest(AbstractModel):
         self.eipChargeType = None
         self.eipChargePrepaid = None
         self.amount = None
+        self.netmask = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -1584,6 +1591,7 @@ class InquiryPriceCreateEipAddressRequest(AbstractModel):
         if params.get("eipChargePrepaid") is not None:
             self.eipChargePrepaid = ChargePrepaid(params.get("eipChargePrepaid"))
         self.amount = params.get("amount")
+        self.netmask = params.get("netmask")
 
 
 class InquiryPriceCreateEipAddressResponse(AbstractModel):
@@ -1632,10 +1640,12 @@ class InstanceAvailableEip(AbstractModel):
             return
         self.eipId = None
         self.ipAddress = None
+        self.netmask = None
 
     def _deserialize(self, params):
         self.eipId = params.get("eipId")
         self.ipAddress = params.get("ipAddress")
+        self.netmask = params.get("netmask")
 
 
 class ModifyEipAddressesResourceGroupRequest(AbstractModel):

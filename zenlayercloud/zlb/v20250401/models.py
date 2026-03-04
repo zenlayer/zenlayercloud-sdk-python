@@ -44,6 +44,7 @@ class Listener(AbstractModel):
         self.scheduler = None
         self.kind = None
         self.createTime = None
+        self.persistent = None
 
     def _deserialize(self, params):
         self.listenerId = params.get("listenerId")
@@ -55,6 +56,7 @@ class Listener(AbstractModel):
         self.scheduler = params.get("scheduler")
         self.kind = params.get("kind")
         self.createTime = params.get("createTime")
+        self.persistent = params.get("persistent")
 
 
 class HealthCheck(AbstractModel):
@@ -97,6 +99,7 @@ class CreateListenerRequest(AbstractModel):
         self.scheduler = None
         self.port = None
         self.kind = None
+        self.persistent = None
 
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
@@ -107,6 +110,7 @@ class CreateListenerRequest(AbstractModel):
         self.scheduler = params.get("scheduler")
         self.port = params.get("port")
         self.kind = params.get("kind")
+        self.persistent = params.get("persistent")
 
 
 class CreateListenerResponse(AbstractModel):
@@ -146,6 +150,7 @@ class ModifyListenerRequest(AbstractModel):
         self.scheduler = None
         self.port = None
         self.kind = None
+        self.persistent = None
 
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
@@ -156,6 +161,7 @@ class ModifyListenerRequest(AbstractModel):
         self.scheduler = params.get("scheduler")
         self.port = params.get("port")
         self.kind = params.get("kind")
+        self.persistent = params.get("persistent")
 
 
 class ModifyListenerResponse(AbstractModel):

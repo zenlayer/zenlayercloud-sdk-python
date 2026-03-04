@@ -554,6 +554,12 @@ class ZECClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ConfigEipProbe(self, request):
+        response = self._api_call("ConfigEipProbe", request)
+        model = models.ConfigEipProbeResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeEipMonitorData(self, request):
         response = self._api_call("DescribeEipMonitorData", request)
         model = models.DescribeEipMonitorDataResponse()
@@ -653,6 +659,24 @@ class ZECClient(AbstractClient):
     def DeleteCidrs(self, request):
         response = self._api_call("DeleteCidrs", request)
         model = models.DeleteCidrsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeIpv6Cidrs(self, request):
+        response = self._api_call("DescribeIpv6Cidrs", request)
+        model = models.DescribeIpv6CidrsResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteIpv6Cidr(self, request):
+        response = self._api_call("DeleteIpv6Cidr", request)
+        model = models.DeleteIpv6CidrResponse()
+        model._deserialize(response)
+        return model
+
+    def RenewIpv6Cidr(self, request):
+        response = self._api_call("RenewIpv6Cidr", request)
+        model = models.RenewIpv6CidrResponse()
         model._deserialize(response)
         return model
 

@@ -645,6 +645,8 @@ class CreateSubnetRequest(AbstractModel):
         self.cidrBlock = None
         self.ipv6Type = None
         self.dhcpOptionsSetId = None
+        self.ipv6CidrBlockId = None
+        self.ipv6MaskLength = None
 
     def _deserialize(self, params):
         self.vpcId = params.get("vpcId")
@@ -654,6 +656,8 @@ class CreateSubnetRequest(AbstractModel):
         self.cidrBlock = params.get("cidrBlock")
         self.ipv6Type = params.get("ipv6Type")
         self.dhcpOptionsSetId = params.get("dhcpOptionsSetId")
+        self.ipv6CidrBlockId = params.get("ipv6CidrBlockId")
+        self.ipv6MaskLength = params.get("ipv6MaskLength")
 
 
 class CreateSubnetResponse(AbstractModel):
@@ -707,11 +711,15 @@ class ModifySubnetStackTypeRequest(AbstractModel):
         self.subnetId = None
         self.stackType = None
         self.ipv6Type = None
+        self.ipv6CidrBlockId = None
+        self.ipv6MaskLength = None
 
     def _deserialize(self, params):
         self.subnetId = params.get("subnetId")
         self.stackType = params.get("stackType")
         self.ipv6Type = params.get("ipv6Type")
+        self.ipv6CidrBlockId = params.get("ipv6CidrBlockId")
+        self.ipv6MaskLength = params.get("ipv6MaskLength")
 
 
 class ModifySubnetStackTypeResponse(AbstractModel):
@@ -2925,6 +2933,7 @@ class BlockInfo(AbstractModel):
         self.pps = None
         self.inCps = None
         self.outCps = None
+        self.enable = None
 
     def _deserialize(self, params):
         self.ip = params.get("ip")
@@ -2932,6 +2941,7 @@ class BlockInfo(AbstractModel):
         self.pps = params.get("pps")
         self.inCps = params.get("inCps")
         self.outCps = params.get("outCps")
+        self.enable = params.get("enable")
 
 
 class CreateEipsRequest(AbstractModel):
@@ -3366,6 +3376,26 @@ class ChangeEipBindTypeResponse(AbstractModel):
         self.requestId = params.get("requestId")
 
 
+class ConfigEipProbeRequest(AbstractModel):
+    def __init__(self):
+        self.eipId = None
+        self.disableIcmp = None
+        self.tcpPort = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.disableIcmp = params.get("disableIcmp")
+        self.tcpPort = params.get("tcpPort")
+
+
+class ConfigEipProbeResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
 class DescribeEipMonitorDataRequest(AbstractModel):
     def __init__(self):
         self.eipId = None
@@ -3724,12 +3754,16 @@ class PoolInfo(AbstractModel):
         self.regionId = None
         self.name = None
         self.createTime = None
+        self.ipv4CidrCount = None
+        self.ipv6CidrCount = None
 
     def _deserialize(self, params):
         self.poolId = params.get("poolId")
         self.regionId = params.get("regionId")
         self.name = params.get("name")
         self.createTime = params.get("createTime")
+        self.ipv4CidrCount = params.get("ipv4CidrCount")
+        self.ipv6CidrCount = params.get("ipv6CidrCount")
 
 
 class DescribeCidrRegionsRequest(AbstractModel):
@@ -4002,6 +4036,125 @@ class DeleteCidrsResponse(AbstractModel):
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
         self.failedCidrIds = params.get("failedCidrIds")
+
+
+class DescribeIpv6CidrsRequest(AbstractModel):
+    def __init__(self):
+        self.cidrIds = None
+        self.regionId = None
+        self.name = None
+        self.cidrBlock = None
+        self.resourceGroupId = None
+        self.pageSize = None
+        self.pageNum = None
+        self.tagKeys = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.cidrIds = params.get("cidrIds")
+        self.regionId = params.get("regionId")
+        self.name = params.get("name")
+        self.cidrBlock = params.get("cidrBlock")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+
+
+class DescribeIpv6CidrsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = Ipv6CidrInfo(item)
+                self.dataSet.append(obj)
+
+
+class Ipv6CidrInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.cidrId = None
+        self.regionId = None
+        self.name = None
+        self.cidrBlock = None
+        self.source = None
+        self.networkLineType = None
+        self.subnetIds = None
+        self.nicIds = None
+        self.netmask = None
+        self.poolId = None
+        self.createTime = None
+        self.expiredTime = None
+        self.resourceGroup = None
+        self.status = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.cidrId = params.get("cidrId")
+        self.regionId = params.get("regionId")
+        self.name = params.get("name")
+        self.cidrBlock = params.get("cidrBlock")
+        self.source = params.get("source")
+        self.networkLineType = params.get("networkLineType")
+        self.subnetIds = params.get("subnetIds")
+        self.nicIds = params.get("nicIds")
+        self.netmask = params.get("netmask")
+        self.poolId = params.get("poolId")
+        self.createTime = params.get("createTime")
+        self.expiredTime = params.get("expiredTime")
+        if params.get("resourceGroup") is not None:
+            self.resourceGroup = ResourceGroupInfo(params.get("resourceGroup"))
+        self.status = params.get("status")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
+
+
+class DeleteIpv6CidrRequest(AbstractModel):
+    def __init__(self):
+        self.cidrId = None
+
+    def _deserialize(self, params):
+        self.cidrId = params.get("cidrId")
+
+
+class DeleteIpv6CidrResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class RenewIpv6CidrRequest(AbstractModel):
+    def __init__(self):
+        self.cidrId = None
+
+    def _deserialize(self, params):
+        self.cidrId = params.get("cidrId")
+
+
+class RenewIpv6CidrResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
 
 
 class CreateCrossRegionBandwidthRequest(AbstractModel):
