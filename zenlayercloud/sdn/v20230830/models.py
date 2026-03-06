@@ -982,6 +982,7 @@ class CreateEndpointParam(AbstractModel):
         self.dcId = None
         self.endpointName = None
         self.haType = None
+        self.cloudBandwidthMbps = None
 
     def _deserialize(self, params):
         self.subnetId = params.get("subnetId")
@@ -993,6 +994,7 @@ class CreateEndpointParam(AbstractModel):
         self.dcId = params.get("dcId")
         self.endpointName = params.get("endpointName")
         self.haType = params.get("haType")
+        self.cloudBandwidthMbps = params.get("cloudBandwidthMbps")
 
 
 class ModifyPrivateConnectsAttributeRequest(AbstractModel):
@@ -1298,6 +1300,7 @@ class CloudRouterEdgePoint(AbstractModel):
             self._deserialize(params)
             return
         self.edgePointId = None
+        self.zbgId = None
         self.edgePointName = None
         self.connectivityStatus = None
         self.dataCenter = None
@@ -1315,6 +1318,7 @@ class CloudRouterEdgePoint(AbstractModel):
 
     def _deserialize(self, params):
         self.edgePointId = params.get("edgePointId")
+        self.zbgId = params.get("zbgId")
         self.edgePointName = params.get("edgePointName")
         self.connectivityStatus = params.get("connectivityStatus")
         if params.get("dataCenter") is not None:
@@ -1513,6 +1517,7 @@ class CreateCloudRouterEdgePoint(AbstractModel):
         self.ipSecBgpConnection = None
         self.ipSecStaticRoutes = None
         self.backupIpSec = None
+        self.cloudBandwidthMbps = None
 
     def _deserialize(self, params):
         self.vpcId = params.get("vpcId")
@@ -1549,6 +1554,7 @@ class CreateCloudRouterEdgePoint(AbstractModel):
                 self.ipSecStaticRoutes.append(obj)
         if params.get("backupIpSec") is not None:
             self.backupIpSec = BackupIPSecConfig(params.get("backupIpSec"))
+        self.cloudBandwidthMbps = params.get("cloudBandwidthMbps")
 
 
 class IPSecBGPConnection(AbstractModel):
@@ -2139,3 +2145,53 @@ class DescribeAzureVlanUsageResponse(AbstractModel):
         self.start = params.get("start")
         self.end = params.get("end")
         self.usedVlans = params.get("usedVlans")
+
+
+
+class DescribeCloudAvailableBandwidthTiersRequest(AbstractModel):
+    def __init__(self):
+        self.cloudPortId = None
+        self.cloudType = None
+        self.cloudAccountId = None
+        self.cloudRegionId = None
+        self.dcId = None
+        self.vlanId = None
+
+    def _deserialize(self, params):
+        self.cloudPortId = params.get("cloudPortId")
+        self.cloudType = params.get("cloudType")
+        self.cloudAccountId = params.get("cloudAccountId")
+        self.cloudRegionId = params.get("cloudRegionId")
+        self.dcId = params.get("dcId")
+        self.vlanId = params.get("vlanId")
+
+
+class DescribeCloudAvailableBandwidthTiersResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.availableBandwidthTiers = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.availableBandwidthTiers = params.get("availableBandwidthTiers")
+
+
+
+class ModifyCloudBandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.cloudPortId = None
+        self.bandwidthMbps = None
+
+    def _deserialize(self, params):
+        self.cloudPortId = params.get("cloudPortId")
+        self.bandwidthMbps = params.get("bandwidthMbps")
+
+
+class ModifyCloudBandwidthResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")

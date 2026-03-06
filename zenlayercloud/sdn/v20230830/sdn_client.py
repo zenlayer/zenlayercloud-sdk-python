@@ -392,3 +392,17 @@ class SdnClient(AbstractClient):
         model = models.DescribeAzureVlanUsageResponse()
         model._deserialize(response)
         return model
+
+    def DescribeCloudAvailableBandwidthTiers(self, request):
+        response = self._api_call("DescribeCloudAvailableBandwidthTiers", request)
+
+        model = models.DescribeCloudAvailableBandwidthTiersResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyCloudBandwidth(self, request):
+        response = self._api_call("ModifyCloudBandwidth", request)
+
+        model = models.ModifyCloudBandwidthResponse()
+        model._deserialize(response)
+        return model
