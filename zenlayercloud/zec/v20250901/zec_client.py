@@ -251,15 +251,6 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-    def DescribeDisks(self, request):
-        """
-        查询云盘的列表信息。
-        """
-        response = self._api_call("DescribeDisks", request)
-        model = models.DescribeDisksResponse()
-        model._deserialize(response)
-        return model
-
     def DescribeDiskRegions(self, request):
         """
         支持售卖云硬盘的节点。
@@ -269,12 +260,30 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeDiskCategory(self, request):
+        """
+        获取某个区域支持的云盘类型。
+        """
+        response = self._api_call("DescribeDiskCategory", request)
+        model = models.DescribeDiskCategoryResponse()
+        model._deserialize(response)
+        return model
+
     def InquiryPriceCreateDisks(self, request):
         """
         创建一块或多块云硬盘的询价。
         """
         response = self._api_call("InquiryPriceCreateDisks", request)
         model = models.InquiryPriceCreateDisksResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeDisks(self, request):
+        """
+        查询云盘的列表信息。
+        """
+        response = self._api_call("DescribeDisks", request)
+        model = models.DescribeDisksResponse()
         model._deserialize(response)
         return model
 
@@ -350,21 +359,21 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-    def DescribeDiskCategory(self, request):
-        """
-        获取某个区域支持的云盘类型。
-        """
-        response = self._api_call("DescribeDiskCategory", request)
-        model = models.DescribeDiskCategoryResponse()
-        model._deserialize(response)
-        return model
-
     def DescribeDiskMonitorData(self, request):
         """
         查询一段时间的云硬盘的监控指标数据。
         """
         response = self._api_call("DescribeDiskMonitorData", request)
         model = models.DescribeDiskMonitorDataResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeSnapshots(self, request):
+        """
+        查询快照的详细信息。
+        """
+        response = self._api_call("DescribeSnapshots", request)
+        model = models.DescribeSnapshotsResponse()
         model._deserialize(response)
         return model
 
@@ -386,24 +395,6 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-    def DeleteSnapshots(self, request):
-        """
-        删除指定快照集合。
-        """
-        response = self._api_call("DeleteSnapshots", request)
-        model = models.DeleteSnapshotsResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribeSnapshots(self, request):
-        """
-        查询快照的详细信息。
-        """
-        response = self._api_call("DescribeSnapshots", request)
-        model = models.DescribeSnapshotsResponse()
-        model._deserialize(response)
-        return model
-
     def ApplySnapshot(self, request):
         """
         回滚快照到原云盘。
@@ -413,12 +404,30 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DeleteSnapshots(self, request):
+        """
+        删除指定快照集合。
+        """
+        response = self._api_call("DeleteSnapshots", request)
+        model = models.DeleteSnapshotsResponse()
+        model._deserialize(response)
+        return model
+
     def CreateAutoSnapshotPolicy(self, request):
         """
         创建一个自动快照策略。
         """
         response = self._api_call("CreateAutoSnapshotPolicy", request)
         model = models.CreateAutoSnapshotPolicyResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeAutoSnapshotPolicies(self, request):
+        """
+        查询自动快照策略的列表数据。
+        """
+        response = self._api_call("DescribeAutoSnapshotPolicies", request)
+        model = models.DescribeAutoSnapshotPoliciesResponse()
         model._deserialize(response)
         return model
 
@@ -437,15 +446,6 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("CancelAutoSnapshotPolicy", request)
         model = models.CancelAutoSnapshotPolicyResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribeAutoSnapshotPolicies(self, request):
-        """
-        查询自动快照策略的列表数据。
-        """
-        response = self._api_call("DescribeAutoSnapshotPolicies", request)
-        model = models.DescribeAutoSnapshotPoliciesResponse()
         model._deserialize(response)
         return model
 
@@ -631,7 +631,7 @@ class ZecClient(AbstractClient):
 
     def CreateCidr(self, request):
         """
-        创建IPv6/IPv4 CIDR地址段。
+        创建IPv4 CIDR地址段。
         """
         response = self._api_call("CreateCidr", request)
         model = models.CreateCidrResponse()
@@ -701,6 +701,33 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def CreateByoip(self, request):
+        """
+        提交自带 IP 段（BYOIP）创建 CIDR。返回 RPKI/IRR 校验失败列表。
+        """
+        response = self._api_call("CreateByoip", request)
+        model = models.CreateByoipResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeByoipRegions(self, request):
+        """
+        返回支持售卖 BYOIP 的区域及对应网段、网络类型等信息。
+        """
+        response = self._api_call("DescribeByoipRegions", request)
+        model = models.DescribeByoipRegionsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeByoipPrice(self, request):
+        """
+        根据宣告 IP 段、区域、线路类型等查询 BYOIP 价格。
+        """
+        response = self._api_call("DescribeByoipPrice", request)
+        model = models.DescribeByoipPriceResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeEipRegions(self, request):
         """
         查询支持售卖EIP的区域信息。
@@ -764,15 +791,6 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-    def ChangeEipInternetChargeType(self, request):
-        """
-        变更弹性公网IP更网络计费模式。
-        """
-        response = self._api_call("ChangeEipInternetChargeType", request)
-        model = models.ChangeEipInternetChargeTypeResponse()
-        model._deserialize(response)
-        return model
-
     def AvailableLanIp(self, request):
         """
         查询可供弹性公网IP绑定的网卡及内网IP信息。
@@ -809,6 +827,15 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ChangeEipInternetChargeType(self, request):
+        """
+        变更弹性公网IP更网络计费模式。
+        """
+        response = self._api_call("ChangeEipInternetChargeType", request)
+        model = models.ChangeEipInternetChargeTypeResponse()
+        model._deserialize(response)
+        return model
+
     def ModifyEipBandwidth(self, request):
         """
         调整弹性公网IP的带宽限速。
@@ -836,12 +863,30 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ConfigEipEgressIp(self, request):
+        """
+        指定IP作为出口IP。
+        """
+        response = self._api_call("ConfigEipEgressIp", request)
+        model = models.ConfigEipEgressIpResponse()
+        model._deserialize(response)
+        return model
+
     def DeleteEip(self, request):
         """
         删除指定的弹性公网IP。
         """
         response = self._api_call("DeleteEip", request)
         model = models.DeleteEipResponse()
+        model._deserialize(response)
+        return model
+
+    def RenewEip(self, request):
+        """
+        恢复弹性公网IP
+        """
+        response = self._api_call("RenewEip", request)
+        model = models.RenewEipResponse()
         model._deserialize(response)
         return model
 
@@ -860,24 +905,6 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("DescribeEipMonitorData", request)
         model = models.DescribeEipMonitorDataResponse()
-        model._deserialize(response)
-        return model
-
-    def RenewEip(self, request):
-        """
-        恢复弹性公网IP
-        """
-        response = self._api_call("RenewEip", request)
-        model = models.RenewEipResponse()
-        model._deserialize(response)
-        return model
-
-    def ConfigEipEgressIp(self, request):
-        """
-        指定IP作为出口IP。
-        """
-        response = self._api_call("ConfigEipEgressIp", request)
-        model = models.ConfigEipEgressIpResponse()
         model._deserialize(response)
         return model
 

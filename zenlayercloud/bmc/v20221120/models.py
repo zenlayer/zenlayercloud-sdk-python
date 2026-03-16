@@ -1729,6 +1729,7 @@ class CidrBlockInfo(AbstractModel):
             return
         self.cidrBlockId = None
         self.cidrBlockType = None
+        self.cidrType = None
         self.cidrBlockName = None
         self.zoneId = None
         self.cidrBlock = None
@@ -1748,6 +1749,7 @@ class CidrBlockInfo(AbstractModel):
     def _deserialize(self, params):
         self.cidrBlockId = params.get("cidrBlockId")
         self.cidrBlockType = params.get("cidrBlockType")
+        self.cidrType = params.get("cidrType")
         self.cidrBlockName = params.get("cidrBlockName")
         self.zoneId = params.get("zoneId")
         self.cidrBlock = params.get("cidrBlock")
@@ -1870,11 +1872,13 @@ class AvailableIpv4Resource(AbstractModel):
         self.zoneId = None
         self.netmask = None
         self.sellStatus = None
+        self.cidrType = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
         self.netmask = params.get("netmask")
         self.sellStatus = params.get("sellStatus")
+        self.cidrType = params.get("cidrType")
 
 
 class DescribeAvailableIpv6ResourcesRequest(AbstractModel):
@@ -1953,7 +1957,8 @@ class InstanceAvailableCidrBlock(AbstractModel):
             return
         self.cidrBlockId = None
         self.zoneId = None
-        self.cidrBlockIpType = None
+        self.cidrBlockType = None
+        self.cidrType = None
         self.cidrBlock = None
         self.availableIps = None
         self.availableIpCount = None
@@ -1961,7 +1966,8 @@ class InstanceAvailableCidrBlock(AbstractModel):
     def _deserialize(self, params):
         self.cidrBlockId = params.get("cidrBlockId")
         self.zoneId = params.get("zoneId")
-        self.cidrBlockIpType = params.get("cidrBlockIpType")
+        self.cidrBlockType = params.get("cidrBlockType")
+        self.cidrType = params.get("cidrType")
         self.cidrBlock = params.get("cidrBlock")
         self.availableIps = params.get("availableIps")
         self.availableIpCount = params.get("availableIpCount")
@@ -1972,6 +1978,7 @@ class InquiryPriceCreateIpv4BlockRequest(AbstractModel):
     def __init__(self):
         self.zoneId = None
         self.chargeType = None
+        self.cidrType = None
         self.chargePrepaid = None
         self.netmask = None
         self.amount = None
@@ -1979,6 +1986,7 @@ class InquiryPriceCreateIpv4BlockRequest(AbstractModel):
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
         self.chargeType = params.get("chargeType")
+        self.cidrType = params.get("cidrType")
         if params.get("chargePrepaid") is not None:
             self.chargePrepaid = ChargePrepaid(params.get("chargePrepaid"))
         self.netmask = params.get("netmask")
@@ -2002,6 +2010,7 @@ class CreateIpv4BlockRequest(AbstractModel):
     def __init__(self):
         self.zoneId = None
         self.name = None
+        self.cidrType = None
         self.chargeType = None
         self.chargePrepaid = None
         self.netmask = None
@@ -2013,6 +2022,7 @@ class CreateIpv4BlockRequest(AbstractModel):
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
         self.name = params.get("name")
+        self.cidrType = params.get("cidrType")
         self.chargeType = params.get("chargeType")
         if params.get("chargePrepaid") is not None:
             self.chargePrepaid = ChargePrepaid(params.get("chargePrepaid"))
