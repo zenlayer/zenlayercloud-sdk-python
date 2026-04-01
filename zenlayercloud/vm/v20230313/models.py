@@ -141,6 +141,7 @@ class InquiryPriceCreateInstanceResponse(AbstractModel):
         self.requestId = None
         self.instancePrice = None
         self.bandwidthPrice = None
+        self.eipPrice = None
         self.systemDiskPrice = None
         self.dataDiskPrice = None
 
@@ -152,6 +153,7 @@ class InquiryPriceCreateInstanceResponse(AbstractModel):
             for item in params.get("bandwidthPrice"):
                 obj = Price(item)
                 self.bandwidthPrice.append(obj)
+        self.eipPrice = Price(params.get("eipPrice"))
         self.systemDiskPrice = Price(params.get("systemDiskPrice"))
         if params.get("dataDiskPrice") is not None:
             self.dataDiskPrice = Price(params.get("dataDiskPrice"))

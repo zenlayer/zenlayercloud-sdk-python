@@ -36,6 +36,7 @@ class ZoneInfo(AbstractModel):
         self.regionId = None
         self.zoneName = None
         self.supportSecurityGroup = None
+        self.timeZone = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -48,6 +49,7 @@ class ZoneInfo(AbstractModel):
                 stacklevel=2
             )
         self.supportSecurityGroup = params.get("supportSecurityGroup")
+        self.timeZone = params.get("timeZone")
 
 
 class DescribeZoneInstanceConfigInfosRequest(AbstractModel):

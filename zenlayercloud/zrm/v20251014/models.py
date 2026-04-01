@@ -1,62 +1,7 @@
 #  Zenlayer.com Inc.
 #  Copyright (c) 2014-2024 All Rights Reserved.
 from zenlayercloud.common.abstract_model import AbstractModel
-
-
-class CreateTagsRequest(AbstractModel):
-    def __init__(self):
-        self.tags = None
-
-    def _deserialize(self, params):
-        if params.get("tags") is not None:
-            self.tags = []
-            for item in params.get("tags"):
-                obj = Tag(item)
-                self.tags.append(obj)
-
-
-class Tag(AbstractModel):
-    def __init__(self, params=None):
-        if params is None:
-            params = {}
-        if len(params) > 0:
-            self._deserialize(params)
-            return
-        self.key = None
-        self.value = None
-
-    def _deserialize(self, params):
-        self.key = params.get("key")
-        self.value = params.get("value")
-
-
-class CreateTagsResponse(AbstractModel):
-    def __init__(self):
-        self.requestId = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-
-
-class DeleteTagsRequest(AbstractModel):
-    def __init__(self):
-        self.tags = None
-
-    def _deserialize(self, params):
-        if params.get("tags") is not None:
-            self.tags = []
-            for item in params.get("tags"):
-                obj = Tag(item)
-                self.tags.append(obj)
-
-
-class DeleteTagsResponse(AbstractModel):
-    def __init__(self):
-        self.requestId = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-
+import warnings
 
 class DescribeTagsRequest(AbstractModel):
     def __init__(self):
@@ -78,6 +23,21 @@ class DescribeTagsRequest(AbstractModel):
             for item in params.get("tags"):
                 obj = Tag(item)
                 self.tags.append(obj)
+
+
+class Tag(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.key = None
+        self.value = None
+
+    def _deserialize(self, params):
+        self.key = params.get("key")
+        self.value = params.get("value")
 
 
 class DescribeTagsResponse(AbstractModel):
@@ -115,18 +75,19 @@ class TagInfo(AbstractModel):
         self.createdDate = params.get("createdDate")
 
 
-class TagBindResourcesRequest(AbstractModel):
+class CreateTagsRequest(AbstractModel):
     def __init__(self):
-        self.tag = None
-        self.resourceUuids = None
+        self.tags = None
 
     def _deserialize(self, params):
-        if params.get("tag") is not None:
-            self.tag = Tag(params.get("tag"))
-        self.resourceUuids = params.get("resourceUuids")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
-class TagBindResourcesResponse(AbstractModel):
+class CreateTagsResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
 
@@ -134,18 +95,19 @@ class TagBindResourcesResponse(AbstractModel):
         self.requestId = params.get("requestId")
 
 
-class TagUnbindResourcesRequest(AbstractModel):
+class DeleteTagsRequest(AbstractModel):
     def __init__(self):
-        self.tag = None
-        self.resourceUuids = None
+        self.tags = None
 
     def _deserialize(self, params):
-        if params.get("tag") is not None:
-            self.tag = Tag(params.get("tag"))
-        self.resourceUuids = params.get("resourceUuids")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
 
 
-class TagUnbindResourcesResponse(AbstractModel):
+class DeleteTagsResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
 
@@ -216,5 +178,88 @@ class ModifyResourceTagsResponse(AbstractModel):
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+
+
+class TagBindResourcesRequest(AbstractModel):
+    def __init__(self):
+        self.tag = None
+        self.resourceUuids = None
+
+    def _deserialize(self, params):
+        if params.get("tag") is not None:
+            self.tag = Tag(params.get("tag"))
+        self.resourceUuids = params.get("resourceUuids")
+
+
+class TagBindResourcesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class TagUnbindResourcesRequest(AbstractModel):
+    def __init__(self):
+        self.tag = None
+        self.resourceUuids = None
+
+    def _deserialize(self, params):
+        if params.get("tag") is not None:
+            self.tag = Tag(params.get("tag"))
+        self.resourceUuids = params.get("resourceUuids")
+
+
+class TagUnbindResourcesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribeResourceByTagsRequest(AbstractModel):
+    def __init__(self):
+        self.tags = None
+        self.tagKeys = None
+
+    def _deserialize(self, params):
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+        self.tagKeys = params.get("tagKeys")
+
+
+class DescribeResourceByTagsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = ResourceInfo(item)
+                self.dataSet.append(obj)
+
+
+class ResourceInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.resourceType = None
+        self.resourceUuid = None
+
+    def _deserialize(self, params):
+        self.resourceType = params.get("resourceType")
+        self.resourceUuid = params.get("resourceUuid")
 
 

@@ -697,12 +697,15 @@ class InquiryPriceCreateInstanceResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
         self.instancePrice = None
+        self.primaryIpPrice = None
         self.bandwidthPrice = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
         if params.get("instancePrice") is not None:
             self.instancePrice = Price(params.get("instancePrice"))
+        if params.get("primaryIpPrice") is not None:
+            self.primaryIpPrice = Price(params.get("primaryIpPrice"))
         if params.get("bandwidthPrice") is not None:
             self.bandwidthPrice = []
             for item in params.get("bandwidthPrice"):
