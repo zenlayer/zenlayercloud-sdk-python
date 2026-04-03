@@ -1592,3 +1592,48 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def CreatePlacementGroup(self, request):
+        """
+        创建一个置放组。
+        """
+        response = self._api_call("CreatePlacementGroup", request)
+        model = models.CreatePlacementGroupResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyPlacementGroupAttributes(self, request):
+        """
+        修改置放组的名称、分区数、亲和度等属性。
+        """
+        response = self._api_call("ModifyPlacementGroupAttributes", request)
+        model = models.ModifyPlacementGroupAttributesResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribePlacementGroups(self, request):
+        """
+        查询一个或多个置放组的信息。用户可以根据置放组ID、名称或可用区等条件来查询置放组的详细信息。
+        """
+        response = self._api_call("DescribePlacementGroups", request)
+        model = models.DescribePlacementGroupsResponse()
+        model._deserialize(response)
+        return model
+
+    def DeletePlacementGroups(self, request):
+        """
+        删除一个或多个置放组。删除后置放组内所有实例解除放置策略约束。
+        """
+        response = self._api_call("DeletePlacementGroups", request)
+        model = models.DeletePlacementGroupsResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyInstancePlacement(self, request):
+        """
+        将实例加入置放组、从一个置放组迁移到另一个、或从置放组移除（placementGroupId 为空表示移除）。
+        """
+        response = self._api_call("ModifyInstancePlacement", request)
+        model = models.ModifyInstancePlacementResponse()
+        model._deserialize(response)
+        return model
+

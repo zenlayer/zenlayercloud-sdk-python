@@ -547,6 +547,7 @@ class InstanceInfo(AbstractModel):
         self.nics = None
         self.tags = None
         self.loadBalancerIds = None
+        self.placementGroupId = None
         self.instanceOptions = None
 
     def _deserialize(self, params):
@@ -588,6 +589,7 @@ class InstanceInfo(AbstractModel):
         if params.get("tags") is not None:
             self.tags = Tags(params.get("tags"))
         self.loadBalancerIds = params.get("loadBalancerIds")
+        self.placementGroupId = params.get("placementGroupId")
         if params.get("instanceOptions") is not None:
             self.instanceOptions = InstanceOptions(params.get("instanceOptions"))
 
@@ -6279,6 +6281,162 @@ class UnAssignSecurityGroupVpcRequest(AbstractModel):
 
 
 class UnAssignSecurityGroupVpcResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class CreatePlacementGroupRequest(AbstractModel):
+    def __init__(self):
+        self.zoneId = None
+        self.name = None
+        self.partitionNum = None
+        self.affinity = None
+        self.resourceGroupId = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.zoneId = params.get("zoneId")
+        self.name = params.get("name")
+        self.partitionNum = params.get("partitionNum")
+        self.affinity = params.get("affinity")
+        self.resourceGroupId = params.get("resourceGroupId")
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
+
+
+class CreatePlacementGroupResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.placementGroupId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.placementGroupId = params.get("placementGroupId")
+
+
+class ModifyPlacementGroupAttributesRequest(AbstractModel):
+    def __init__(self):
+        self.placementGroupId = None
+        self.name = None
+        self.partitionNum = None
+        self.affinity = None
+
+    def _deserialize(self, params):
+        self.placementGroupId = params.get("placementGroupId")
+        self.name = params.get("name")
+        self.partitionNum = params.get("partitionNum")
+        self.affinity = params.get("affinity")
+
+
+class ModifyPlacementGroupAttributesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribePlacementGroupsRequest(AbstractModel):
+    def __init__(self):
+        self.placementGroupIds = None
+        self.name = None
+        self.zoneId = None
+        self.pageSize = None
+        self.pageNum = None
+        self.resourceGroupId = None
+
+    def _deserialize(self, params):
+        self.placementGroupIds = params.get("placementGroupIds")
+        self.name = params.get("name")
+        self.zoneId = params.get("zoneId")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+        self.resourceGroupId = params.get("resourceGroupId")
+
+
+class DescribePlacementGroupsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = PlacementGroupInfo(item)
+                self.dataSet.append(obj)
+
+
+class PlacementGroupInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.placementGroupId = None
+        self.name = None
+        self.zoneId = None
+        self.partitionNum = None
+        self.affinity = None
+        self.instanceCount = None
+        self.instanceIds = None
+        self.constraintStatus = None
+        self.createTime = None
+        self.resourceGroup = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.placementGroupId = params.get("placementGroupId")
+        self.name = params.get("name")
+        self.zoneId = params.get("zoneId")
+        self.partitionNum = params.get("partitionNum")
+        self.affinity = params.get("affinity")
+        self.instanceCount = params.get("instanceCount")
+        self.instanceIds = params.get("instanceIds")
+        self.constraintStatus = params.get("constraintStatus")
+        self.createTime = params.get("createTime")
+        if params.get("resourceGroup") is not None:
+            self.resourceGroup = ResourceGroupInfo(params.get("resourceGroup"))
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
+
+
+class DeletePlacementGroupsRequest(AbstractModel):
+    def __init__(self):
+        self.placementGroupIds = None
+
+    def _deserialize(self, params):
+        self.placementGroupIds = params.get("placementGroupIds")
+
+
+class DeletePlacementGroupsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.failedPlacementGroupIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.failedPlacementGroupIds = params.get("failedPlacementGroupIds")
+
+
+class ModifyInstancePlacementRequest(AbstractModel):
+    def __init__(self):
+        self.instanceId = None
+        self.placementGroupId = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+        self.placementGroupId = params.get("placementGroupId")
+
+
+class ModifyInstancePlacementResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
 
