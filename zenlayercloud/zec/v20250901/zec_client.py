@@ -251,6 +251,24 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def CopyImage(self, request):
+        """
+        将自定义镜像复制到指定区域列表。
+        """
+        response = self._api_call("CopyImage", request)
+        model = models.CopyImageResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteImageCopy(self, request):
+        """
+        删除镜像在指定区域的副本。
+        """
+        response = self._api_call("DeleteImageCopy", request)
+        model = models.DeleteImageCopyResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeDiskRegions(self, request):
         """
         支持售卖云硬盘的节点。
@@ -1630,7 +1648,7 @@ class ZecClient(AbstractClient):
 
     def ModifyInstancePlacement(self, request):
         """
-        将实例加入置放组、从一个置放组迁移到另一个、或从置放组移除（placementGroupId 为空表示移除）。
+        将实例加入置放组、从一个置放组迁移到另一个、或从置放组移除。
         """
         response = self._api_call("ModifyInstancePlacement", request)
         model = models.ModifyInstancePlacementResponse()

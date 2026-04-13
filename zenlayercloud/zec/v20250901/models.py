@@ -1214,6 +1214,42 @@ class DeleteImagesResponse(AbstractModel):
         self.imageIds = params.get("imageIds")
 
 
+class CopyImageRequest(AbstractModel):
+    def __init__(self):
+        self.imageId = None
+        self.regionIdList = None
+
+    def _deserialize(self, params):
+        self.imageId = params.get("imageId")
+        self.regionIdList = params.get("regionIdList")
+
+
+class CopyImageResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DeleteImageCopyRequest(AbstractModel):
+    def __init__(self):
+        self.imageId = None
+        self.regionIds = None
+
+    def _deserialize(self, params):
+        self.imageId = params.get("imageId")
+        self.regionIds = params.get("regionIds")
+
+
+class DeleteImageCopyResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
 class DescribeDiskRegionsRequest(AbstractModel):
     def __init__(self):
         pass
