@@ -1579,6 +1579,32 @@ class UnAssociateEipAddressResponse(AbstractModel):
         self.requestId = params.get("requestId")
 
 
+class CreateByoipRequest(AbstractModel):
+    def __init__(self):
+        self.ipType = None
+        self.cidr = None
+        self.asn = None
+        self.publicVirtualInterfaceId = None
+
+    def _deserialize(self, params):
+        self.ipType = params.get("ipType")
+        self.cidr = params.get("cidr")
+        self.asn = params.get("asn")
+        self.publicVirtualInterfaceId = params.get("publicVirtualInterfaceId")
+
+
+class CreateByoipResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.byoipId = None
+        self.cidrBlockId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.byoipId = params.get("byoipId")
+        self.cidrBlockId = params.get("cidrBlockId")
+
+
 class InquiryPriceCreateEipAddressRequest(AbstractModel):
 
     def __init__(self):

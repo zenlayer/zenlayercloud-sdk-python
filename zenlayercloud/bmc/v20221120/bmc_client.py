@@ -5,6 +5,13 @@ from zenlayercloud.common.abstract_client import AbstractClient
 
 
 class BmcClient(AbstractClient):
+    """
+    For maintaining enhanced SDK consistency. This client is no longer maintained.
+
+    .. deprecated:: v20221120
+       Using :class:`v20260201.BmcClient` instead。
+    """
+
     _api_version = "2022-11-20"
     _service = "bmc"
 
@@ -265,6 +272,15 @@ class BmcClient(AbstractClient):
         response = self._api_call("UnAssociateEipAddress", request)
 
         model = models.UnAssociateEipAddressResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateByoip(self, request):
+        """
+        创建一个BYO IP。
+        """
+        response = self._api_call("CreateByoip", request)
+        model = models.CreateByoipResponse()
         model._deserialize(response)
         return model
 

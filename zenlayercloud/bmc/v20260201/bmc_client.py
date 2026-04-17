@@ -431,6 +431,15 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def CreateByoip(self, request):
+        """
+        创建一个BYO IP。
+        """
+        response = self._api_call("CreateByoip", request)
+        model = models.CreateByoipResponse()
+        model._deserialize(response)
+        return model
+
     def InquiryPriceCreateEipAddress(self, request):
         """
         创建EIP询价。
