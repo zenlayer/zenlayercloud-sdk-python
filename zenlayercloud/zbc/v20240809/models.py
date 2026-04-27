@@ -69,6 +69,7 @@ class DescribeBillDetailRequest(AbstractModel):
         self.billMonthly = None
         self.orderSn = None
         self.resourceId = None
+        self.product = None
 
     def _deserialize(self, params):
         self.pageNum = params.get("pageNum")
@@ -76,6 +77,7 @@ class DescribeBillDetailRequest(AbstractModel):
         self.billMonthly = params.get("billMonthly")
         self.orderSn = params.get("orderSn")
         self.resourceId = params.get("resourceId")
+        self.product = params.get("product")
 
 
 class DescribeBillDetailResponse(AbstractModel):

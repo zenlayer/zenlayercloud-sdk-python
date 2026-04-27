@@ -406,3 +406,19 @@ class SdnClient(AbstractClient):
         model = models.ModifyCloudBandwidthResponse()
         model._deserialize(response)
         return model
+
+    def DescribeOracleRegions(self, request):
+        response = self._api_call("DescribeOracleRegions", request)
+
+        model = models.DescribeOracleRegionsResponse()
+        model._deserialize(response)
+        return model
+
+
+
+    def DescribeOracleVlanUsage(self, request):
+        response = self._api_call("DescribeOracleVlanUsage", request)
+
+        model = models.DescribeOracleVlanUsageResponse()
+        model._deserialize(response)
+        return model

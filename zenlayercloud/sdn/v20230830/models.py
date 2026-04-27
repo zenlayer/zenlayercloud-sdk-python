@@ -2195,3 +2195,55 @@ class ModifyCloudBandwidthResponse(AbstractModel):
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+
+
+
+
+class DescribeOracleRegionsRequest(AbstractModel):
+    def __init__(self):
+        self.ocId = None
+        self.product = None
+
+    def _deserialize(self, params):
+        self.ocId = params.get("ocId")
+        self.product = params.get("product")
+
+
+class DescribeOracleRegionsResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.cloudRegions = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("cloudRegions") is not None:
+            self.cloudRegions = []
+            for item in params.get("cloudRegions"):
+                obj = CloudRegion(item)
+                self.cloudRegions.append(obj)
+
+
+
+
+class DescribeOracleVlanUsageRequest(AbstractModel):
+    def __init__(self):
+        self.dcId = None
+
+    def _deserialize(self, params):
+        self.dcId = params.get("dcId")
+
+
+class DescribeOracleVlanUsageResponse(AbstractModel):
+
+    def __init__(self):
+        self.requestId = None
+        self.start = None
+        self.end = None
+        self.usedVlans = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.start = params.get("start")
+        self.end = params.get("end")
+        self.usedVlans = params.get("usedVlans")

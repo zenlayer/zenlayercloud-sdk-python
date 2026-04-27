@@ -1250,6 +1250,90 @@ class DeleteImageCopyResponse(AbstractModel):
         self.requestId = params.get("requestId")
 
 
+class DescribeCustomImagesRequest(AbstractModel):
+    def __init__(self):
+        self.zoneId = None
+        self.imageIds = None
+        self.imageName = None
+        self.category = None
+        self.osType = None
+        self.imageStatus = None
+        self.pageNum = None
+        self.pageSize = None
+        self.tagKeys = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.zoneId = params.get("zoneId")
+        self.imageIds = params.get("imageIds")
+        self.imageName = params.get("imageName")
+        self.category = params.get("category")
+        self.osType = params.get("osType")
+        self.imageStatus = params.get("imageStatus")
+        self.pageNum = params.get("pageNum")
+        self.pageSize = params.get("pageSize")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+
+
+class DescribeCustomImagesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = CustomImage(item)
+                self.dataSet.append(obj)
+
+
+class CustomImage(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.zoneIdList = None
+        self.imageId = None
+        self.imageName = None
+        self.imageType = None
+        self.imageSource = None
+        self.imageSize = None
+        self.imageDescription = None
+        self.imageVersion = None
+        self.imageStatus = None
+        self.nicNetworkType = None
+        self.category = None
+        self.osType = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.zoneIdList = params.get("zoneIdList")
+        self.imageId = params.get("imageId")
+        self.imageName = params.get("imageName")
+        self.imageType = params.get("imageType")
+        self.imageSource = params.get("imageSource")
+        self.imageSize = params.get("imageSize")
+        self.imageDescription = params.get("imageDescription")
+        self.imageVersion = params.get("imageVersion")
+        self.imageStatus = params.get("imageStatus")
+        self.nicNetworkType = params.get("nicNetworkType")
+        self.category = params.get("category")
+        self.osType = params.get("osType")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
+
+
 class DescribeDiskRegionsRequest(AbstractModel):
     def __init__(self):
         pass
@@ -2353,6 +2437,40 @@ class AssignNetworkInterfaceIpv6Response(AbstractModel):
         self.requestId = params.get("requestId")
 
 
+class DescribeNetworkInterfaceMonitorDataRequest(AbstractModel):
+    def __init__(self):
+        self.nicId = None
+        self.metricType = None
+        self.startTime = None
+        self.endTime = None
+
+    def _deserialize(self, params):
+        self.nicId = params.get("nicId")
+        self.metricType = params.get("metricType")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+
+
+class DescribeNetworkInterfaceMonitorDataResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.maxValue = None
+        self.minValue = None
+        self.avgValue = None
+        self.metrics = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.maxValue = params.get("maxValue")
+        self.minValue = params.get("minValue")
+        self.avgValue = params.get("avgValue")
+        if params.get("metrics") is not None:
+            self.metrics = []
+            for item in params.get("metrics"):
+                obj = MetricValue(item)
+                self.metrics.append(obj)
+
+
 class DescribePoolsRequest(AbstractModel):
     def __init__(self):
         self.poolIds = None
@@ -3219,6 +3337,7 @@ class EipGeoInfo(AbstractModel):
         self.ipData = None
         self.ipInfo = None
         self.maxMind = None
+        self.ipGeoLocation = None
         self.standard = None
         self.isConsistent = None
 
@@ -3227,6 +3346,7 @@ class EipGeoInfo(AbstractModel):
         self.ipData = params.get("ipData")
         self.ipInfo = params.get("ipInfo")
         self.maxMind = params.get("maxMind")
+        self.ipGeoLocation = params.get("ipGeoLocation")
         self.standard = params.get("standard")
         self.isConsistent = params.get("isConsistent")
 
