@@ -1252,7 +1252,7 @@ class DeleteImageCopyResponse(AbstractModel):
 
 class DescribeCustomImagesRequest(AbstractModel):
     def __init__(self):
-        self.zoneId = None
+        self.regionId = None
         self.imageIds = None
         self.imageName = None
         self.category = None
@@ -1260,11 +1260,12 @@ class DescribeCustomImagesRequest(AbstractModel):
         self.imageStatus = None
         self.pageNum = None
         self.pageSize = None
+        self.resourceGroupId = None
         self.tagKeys = None
         self.tags = None
 
     def _deserialize(self, params):
-        self.zoneId = params.get("zoneId")
+        self.regionId = params.get("regionId")
         self.imageIds = params.get("imageIds")
         self.imageName = params.get("imageName")
         self.category = params.get("category")
@@ -1272,6 +1273,7 @@ class DescribeCustomImagesRequest(AbstractModel):
         self.imageStatus = params.get("imageStatus")
         self.pageNum = params.get("pageNum")
         self.pageSize = params.get("pageSize")
+        self.resourceGroupId = params.get("resourceGroupId")
         self.tagKeys = params.get("tagKeys")
         if params.get("tags") is not None:
             self.tags = []
@@ -1303,7 +1305,9 @@ class CustomImage(AbstractModel):
         if len(params) > 0:
             self._deserialize(params)
             return
-        self.zoneIdList = None
+        self.regionIdList = None
+        self.resourceGroupId = None
+        self.resourceGroupName = None
         self.imageId = None
         self.imageName = None
         self.imageType = None
@@ -1318,7 +1322,9 @@ class CustomImage(AbstractModel):
         self.tags = None
 
     def _deserialize(self, params):
-        self.zoneIdList = params.get("zoneIdList")
+        self.regionIdList = params.get("regionIdList")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.resourceGroupName = params.get("resourceGroupName")
         self.imageId = params.get("imageId")
         self.imageName = params.get("imageName")
         self.imageType = params.get("imageType")
@@ -3337,7 +3343,6 @@ class EipGeoInfo(AbstractModel):
         self.ipData = None
         self.ipInfo = None
         self.maxMind = None
-        self.ipGeoLocation = None
         self.standard = None
         self.isConsistent = None
 
@@ -3346,7 +3351,6 @@ class EipGeoInfo(AbstractModel):
         self.ipData = params.get("ipData")
         self.ipInfo = params.get("ipInfo")
         self.maxMind = params.get("maxMind")
-        self.ipGeoLocation = params.get("ipGeoLocation")
         self.standard = params.get("standard")
         self.isConsistent = params.get("isConsistent")
 
@@ -6598,5 +6602,251 @@ class ModifyInstancePlacementResponse(AbstractModel):
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+
+
+class RemoveQosPolicyGroupMembersRequest(AbstractModel):
+    def __init__(self):
+        self.qosPolicyGroupId = None
+        self.resourceIds = None
+
+    def _deserialize(self, params):
+        self.qosPolicyGroupId = params.get("qosPolicyGroupId")
+        self.resourceIds = params.get("resourceIds")
+
+
+class RemoveQosPolicyGroupMembersResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribeQosPolicyGroupTrafficRequest(AbstractModel):
+    def __init__(self):
+        self.qosPolicyGroupId = None
+        self.startTime = None
+        self.endTime = None
+        self.period = None
+
+    def _deserialize(self, params):
+        self.qosPolicyGroupId = params.get("qosPolicyGroupId")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+        self.period = params.get("period")
+
+
+class DescribeQosPolicyGroupTrafficResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = TrafficDataPoint(item)
+                self.dataSet.append(obj)
+
+
+class TrafficDataPoint(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.timestamp = None
+        self.bandwidthIn = None
+        self.bandwidthOut = None
+
+    def _deserialize(self, params):
+        self.timestamp = params.get("timestamp")
+        self.bandwidthIn = params.get("bandwidthIn")
+        self.bandwidthOut = params.get("bandwidthOut")
+
+
+class ModifyQosPolicyGroupRequest(AbstractModel):
+    def __init__(self):
+        self.qosPolicyGroupId = None
+        self.name = None
+        self.bandwidthLimit = None
+        self.rateLimitMode = None
+
+    def _deserialize(self, params):
+        self.qosPolicyGroupId = params.get("qosPolicyGroupId")
+        self.name = params.get("name")
+        self.bandwidthLimit = params.get("bandwidthLimit")
+        self.rateLimitMode = params.get("rateLimitMode")
+
+
+class ModifyQosPolicyGroupResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DeleteQosPolicyGroupRequest(AbstractModel):
+    def __init__(self):
+        self.qosPolicyGroupId = None
+
+    def _deserialize(self, params):
+        self.qosPolicyGroupId = params.get("qosPolicyGroupId")
+
+
+class DeleteQosPolicyGroupResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class AddQosPolicyGroupMembersRequest(AbstractModel):
+    def __init__(self):
+        self.qosPolicyGroupId = None
+        self.members = None
+
+    def _deserialize(self, params):
+        self.qosPolicyGroupId = params.get("qosPolicyGroupId")
+        if params.get("members") is not None:
+            self.members = []
+            for item in params.get("members"):
+                obj = QosPolicyGroupMember(item)
+                self.members.append(obj)
+
+
+class QosPolicyGroupMember(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.resourceId = None
+        self.ipType = None
+
+    def _deserialize(self, params):
+        self.resourceId = params.get("resourceId")
+        self.ipType = params.get("ipType")
+
+
+class AddQosPolicyGroupMembersResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class CreateQosPolicyGroupRequest(AbstractModel):
+    def __init__(self):
+        self.regionId = None
+        self.name = None
+        self.bandwidthLimit = None
+        self.rateLimitMode = None
+        self.resourceGroupId = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.regionId = params.get("regionId")
+        self.name = params.get("name")
+        self.bandwidthLimit = params.get("bandwidthLimit")
+        self.rateLimitMode = params.get("rateLimitMode")
+        self.resourceGroupId = params.get("resourceGroupId")
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
+
+
+class CreateQosPolicyGroupResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.qosPolicyGroupId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.qosPolicyGroupId = params.get("qosPolicyGroupId")
+
+
+class DescribeQosPolicyGroupsRequest(AbstractModel):
+    def __init__(self):
+        self.qosPolicyGroupIds = None
+        self.regionId = None
+        self.resourceGroupId = None
+        self.resourceId = None
+        self.pageSize = None
+        self.pageNum = None
+        self.tagKeys = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.qosPolicyGroupIds = params.get("qosPolicyGroupIds")
+        self.regionId = params.get("regionId")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.resourceId = params.get("resourceId")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+
+
+class DescribeQosPolicyGroupsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = QosPolicyGroup(item)
+                self.dataSet.append(obj)
+
+
+class QosPolicyGroup(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.qosPolicyGroupId = None
+        self.name = None
+        self.regionId = None
+        self.bandwidthLimit = None
+        self.rateLimitMode = None
+        self.memberCount = None
+        self.members = None
+        self.createTime = None
+        self.resourceGroup = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.qosPolicyGroupId = params.get("qosPolicyGroupId")
+        self.name = params.get("name")
+        self.regionId = params.get("regionId")
+        self.bandwidthLimit = params.get("bandwidthLimit")
+        self.rateLimitMode = params.get("rateLimitMode")
+        self.memberCount = params.get("memberCount")
+        if params.get("members") is not None:
+            self.members = []
+            for item in params.get("members"):
+                obj = QosPolicyGroupMember(item)
+                self.members.append(obj)
+        self.createTime = params.get("createTime")
+        if params.get("resourceGroup") is not None:
+            self.resourceGroup = ResourceGroupInfo(params.get("resourceGroup"))
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
 
 
