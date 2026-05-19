@@ -2821,6 +2821,7 @@ class BackendInfo(AbstractModel):
         self.port = None
         self.weight = None
         self.instanceId = None
+        self.instanceType = None
         self.instanceName = None
         self.createTime = None
 
@@ -2832,6 +2833,7 @@ class BackendInfo(AbstractModel):
         self.port = params.get("port")
         self.weight = params.get("weight")
         self.instanceId = params.get("instanceId")
+        self.instanceType = params.get("instanceType")
         self.instanceName = params.get("instanceName")
         self.createTime = params.get("createTime")
 
@@ -3065,6 +3067,7 @@ class DescribeBackendsRequest(AbstractModel):
         self.listenerId = None
         self.backendIds = None
         self.backendName = None
+        self.instanceType = None
         self.pageNum = None
         self.pageSize = None
 
@@ -3072,6 +3075,7 @@ class DescribeBackendsRequest(AbstractModel):
         self.listenerId = params.get("listenerId")
         self.backendIds = params.get("backendIds")
         self.backendName = params.get("backendName")
+        self.instanceType = params.get("instanceType")
         self.pageNum = params.get("pageNum")
         self.pageSize = params.get("pageSize")
 
@@ -3097,6 +3101,7 @@ class RegisterBackendRequest(AbstractModel):
         self.listenerId = None
         self.backendName = None
         self.instanceId = None
+        self.instanceType = None
         self.clientToken = None
         self.portList = None
         self.weight = None
@@ -3105,6 +3110,7 @@ class RegisterBackendRequest(AbstractModel):
         self.listenerId = params.get("listenerId")
         self.backendName = params.get("backendName")
         self.instanceId = params.get("instanceId")
+        self.instanceType = params.get("instanceType")
         self.clientToken = params.get("clientToken")
         self.portList = params.get("portList")
         self.weight = params.get("weight")
