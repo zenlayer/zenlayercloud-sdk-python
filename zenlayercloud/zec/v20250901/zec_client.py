@@ -640,7 +640,7 @@ class ZecClient(AbstractClient):
 
     def ModifyNetworkInterfacePublicIPv6BandwidthLimitMode(self, request):
         """
-        修改指定公网IPv6的带宽限速模式。LOOSE为宽松模式（允许短时突发），STRICT为严格模式（不允许突发）。仅支持已配置固定带宽的IPv6。
+        修改指定公网IPv6的带宽限速模式。
         """
         response = self._api_call("ModifyNetworkInterfacePublicIPv6BandwidthLimitMode", request)
         model = models.ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse()
@@ -964,7 +964,7 @@ class ZecClient(AbstractClient):
 
     def ModifyEipBandwidthLimitMode(self, request):
         """
-        修改指定弹性公网IP的带宽限速模式。LOOSE为宽松模式（允许短时突发），STRICT为严格模式（不允许突发）。仅支持已配置固定带宽的IP。
+        修改指定弹性公网IP的带宽限速模式。
         """
         response = self._api_call("ModifyEipBandwidthLimitMode", request)
         model = models.ModifyEipBandwidthLimitModeResponse()
@@ -1252,7 +1252,7 @@ class ZecClient(AbstractClient):
 
     def ModifyUnmanagedEgressIpBandwidthLimitMode(self, request):
         """
-        修改指定非托管出口IP的带宽限速模式。LOOSE为宽松模式（允许短时突发），STRICT为严格模式（不允许突发）。仅支持已配置固定带宽的IP。
+        修改指定非托管出口IP的带宽限速模式。
         """
         response = self._api_call("ModifyUnmanagedEgressIpBandwidthLimitMode", request)
         model = models.ModifyUnmanagedEgressIpBandwidthLimitModeResponse()
@@ -1778,6 +1778,60 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("DescribeQosPolicyGroupTraffic", request)
         model = models.DescribeQosPolicyGroupTrafficResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateHaVip(self, request):
+        """
+        创建一个高可用虚拟IP。
+        """
+        response = self._api_call("CreateHaVip", request)
+        model = models.CreateHaVipResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeHaVips(self, request):
+        """
+        查询一个或多个高可用虚拟IP的详细信息。
+        """
+        response = self._api_call("DescribeHaVips", request)
+        model = models.DescribeHaVipsResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyHaVipAttribute(self, request):
+        """
+        修改高可用虚拟IP的名称。
+        """
+        response = self._api_call("ModifyHaVipAttribute", request)
+        model = models.ModifyHaVipAttributeResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteHaVip(self, request):
+        """
+        删除高可用虚拟IP。
+        """
+        response = self._api_call("DeleteHaVip", request)
+        model = models.DeleteHaVipResponse()
+        model._deserialize(response)
+        return model
+
+    def AssociateHaVip(self, request):
+        """
+        将高可用虚拟IP绑定到一台ZEC实例。
+        """
+        response = self._api_call("AssociateHaVip", request)
+        model = models.AssociateHaVipResponse()
+        model._deserialize(response)
+        return model
+
+    def UnassociateHaVip(self, request):
+        """
+        将高可用虚拟IP从实例解绑。
+        """
+        response = self._api_call("UnassociateHaVip", request)
+        model = models.UnassociateHaVipResponse()
         model._deserialize(response)
         return model
 

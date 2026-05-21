@@ -288,6 +288,7 @@ class Zone(AbstractModel):
         self.cityName = None
         self.areaName = None
         self.isCloudRouterAvailable = None
+        self.isByoipEnabled = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -295,6 +296,7 @@ class Zone(AbstractModel):
         self.cityName = params.get("cityName")
         self.areaName = params.get("areaName")
         self.isCloudRouterAvailable = params.get("isCloudRouterAvailable")
+        self.isByoipEnabled = params.get("isByoipEnabled")
 
 
 class DescribeInstanceTypesRequest(AbstractModel):
@@ -362,6 +364,9 @@ class InstanceType(AbstractModel):
         self.supportSubnet = None
         self.isHA = None
         self.diskInfo = None
+        self.vpuVendor = None
+        self.vpuCard = None
+        self.vpuCount = None
 
     def _deserialize(self, params):
         self.imageIds = params.get("imageIds")
@@ -379,6 +384,9 @@ class InstanceType(AbstractModel):
         self.isHA = params.get("isHA")
         if params.get("diskInfo") is not None:
             self.diskInfo = InstanceDiskInfo(params.get("diskInfo"))
+        self.vpuVendor = params.get("vpuVendor")
+        self.vpuCard = params.get("vpuCard")
+        self.vpuCount = params.get("vpuCount")
 
 
 class InstanceDiskInfo(AbstractModel):

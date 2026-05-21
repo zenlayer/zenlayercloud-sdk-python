@@ -82,7 +82,7 @@ class BmcClient(AbstractClient):
 
     def DescribeZones(self, request):
         """
-        查询可用区信息。​
+        查询可用区信息。
         """
         response = self._api_call("DescribeZones", request)
         model = models.DescribeZonesResponse()

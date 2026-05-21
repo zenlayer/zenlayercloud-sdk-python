@@ -41,6 +41,7 @@ class ZoneInfo(AbstractModel):
         self.cityCode = None
         self.countryCode = None
         self.countryName = None
+        self.supportHaVip = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -58,6 +59,7 @@ class ZoneInfo(AbstractModel):
         self.cityCode = params.get("cityCode")
         self.countryCode = params.get("countryCode")
         self.countryName = params.get("countryName")
+        self.supportHaVip = params.get("supportHaVip")
 
 
 class DescribeZoneInstanceConfigInfosRequest(AbstractModel):
@@ -96,6 +98,8 @@ class InstanceTypeQuotaItem(AbstractModel):
         self.instanceTypeName = None
         self.cpuCount = None
         self.memory = None
+        self.bps = None
+        self.pps = None
         self.internetMaxBandwidthOutLimit = None
         self.withStock = None
         self.internetChargeTypes = None
@@ -106,6 +110,8 @@ class InstanceTypeQuotaItem(AbstractModel):
         self.instanceTypeName = params.get("instanceTypeName")
         self.cpuCount = params.get("cpuCount")
         self.memory = params.get("memory")
+        self.bps = params.get("bps")
+        self.pps = params.get("pps")
         self.internetMaxBandwidthOutLimit = params.get("internetMaxBandwidthOutLimit")
         self.withStock = params.get("withStock")
         self.internetChargeTypes = params.get("internetChargeTypes")
@@ -122,10 +128,12 @@ class DescribeVmInventoryCapacityRequest(AbstractModel):
 class DescribeVmInventoryCapacityResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
+        self.remark = None
         self.dataSet = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+        self.remark = params.get("remark")
         if params.get("dataSet") is not None:
             self.dataSet = []
             for item in params.get("dataSet"):
@@ -1090,12 +1098,14 @@ class DescribeInstanceMonitorDataRequest(AbstractModel):
         self.metricType = None
         self.startTime = None
         self.endTime = None
+        self.step = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
         self.metricType = params.get("metricType")
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
+        self.step = params.get("step")
 
 
 class DescribeInstanceMonitorDataResponse(AbstractModel):
@@ -1772,12 +1782,14 @@ class DescribeDiskMonitorDataRequest(AbstractModel):
         self.metricType = None
         self.startTime = None
         self.endTime = None
+        self.step = None
 
     def _deserialize(self, params):
         self.diskId = params.get("diskId")
         self.metricType = params.get("metricType")
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
+        self.step = params.get("step")
 
 
 class DescribeDiskMonitorDataResponse(AbstractModel):
@@ -2521,12 +2533,14 @@ class DescribeNetworkInterfaceMonitorDataRequest(AbstractModel):
         self.metricType = None
         self.startTime = None
         self.endTime = None
+        self.step = None
 
     def _deserialize(self, params):
         self.nicId = params.get("nicId")
         self.metricType = params.get("metricType")
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
+        self.step = params.get("step")
 
 
 class DescribeNetworkInterfaceMonitorDataResponse(AbstractModel):
@@ -3612,6 +3626,7 @@ class AssociateEipAddressRequest(AbstractModel):
         self.lanIp = None
         self.natId = None
         self.eipIds = None
+        self.haVipId = None
         self.bindType = None
 
     def _deserialize(self, params):
@@ -3620,6 +3635,7 @@ class AssociateEipAddressRequest(AbstractModel):
         self.lanIp = params.get("lanIp")
         self.natId = params.get("natId")
         self.eipIds = params.get("eipIds")
+        self.haVipId = params.get("haVipId")
         self.bindType = params.get("bindType")
 
 
@@ -3891,12 +3907,14 @@ class DescribeEipMonitorDataRequest(AbstractModel):
         self.metricType = None
         self.startTime = None
         self.endTime = None
+        self.step = None
 
     def _deserialize(self, params):
         self.eipId = params.get("eipId")
         self.metricType = params.get("metricType")
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
+        self.step = params.get("step")
 
 
 class DescribeEipMonitorDataResponse(AbstractModel):
@@ -6471,6 +6489,7 @@ class SecurityGroupInfo(AbstractModel):
         self.nicIdList = None
         self.natIdList = None
         self.loadBalancerIdList = None
+        self.haVipIdList = None
 
     def _deserialize(self, params):
         self.securityGroupId = params.get("securityGroupId")
@@ -6482,6 +6501,7 @@ class SecurityGroupInfo(AbstractModel):
         self.nicIdList = params.get("nicIdList")
         self.natIdList = params.get("natIdList")
         self.loadBalancerIdList = params.get("loadBalancerIdList")
+        self.haVipIdList = params.get("haVipIdList")
 
 
 class CreateSecurityGroupRequest(AbstractModel):
@@ -7053,5 +7073,205 @@ class TrafficDataPoint(AbstractModel):
         self.timestamp = params.get("timestamp")
         self.bandwidthIn = params.get("bandwidthIn")
         self.bandwidthOut = params.get("bandwidthOut")
+
+
+class CreateHaVipRequest(AbstractModel):
+    def __init__(self):
+        self.subnetId = None
+        self.name = None
+        self.ipAddress = None
+        self.securityGroupId = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.subnetId = params.get("subnetId")
+        self.name = params.get("name")
+        self.ipAddress = params.get("ipAddress")
+        self.securityGroupId = params.get("securityGroupId")
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
+
+
+class CreateHaVipResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.haVipId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.haVipId = params.get("haVipId")
+
+
+class DescribeHaVipsRequest(AbstractModel):
+    def __init__(self):
+        self.haVipIds = None
+        self.name = None
+        self.regionId = None
+        self.vpcIds = None
+        self.subnetIds = None
+        self.ipAddresses = None
+        self.instanceIds = None
+        self.pageSize = None
+        self.pageNum = None
+        self.tagKeys = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.haVipIds = params.get("haVipIds")
+        self.name = params.get("name")
+        self.regionId = params.get("regionId")
+        self.vpcIds = params.get("vpcIds")
+        self.subnetIds = params.get("subnetIds")
+        self.ipAddresses = params.get("ipAddresses")
+        self.instanceIds = params.get("instanceIds")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+
+
+class DescribeHaVipsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = HaVipInfo(item)
+                self.dataSet.append(obj)
+
+
+class HaVipInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.haVipId = None
+        self.name = None
+        self.regionId = None
+        self.vpcId = None
+        self.subnetId = None
+        self.securityGroupId = None
+        self.ipAddress = None
+        self.associatedInstances = None
+        self.masterInstanceId = None
+        self.associatedEips = None
+        self.createTime = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.haVipId = params.get("haVipId")
+        self.name = params.get("name")
+        self.regionId = params.get("regionId")
+        self.vpcId = params.get("vpcId")
+        self.subnetId = params.get("subnetId")
+        self.securityGroupId = params.get("securityGroupId")
+        self.ipAddress = params.get("ipAddress")
+        self.associatedInstances = params.get("associatedInstances")
+        self.masterInstanceId = params.get("masterInstanceId")
+        if params.get("associatedEips") is not None:
+            self.associatedEips = []
+            for item in params.get("associatedEips"):
+                obj = HaVipEipAttachment(item)
+                self.associatedEips.append(obj)
+        self.createTime = params.get("createTime")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
+
+
+class HaVipEipAttachment(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.eipId = None
+        self.eipAddress = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.eipAddress = params.get("eipAddress")
+
+
+class ModifyHaVipAttributeRequest(AbstractModel):
+    def __init__(self):
+        self.haVipId = None
+        self.name = None
+
+    def _deserialize(self, params):
+        self.haVipId = params.get("haVipId")
+        self.name = params.get("name")
+
+
+class ModifyHaVipAttributeResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DeleteHaVipRequest(AbstractModel):
+    def __init__(self):
+        self.haVipId = None
+
+    def _deserialize(self, params):
+        self.haVipId = params.get("haVipId")
+
+
+class DeleteHaVipResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class AssociateHaVipRequest(AbstractModel):
+    def __init__(self):
+        self.haVipId = None
+        self.instanceId = None
+
+    def _deserialize(self, params):
+        self.haVipId = params.get("haVipId")
+        self.instanceId = params.get("instanceId")
+
+
+class AssociateHaVipResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class UnassociateHaVipRequest(AbstractModel):
+    def __init__(self):
+        self.haVipId = None
+        self.instanceId = None
+
+    def _deserialize(self, params):
+        self.haVipId = params.get("haVipId")
+        self.instanceId = params.get("instanceId")
+
+
+class UnassociateHaVipResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
 
 
