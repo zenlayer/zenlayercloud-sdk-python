@@ -6,6 +6,7 @@ import time
 import zenlayercloud
 from zenlayercloud.common.abstract_model import AbstractModel
 from zenlayercloud.common.config import Config
+from zenlayercloud.common.credential import TokenCredential
 from zenlayercloud.common.excpetion import error_code
 from zenlayercloud.common.excpetion.zenlayer_cloud_sdk_exception import ZenlayerCloudSdkException
 from zenlayercloud.common.request import BaseRequest, ApiProxyClient
@@ -25,7 +26,7 @@ class AbstractClient(object):
         """base client interactive with zenlayer cloud
 
         :param credential: the zenlayer cloud credential
-        :type credential: zenlayercloud.common.credential.Credential
+        :type credential: zenlayercloud.common.credential.Credential or zenlayercloud.common.credential.TokenCredential
         :param config: the additional config for client
         :type config: zenlayercloud.common.config.Config
         """
@@ -49,10 +50,7 @@ class AbstractClient(object):
         req = BaseRequest(host=self.config.domain, method=method, uri=uri, header=headers)
 
         header = req.header
-        timestamp = int(time.time())
         header["x-zc-version"] = self._api_version
-        header["x-zc-signature-method"] = self._signature_method
-        header["x-zc-timestamp"] = str(timestamp)
         header["x-zc-service"] = self._service
         header["x-zc-action"] = action
         header["x-zc-sdk-version"] = self._sdk_version
@@ -61,8 +59,14 @@ class AbstractClient(object):
         req.set_content_type(_json_content_type)
         req.data = json.dumps(request.serialize())
 
-        authorization = self._build_zc2_authorization(req)
-        req.header["Authorization"] = authorization
+        if isinstance(self.credential, TokenCredential):
+            req.header["Authorization"] = "Bearer " + self.credential.token
+        else:
+            timestamp = int(time.time())
+            header["x-zc-signature-method"] = self._signature_method
+            header["x-zc-timestamp"] = str(timestamp)
+            authorization = self._build_zc2_authorization(req)
+            req.header["Authorization"] = authorization
 
         resp = self._send_request(req)
         return self._handle_response(resp)
