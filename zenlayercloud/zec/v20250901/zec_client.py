@@ -287,6 +287,15 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeImageCopyProgress(self, request):
+        """
+        查询自定义镜像在各个目标区域的复制进度。
+        """
+        response = self._api_call("DescribeImageCopyProgress", request)
+        model = models.DescribeImageCopyProgressResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeDiskRegions(self, request):
         """
         查询当前账户下支持创建和售卖云硬盘的所有节点（地域/可用区）信息。
@@ -1259,6 +1268,69 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeQosPolicyGroups(self, request):
+        """
+        查询一个或多个QoS策略组的详细信息。
+        """
+        response = self._api_call("DescribeQosPolicyGroups", request)
+        model = models.DescribeQosPolicyGroupsResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateQosPolicyGroup(self, request):
+        """
+        创建一个QoS策略组，将EIP、IPv6或UNMANAGED出口IP纳入同一策略组实施共享带宽限速。
+        """
+        response = self._api_call("CreateQosPolicyGroup", request)
+        model = models.CreateQosPolicyGroupResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyQosPolicyGroup(self, request):
+        """
+        修改QoS策略组的名称或带宽限制。
+        """
+        response = self._api_call("ModifyQosPolicyGroup", request)
+        model = models.ModifyQosPolicyGroupResponse()
+        model._deserialize(response)
+        return model
+
+    def AddQosPolicyGroupMembers(self, request):
+        """
+        向QoS策略组中添加EIP、IPv6或UNMANAGED出口IP。
+        """
+        response = self._api_call("AddQosPolicyGroupMembers", request)
+        model = models.AddQosPolicyGroupMembersResponse()
+        model._deserialize(response)
+        return model
+
+    def RemoveQosPolicyGroupMembers(self, request):
+        """
+        从QoS策略组中移除成员。
+        """
+        response = self._api_call("RemoveQosPolicyGroupMembers", request)
+        model = models.RemoveQosPolicyGroupMembersResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteQosPolicyGroup(self, request):
+        """
+        删除一个QoS策略组。删除前需确保策略组内无成员。
+        """
+        response = self._api_call("DeleteQosPolicyGroup", request)
+        model = models.DeleteQosPolicyGroupResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeQosPolicyGroupTraffic(self, request):
+        """
+        查询QoS策略组的聚合流量监控数据。
+        """
+        response = self._api_call("DescribeQosPolicyGroupTraffic", request)
+        model = models.DescribeQosPolicyGroupTrafficResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeVpcs(self, request):
         """
         查询私有网络（VPC）列表，用户可以根据 VPC ID、VPC 名称等信息来筛选过滤VPC信息。
@@ -1715,69 +1787,6 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("ModifyInstancePlacement", request)
         model = models.ModifyInstancePlacementResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribeQosPolicyGroups(self, request):
-        """
-        查询一个或多个QoS策略组的详细信息。
-        """
-        response = self._api_call("DescribeQosPolicyGroups", request)
-        model = models.DescribeQosPolicyGroupsResponse()
-        model._deserialize(response)
-        return model
-
-    def CreateQosPolicyGroup(self, request):
-        """
-        创建一个QoS策略组，将EIP、IPv6或UNMANAGED出口IP纳入同一策略组实施共享带宽限速。
-        """
-        response = self._api_call("CreateQosPolicyGroup", request)
-        model = models.CreateQosPolicyGroupResponse()
-        model._deserialize(response)
-        return model
-
-    def ModifyQosPolicyGroup(self, request):
-        """
-        修改QoS策略组的名称或带宽限制。
-        """
-        response = self._api_call("ModifyQosPolicyGroup", request)
-        model = models.ModifyQosPolicyGroupResponse()
-        model._deserialize(response)
-        return model
-
-    def AddQosPolicyGroupMembers(self, request):
-        """
-        向QoS策略组中添加EIP、IPv6或UNMANAGED出口IP。
-        """
-        response = self._api_call("AddQosPolicyGroupMembers", request)
-        model = models.AddQosPolicyGroupMembersResponse()
-        model._deserialize(response)
-        return model
-
-    def RemoveQosPolicyGroupMembers(self, request):
-        """
-        从QoS策略组中移除成员。
-        """
-        response = self._api_call("RemoveQosPolicyGroupMembers", request)
-        model = models.RemoveQosPolicyGroupMembersResponse()
-        model._deserialize(response)
-        return model
-
-    def DeleteQosPolicyGroup(self, request):
-        """
-        删除一个QoS策略组。删除前需确保策略组内无成员。
-        """
-        response = self._api_call("DeleteQosPolicyGroup", request)
-        model = models.DeleteQosPolicyGroupResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribeQosPolicyGroupTraffic(self, request):
-        """
-        查询QoS策略组的聚合流量监控数据。
-        """
-        response = self._api_call("DescribeQosPolicyGroupTraffic", request)
-        model = models.DescribeQosPolicyGroupTrafficResponse()
         model._deserialize(response)
         return model
 
