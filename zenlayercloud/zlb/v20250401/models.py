@@ -206,6 +206,7 @@ class InquiryPriceCreateLoadBalancerResponse(AbstractModel):
         self.loadBalancerInstancePrice = None
         self.eipPrice = None
         self.eipNetworkPrice = None
+        self.eipNetworkPrices = None
         self.lcuPrice = None
 
     def _deserialize(self, params):
@@ -216,6 +217,11 @@ class InquiryPriceCreateLoadBalancerResponse(AbstractModel):
             self.eipPrice = PriceItem(params.get("eipPrice"))
         if params.get("eipNetworkPrice") is not None:
             self.eipNetworkPrice = PriceItem(params.get("eipNetworkPrice"))
+        if params.get("eipNetworkPrices") is not None:
+            self.eipNetworkPrices = []
+            for item in params.get("eipNetworkPrices"):
+                obj = BandwidthPriceResponseItem(item)
+                self.eipNetworkPrices.append(obj)
         if params.get("lcuPrice") is not None:
             self.lcuPrice = PriceItem(params.get("lcuPrice"))
 
@@ -276,6 +282,22 @@ class StepPrice(AbstractModel):
         self.stepEnd = params.get("stepEnd")
         self.unitPrice = params.get("unitPrice")
         self.discountUnitPrice = params.get("discountUnitPrice")
+
+
+class BandwidthPriceResponseItem(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.trafficType = None
+        self.price = None
+
+    def _deserialize(self, params):
+        self.trafficType = params.get("trafficType")
+        if params.get("price") is not None:
+            self.price = PriceItem(params.get("price"))
 
 
 class CreateLoadBalancerRequest(AbstractModel):
@@ -463,6 +485,7 @@ class DescribeLoadBalancerMonitorDataRequest(AbstractModel):
         self.metricType = None
         self.startTime = None
         self.endTime = None
+        self.step = None
 
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
@@ -470,6 +493,7 @@ class DescribeLoadBalancerMonitorDataRequest(AbstractModel):
         self.metricType = params.get("metricType")
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
+        self.step = params.get("step")
 
 
 class DescribeLoadBalancerMonitorDataResponse(AbstractModel):

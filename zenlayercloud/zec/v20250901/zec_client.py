@@ -224,6 +224,15 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def InquiryPriceModifyInstanceType(self, request):
+        """
+        查询变更虚拟机实例规格后的新规格价格。
+        """
+        response = self._api_call("InquiryPriceModifyInstanceType", request)
+        model = models.InquiryPriceModifyInstanceTypeResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeImages(self, request):
         """
         查询某节点支持的镜像列表。
@@ -410,6 +419,15 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("DescribeDiskMonitorData", request)
         model = models.DescribeDiskMonitorDataResponse()
+        model._deserialize(response)
+        return model
+
+    def InquiryPriceResizeDisk(self, request):
+        """
+        查询云硬盘扩容后的新价格。
+        """
+        response = self._api_call("InquiryPriceResizeDisk", request)
+        model = models.InquiryPriceResizeDiskResponse()
         model._deserialize(response)
         return model
 
@@ -653,6 +671,33 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("ModifyNetworkInterfacePublicIPv6BandwidthLimitMode", request)
         model = models.ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse()
+        model._deserialize(response)
+        return model
+
+    def InquiryPriceModifyIpv6Bandwidth(self, request):
+        """
+        查询调整IPv6带宽后的价格。
+        """
+        response = self._api_call("InquiryPriceModifyIpv6Bandwidth", request)
+        model = models.InquiryPriceModifyIpv6BandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def InquiryPriceChangeIpv6InternetChargeType(self, request):
+        """
+        查询变更IPv6网络计费模式后的价格。
+        """
+        response = self._api_call("InquiryPriceChangeIpv6InternetChargeType", request)
+        model = models.InquiryPriceChangeIpv6InternetChargeTypeResponse()
+        model._deserialize(response)
+        return model
+
+    def UnassignNetworkInterfaceIpv6(self, request):
+        """
+        删除网卡IPv6。
+        """
+        response = self._api_call("UnassignNetworkInterfaceIpv6", request)
+        model = models.UnassignNetworkInterfaceIpv6Response()
         model._deserialize(response)
         return model
 
@@ -980,6 +1025,33 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def InquiryPriceModifyEipBandwidth(self, request):
+        """
+        查询调整EIP带宽后的价格。
+        """
+        response = self._api_call("InquiryPriceModifyEipBandwidth", request)
+        model = models.InquiryPriceModifyEipBandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def InquiryPriceModifyEipFlowPackage(self, request):
+        """
+        查询调整EIP流量包后的价格。
+        """
+        response = self._api_call("InquiryPriceModifyEipFlowPackage", request)
+        model = models.InquiryPriceModifyEipFlowPackageResponse()
+        model._deserialize(response)
+        return model
+
+    def InquiryPriceChangeEipInternetChargeType(self, request):
+        """
+        查询变更EIP网络计费模式后的价格。
+        """
+        response = self._api_call("InquiryPriceChangeEipInternetChargeType", request)
+        model = models.InquiryPriceChangeEipInternetChargeTypeResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeRoutes(self, request):
         """
         查询路由列表。用户可以根据ID、名称等信息来搜索Route信息。路由列表包括系统生成的以及用户创建的路由。
@@ -1265,6 +1337,24 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("ModifyUnmanagedEgressIpBandwidthLimitMode", request)
         model = models.ModifyUnmanagedEgressIpBandwidthLimitModeResponse()
+        model._deserialize(response)
+        return model
+
+    def InquiryPriceModifyUnmanagedEgressIpBandwidth(self, request):
+        """
+        查询调整非托管出口IP带宽后的价格。
+        """
+        response = self._api_call("InquiryPriceModifyUnmanagedEgressIpBandwidth", request)
+        model = models.InquiryPriceModifyUnmanagedEgressIpBandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def InquiryPriceChangeUnmanagedEgressIpInternetChargeType(self, request):
+        """
+        查询变更非托管出口IP网络计费模式后的价格。
+        """
+        response = self._api_call("InquiryPriceChangeUnmanagedEgressIpInternetChargeType", request)
+        model = models.InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse()
         model._deserialize(response)
         return model
 

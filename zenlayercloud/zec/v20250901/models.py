@@ -282,6 +282,7 @@ class InquiryPriceCreateInstanceResponse(AbstractModel):
         self.gpuPrice = None
         self.ipv4Price = None
         self.ipv4BandwidthPrice = None
+        self.ipv4BandwidthPrices = None
         self.ipv6Price = None
         self.ipv6BandwidthPrice = None
         self.systemDiskPrice = None
@@ -297,6 +298,11 @@ class InquiryPriceCreateInstanceResponse(AbstractModel):
             self.ipv4Price = PriceItem(params.get("ipv4Price"))
         if params.get("ipv4BandwidthPrice") is not None:
             self.ipv4BandwidthPrice = PriceItem(params.get("ipv4BandwidthPrice"))
+        if params.get("ipv4BandwidthPrices") is not None:
+            self.ipv4BandwidthPrices = []
+            for item in params.get("ipv4BandwidthPrices"):
+                obj = BandwidthPriceResponseItem(item)
+                self.ipv4BandwidthPrices.append(obj)
         if params.get("ipv6Price") is not None:
             self.ipv6Price = PriceItem(params.get("ipv6Price"))
         if params.get("ipv6BandwidthPrice") is not None:
@@ -363,6 +369,22 @@ class StepPrice(AbstractModel):
         self.stepEnd = params.get("stepEnd")
         self.unitPrice = params.get("unitPrice")
         self.discountUnitPrice = params.get("discountUnitPrice")
+
+
+class BandwidthPriceResponseItem(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.trafficType = None
+        self.price = None
+
+    def _deserialize(self, params):
+        self.trafficType = params.get("trafficType")
+        if params.get("price") is not None:
+            self.price = PriceItem(params.get("price"))
 
 
 class CreateZecInstancesRequest(AbstractModel):
@@ -1143,6 +1165,30 @@ class MetricValue(AbstractModel):
         self.value = params.get("value")
 
 
+class InquiryPriceModifyInstanceTypeRequest(AbstractModel):
+    def __init__(self):
+        self.instanceId = None
+        self.instanceType = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+        self.instanceType = params.get("instanceType")
+
+
+class InquiryPriceModifyInstanceTypeResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.specPrice = None
+        self.systemDiskPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("specPrice") is not None:
+            self.specPrice = PriceItem(params.get("specPrice"))
+        if params.get("systemDiskPrice") is not None:
+            self.systemDiskPrice = PriceItem(params.get("systemDiskPrice"))
+
+
 class DescribeImagesRequest(AbstractModel):
     def __init__(self):
         self.zoneId = None
@@ -1857,6 +1903,55 @@ class DescribeDiskMonitorDataResponse(AbstractModel):
                 self.metrics.append(obj)
 
 
+class InquiryPriceResizeDiskRequest(AbstractModel):
+    def __init__(self):
+        self.diskId = None
+        self.diskSize = None
+
+    def _deserialize(self, params):
+        self.diskId = params.get("diskId")
+        self.diskSize = params.get("diskSize")
+
+
+class InquiryPriceResizeDiskResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.diskPrice = None
+        self.specPrice = None
+        self.gpuPrice = None
+        self.diskPerf = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("diskPrice") is not None:
+            self.diskPrice = PriceItem(params.get("diskPrice"))
+        if params.get("specPrice") is not None:
+            self.specPrice = PriceItem(params.get("specPrice"))
+        if params.get("gpuPrice") is not None:
+            self.gpuPrice = PriceItem(params.get("gpuPrice"))
+        if params.get("diskPerf") is not None:
+            self.diskPerf = DiskPerfItem(params.get("diskPerf"))
+
+
+class DiskPerfItem(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.maxIops = None
+        self.maxBandwidth = None
+        self.iopsBurst = None
+        self.bandwidthBurst = None
+
+    def _deserialize(self, params):
+        self.maxIops = params.get("maxIops")
+        self.maxBandwidth = params.get("maxBandwidth")
+        self.iopsBurst = params.get("iopsBurst")
+        self.bandwidthBurst = params.get("bandwidthBurst")
+
+
 class DescribeSnapshotsRequest(AbstractModel):
     def __init__(self):
         self.snapshotIds = None
@@ -2229,6 +2324,7 @@ class DescribeNetworkInterfacesRequest(AbstractModel):
         self.securityGroupId = None
         self.tagKeys = None
         self.tags = None
+        self.nicSubnetType = None
 
     def _deserialize(self, params):
         self.nicIds = params.get("nicIds")
@@ -2249,6 +2345,7 @@ class DescribeNetworkInterfacesRequest(AbstractModel):
             for item in params.get("tags"):
                 obj = Tag(item)
                 self.tags.append(obj)
+        self.nicSubnetType = params.get("nicSubnetType")
 
 
 class DescribeNetworkInterfacesResponse(AbstractModel):
@@ -2619,6 +2716,76 @@ class ModifyNetworkInterfacePublicIPv6BandwidthLimitModeRequest(AbstractModel):
 
 
 class ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class InquiryPriceModifyIpv6BandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.ipv6Id = None
+        self.bandwidth = None
+
+    def _deserialize(self, params):
+        self.ipv6Id = params.get("ipv6Id")
+        self.bandwidth = params.get("bandwidth")
+
+
+class InquiryPriceModifyIpv6BandwidthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.ipv6Price = None
+        self.bandwidthPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("ipv6Price") is not None:
+            self.ipv6Price = PriceItem(params.get("ipv6Price"))
+        if params.get("bandwidthPrice") is not None:
+            self.bandwidthPrice = PriceItem(params.get("bandwidthPrice"))
+
+
+class InquiryPriceChangeIpv6InternetChargeTypeRequest(AbstractModel):
+    def __init__(self):
+        self.ipv6Id = None
+        self.internetChargeType = None
+        self.bandwidth = None
+        self.flowPackage = None
+        self.clusterId = None
+
+    def _deserialize(self, params):
+        self.ipv6Id = params.get("ipv6Id")
+        self.internetChargeType = params.get("internetChargeType")
+        self.bandwidth = params.get("bandwidth")
+        self.flowPackage = params.get("flowPackage")
+        self.clusterId = params.get("clusterId")
+
+
+class InquiryPriceChangeIpv6InternetChargeTypeResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.ipv6Price = None
+        self.bandwidthPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("ipv6Price") is not None:
+            self.ipv6Price = PriceItem(params.get("ipv6Price"))
+        if params.get("bandwidthPrice") is not None:
+            self.bandwidthPrice = PriceItem(params.get("bandwidthPrice"))
+
+
+class UnassignNetworkInterfaceIpv6Request(AbstractModel):
+    def __init__(self):
+        self.nicId = None
+
+    def _deserialize(self, params):
+        self.nicId = params.get("nicId")
+
+
+class UnassignNetworkInterfaceIpv6Response(AbstractModel):
     def __init__(self):
         self.requestId = None
 
@@ -3330,6 +3497,7 @@ class DescribeEipPriceResponse(AbstractModel):
         self.requestId = None
         self.eipPrice = None
         self.bandwidthPrice = None
+        self.bandwidthPrices = None
         self.remoteBandwidthPrice = None
 
     def _deserialize(self, params):
@@ -3338,6 +3506,11 @@ class DescribeEipPriceResponse(AbstractModel):
             self.eipPrice = PriceItem(params.get("eipPrice"))
         if params.get("bandwidthPrice") is not None:
             self.bandwidthPrice = PriceItem(params.get("bandwidthPrice"))
+        if params.get("bandwidthPrices") is not None:
+            self.bandwidthPrices = []
+            for item in params.get("bandwidthPrices"):
+                obj = BandwidthPriceResponseItem(item)
+                self.bandwidthPrices.append(obj)
         if params.get("remoteBandwidthPrice") is not None:
             self.remoteBandwidthPrice = PriceItem(params.get("remoteBandwidthPrice"))
 
@@ -3427,6 +3600,7 @@ class EipInfo(AbstractModel):
         self.instanceId = None
         self.bindType = None
         self.flowPackage = None
+        self.flowPackages = None
         self.bandwidth = None
         self.rateLimitMode = None
         self.eipGeoRefs = None
@@ -3469,6 +3643,11 @@ class EipInfo(AbstractModel):
         self.instanceId = params.get("instanceId")
         self.bindType = params.get("bindType")
         self.flowPackage = params.get("flowPackage")
+        if params.get("flowPackages") is not None:
+            self.flowPackages = []
+            for item in params.get("flowPackages"):
+                obj = FlowPackageResponseItem(item)
+                self.flowPackages.append(obj)
         self.bandwidth = params.get("bandwidth")
         self.rateLimitMode = params.get("rateLimitMode")
         if params.get("eipGeoRefs") is not None:
@@ -3489,6 +3668,21 @@ class EipInfo(AbstractModel):
             self.bandwidthCluster = BandwidthClusterInfo(params.get("bandwidthCluster"))
         if params.get("tags") is not None:
             self.tags = Tags(params.get("tags"))
+
+
+class FlowPackageResponseItem(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.trafficType = None
+        self.flowPackage = None
+
+    def _deserialize(self, params):
+        self.trafficType = params.get("trafficType")
+        self.flowPackage = params.get("flowPackage")
 
 
 class EipGeoInfo(AbstractModel):
@@ -3574,6 +3768,12 @@ class CreateEipsRequest(AbstractModel):
             )
         self.eipV4Type = params.get("eipV4Type")
         self.networkLineType = params.get("networkLineType")
+        if params.get("primaryIsp") is not None:
+            warnings.warn(
+                "primaryIsp 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.primaryIsp = params.get("primaryIsp")
         self.bandwidth = params.get("bandwidth")
         self.cidrId = params.get("cidrId")
@@ -3886,6 +4086,7 @@ class DescribeEipTrafficRequest(AbstractModel):
         self.endTime = None
         self.step = None
         self.wanIp = None
+        self.direction = None
 
     def _deserialize(self, params):
         self.eipId = params.get("eipId")
@@ -3893,6 +4094,7 @@ class DescribeEipTrafficRequest(AbstractModel):
         self.endTime = params.get("endTime")
         self.step = params.get("step")
         self.wanIp = params.get("wanIp")
+        self.direction = params.get("direction")
 
 
 class DescribeEipTrafficResponse(AbstractModel):
@@ -3953,6 +4155,7 @@ class DescribeEipMonitorDataRequest(AbstractModel):
         self.startTime = None
         self.endTime = None
         self.step = None
+        self.direction = None
 
     def _deserialize(self, params):
         self.eipId = params.get("eipId")
@@ -3960,6 +4163,7 @@ class DescribeEipMonitorDataRequest(AbstractModel):
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
         self.step = params.get("step")
+        self.direction = params.get("direction")
 
 
 class DescribeEipMonitorDataResponse(AbstractModel):
@@ -4041,6 +4245,111 @@ class ModifyEipBandwidthLimitModeResponse(AbstractModel):
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+
+
+class InquiryPriceModifyEipBandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.eipId = None
+        self.bandwidth = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.bandwidth = params.get("bandwidth")
+
+
+class InquiryPriceModifyEipBandwidthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.eipPrice = None
+        self.bandwidthPrice = None
+        self.bandwidthPrices = None
+        self.remoteBandwidthPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("eipPrice") is not None:
+            self.eipPrice = PriceItem(params.get("eipPrice"))
+        if params.get("bandwidthPrice") is not None:
+            self.bandwidthPrice = PriceItem(params.get("bandwidthPrice"))
+        if params.get("bandwidthPrices") is not None:
+            self.bandwidthPrices = []
+            for item in params.get("bandwidthPrices"):
+                obj = BandwidthPriceResponseItem(item)
+                self.bandwidthPrices.append(obj)
+        if params.get("remoteBandwidthPrice") is not None:
+            self.remoteBandwidthPrice = PriceItem(params.get("remoteBandwidthPrice"))
+
+
+class InquiryPriceModifyEipFlowPackageRequest(AbstractModel):
+    def __init__(self):
+        self.eipId = None
+        self.flowPackage = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.flowPackage = params.get("flowPackage")
+
+
+class InquiryPriceModifyEipFlowPackageResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.eipPrice = None
+        self.bandwidthPrice = None
+        self.bandwidthPrices = None
+        self.remoteBandwidthPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("eipPrice") is not None:
+            self.eipPrice = PriceItem(params.get("eipPrice"))
+        if params.get("bandwidthPrice") is not None:
+            self.bandwidthPrice = PriceItem(params.get("bandwidthPrice"))
+        if params.get("bandwidthPrices") is not None:
+            self.bandwidthPrices = []
+            for item in params.get("bandwidthPrices"):
+                obj = BandwidthPriceResponseItem(item)
+                self.bandwidthPrices.append(obj)
+        if params.get("remoteBandwidthPrice") is not None:
+            self.remoteBandwidthPrice = PriceItem(params.get("remoteBandwidthPrice"))
+
+
+class InquiryPriceChangeEipInternetChargeTypeRequest(AbstractModel):
+    def __init__(self):
+        self.eipId = None
+        self.internetChargeType = None
+        self.bandwidth = None
+        self.flowPackage = None
+        self.clusterId = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.internetChargeType = params.get("internetChargeType")
+        self.bandwidth = params.get("bandwidth")
+        self.flowPackage = params.get("flowPackage")
+        self.clusterId = params.get("clusterId")
+
+
+class InquiryPriceChangeEipInternetChargeTypeResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.eipPrice = None
+        self.bandwidthPrice = None
+        self.bandwidthPrices = None
+        self.remoteBandwidthPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("eipPrice") is not None:
+            self.eipPrice = PriceItem(params.get("eipPrice"))
+        if params.get("bandwidthPrice") is not None:
+            self.bandwidthPrice = PriceItem(params.get("bandwidthPrice"))
+        if params.get("bandwidthPrices") is not None:
+            self.bandwidthPrices = []
+            for item in params.get("bandwidthPrices"):
+                obj = BandwidthPriceResponseItem(item)
+                self.bandwidthPrices.append(obj)
+        if params.get("remoteBandwidthPrice") is not None:
+            self.remoteBandwidthPrice = PriceItem(params.get("remoteBandwidthPrice"))
 
 
 class DescribeRoutesRequest(AbstractModel):
@@ -5021,6 +5330,52 @@ class ModifyUnmanagedEgressIpBandwidthLimitModeResponse(AbstractModel):
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+
+
+class InquiryPriceModifyUnmanagedEgressIpBandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.unmanagedEgressIpId = None
+        self.bandwidth = None
+
+    def _deserialize(self, params):
+        self.unmanagedEgressIpId = params.get("unmanagedEgressIpId")
+        self.bandwidth = params.get("bandwidth")
+
+
+class InquiryPriceModifyUnmanagedEgressIpBandwidthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.bandwidthPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("bandwidthPrice") is not None:
+            self.bandwidthPrice = PriceItem(params.get("bandwidthPrice"))
+
+
+class InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeRequest(AbstractModel):
+    def __init__(self):
+        self.unmanagedEgressIpId = None
+        self.internetChargeType = None
+        self.bandwidth = None
+        self.flowPackage = None
+
+    def _deserialize(self, params):
+        self.unmanagedEgressIpId = params.get("unmanagedEgressIpId")
+        self.internetChargeType = params.get("internetChargeType")
+        self.bandwidth = params.get("bandwidth")
+        self.flowPackage = params.get("flowPackage")
+
+
+class InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.bandwidthPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("bandwidthPrice") is not None:
+            self.bandwidthPrice = PriceItem(params.get("bandwidthPrice"))
 
 
 class DescribeQosPolicyGroupsRequest(AbstractModel):
