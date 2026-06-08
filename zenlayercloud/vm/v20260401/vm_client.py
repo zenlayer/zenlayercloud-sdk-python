@@ -35,6 +35,15 @@ class VmClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeVmInventoryCapacity(self, request):
+        """
+        获取可用区库存。
+        """
+        response = self._api_call("DescribeVmInventoryCapacity", request)
+        model = models.DescribeVmInventoryCapacityResponse()
+        model._deserialize(response)
+        return model
+
     def CreateInstances(self, request):
         """
         创建一个或多个指定配置的虚拟机实例。

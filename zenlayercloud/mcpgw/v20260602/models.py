@@ -39,6 +39,9 @@ class BillingItem(AbstractModel):
         self.date = None
         self.unit = None
         self.usage = None
+        self.modelName = None
+        self.unitPrice = None
+        self.originalPrice = None
 
     def _deserialize(self, params):
         self.gatewayUuid = params.get("gatewayUuid")
@@ -46,5 +49,8 @@ class BillingItem(AbstractModel):
         self.date = params.get("date")
         self.unit = params.get("unit")
         self.usage = params.get("usage")
+        self.modelName = params.get("modelName")
+        self.unitPrice = params.get("unitPrice")
+        self.originalPrice = params.get("originalPrice")
 
 

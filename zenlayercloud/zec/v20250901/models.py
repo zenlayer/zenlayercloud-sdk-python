@@ -2669,6 +2669,22 @@ class AssignNetworkInterfaceIpv6Response(AbstractModel):
         self.requestId = params.get("requestId")
 
 
+class UnassignNetworkInterfaceIpv6Request(AbstractModel):
+    def __init__(self):
+        self.nicId = None
+
+    def _deserialize(self, params):
+        self.nicId = params.get("nicId")
+
+
+class UnassignNetworkInterfaceIpv6Response(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
 class DescribeNetworkInterfaceMonitorDataRequest(AbstractModel):
     def __init__(self):
         self.nicId = None
@@ -2753,14 +2769,12 @@ class InquiryPriceChangeIpv6InternetChargeTypeRequest(AbstractModel):
         self.internetChargeType = None
         self.bandwidth = None
         self.flowPackage = None
-        self.clusterId = None
 
     def _deserialize(self, params):
         self.ipv6Id = params.get("ipv6Id")
         self.internetChargeType = params.get("internetChargeType")
         self.bandwidth = params.get("bandwidth")
         self.flowPackage = params.get("flowPackage")
-        self.clusterId = params.get("clusterId")
 
 
 class InquiryPriceChangeIpv6InternetChargeTypeResponse(AbstractModel):
@@ -2775,22 +2789,6 @@ class InquiryPriceChangeIpv6InternetChargeTypeResponse(AbstractModel):
             self.ipv6Price = PriceItem(params.get("ipv6Price"))
         if params.get("bandwidthPrice") is not None:
             self.bandwidthPrice = PriceItem(params.get("bandwidthPrice"))
-
-
-class UnassignNetworkInterfaceIpv6Request(AbstractModel):
-    def __init__(self):
-        self.nicId = None
-
-    def _deserialize(self, params):
-        self.nicId = params.get("nicId")
-
-
-class UnassignNetworkInterfaceIpv6Response(AbstractModel):
-    def __init__(self):
-        self.requestId = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
 
 
 class DescribePoolsRequest(AbstractModel):
@@ -7609,10 +7607,12 @@ class ModifyHaVipAttributeRequest(AbstractModel):
     def __init__(self):
         self.haVipId = None
         self.name = None
+        self.securityGroupId = None
 
     def _deserialize(self, params):
         self.haVipId = params.get("haVipId")
         self.name = params.get("name")
+        self.securityGroupId = params.get("securityGroupId")
 
 
 class ModifyHaVipAttributeResponse(AbstractModel):

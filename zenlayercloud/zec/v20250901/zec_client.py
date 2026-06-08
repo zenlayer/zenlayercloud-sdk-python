@@ -656,6 +656,15 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def UnassignNetworkInterfaceIpv6(self, request):
+        """
+        删除网卡IPv6。
+        """
+        response = self._api_call("UnassignNetworkInterfaceIpv6", request)
+        model = models.UnassignNetworkInterfaceIpv6Response()
+        model._deserialize(response)
+        return model
+
     def DescribeNetworkInterfaceMonitorData(self, request):
         """
         查询一段时间内的网卡监控指标数据。包含带宽、包量、丢包、错误包等指标。
@@ -689,15 +698,6 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("InquiryPriceChangeIpv6InternetChargeType", request)
         model = models.InquiryPriceChangeIpv6InternetChargeTypeResponse()
-        model._deserialize(response)
-        return model
-
-    def UnassignNetworkInterfaceIpv6(self, request):
-        """
-        删除网卡IPv6。
-        """
-        response = self._api_call("UnassignNetworkInterfaceIpv6", request)
-        model = models.UnassignNetworkInterfaceIpv6Response()
         model._deserialize(response)
         return model
 
@@ -1900,7 +1900,7 @@ class ZecClient(AbstractClient):
 
     def ModifyHaVipAttribute(self, request):
         """
-        修改高可用虚拟IP的名称。
+        修改高可用虚拟IP的名称或绑定的安全组。
         """
         response = self._api_call("ModifyHaVipAttribute", request)
         model = models.ModifyHaVipAttributeResponse()

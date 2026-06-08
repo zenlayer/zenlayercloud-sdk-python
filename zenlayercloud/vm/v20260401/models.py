@@ -299,6 +299,43 @@ class InstanceTypeQuotaItem(AbstractModel):
         self.internetChargeTypes = params.get("internetChargeTypes")
 
 
+class DescribeVmInventoryCapacityRequest(AbstractModel):
+    def __init__(self):
+        self.zoneId = None
+
+    def _deserialize(self, params):
+        self.zoneId = params.get("zoneId")
+
+
+class DescribeVmInventoryCapacityResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = VmInventoryCapacityInfo(item)
+                self.dataSet.append(obj)
+
+
+class VmInventoryCapacityInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.zoneId = None
+        self.capacity = None
+
+    def _deserialize(self, params):
+        self.zoneId = params.get("zoneId")
+        self.capacity = params.get("capacity")
+
+
 class CreateInstancesRequest(AbstractModel):
     def __init__(self):
         self.zoneId = None
@@ -497,6 +534,7 @@ class ResetInstanceRequest(AbstractModel):
         self.instanceName = None
         self.wanName = None
         self.lanName = None
+        self.initScript = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
@@ -506,6 +544,7 @@ class ResetInstanceRequest(AbstractModel):
         self.instanceName = params.get("instanceName")
         self.wanName = params.get("wanName")
         self.lanName = params.get("lanName")
+        self.initScript = params.get("initScript")
 
 
 class ResetInstanceResponse(AbstractModel):
@@ -722,34 +761,12 @@ class InstanceStatus(AbstractModel):
         if len(params) > 0:
             self._deserialize(params)
             return
-        self.PENDING = None
-        self.DEPLOYING = None
-        self.REBUILDING = None
-        self.REBOOT = None
-        self.RUNNING = None
-        self.STOPPED = None
-        self.BOOTING = None
-        self.RELEASING = None
-        self.STOPPING = None
-        self.RECYCLE = None
-        self.RECYCLING = None
-        self.CREATE_FAILED = None
-        self.IMAGING = None
+        self.instanceId = None
+        self.instanceStatus = None
 
     def _deserialize(self, params):
-        self.PENDING = params.get("PENDING")
-        self.DEPLOYING = params.get("DEPLOYING")
-        self.REBUILDING = params.get("REBUILDING")
-        self.REBOOT = params.get("REBOOT")
-        self.RUNNING = params.get("RUNNING")
-        self.STOPPED = params.get("STOPPED")
-        self.BOOTING = params.get("BOOTING")
-        self.RELEASING = params.get("RELEASING")
-        self.STOPPING = params.get("STOPPING")
-        self.RECYCLE = params.get("RECYCLE")
-        self.RECYCLING = params.get("RECYCLING")
-        self.CREATE_FAILED = params.get("CREATE_FAILED")
-        self.IMAGING = params.get("IMAGING")
+        self.instanceId = params.get("instanceId")
+        self.instanceStatus = params.get("instanceStatus")
 
 
 class StartInstancesRequest(AbstractModel):
