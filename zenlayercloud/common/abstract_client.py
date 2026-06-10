@@ -1,6 +1,7 @@
 #  Zenlayer.com Inc.
 #  Copyright (c) 2014-2023 All Rights Reserved.
 import json
+import logging
 import time
 
 import zenlayercloud
@@ -14,6 +15,7 @@ from zenlayercloud.common.response import BaseResponse
 from zenlayercloud.common.utils import sha256hex, hmac_sha256
 
 _json_content_type = 'application/json'
+_logger = logging.getLogger(__name__)
 
 
 class AbstractClient(object):

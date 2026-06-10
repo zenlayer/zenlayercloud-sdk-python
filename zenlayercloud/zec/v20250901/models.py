@@ -409,6 +409,7 @@ class CreateZecInstancesRequest(AbstractModel):
         self.trafficPackageSize = None
         self.bandwidth = None
         self.eipBindType = None
+        self.eipIds = None
         self.eipV4Type = None
         self.ipStackType = None
         self.networkLineType = None
@@ -446,6 +447,7 @@ class CreateZecInstancesRequest(AbstractModel):
         self.trafficPackageSize = params.get("trafficPackageSize")
         self.bandwidth = params.get("bandwidth")
         self.eipBindType = params.get("eipBindType")
+        self.eipIds = params.get("eipIds")
         if params.get("eipV4Type") is not None:
             warnings.warn(
                 "eipV4Type 已废弃，请勿使用",
@@ -2413,6 +2415,8 @@ class CreateNetworkInterfaceRequest(AbstractModel):
         self.bandwidth = None
         self.packageSize = None
         self.clusterId = None
+        self.eipBindType = None
+        self.eipIds = None
         self.marketingOptions = None
         self.tags = None
 
@@ -2426,6 +2430,8 @@ class CreateNetworkInterfaceRequest(AbstractModel):
         self.bandwidth = params.get("bandwidth")
         self.packageSize = params.get("packageSize")
         self.clusterId = params.get("clusterId")
+        self.eipBindType = params.get("eipBindType")
+        self.eipIds = params.get("eipIds")
         if params.get("marketingOptions") is not None:
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
         if params.get("tags") is not None:
@@ -5006,6 +5012,7 @@ class CreateBorderGatewayRequest(AbstractModel):
         self.asn = None
         self.routingMode = None
         self.advertisedSubnet = None
+        self.advertisedSubnetIds = None
         self.advertisedCidrs = None
         self.advertisedRouteIds = None
 
@@ -5016,6 +5023,7 @@ class CreateBorderGatewayRequest(AbstractModel):
         self.asn = params.get("asn")
         self.routingMode = params.get("routingMode")
         self.advertisedSubnet = params.get("advertisedSubnet")
+        self.advertisedSubnetIds = params.get("advertisedSubnetIds")
         self.advertisedCidrs = params.get("advertisedCidrs")
         self.advertisedRouteIds = params.get("advertisedRouteIds")
 
@@ -5082,6 +5090,7 @@ class ZbgInfo(AbstractModel):
         self.routingMode = None
         self.natId = None
         self.advertisedSubnet = None
+        self.advertisedSubnetIds = None
         self.advertisedCidrs = None
         self.advertisedRouteIds = None
 
@@ -5097,6 +5106,7 @@ class ZbgInfo(AbstractModel):
         self.routingMode = params.get("routingMode")
         self.natId = params.get("natId")
         self.advertisedSubnet = params.get("advertisedSubnet")
+        self.advertisedSubnetIds = params.get("advertisedSubnetIds")
         self.advertisedCidrs = params.get("advertisedCidrs")
         self.advertisedRouteIds = params.get("advertisedRouteIds")
 
@@ -5125,6 +5135,7 @@ class ModifyBorderGatewaysAttributeRequest(AbstractModel):
         self.name = None
         self.routingMode = None
         self.advertisedSubnet = None
+        self.advertisedSubnetIds = None
         self.advertisedCidrs = None
         self.asn = None
 
@@ -5133,6 +5144,7 @@ class ModifyBorderGatewaysAttributeRequest(AbstractModel):
         self.name = params.get("name")
         self.routingMode = params.get("routingMode")
         self.advertisedSubnet = params.get("advertisedSubnet")
+        self.advertisedSubnetIds = params.get("advertisedSubnetIds")
         self.advertisedCidrs = params.get("advertisedCidrs")
         self.asn = params.get("asn")
 
