@@ -105,6 +105,24 @@ from zenlayercloud.common.config import Config
 conf = Config(proxy="http://host:port")
 ```
 
+## 限流重试
+
+当服务端返回 `REQUEST_LIMIT_EXCEEDED` 错误码（HTTP 429）时，SDK 会自动按指数退避（1s、2s、4s ……）进行重试。该行为**默认开启**，
+默认最大重试次数为 **3 次**，多数调用方无需额外配置。每次重试都会通过标准 `logging` 模块输出 `WARN` 级别日志，
+logger 名为 `zenlayercloud.common.abstract_client`。
+
+如需自定义重试次数或退避策略，可通过 `Config` 构造参数调整；传入 `0` 即可关闭限流重试：
+
+```python
+from zenlayercloud.common.config import Config
+
+# 自定义：最多重试 5 次，每次等待固定 2 秒
+conf = Config(rate_limit_max_retries=5, rate_limit_retry_duration=lambda idx: 2)
+
+# 或者关闭限流重试
+conf = Config(rate_limit_max_retries=0)
+```
+
 ## 证书问题
 
 在 Mac 操作系统安装 Python 3.6 或以上版本时，可能会遇到证书错误：`Error: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self signed certificate in certificate chain (_ssl.c:1056).`。这是因为在 Mac 操作系统下，Python 不再使用系统默认的证书，且本身也不提供证书。在进行 HTTPS 请求时，需要使用 `certifi` 库提供的证书，但 SDK 不支持指定，所以只能使用 `sudo "/Applications/Python 3.6/Install Certificates.command"` 命令安装证书才能解决此问题。

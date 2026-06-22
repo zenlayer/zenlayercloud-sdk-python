@@ -233,6 +233,15 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeZoneGpuInstanceConfigInfos(self, request):
+        """
+        查询可用区售卖的 GPU 规格信息
+        """
+        response = self._api_call("DescribeZoneGpuInstanceConfigInfos", request)
+        model = models.DescribeZoneGpuInstanceConfigInfosResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeImages(self, request):
         """
         查询某节点支持的镜像列表。
@@ -1049,6 +1058,15 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("InquiryPriceChangeEipInternetChargeType", request)
         model = models.InquiryPriceChangeEipInternetChargeTypeResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyEipTrafficPackage(self, request):
+        """
+        调整弹性公网IP流量包。
+        """
+        response = self._api_call("ModifyEipTrafficPackage", request)
+        model = models.ModifyEipTrafficPackageResponse()
         model._deserialize(response)
         return model
 

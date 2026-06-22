@@ -48,6 +48,26 @@ class AbstractClient(object):
                 code=error_code.SDK_INVALID_REQUEST,
                 message="Request must be AbstractModel"
             )
+
+        max_retries = max(self.config.rate_limit_max_retries or 0, 0)
+        duration_func = self.config.rate_limit_retry_duration
+
+        last_exception = None
+        for idx in range(max_retries + 1):
+            try:
+                return self._do_api_call(action, request, method, headers)
+            except ZenlayerCloudSdkException as e:
+                if idx < max_retries and e.code == error_code.REQUEST_LIMIT_EXCEEDED:
+                    last_exception = e
+                    duration = duration_func(idx)
+                    _logger.warning("rate limit exceeded, retrying (%d/%d) in %s seconds: %s",
+                                    idx, max_retries, duration, e.message)
+                    time.sleep(duration)
+                    continue
+                raise
+        raise last_exception
+
+    def _do_api_call(self, action, request, method, headers) -> dict:
         uri = "/api/v2/%s" % self._service
         req = BaseRequest(host=self.config.domain, method=method, uri=uri, header=headers)
 

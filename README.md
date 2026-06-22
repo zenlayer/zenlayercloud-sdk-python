@@ -109,6 +109,26 @@ from zenlayercloud.common.config import Config
 
 conf = Config(proxy="http://host:port")
 ```
+
+## Rate Limit Retries
+
+When the server returns the `REQUEST_LIMIT_EXCEEDED` error code (HTTP 429), the SDK will automatically retry the
+request with an exponential backoff (1s, 2s, 4s, ...). This behavior is **enabled by default** with a maximum of
+**3 retries**, so most callers do not need any extra configuration. A `WARN` log is emitted on each retry via
+the standard `logging` module under the logger name `zenlayercloud.common.abstract_client`.
+
+You can customize the maximum retries and the backoff strategy via the `Config` constructor, or disable it
+entirely by passing `0`:
+
+```python
+from zenlayercloud.common.config import Config
+
+# Customize: retry up to 5 times with a constant 2-second wait
+conf = Config(rate_limit_max_retries=5, rate_limit_retry_duration=lambda idx: 2)
+
+# Or disable rate limit retries
+conf = Config(rate_limit_max_retries=0)
+```
 ## Certificate Issue
 
 When installing Python 3.6 or above on the Mac operating system, you may encounter a certificate error: `Error: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self signed certificate in certificate chain (_ssl.c:1056)`. This is because on Mac OS, Python no longer uses the system's default certificates and does not provide its own certificates. When making HTTPS requests, it requires the use of certificates provided by the `certifi` library. However, the SDK does not support specifying certificates, so the only solution is to install the certificates by running the command `sudo "/Applications/Python 3.6/Install Certificates.command"`.

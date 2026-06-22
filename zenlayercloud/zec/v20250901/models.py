@@ -1083,9 +1083,11 @@ class ChangeNicNetworkTypeResponse(AbstractModel):
 class ReleaseInstancesRequest(AbstractModel):
     def __init__(self):
         self.instanceIds = None
+        self.dependResource = None
 
     def _deserialize(self, params):
         self.instanceIds = params.get("instanceIds")
+        self.dependResource = params.get("dependResource")
 
 
 class ReleaseInstancesResponse(AbstractModel):
@@ -1181,14 +1183,70 @@ class InquiryPriceModifyInstanceTypeResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
         self.specPrice = None
+        self.gpuPrice = None
         self.systemDiskPrice = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
         if params.get("specPrice") is not None:
             self.specPrice = PriceItem(params.get("specPrice"))
+        if params.get("gpuPrice") is not None:
+            self.gpuPrice = PriceItem(params.get("gpuPrice"))
         if params.get("systemDiskPrice") is not None:
             self.systemDiskPrice = PriceItem(params.get("systemDiskPrice"))
+
+
+class DescribeZoneGpuInstanceConfigInfosRequest(AbstractModel):
+    def __init__(self):
+        self.zoneId = None
+        self.instanceType = None
+
+    def _deserialize(self, params):
+        self.zoneId = params.get("zoneId")
+        self.instanceType = params.get("instanceType")
+
+
+class DescribeZoneGpuInstanceConfigInfosResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.instanceTypeQuotaSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("instanceTypeQuotaSet") is not None:
+            self.instanceTypeQuotaSet = []
+            for item in params.get("instanceTypeQuotaSet"):
+                obj = GpuInstanceTypeQuotaItem(item)
+                self.instanceTypeQuotaSet.append(obj)
+
+
+class GpuInstanceTypeQuotaItem(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.zoneId = None
+        self.instanceType = None
+        self.cpuCount = None
+        self.memory = None
+        self.gpuAmount = None
+        self.instanceTypeName = None
+        self.bps = None
+        self.pps = None
+        self.inventoryCapacity = None
+
+    def _deserialize(self, params):
+        self.zoneId = params.get("zoneId")
+        self.instanceType = params.get("instanceType")
+        self.cpuCount = params.get("cpuCount")
+        self.memory = params.get("memory")
+        self.gpuAmount = params.get("gpuAmount")
+        self.instanceTypeName = params.get("instanceTypeName")
+        self.bps = params.get("bps")
+        self.pps = params.get("pps")
+        self.inventoryCapacity = params.get("inventoryCapacity")
 
 
 class DescribeImagesRequest(AbstractModel):
@@ -4354,6 +4412,24 @@ class InquiryPriceChangeEipInternetChargeTypeResponse(AbstractModel):
                 self.bandwidthPrices.append(obj)
         if params.get("remoteBandwidthPrice") is not None:
             self.remoteBandwidthPrice = PriceItem(params.get("remoteBandwidthPrice"))
+
+
+class ModifyEipTrafficPackageRequest(AbstractModel):
+    def __init__(self):
+        self.eipId = None
+        self.trafficPackageSize = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.trafficPackageSize = params.get("trafficPackageSize")
+
+
+class ModifyEipTrafficPackageResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
 
 
 class DescribeRoutesRequest(AbstractModel):
