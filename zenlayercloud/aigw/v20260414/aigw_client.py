@@ -188,3 +188,12 @@ class AigwClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeAiModelDailyUsage(self, request):
+        """
+        查询AI网关日用量数据
+        """
+        response = self._api_call("DescribeAiModelDailyUsage", request)
+        model = models.DescribeAiModelDailyUsageResponse()
+        model._deserialize(response)
+        return model
+

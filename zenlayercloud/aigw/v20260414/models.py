@@ -686,3 +686,71 @@ class ModelCacheHitSeries(AbstractModel):
         self.data = params.get("data")
 
 
+class DescribeAiModelDailyUsageRequest(AbstractModel):
+    def __init__(self):
+        self.instanceIds = None
+        self.resourceGroupId = None
+        self.month = None
+
+    def _deserialize(self, params):
+        self.instanceIds = params.get("instanceIds")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.month = params.get("month")
+
+
+class DescribeAiModelDailyUsageResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.metric = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("metric") is not None:
+            self.metric = []
+            for item in params.get("metric"):
+                obj = DailyMetricItem(item)
+                self.metric.append(obj)
+
+
+class DailyMetricItem(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.date = None
+        self.model_usage = None
+
+    def _deserialize(self, params):
+        self.date = params.get("date")
+        if params.get("model_usage") is not None:
+            self.model_usage = []
+            for item in params.get("model_usage"):
+                obj = ModelDailyUsage(item)
+                self.model_usage.append(obj)
+
+
+class ModelDailyUsage(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.modelName = None
+        self.promptMissedTokens = None
+        self.completionTokens = None
+        self.cachedTokens = None
+        self.cacheCreationInputTokens = None
+        self.reasoningTokens = None
+
+    def _deserialize(self, params):
+        self.modelName = params.get("modelName")
+        self.promptMissedTokens = params.get("promptMissedTokens")
+        self.completionTokens = params.get("completionTokens")
+        self.cachedTokens = params.get("cachedTokens")
+        self.cacheCreationInputTokens = params.get("cacheCreationInputTokens")
+        self.reasoningTokens = params.get("reasoningTokens")
+
+
