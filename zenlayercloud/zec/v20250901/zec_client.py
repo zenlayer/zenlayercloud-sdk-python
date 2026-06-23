@@ -226,7 +226,7 @@ class ZecClient(AbstractClient):
 
     def InquiryPriceModifyInstanceType(self, request):
         """
-        查询变更虚拟机实例规格后的新规格价格。
+        查询变更实例规格后的价格。
         """
         response = self._api_call("InquiryPriceModifyInstanceType", request)
         model = models.InquiryPriceModifyInstanceTypeResponse()
@@ -707,6 +707,15 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("InquiryPriceChangeIpv6InternetChargeType", request)
         model = models.InquiryPriceChangeIpv6InternetChargeTypeResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyIpv6Bandwidth(self, request):
+        """
+        调整公网IPv6的带宽限速。
+        """
+        response = self._api_call("ModifyIpv6Bandwidth", request)
+        model = models.ModifyIpv6BandwidthResponse()
         model._deserialize(response)
         return model
 

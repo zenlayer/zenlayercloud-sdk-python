@@ -2855,6 +2855,24 @@ class InquiryPriceChangeIpv6InternetChargeTypeResponse(AbstractModel):
             self.bandwidthPrice = PriceItem(params.get("bandwidthPrice"))
 
 
+class ModifyIpv6BandwidthRequest(AbstractModel):
+    def __init__(self):
+        self.ipv6Id = None
+        self.bandwidth = None
+
+    def _deserialize(self, params):
+        self.ipv6Id = params.get("ipv6Id")
+        self.bandwidth = params.get("bandwidth")
+
+
+class ModifyIpv6BandwidthResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
 class DescribePoolsRequest(AbstractModel):
     def __init__(self):
         self.poolIds = None
