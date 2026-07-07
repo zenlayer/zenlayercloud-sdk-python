@@ -143,6 +143,15 @@ class AbstractClient(object):
 
     @staticmethod
     def _handle_response(resp):
+        if resp.status == 403 and resp.header.get("cf-mitigated") == "challenge":
+            raise ZenlayerCloudSdkException(
+                code=error_code.SECURITY_CHALLENGE,
+                message="Request was intercepted by a security challenge (HTTP 403). "
+                        "This is a network-layer block, not an API error. Contact support if it persists.")
+        if resp.status == 451:
+            raise ZenlayerCloudSdkException(
+                code=error_code.REQUEST_BLOCKED,
+                message="Request was blocked by a security policy (HTTP 451). Contact support to investigate.")
         resp_data = json.loads(resp.data)
         if resp.status != 200:
             code = resp_data["code"]
