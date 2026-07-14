@@ -12,6 +12,11 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: '要发布的 tag(例如 v2.0.68);留空则使用手动运行时选择的分支/tag'
+        required: false
 
 permissions:
   contents: write
@@ -21,9 +26,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.inputs.tag || github.ref }}
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
       with:
+        tag_name: ${{ github.event.inputs.tag || github.ref_name }}
         generate_release_notes: true
 
   deploy:
@@ -32,6 +40,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.inputs.tag || github.ref }}
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
