@@ -656,6 +656,15 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def InquiryPriceChangeIpv6InternetChargeType(self, request):
+        """
+        查询变更IPv6网络计费模式后的价格。
+        """
+        response = self._api_call("InquiryPriceChangeIpv6InternetChargeType", request)
+        model = models.InquiryPriceChangeIpv6InternetChargeTypeResponse()
+        model._deserialize(response)
+        return model
+
     def AssignNetworkInterfaceIpv6(self, request):
         """
         给网卡添加IPv6。
@@ -701,21 +710,21 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-    def InquiryPriceChangeIpv6InternetChargeType(self, request):
-        """
-        查询变更IPv6网络计费模式后的价格。
-        """
-        response = self._api_call("InquiryPriceChangeIpv6InternetChargeType", request)
-        model = models.InquiryPriceChangeIpv6InternetChargeTypeResponse()
-        model._deserialize(response)
-        return model
-
     def ModifyIpv6Bandwidth(self, request):
         """
         调整公网IPv6的带宽限速。
         """
         response = self._api_call("ModifyIpv6Bandwidth", request)
         model = models.ModifyIpv6BandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyIpv6TrafficPackage(self, request):
+        """
+        调整公网IPv6流量包。
+        """
+        response = self._api_call("ModifyIpv6TrafficPackage", request)
+        model = models.ModifyIpv6TrafficPackageResponse()
         model._deserialize(response)
         return model
 
@@ -851,6 +860,15 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("DescribeByoipPrice", request)
         model = models.DescribeByoipPriceResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeEipNetworkLineTypes(self, request):
+        """
+        查询EIP支持的IP线路类型列表，可按节点过滤。
+        """
+        response = self._api_call("DescribeEipNetworkLineTypes", request)
+        model = models.DescribeEipNetworkLineTypesResponse()
         model._deserialize(response)
         return model
 

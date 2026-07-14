@@ -806,6 +806,7 @@ class PrivateConnectEndpoint(AbstractModel):
         self.dataCenter = None
         self.vlanId = None
         self.connectivityStatus = None
+        self.sharedChannelId = None
 
     def _deserialize(self, params):
         self.endpointId = params.get("endpointId")
@@ -817,6 +818,7 @@ class PrivateConnectEndpoint(AbstractModel):
             self.dataCenter = DatacenterInfo(params.get("dataCenter"))
         self.vlanId = params.get("vlanId")
         self.connectivityStatus = params.get("connectivityStatus")
+        self.sharedChannelId = params.get("sharedChannelId")
 
 
 class DatacenterInfo(AbstractModel):
@@ -1315,6 +1317,7 @@ class CloudRouterEdgePoint(AbstractModel):
         self.bgpConnection = None
         self.staticRoutes = None
         self.createTime = None
+        self.sharedChannelId = None
 
     def _deserialize(self, params):
         self.edgePointId = params.get("edgePointId")
@@ -1339,6 +1342,7 @@ class CloudRouterEdgePoint(AbstractModel):
                 obj = IPRoute(item)
                 self.staticRoutes.append(obj)
         self.createTime = params.get("createTime")
+        self.sharedChannelId = params.get("sharedChannelId")
 
 
 class BGPConnection(AbstractModel):
