@@ -3121,6 +3121,8 @@ class CidrInfo(AbstractModel):
         self.asn = None
         self.tags = None
         self.asnObservation = None
+        self.availableCidr = None
+        self.availableCount = None
 
     def _deserialize(self, params):
         self.cidrId = params.get("cidrId")
@@ -3128,6 +3130,12 @@ class CidrInfo(AbstractModel):
         self.name = params.get("name")
         self.cidrBlock = params.get("cidrBlock")
         self.totalCount = params.get("totalCount")
+        if params.get("usedCount") is not None:
+            warnings.warn(
+                "usedCount 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.usedCount = params.get("usedCount")
         self.source = params.get("source")
         if params.get("eipV4Type") is not None:
@@ -3150,6 +3158,12 @@ class CidrInfo(AbstractModel):
             self.tags = Tags(params.get("tags"))
         if params.get("asnObservation") is not None:
             self.asnObservation = AsnObservationDetail(params.get("asnObservation"))
+        if params.get("availableCidr") is not None:
+            self.availableCidr = []
+            for item in params.get("availableCidr"):
+                obj = AvailableCidrInfo(item)
+                self.availableCidr.append(obj)
+        self.availableCount = params.get("availableCount")
 
 
 class AsnObservationDetail(AbstractModel):
@@ -3177,6 +3191,21 @@ class AsnObservationDetail(AbstractModel):
         self.secondarySource = params.get("secondarySource")
         self.secondaryStatus = params.get("secondaryStatus")
         self.secondaryAsns = params.get("secondaryAsns")
+
+
+class AvailableCidrInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.prefixLength = None
+        self.count = None
+
+    def _deserialize(self, params):
+        self.prefixLength = params.get("prefixLength")
+        self.count = params.get("count")
 
 
 class CreateCidrRequest(AbstractModel):
@@ -3738,6 +3767,7 @@ class DescribeEipsRequest(AbstractModel):
         self.tagKeys = None
         self.tags = None
         self.internetChargeType = None
+        self.prefixLength = None
 
     def _deserialize(self, params):
         self.eipIds = params.get("eipIds")
@@ -3761,6 +3791,7 @@ class DescribeEipsRequest(AbstractModel):
                 obj = Tag(item)
                 self.tags.append(obj)
         self.internetChargeType = params.get("internetChargeType")
+        self.prefixLength = params.get("prefixLength")
 
 
 class DescribeEipsResponse(AbstractModel):
@@ -3816,6 +3847,7 @@ class EipInfo(AbstractModel):
         self.bandwidthCluster = None
         self.tags = None
         self.operationInfo = None
+        self.prefixLength = None
 
     def _deserialize(self, params):
         self.eipId = params.get("eipId")
@@ -3875,6 +3907,7 @@ class EipInfo(AbstractModel):
             self.tags = Tags(params.get("tags"))
         if params.get("operationInfo") is not None:
             self.operationInfo = OperationInfo(params.get("operationInfo"))
+        self.prefixLength = params.get("prefixLength")
 
 
 class FlowPackageResponseItem(AbstractModel):
@@ -3946,6 +3979,7 @@ class CreateEipsRequest(AbstractModel):
         self.name = None
         self.internetChargeType = None
         self.amount = None
+        self.prefixLength = None
         self.eipV4Type = None
         self.networkLineType = None
         self.primaryIsp = None
@@ -3967,6 +4001,7 @@ class CreateEipsRequest(AbstractModel):
         self.name = params.get("name")
         self.internetChargeType = params.get("internetChargeType")
         self.amount = params.get("amount")
+        self.prefixLength = params.get("prefixLength")
         if params.get("eipV4Type") is not None:
             warnings.warn(
                 "eipV4Type 已废弃，请勿使用",
@@ -5486,6 +5521,71 @@ class DeleteBorderGatewayResponse(AbstractModel):
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+
+
+class DescribeInterconnectBorderGatewayRegionsRequest(AbstractModel):
+    def __init__(self):
+        self.regionId = None
+        self.dcId = None
+        self.dcCode = None
+
+    def _deserialize(self, params):
+        self.regionId = params.get("regionId")
+        self.dcId = params.get("dcId")
+        self.dcCode = params.get("dcCode")
+
+
+class DescribeInterconnectBorderGatewayRegionsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.regionSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("regionSet") is not None:
+            self.regionSet = []
+            for item in params.get("regionSet"):
+                obj = InterconnectRegion(item)
+                self.regionSet.append(obj)
+
+
+class InterconnectRegion(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.regionId = None
+        self.name = None
+        self.dataCenter = None
+
+    def _deserialize(self, params):
+        self.regionId = params.get("regionId")
+        self.name = params.get("name")
+        if params.get("dataCenter") is not None:
+            self.dataCenter = InterconnectDataCenter(params.get("dataCenter"))
+
+
+class InterconnectDataCenter(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.dcId = None
+        self.dcCode = None
+        self.name = None
+        self.cityName = None
+        self.countryName = None
+
+    def _deserialize(self, params):
+        self.dcId = params.get("dcId")
+        self.dcCode = params.get("dcCode")
+        self.name = params.get("name")
+        self.cityName = params.get("cityName")
+        self.countryName = params.get("countryName")
 
 
 class DescribeUnmanagedEgressIpsRequest(AbstractModel):
