@@ -19,7 +19,7 @@ class ZecClient(AbstractClient):
 
     def DescribeZoneInstanceConfigInfos(self, request):
         """
-        查询可用区售卖的机型信息
+        查询可用区售卖的机型信息。
         """
         response = self._api_call("DescribeZoneInstanceConfigInfos", request)
         model = models.DescribeZoneInstanceConfigInfosResponse()
@@ -37,7 +37,7 @@ class ZecClient(AbstractClient):
 
     def DescribeTimeZones(self, request):
         """
-        查询时区信息
+        查询时区信息。
         """
         response = self._api_call("DescribeTimeZones", request)
         model = models.DescribeTimeZonesResponse()
@@ -73,7 +73,7 @@ class ZecClient(AbstractClient):
 
     def DescribeInstancesStatus(self, request):
         """
-        查询实例的状态。
+        批量查询一个或多个弹性计算实例的当前运行状态，支持按实例 ID 列表和资源组筛选，支持分页查询。
         """
         response = self._api_call("DescribeInstancesStatus", request)
         model = models.DescribeInstancesStatusResponse()
@@ -136,7 +136,7 @@ class ZecClient(AbstractClient):
 
     def ResetInstances(self, request):
         """
-        重装多台虚拟机实例操作系统。
+        对一批弹性计算实例执行操作系统重装，可重新指定镜像、登录方式（密码或密钥对）、时区及实例名称。
         """
         response = self._api_call("ResetInstances", request)
         model = models.ResetInstancesResponse()
@@ -145,7 +145,7 @@ class ZecClient(AbstractClient):
 
     def StartIpForward(self, request):
         """
-        开启IP转发
+        为指定弹性计算实例开启 IP 转发，开启后该实例可作为路由器或网关转发来自其他资源的网络流量。
         """
         response = self._api_call("StartIpForward", request)
         model = models.StartIpForwardResponse()
@@ -154,7 +154,7 @@ class ZecClient(AbstractClient):
 
     def StopIpForward(self, request):
         """
-        关闭IP转发
+        为指定弹性计算实例关闭 IP 转发功能，关闭后该实例将不再转发非本机目的地的网络流量。
         """
         response = self._api_call("StopIpForward", request)
         model = models.StopIpForwardResponse()
@@ -163,7 +163,7 @@ class ZecClient(AbstractClient):
 
     def StartAgentMonitor(self, request):
         """
-        开启Agent监控采集。
+        为指定弹性计算实例开启 QEMU Guest Agent（QGA）监控数据采集，开启后可通过监控接口获取实例内部性能指标数据。
         """
         response = self._api_call("StartAgentMonitor", request)
         model = models.StartAgentMonitorResponse()
@@ -172,7 +172,7 @@ class ZecClient(AbstractClient):
 
     def StopAgentMonitor(self, request):
         """
-        关闭Agent监控采集。
+        为指定弹性计算实例关闭 QEMU Guest Agent（QGA）监控数据采集功能，关闭后将无法通过监控接口获取实例内部性能数据。
         """
         response = self._api_call("StopAgentMonitor", request)
         model = models.StopAgentMonitorResponse()
@@ -181,7 +181,7 @@ class ZecClient(AbstractClient):
 
     def ModifyInstanceType(self, request):
         """
-        变更实例的规格
+        将指定弹性计算实例的规格变更为目标规格。
         """
         response = self._api_call("ModifyInstanceType", request)
         model = models.ModifyInstanceTypeResponse()
@@ -235,7 +235,7 @@ class ZecClient(AbstractClient):
 
     def DescribeZoneGpuInstanceConfigInfos(self, request):
         """
-        查询可用区售卖的 GPU 规格信息
+        查询可用区售卖的 GPU 规格信息。
         """
         response = self._api_call("DescribeZoneGpuInstanceConfigInfos", request)
         model = models.DescribeZoneGpuInstanceConfigInfosResponse()
@@ -316,7 +316,7 @@ class ZecClient(AbstractClient):
 
     def DescribeDiskRegions(self, request):
         """
-        支持售卖云硬盘的节点。
+        查询支持售卖云硬盘的节点信息。
         """
         response = self._api_call("DescribeDiskRegions", request)
         model = models.DescribeDiskRegionsResponse()
@@ -325,7 +325,7 @@ class ZecClient(AbstractClient):
 
     def DescribeDiskCategory(self, request):
         """
-        获取某个区域支持的云盘类型。
+        查询可用区支持的云盘类型。
         """
         response = self._api_call("DescribeDiskCategory", request)
         model = models.DescribeDiskCategoryResponse()
@@ -406,7 +406,7 @@ class ZecClient(AbstractClient):
 
     def RenewDisk(self, request):
         """
-        恢复云硬盘
+        恢复处于回收状态的云硬盘，使其重新可用。仅可恢复保留期内的已删除云硬盘，超出保留期后资源将被彻底销毁。
         """
         response = self._api_call("RenewDisk", request)
         model = models.RenewDiskResponse()
@@ -541,7 +541,7 @@ class ZecClient(AbstractClient):
 
     def DescribeNetworkInterfaceRegions(self, request):
         """
-        支持售卖网卡的区域信息
+        支持售卖网卡的区域信息。
         """
         response = self._api_call("DescribeNetworkInterfaceRegions", request)
         model = models.DescribeNetworkInterfaceRegionsResponse()
@@ -613,7 +613,7 @@ class ZecClient(AbstractClient):
 
     def AssignNetworkInterfaceIpv4(self, request):
         """
-        网卡绑定内网IPv4
+        网卡绑定内网IPv4。
         """
         response = self._api_call("AssignNetworkInterfaceIpv4", request)
         model = models.AssignNetworkInterfaceIpv4Response()
@@ -640,7 +640,7 @@ class ZecClient(AbstractClient):
 
     def DescribeNetworkInterfacePublicIPv6(self, request):
         """
-        网卡的公网IPv6信息。
+        查询指定弹性网卡（vNIC）上已分配的公网 IPv6 地址及其计费、带宽配置信息。
         """
         response = self._api_call("DescribeNetworkInterfacePublicIPv6", request)
         model = models.DescribeNetworkInterfacePublicIPv6Response()
@@ -730,7 +730,7 @@ class ZecClient(AbstractClient):
 
     def DescribePools(self, request):
         """
-        查询公网IP池列表。
+        查询账户下的公网 IP 池信息，支持按 IP 池 ID、地域或名称进行筛选，支持分页查询。
         """
         response = self._api_call("DescribePools", request)
         model = models.DescribePoolsResponse()
@@ -748,7 +748,7 @@ class ZecClient(AbstractClient):
 
     def DescribeCidrPrice(self, request):
         """
-        查询IPv4 CIDR地址块售卖价格。
+        查询 IPv4 CIDR 地址块售卖价格。
         """
         response = self._api_call("DescribeCidrPrice", request)
         model = models.DescribeCidrPriceResponse()
@@ -757,7 +757,7 @@ class ZecClient(AbstractClient):
 
     def DescribeCidrs(self, request):
         """
-        查询IPv4 CIDR地址块列表
+        查询IPv4 CIDR地址块列表。
         """
         response = self._api_call("DescribeCidrs", request)
         model = models.DescribeCidrsResponse()
@@ -766,7 +766,7 @@ class ZecClient(AbstractClient):
 
     def CreateCidr(self, request):
         """
-        创建IPv6/IPv4 CIDR地址段。
+        创建IPv4 CIDR地址段。
         """
         response = self._api_call("CreateCidr", request)
         model = models.CreateCidrResponse()
@@ -811,7 +811,7 @@ class ZecClient(AbstractClient):
 
     def DescribeIpv6Cidrs(self, request):
         """
-        查询IPV6 CIDR地址块列表。
+        查询账户下的 IPv6 CIDR 地址块信息，支持按 CIDR ID、地域、名称、地址段筛选，支持标签过滤和分页查询。
         """
         response = self._api_call("DescribeIpv6Cidrs", request)
         model = models.DescribeIpv6CidrsResponse()
@@ -883,7 +883,7 @@ class ZecClient(AbstractClient):
 
     def DescribeEipInternetChargeTypes(self, request):
         """
-        查询EIP支持的网络计费模式。
+        查询 EIP 支持的网络计费模式。
         """
         response = self._api_call("DescribeEipInternetChargeTypes", request)
         model = models.DescribeEipInternetChargeTypesResponse()
@@ -928,7 +928,7 @@ class ZecClient(AbstractClient):
 
     def ModifyEipAttribute(self, request):
         """
-        修改弹性公网IP属性。
+        修改弹性公网IP属性。目前该接口支持修改名称。
         """
         response = self._api_call("ModifyEipAttribute", request)
         model = models.ModifyEipAttributeResponse()
@@ -937,7 +937,7 @@ class ZecClient(AbstractClient):
 
     def AvailableLanIp(self, request):
         """
-        查询可供弹性公网IP绑定的网卡及内网IP信息。
+        查询可与指定弹性公网 IP（EIP）进行绑定的弹性网卡（vNIC）及其内网 IPv4 地址列表。
         """
         response = self._api_call("AvailableLanIp", request)
         model = models.AvailableLanIpResponse()
@@ -1027,7 +1027,7 @@ class ZecClient(AbstractClient):
 
     def RenewEip(self, request):
         """
-        恢复弹性公网IP
+        恢复弹性公网IP。
         """
         response = self._api_call("RenewEip", request)
         model = models.RenewEipResponse()
@@ -1036,7 +1036,7 @@ class ZecClient(AbstractClient):
 
     def DescribeEipTraffic(self, request):
         """
-        查询弹性公网IP指定时间段内的流量信息。
+        查询指定弹性公网 IP 在指定时间段内的流量监控数据，支持按统计粒度（step）聚合，可按出口公网 IP 过滤。
         """
         response = self._api_call("DescribeEipTraffic", request)
         model = models.DescribeEipTrafficResponse()
@@ -1333,7 +1333,7 @@ class ZecClient(AbstractClient):
 
     def UnassignBorderGateway(self, request):
         """
-        解绑边界网关
+        解除指定边界网关（ZBG）与 NAT 网关的绑定关系，解绑后边界网关将不再为该 NAT 网关广播路由。
         """
         response = self._api_call("UnassignBorderGateway", request)
         model = models.UnassignBorderGatewayResponse()
@@ -1513,7 +1513,7 @@ class ZecClient(AbstractClient):
 
     def DeleteVpc(self, request):
         """
-        删除VPC
+        删除VPC。
         """
         response = self._api_call("DeleteVpc", request)
         model = models.DeleteVpcResponse()
@@ -1567,7 +1567,7 @@ class ZecClient(AbstractClient):
 
     def ModifySubnetStackType(self, request):
         """
-        修改子网的IP堆栈类型，用于分配或移除子网上的IPv6。
+        修改指定子网的 IP 地址堆栈类型（IPv4 / IPv4_IPv6 / IPv6）。变更为双栈或纯 IPv6 时须配置 IPv6 类型及对应的 CIDR 地址块。
         """
         response = self._api_call("ModifySubnetStackType", request)
         model = models.ModifySubnetStackTypeResponse()
@@ -1639,7 +1639,7 @@ class ZecClient(AbstractClient):
 
     def ModifyNatGatewayAttribute(self, request):
         """
-        修改NAT网关的属性。
+        修改指定 NAT 网关的名称、关联子网、ICMP 回应及安全组配置。
         """
         response = self._api_call("ModifyNatGatewayAttribute", request)
         model = models.ModifyNatGatewayAttributeResponse()
@@ -1720,7 +1720,7 @@ class ZecClient(AbstractClient):
 
     def CreatePolicy(self, request):
         """
-        创建防护策略
+        创建防护策略。
         """
         response = self._api_call("CreatePolicy", request)
         model = models.CreatePolicyResponse()
@@ -1729,7 +1729,7 @@ class ZecClient(AbstractClient):
 
     def DescribePolicys(self, request):
         """
-        获取防护策略列表
+        查询账户下的 DDoS 防护策略信息，支持按策略 ID、策略名称筛选，支持标签过滤和分页查询。
         """
         response = self._api_call("DescribePolicys", request)
         model = models.DescribePolicysResponse()
@@ -1738,7 +1738,7 @@ class ZecClient(AbstractClient):
 
     def DescribePolicyDetail(self, request):
         """
-        获取防护策略详情
+        查询指定 DDoS 防护策略的详细配置，包括黑白名单、封禁协议、区域封禁、特征过滤及流量控制规则等。
         """
         response = self._api_call("DescribePolicyDetail", request)
         model = models.DescribePolicyDetailResponse()
@@ -1747,7 +1747,7 @@ class ZecClient(AbstractClient):
 
     def ModifyPolicy(self, request):
         """
-        修改防护策略
+        修改指定 DDoS 防护策略的配置，包括策略名称、IP 黑白名单、封禁协议、区域封禁、特征过滤及流量控制规则。
         """
         response = self._api_call("ModifyPolicy", request)
         model = models.ModifyPolicyResponse()
@@ -1756,7 +1756,7 @@ class ZecClient(AbstractClient):
 
     def AttachToPolicy(self, request):
         """
-        防护对象关联防护策略
+        防护对象关联防护策略。
         """
         response = self._api_call("AttachToPolicy", request)
         model = models.AttachToPolicyResponse()
@@ -1765,7 +1765,7 @@ class ZecClient(AbstractClient):
 
     def DetachFromPolicy(self, request):
         """
-        防护对象取消关联防护策略
+        防护对象取消关联防护策略。
         """
         response = self._api_call("DetachFromPolicy", request)
         model = models.DetachFromPolicyResponse()
@@ -1774,7 +1774,7 @@ class ZecClient(AbstractClient):
 
     def DescribePolicyRegions(self, request):
         """
-        获取区域封禁可选区域列表
+        查询 DDoS 防护策略中区域封禁功能支持的可选地区列表，用于配置防护策略 `blockRegions` 参数前的参考。
         """
         response = self._api_call("DescribePolicyRegions", request)
         model = models.DescribePolicyRegionsResponse()
@@ -1783,7 +1783,7 @@ class ZecClient(AbstractClient):
 
     def DescribeReflectUdpPortOptions(self, request):
         """
-        获取默认UDP反射源端口列表
+        查询 DDoS 防护策略中 UDP 反射攻击防护功能的默认封禁源端口列表，用于配置防护策略 `reflectUdpPort` 参数前的参考。
         """
         response = self._api_call("DescribeReflectUdpPortOptions", request)
         model = models.DescribeReflectUdpPortOptionsResponse()
@@ -1792,7 +1792,7 @@ class ZecClient(AbstractClient):
 
     def DeletePolicy(self, request):
         """
-        删除防护策略
+        删除防护策略。
         """
         response = self._api_call("DeletePolicy", request)
         model = models.DeletePolicyResponse()
@@ -1801,7 +1801,7 @@ class ZecClient(AbstractClient):
 
     def DescribeDDosEventDetail(self, request):
         """
-        获取攻击事件详情
+        获取攻击事件详情。
         """
         response = self._api_call("DescribeDDosEventDetail", request)
         model = models.DescribeDDosEventDetailResponse()
@@ -1810,7 +1810,7 @@ class ZecClient(AbstractClient):
 
     def DescribeDDosAllEventList(self, request):
         """
-        获取攻击事件列表
+        获取攻击事件列表。
         """
         response = self._api_call("DescribeDDosAllEventList", request)
         model = models.DescribeDDosAllEventListResponse()
@@ -1891,7 +1891,7 @@ class ZecClient(AbstractClient):
 
     def CreatePlacementGroup(self, request):
         """
-        创建一个置放组。置放组的管理范围为zone维度，创建时必须选择所属可用区。
+        创建置放组。
         """
         response = self._api_call("CreatePlacementGroup", request)
         model = models.CreatePlacementGroupResponse()
@@ -1900,7 +1900,7 @@ class ZecClient(AbstractClient):
 
     def ModifyPlacementGroupAttributes(self, request):
         """
-        修改置放组的名称、分区数、亲和度等属性。所属可用区不可修改。分区数只能调大，不能调小。
+        修改置放组的名称、分区数、亲和度等属性。
         """
         response = self._api_call("ModifyPlacementGroupAttributes", request)
         model = models.ModifyPlacementGroupAttributesResponse()
@@ -1927,7 +1927,7 @@ class ZecClient(AbstractClient):
 
     def ModifyInstancePlacement(self, request):
         """
-        将实例加入置放组、从一个置放组迁移到另一个、或从置放组移除（placementGroupId 为空表示移除）。
+        将实例加入置放组、从一个置放组迁移到另一个、或从置放组移除。
         """
         response = self._api_call("ModifyInstancePlacement", request)
         model = models.ModifyInstancePlacementResponse()
@@ -1954,7 +1954,7 @@ class ZecClient(AbstractClient):
 
     def ModifyHaVipAttribute(self, request):
         """
-        修改高可用虚拟IP的名称或绑定的安全组。name 与 securityGroupId 至少提供一个。
+        修改高可用虚拟IP的名称或绑定的安全组。
         """
         response = self._api_call("ModifyHaVipAttribute", request)
         model = models.ModifyHaVipAttributeResponse()

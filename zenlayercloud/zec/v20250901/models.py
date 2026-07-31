@@ -4179,6 +4179,12 @@ class ReplaceIp(AbstractModel):
 
     def _deserialize(self, params):
         self.eipId = params.get("eipId")
+        if params.get("ownIp") is not None:
+            warnings.warn(
+                "ownIp 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.ownIp = params.get("ownIp")
         self.targetIp = params.get("targetIp")
 
@@ -4207,6 +4213,12 @@ class ChangeEipInternetChargeTypeRequest(AbstractModel):
         self.internetChargeType = params.get("internetChargeType")
         self.flowPackage = params.get("flowPackage")
         self.bandwidth = params.get("bandwidth")
+        if params.get("bandwidthCap") is not None:
+            warnings.warn(
+                "bandwidthCap 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.bandwidthCap = params.get("bandwidthCap")
         self.clusterId = params.get("clusterId")
 
@@ -4230,6 +4242,12 @@ class ModifyEipBandwidthRequest(AbstractModel):
     def _deserialize(self, params):
         self.eipId = params.get("eipId")
         self.bandwidth = params.get("bandwidth")
+        if params.get("commitBandwidth") is not None:
+            warnings.warn(
+                "commitBandwidth 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.commitBandwidth = params.get("commitBandwidth")
 
 
