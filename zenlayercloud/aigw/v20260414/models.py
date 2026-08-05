@@ -115,6 +115,8 @@ class CreateAiGatewayRequest(AbstractModel):
     def __init__(self):
         self.modelUuids = None
         self.gatewayName = None
+        self.dailyLimit = None
+        self.monthlyLimit = None
         self.tokenLimit = None
         self.expireType = None
         self.expireTime = None
@@ -125,6 +127,8 @@ class CreateAiGatewayRequest(AbstractModel):
     def _deserialize(self, params):
         self.modelUuids = params.get("modelUuids")
         self.gatewayName = params.get("gatewayName")
+        self.dailyLimit = params.get("dailyLimit")
+        self.monthlyLimit = params.get("monthlyLimit")
         self.tokenLimit = params.get("tokenLimit")
         self.expireType = params.get("expireType")
         self.expireTime = params.get("expireTime")
