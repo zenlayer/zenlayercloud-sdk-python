@@ -368,19 +368,27 @@ class DescribeAiGatewayTokenLimitResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
         self.tokenLimit = None
+        self.dailyLimit = None
+        self.monthlyLimit = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
         self.tokenLimit = params.get("tokenLimit")
+        self.dailyLimit = params.get("dailyLimit")
+        self.monthlyLimit = params.get("monthlyLimit")
 
 
 class ModifyAiGatewayTokenLimitRequest(AbstractModel):
     def __init__(self):
         self.gatewayUuid = None
+        self.dailyLimit = None
+        self.monthlyLimit = None
         self.tokenLimit = None
 
     def _deserialize(self, params):
         self.gatewayUuid = params.get("gatewayUuid")
+        self.dailyLimit = params.get("dailyLimit")
+        self.monthlyLimit = params.get("monthlyLimit")
         self.tokenLimit = params.get("tokenLimit")
 
 
