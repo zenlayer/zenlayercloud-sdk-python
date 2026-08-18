@@ -242,6 +242,15 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeZoneAcceleratorConfigInfos(self, request):
+        """
+        查询可用区售卖的加速卡规格信息。
+        """
+        response = self._api_call("DescribeZoneAcceleratorConfigInfos", request)
+        model = models.DescribeZoneAcceleratorConfigInfosResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeImages(self, request):
         """
         查询某节点支持的镜像列表。
@@ -728,6 +737,15 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ReplaceNetworkInterfacePrimaryIpv4(self, request):
+        """
+        变更网卡当前的主内网IPv4地址。
+        """
+        response = self._api_call("ReplaceNetworkInterfacePrimaryIpv4", request)
+        model = models.ReplaceNetworkInterfacePrimaryIpv4Response()
+        model._deserialize(response)
+        return model
+
     def DescribePools(self, request):
         """
         查询账户下的公网 IP 池信息，支持按 IP 池 ID、地域或名称进行筛选，支持分页查询。
@@ -1094,6 +1112,15 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("ModifyEipTrafficPackage", request)
         model = models.ModifyEipTrafficPackageResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyEipBlockThreshold(self, request):
+        """
+        修改弹性公网IP（EIP）的自定义封堵阈值。
+        """
+        response = self._api_call("ModifyEipBlockThreshold", request)
+        model = models.ModifyEipBlockThresholdResponse()
         model._deserialize(response)
         return model
 
@@ -1580,6 +1607,24 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("DeleteSubnet", request)
         model = models.DeleteSubnetResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateSubnets(self, request):
+        """
+        在同一个VPC下批量创建多个子网。
+        """
+        response = self._api_call("CreateSubnets", request)
+        model = models.CreateSubnetsResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteSubnets(self, request):
+        """
+        删除一个或多个子网。
+        """
+        response = self._api_call("DeleteSubnets", request)
+        model = models.DeleteSubnetsResponse()
         model._deserialize(response)
         return model
 

@@ -286,6 +286,7 @@ class InquiryPriceCreateInstanceResponse(AbstractModel):
         self.requestId = None
         self.specPrice = None
         self.gpuPrice = None
+        self.acceleratorPrice = None
         self.ipv4Price = None
         self.ipv4BandwidthPrice = None
         self.ipv4BandwidthPrices = None
@@ -301,6 +302,8 @@ class InquiryPriceCreateInstanceResponse(AbstractModel):
             self.specPrice = PriceItem(params.get("specPrice"))
         if params.get("gpuPrice") is not None:
             self.gpuPrice = PriceItem(params.get("gpuPrice"))
+        if params.get("acceleratorPrice") is not None:
+            self.acceleratorPrice = PriceItem(params.get("acceleratorPrice"))
         if params.get("ipv4Price") is not None:
             self.ipv4Price = PriceItem(params.get("ipv4Price"))
         if params.get("ipv4BandwidthPrice") is not None:
@@ -1198,6 +1201,7 @@ class InquiryPriceModifyInstanceTypeResponse(AbstractModel):
         self.requestId = None
         self.specPrice = None
         self.gpuPrice = None
+        self.acceleratorPrice = None
         self.systemDiskPrice = None
 
     def _deserialize(self, params):
@@ -1206,6 +1210,8 @@ class InquiryPriceModifyInstanceTypeResponse(AbstractModel):
             self.specPrice = PriceItem(params.get("specPrice"))
         if params.get("gpuPrice") is not None:
             self.gpuPrice = PriceItem(params.get("gpuPrice"))
+        if params.get("acceleratorPrice") is not None:
+            self.acceleratorPrice = PriceItem(params.get("acceleratorPrice"))
         if params.get("systemDiskPrice") is not None:
             self.systemDiskPrice = PriceItem(params.get("systemDiskPrice"))
 
@@ -1261,6 +1267,64 @@ class GpuInstanceTypeQuotaItem(AbstractModel):
         self.bps = params.get("bps")
         self.pps = params.get("pps")
         self.inventoryCapacity = params.get("inventoryCapacity")
+
+
+class DescribeZoneAcceleratorConfigInfosRequest(AbstractModel):
+    def __init__(self):
+        self.zoneId = None
+        self.instanceType = None
+
+    def _deserialize(self, params):
+        self.zoneId = params.get("zoneId")
+        self.instanceType = params.get("instanceType")
+
+
+class DescribeZoneAcceleratorConfigInfosResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.instanceTypeQuotaSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("instanceTypeQuotaSet") is not None:
+            self.instanceTypeQuotaSet = []
+            for item in params.get("instanceTypeQuotaSet"):
+                obj = AcceleratorTypeQuotaItem(item)
+                self.instanceTypeQuotaSet.append(obj)
+
+
+class AcceleratorTypeQuotaItem(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.zoneId = None
+        self.instanceType = None
+        self.acceleratorType = None
+        self.cpuCount = None
+        self.memory = None
+        self.acceleratorAmount = None
+        self.instanceTypeName = None
+        self.bps = None
+        self.pps = None
+        self.inventoryCapacity = None
+        self.price = None
+
+    def _deserialize(self, params):
+        self.zoneId = params.get("zoneId")
+        self.instanceType = params.get("instanceType")
+        self.acceleratorType = params.get("acceleratorType")
+        self.cpuCount = params.get("cpuCount")
+        self.memory = params.get("memory")
+        self.acceleratorAmount = params.get("acceleratorAmount")
+        self.instanceTypeName = params.get("instanceTypeName")
+        self.bps = params.get("bps")
+        self.pps = params.get("pps")
+        self.inventoryCapacity = params.get("inventoryCapacity")
+        if params.get("price") is not None:
+            self.price = PriceItem(params.get("price"))
 
 
 class DescribeImagesRequest(AbstractModel):
@@ -1779,25 +1843,31 @@ class DiskInfo(AbstractModel):
 
 class CreateDisksRequest(AbstractModel):
     def __init__(self):
+        self.instanceChargePostpaid = None
         self.zoneId = None
         self.diskName = None
+        self.diskNames = None
         self.diskSize = None
         self.diskAmount = None
         self.instanceId = None
+        self.instanceIds = None
         self.resourceGroupId = None
         self.diskCategory = None
         self.snapshotId = None
         self.marketingOptions = None
         self.tags = None
-        self.instanceIds = None
         self.burstingEnabled = None
 
     def _deserialize(self, params):
+        if params.get("instanceChargePostpaid") is not None:
+            self.instanceChargePostpaid = ChargePostpaid(params.get("instanceChargePostpaid"))
         self.zoneId = params.get("zoneId")
         self.diskName = params.get("diskName")
+        self.diskNames = params.get("diskNames")
         self.diskSize = params.get("diskSize")
         self.diskAmount = params.get("diskAmount")
         self.instanceId = params.get("instanceId")
+        self.instanceIds = params.get("instanceIds")
         self.resourceGroupId = params.get("resourceGroupId")
         self.diskCategory = params.get("diskCategory")
         self.snapshotId = params.get("snapshotId")
@@ -1805,8 +1875,20 @@ class CreateDisksRequest(AbstractModel):
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
         if params.get("tags") is not None:
             self.tags = TagAssociation(params.get("tags"))
-        self.instanceIds = params.get("instanceIds")
         self.burstingEnabled = params.get("burstingEnabled")
+
+
+class ChargePostpaid(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.period = None
+
+    def _deserialize(self, params):
+        self.period = params.get("period")
 
 
 class CreateDisksResponse(AbstractModel):
@@ -1834,9 +1916,11 @@ class AttachDisksRequest(AbstractModel):
 class AttachDisksResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
+        self.failedDiskIds = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+        self.failedDiskIds = params.get("failedDiskIds")
 
 
 class DetachDisksRequest(AbstractModel):
@@ -2925,6 +3009,30 @@ class ModifyIpv6TrafficPackageResponse(AbstractModel):
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+
+
+class ReplaceNetworkInterfacePrimaryIpv4Request(AbstractModel):
+    def __init__(self):
+        self.nicId = None
+        self.primaryIpAddress = None
+        self.rebootInstance = None
+
+    def _deserialize(self, params):
+        self.nicId = params.get("nicId")
+        self.primaryIpAddress = params.get("primaryIpAddress")
+        self.rebootInstance = params.get("rebootInstance")
+
+
+class ReplaceNetworkInterfacePrimaryIpv4Response(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.nicId = None
+        self.primaryIpAddress = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.nicId = params.get("nicId")
+        self.primaryIpAddress = params.get("primaryIpAddress")
 
 
 class DescribePoolsRequest(AbstractModel):
@@ -4629,6 +4737,32 @@ class ModifyEipTrafficPackageRequest(AbstractModel):
 
 
 class ModifyEipTrafficPackageResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class ModifyEipBlockThresholdRequest(AbstractModel):
+    def __init__(self):
+        self.eipId = None
+        self.enable = None
+        self.bps = None
+        self.pps = None
+        self.inCps = None
+        self.outCps = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.enable = params.get("enable")
+        self.bps = params.get("bps")
+        self.pps = params.get("pps")
+        self.inCps = params.get("inCps")
+        self.outCps = params.get("outCps")
+
+
+class ModifyEipBlockThresholdResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
 
@@ -6383,6 +6517,96 @@ class DeleteSubnetResponse(AbstractModel):
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
+
+
+class CreateSubnetsRequest(AbstractModel):
+    def __init__(self):
+        self.vpcId = None
+        self.subnets = None
+
+    def _deserialize(self, params):
+        self.vpcId = params.get("vpcId")
+        if params.get("subnets") is not None:
+            self.subnets = []
+            for item in params.get("subnets"):
+                obj = SubnetCreateItem(item)
+                self.subnets.append(obj)
+
+
+class SubnetCreateItem(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.name = None
+        self.regionId = None
+        self.stackType = None
+        self.cidrBlock = None
+        self.ipv6Type = None
+        self.dhcpOptionsSetId = None
+        self.ipv6CidrBlockId = None
+        self.ipv6MaskLength = None
+
+    def _deserialize(self, params):
+        self.name = params.get("name")
+        self.regionId = params.get("regionId")
+        self.stackType = params.get("stackType")
+        self.cidrBlock = params.get("cidrBlock")
+        self.ipv6Type = params.get("ipv6Type")
+        self.dhcpOptionsSetId = params.get("dhcpOptionsSetId")
+        self.ipv6CidrBlockId = params.get("ipv6CidrBlockId")
+        self.ipv6MaskLength = params.get("ipv6MaskLength")
+
+
+class CreateSubnetsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.subnetIds = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.subnetIds = params.get("subnetIds")
+
+
+class DeleteSubnetsRequest(AbstractModel):
+    def __init__(self):
+        self.subnetIds = None
+
+    def _deserialize(self, params):
+        self.subnetIds = params.get("subnetIds")
+
+
+class DeleteSubnetsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.failedSubnets = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("failedSubnets") is not None:
+            self.failedSubnets = []
+            for item in params.get("failedSubnets"):
+                obj = DeleteSubnetsFailedItem(item)
+                self.failedSubnets.append(obj)
+
+
+class DeleteSubnetsFailedItem(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.subnetId = None
+        self.errorCode = None
+        self.errorMsg = None
+
+    def _deserialize(self, params):
+        self.subnetId = params.get("subnetId")
+        self.errorCode = params.get("errorCode")
+        self.errorMsg = params.get("errorMsg")
 
 
 class DescribeNatGatewayRegionsRequest(AbstractModel):

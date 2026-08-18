@@ -304,6 +304,8 @@ class CreateLoadBalancerRequest(AbstractModel):
     def __init__(self):
         self.regionId = None
         self.vpcId = None
+        self.subnetId = None
+        self.healthCheckPrivateIps = None
         self.loadBalancerName = None
         self.internetChargeType = None
         self.ipNetworkType = None
@@ -315,13 +317,13 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.number = None
         self.marketingOptions = None
         self.tags = None
-        self.subnetId = None
-        self.healthCheckPrivateIps = None
         self.securityGroupId = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
         self.vpcId = params.get("vpcId")
+        self.subnetId = params.get("subnetId")
+        self.healthCheckPrivateIps = params.get("healthCheckPrivateIps")
         self.loadBalancerName = params.get("loadBalancerName")
         self.internetChargeType = params.get("internetChargeType")
         if params.get("ipNetworkType") is not None:
@@ -341,8 +343,6 @@ class CreateLoadBalancerRequest(AbstractModel):
             self.marketingOptions = MarketingInfo(params.get("marketingOptions"))
         if params.get("tags") is not None:
             self.tags = TagAssociation(params.get("tags"))
-        self.subnetId = params.get("subnetId")
-        self.healthCheckPrivateIps = params.get("healthCheckPrivateIps")
         self.securityGroupId = params.get("securityGroupId")
 
 
@@ -611,6 +611,7 @@ class Listener(AbstractModel):
         self.kind = None
         self.createTime = None
         self.persistent = None
+        self.algoOpts = None
         self.idleTimeout = None
 
     def _deserialize(self, params):
@@ -624,6 +625,7 @@ class Listener(AbstractModel):
         self.kind = params.get("kind")
         self.createTime = params.get("createTime")
         self.persistent = params.get("persistent")
+        self.algoOpts = params.get("algoOpts")
         self.idleTimeout = params.get("idleTimeout")
 
 
@@ -669,6 +671,7 @@ class CreateListenerRequest(AbstractModel):
         self.kind = None
         self.persistent = None
         self.idleTimeout = None
+        self.algoOpts = None
 
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
@@ -681,6 +684,7 @@ class CreateListenerRequest(AbstractModel):
         self.kind = params.get("kind")
         self.persistent = params.get("persistent")
         self.idleTimeout = params.get("idleTimeout")
+        self.algoOpts = params.get("algoOpts")
 
 
 class CreateListenerResponse(AbstractModel):
@@ -704,6 +708,7 @@ class ModifyListenerRequest(AbstractModel):
         self.kind = None
         self.persistent = None
         self.idleTimeout = None
+        self.algoOpts = None
 
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
@@ -716,6 +721,7 @@ class ModifyListenerRequest(AbstractModel):
         self.kind = params.get("kind")
         self.persistent = params.get("persistent")
         self.idleTimeout = params.get("idleTimeout")
+        self.algoOpts = params.get("algoOpts")
 
 
 class ModifyListenerResponse(AbstractModel):
