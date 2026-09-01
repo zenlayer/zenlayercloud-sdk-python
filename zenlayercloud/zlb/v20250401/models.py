@@ -119,6 +119,7 @@ class LoadBalancer(AbstractModel):
         self.privateIpAddress = None
         self.healthCheckPrivateIps = None
         self.listenerCount = None
+        self.backendServerCount = None
         self.createTime = None
         self.resourceGroup = None
         self.tags = None
@@ -134,6 +135,7 @@ class LoadBalancer(AbstractModel):
         self.privateIpAddress = params.get("privateIpAddress")
         self.healthCheckPrivateIps = params.get("healthCheckPrivateIps")
         self.listenerCount = params.get("listenerCount")
+        self.backendServerCount = params.get("backendServerCount")
         self.createTime = params.get("createTime")
         if params.get("resourceGroup") is not None:
             self.resourceGroup = ResourceGroupInfo(params.get("resourceGroup"))
@@ -307,6 +309,7 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.subnetId = None
         self.healthCheckPrivateIps = None
         self.loadBalancerName = None
+        self.eipIds = None
         self.internetChargeType = None
         self.ipNetworkType = None
         self.networkLineType = None
@@ -325,6 +328,7 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.subnetId = params.get("subnetId")
         self.healthCheckPrivateIps = params.get("healthCheckPrivateIps")
         self.loadBalancerName = params.get("loadBalancerName")
+        self.eipIds = params.get("eipIds")
         self.internetChargeType = params.get("internetChargeType")
         if params.get("ipNetworkType") is not None:
             warnings.warn(

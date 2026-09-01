@@ -17,6 +17,15 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeRegions(self, request):
+        """
+        查询节点信息。包括名称、所属的行政区划等。
+        """
+        response = self._api_call("DescribeRegions", request)
+        model = models.DescribeRegionsResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeZoneInstanceConfigInfos(self, request):
         """
         查询可用区售卖的机型信息。
@@ -226,7 +235,7 @@ class ZecClient(AbstractClient):
 
     def InquiryPriceModifyInstanceType(self, request):
         """
-        查询变更实例规格后的价格。
+        查询变更实例规格后的价格，同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
         """
         response = self._api_call("InquiryPriceModifyInstanceType", request)
         model = models.InquiryPriceModifyInstanceTypeResponse()
@@ -442,7 +451,7 @@ class ZecClient(AbstractClient):
 
     def InquiryPriceResizeDisk(self, request):
         """
-        查询云硬盘扩容后的新价格。
+        查询云硬盘扩容后的新价格。同时通过 previousPrices 返回扩容前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
         """
         response = self._api_call("InquiryPriceResizeDisk", request)
         model = models.InquiryPriceResizeDiskResponse()
@@ -667,7 +676,7 @@ class ZecClient(AbstractClient):
 
     def InquiryPriceChangeIpv6InternetChargeType(self, request):
         """
-        查询变更IPv6网络计费模式后的价格。
+        查询变更IPv6网络计费模式后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
         """
         response = self._api_call("InquiryPriceChangeIpv6InternetChargeType", request)
         model = models.InquiryPriceChangeIpv6InternetChargeTypeResponse()
@@ -712,7 +721,7 @@ class ZecClient(AbstractClient):
 
     def InquiryPriceModifyIpv6Bandwidth(self, request):
         """
-        查询调整IPv6带宽后的价格。
+        查询调整IPv6带宽后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
         """
         response = self._api_call("InquiryPriceModifyIpv6Bandwidth", request)
         model = models.InquiryPriceModifyIpv6BandwidthResponse()
@@ -1081,7 +1090,7 @@ class ZecClient(AbstractClient):
 
     def InquiryPriceModifyEipBandwidth(self, request):
         """
-        查询调整EIP带宽后的价格。
+        查询调整EIP带宽后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
         """
         response = self._api_call("InquiryPriceModifyEipBandwidth", request)
         model = models.InquiryPriceModifyEipBandwidthResponse()
@@ -1090,7 +1099,7 @@ class ZecClient(AbstractClient):
 
     def InquiryPriceModifyEipFlowPackage(self, request):
         """
-        查询调整EIP流量包后的价格。
+        查询调整EIP流量包后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
         """
         response = self._api_call("InquiryPriceModifyEipFlowPackage", request)
         model = models.InquiryPriceModifyEipFlowPackageResponse()
@@ -1099,7 +1108,7 @@ class ZecClient(AbstractClient):
 
     def InquiryPriceChangeEipInternetChargeType(self, request):
         """
-        查询变更EIP网络计费模式后的价格。
+        查询变更EIP网络计费模式后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
         """
         response = self._api_call("InquiryPriceChangeEipInternetChargeType", request)
         model = models.InquiryPriceChangeEipInternetChargeTypeResponse()
@@ -1198,7 +1207,7 @@ class ZecClient(AbstractClient):
 
     def InquiryPriceModifyCrossRegionBandwidth(self, request):
         """
-        调整内网跨区域带宽询价。
+        调整内网跨区域带宽询价。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
         """
         response = self._api_call("InquiryPriceModifyCrossRegionBandwidth", request)
         model = models.InquiryPriceModifyCrossRegionBandwidthResponse()
@@ -1423,7 +1432,7 @@ class ZecClient(AbstractClient):
 
     def InquiryPriceModifyUnmanagedEgressIpBandwidth(self, request):
         """
-        查询调整非托管出口IP带宽后的价格。
+        查询调整非托管出口IP带宽后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
         """
         response = self._api_call("InquiryPriceModifyUnmanagedEgressIpBandwidth", request)
         model = models.InquiryPriceModifyUnmanagedEgressIpBandwidthResponse()
@@ -1432,7 +1441,7 @@ class ZecClient(AbstractClient):
 
     def InquiryPriceChangeUnmanagedEgressIpInternetChargeType(self, request):
         """
-        查询变更非托管出口IP网络计费模式后的价格。
+        查询变更非托管出口IP网络计费模式后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
         """
         response = self._api_call("InquiryPriceChangeUnmanagedEgressIpInternetChargeType", request)
         model = models.InquiryPriceChangeUnmanagedEgressIpInternetChargeTypeResponse()

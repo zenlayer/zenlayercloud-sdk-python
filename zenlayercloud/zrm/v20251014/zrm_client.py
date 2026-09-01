@@ -10,7 +10,7 @@ class ZrmClient(AbstractClient):
 
     def DescribeTags(self, request):
         """
-        获取某个资源下绑定的所有标签列表。
+        标签分页列表。
         """
         response = self._api_call("DescribeTags", request)
         model = models.DescribeTagsResponse()
@@ -77,6 +77,24 @@ class ZrmClient(AbstractClient):
         """
         response = self._api_call("DescribeResourceByTags", request)
         model = models.DescribeResourceByTagsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeResourceTypes(self, request):
+        """
+        查询当前支持的资源类型，支持按所属服务与资源类型筛选。
+        """
+        response = self._api_call("DescribeResourceTypes", request)
+        model = models.DescribeResourceTypesResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeResources(self, request):
+        """
+        按资源唯一标识或资源名称搜索当前Team下的所有资源。
+        """
+        response = self._api_call("DescribeResources", request)
+        model = models.DescribeResourcesResponse()
         model._deserialize(response)
         return model
 

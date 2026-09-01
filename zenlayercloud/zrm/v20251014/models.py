@@ -263,3 +263,113 @@ class ResourceInfo(AbstractModel):
         self.resourceUuid = params.get("resourceUuid")
 
 
+class DescribeResourceTypesRequest(AbstractModel):
+    def __init__(self):
+        self.services = None
+        self.resourceTypes = None
+
+    def _deserialize(self, params):
+        self.services = params.get("services")
+        self.resourceTypes = params.get("resourceTypes")
+
+
+class DescribeResourceTypesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = ResourceTypeInfo(item)
+                self.dataSet.append(obj)
+
+
+class ResourceTypeInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.resourceType = None
+        self.name = None
+        self.service = None
+
+    def _deserialize(self, params):
+        self.resourceType = params.get("resourceType")
+        self.name = params.get("name")
+        self.service = params.get("service")
+
+
+class DescribeResourcesRequest(AbstractModel):
+    def __init__(self):
+        self.pageNum = None
+        self.pageSize = None
+        self.resourceIds = None
+        self.resourceName = None
+        self.resourceGroupId = None
+        self.tags = None
+        self.tagKeys = None
+
+    def _deserialize(self, params):
+        self.pageNum = params.get("pageNum")
+        self.pageSize = params.get("pageSize")
+        self.resourceIds = params.get("resourceIds")
+        self.resourceName = params.get("resourceName")
+        self.resourceGroupId = params.get("resourceGroupId")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+        self.tagKeys = params.get("tagKeys")
+
+
+class DescribeResourcesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = ResourceSearchInfo(item)
+                self.dataSet.append(obj)
+
+
+class ResourceSearchInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.resourceId = None
+        self.name = None
+        self.resourceType = None
+        self.createTime = None
+        self.resourceGroupId = None
+        self.resourceGroupName = None
+        self.location = None
+        self.service = None
+
+    def _deserialize(self, params):
+        self.resourceId = params.get("resourceId")
+        self.name = params.get("name")
+        self.resourceType = params.get("resourceType")
+        self.createTime = params.get("createTime")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.resourceGroupName = params.get("resourceGroupName")
+        self.location = params.get("location")
+        self.service = params.get("service")
+
+

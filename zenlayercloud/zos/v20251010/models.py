@@ -1,68 +1,7 @@
 #  Zenlayer.com Inc.
 #  Copyright (c) 2014-2024 All Rights Reserved.
 from zenlayercloud.common.abstract_model import AbstractModel
-
-
-class CreateCommandRequest(AbstractModel):
-    def __init__(self):
-        self.name = None
-        self.content = None
-        self.type = None
-        self.description = None
-        self.resourceGroupId = None
-        self.tags = None
-
-    def _deserialize(self, params):
-        self.name = params.get("name")
-        self.content = params.get("content")
-        self.type = params.get("type")
-        self.description = params.get("description")
-        self.resourceGroupId = params.get("resourceGroupId")
-        if params.get("tags") is not None:
-            self.tags = TagAssociation(params.get("tags"))
-
-
-class TagAssociation(AbstractModel):
-    def __init__(self, params=None):
-        if params is None:
-            params = {}
-        if len(params) > 0:
-            self._deserialize(params)
-            return
-        self.tags = None
-
-    def _deserialize(self, params):
-        if params.get("tags") is not None:
-            self.tags = []
-            for item in params.get("tags"):
-                obj = Tag(item)
-                self.tags.append(obj)
-
-
-class Tag(AbstractModel):
-    def __init__(self, params=None):
-        if params is None:
-            params = {}
-        if len(params) > 0:
-            self._deserialize(params)
-            return
-        self.key = None
-        self.value = None
-
-    def _deserialize(self, params):
-        self.key = params.get("key")
-        self.value = params.get("value")
-
-
-class CreateCommandResponse(AbstractModel):
-    def __init__(self):
-        self.requestId = None
-        self.commandId = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-        self.commandId = params.get("commandId")
-
+import warnings
 
 class DescribeCommandsRequest(AbstractModel):
     def __init__(self):
@@ -86,6 +25,21 @@ class DescribeCommandsRequest(AbstractModel):
             for item in params.get("tags"):
                 obj = Tag(item)
                 self.tags.append(obj)
+
+
+class Tag(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.key = None
+        self.value = None
+
+    def _deserialize(self, params):
+        self.key = params.get("key")
+        self.value = params.get("value")
 
 
 class DescribeCommandsResponse(AbstractModel):
@@ -167,6 +121,74 @@ class ResourceGroupInfo(AbstractModel):
         self.resourceGroupName = params.get("resourceGroupName")
 
 
+class CreateCommandRequest(AbstractModel):
+    def __init__(self):
+        self.name = None
+        self.content = None
+        self.type = None
+        self.description = None
+        self.resourceGroupId = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.name = params.get("name")
+        self.content = params.get("content")
+        self.type = params.get("type")
+        self.description = params.get("description")
+        self.resourceGroupId = params.get("resourceGroupId")
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
+
+
+class TagAssociation(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.tags = None
+
+    def _deserialize(self, params):
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+
+
+class CreateCommandResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.commandId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.commandId = params.get("commandId")
+
+
+class InvokeCommandRequest(AbstractModel):
+    def __init__(self):
+        self.commandId = None
+        self.instanceIds = None
+        self.timeout = None
+
+    def _deserialize(self, params):
+        self.commandId = params.get("commandId")
+        self.instanceIds = params.get("instanceIds")
+        self.timeout = params.get("timeout")
+
+
+class InvokeCommandResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.invocationId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.invocationId = params.get("invocationId")
+
+
 class ModifyCommandRequest(AbstractModel):
     def __init__(self):
         self.commandId = None
@@ -203,28 +225,6 @@ class DeleteCommandResponse(AbstractModel):
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
-
-
-class InvokeCommandRequest(AbstractModel):
-    def __init__(self):
-        self.commandId = None
-        self.instanceIds = None
-        self.timeout = None
-
-    def _deserialize(self, params):
-        self.commandId = params.get("commandId")
-        self.instanceIds = params.get("instanceIds")
-        self.timeout = params.get("timeout")
-
-
-class InvokeCommandResponse(AbstractModel):
-    def __init__(self):
-        self.requestId = None
-        self.invocationId = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-        self.invocationId = params.get("invocationId")
 
 
 class DescribeCommandInvocationsRequest(AbstractModel):
