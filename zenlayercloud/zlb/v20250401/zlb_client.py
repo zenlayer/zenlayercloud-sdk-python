@@ -46,7 +46,7 @@ class ZlbClient(AbstractClient):
 
     def ModifyLoadBalancersAttribute(self, request):
         """
-        修改负载均衡实例的属性。目前仅支持修改负载均衡实例的名称。
+        修改负载均衡实例的属性。
         """
         response = self._api_call("ModifyLoadBalancersAttribute", request)
         model = models.ModifyLoadBalancersAttributeResponse()
@@ -116,6 +116,15 @@ class ZlbClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def AssignLoadBalancerIpv6(self, request):
+        """
+        为负载均衡实例分配公网IPv6。
+        """
+        response = self._api_call("AssignLoadBalancerIpv6", request)
+        model = models.AssignLoadBalancerIpv6Response()
+        model._deserialize(response)
+        return model
+
     def DescribeListeners(self, request):
         """
         本接口接口可根据负载均衡器 ID、监听器的协议作为过滤条件获取监听器列表。如果不指定任何过滤条件，则返回指定负载均衡实例下的所有监听器。
@@ -136,7 +145,7 @@ class ZlbClient(AbstractClient):
 
     def ModifyListener(self, request):
         """
-        修改负载均衡监听器的属性，包括监听器的名称、健康检查参数、转发方式等。不支持修改监听器的监听协议。
+        修改负载均衡监听器的属性，包括监听器的名称、健康检查参数、转发方式等。
         """
         response = self._api_call("ModifyListener", request)
         model = models.ModifyListenerResponse()

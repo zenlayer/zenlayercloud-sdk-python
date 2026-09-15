@@ -46,6 +46,7 @@ class DescribeLoadBalancersRequest(AbstractModel):
     def __init__(self):
         self.regionId = None
         self.vpcId = None
+        self.ipStackType = None
         self.loadBalancerIds = None
         self.loadBalancerName = None
         self.pageSize = None
@@ -58,6 +59,7 @@ class DescribeLoadBalancersRequest(AbstractModel):
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
         self.vpcId = params.get("vpcId")
+        self.ipStackType = params.get("ipStackType")
         self.loadBalancerIds = params.get("loadBalancerIds")
         self.loadBalancerName = params.get("loadBalancerName")
         self.pageSize = params.get("pageSize")
@@ -114,6 +116,8 @@ class LoadBalancer(AbstractModel):
         self.loadBalancerId = None
         self.loadBalancerName = None
         self.vpcId = None
+        self.subnetId = None
+        self.ipStackType = None
         self.status = None
         self.publicIpAddress = None
         self.privateIpAddress = None
@@ -130,6 +134,8 @@ class LoadBalancer(AbstractModel):
         self.loadBalancerId = params.get("loadBalancerId")
         self.loadBalancerName = params.get("loadBalancerName")
         self.vpcId = params.get("vpcId")
+        self.subnetId = params.get("subnetId")
+        self.ipStackType = params.get("ipStackType")
         self.status = params.get("status")
         self.publicIpAddress = params.get("publicIpAddress")
         self.privateIpAddress = params.get("privateIpAddress")
@@ -179,6 +185,7 @@ class Tags(AbstractModel):
 class InquiryPriceCreateLoadBalancerRequest(AbstractModel):
     def __init__(self):
         self.regionId = None
+        self.ipStackType = None
         self.internetChargeType = None
         self.ipNetworkType = None
         self.networkLineType = None
@@ -188,6 +195,7 @@ class InquiryPriceCreateLoadBalancerRequest(AbstractModel):
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
+        self.ipStackType = params.get("ipStackType")
         self.internetChargeType = params.get("internetChargeType")
         if params.get("ipNetworkType") is not None:
             warnings.warn(
@@ -309,6 +317,7 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.subnetId = None
         self.healthCheckPrivateIps = None
         self.loadBalancerName = None
+        self.ipStackType = None
         self.eipIds = None
         self.internetChargeType = None
         self.ipNetworkType = None
@@ -328,6 +337,7 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.subnetId = params.get("subnetId")
         self.healthCheckPrivateIps = params.get("healthCheckPrivateIps")
         self.loadBalancerName = params.get("loadBalancerName")
+        self.ipStackType = params.get("ipStackType")
         self.eipIds = params.get("eipIds")
         self.internetChargeType = params.get("internetChargeType")
         if params.get("ipNetworkType") is not None:
@@ -573,6 +583,34 @@ class UnbindSecurityGroupFromLoadBalancersResponse(AbstractModel):
         self.failedLoadBalancerIds = params.get("failedLoadBalancerIds")
 
 
+class AssignLoadBalancerIpv6Request(AbstractModel):
+    def __init__(self):
+        self.loadBalancerId = None
+        self.vipCount = None
+        self.internetChargeType = None
+        self.bandwidth = None
+        self.packageSize = None
+        self.clusterId = None
+        self.rateLimitMode = None
+
+    def _deserialize(self, params):
+        self.loadBalancerId = params.get("loadBalancerId")
+        self.vipCount = params.get("vipCount")
+        self.internetChargeType = params.get("internetChargeType")
+        self.bandwidth = params.get("bandwidth")
+        self.packageSize = params.get("packageSize")
+        self.clusterId = params.get("clusterId")
+        self.rateLimitMode = params.get("rateLimitMode")
+
+
+class AssignLoadBalancerIpv6Response(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
 class DescribeListenersRequest(AbstractModel):
     def __init__(self):
         self.loadBalancerId = None
@@ -608,6 +646,7 @@ class Listener(AbstractModel):
             return
         self.listenerId = None
         self.listenerName = None
+        self.ipStackType = None
         self.protocol = None
         self.port = None
         self.healthCheck = None
@@ -621,6 +660,7 @@ class Listener(AbstractModel):
     def _deserialize(self, params):
         self.listenerId = params.get("listenerId")
         self.listenerName = params.get("listenerName")
+        self.ipStackType = params.get("ipStackType")
         self.protocol = params.get("protocol")
         self.port = params.get("port")
         if params.get("healthCheck") is not None:

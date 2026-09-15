@@ -656,93 +656,12 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
-    def DescribeNetworkInterfacePublicIPv6(self, request):
-        """
-        查询指定弹性网卡（vNIC）上已分配的公网 IPv6 地址及其计费、带宽配置信息。
-        """
-        response = self._api_call("DescribeNetworkInterfacePublicIPv6", request)
-        model = models.DescribeNetworkInterfacePublicIPv6Response()
-        model._deserialize(response)
-        return model
-
-    def InquiryPricePublicIpv6(self, request):
-        """
-        公网Ipv6流量包或固定带宽询价。
-        """
-        response = self._api_call("InquiryPricePublicIpv6", request)
-        model = models.InquiryPricePublicIpv6Response()
-        model._deserialize(response)
-        return model
-
-    def InquiryPriceChangeIpv6InternetChargeType(self, request):
-        """
-        查询变更IPv6网络计费模式后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
-        """
-        response = self._api_call("InquiryPriceChangeIpv6InternetChargeType", request)
-        model = models.InquiryPriceChangeIpv6InternetChargeTypeResponse()
-        model._deserialize(response)
-        return model
-
-    def AssignNetworkInterfaceIpv6(self, request):
-        """
-        给网卡添加IPv6。
-        """
-        response = self._api_call("AssignNetworkInterfaceIpv6", request)
-        model = models.AssignNetworkInterfaceIpv6Response()
-        model._deserialize(response)
-        return model
-
-    def UnassignNetworkInterfaceIpv6(self, request):
-        """
-        删除网卡IPv6。
-        """
-        response = self._api_call("UnassignNetworkInterfaceIpv6", request)
-        model = models.UnassignNetworkInterfaceIpv6Response()
-        model._deserialize(response)
-        return model
-
     def DescribeNetworkInterfaceMonitorData(self, request):
         """
         查询一段时间内的网卡监控指标数据。包含带宽、包量、丢包、错误包等指标。
         """
         response = self._api_call("DescribeNetworkInterfaceMonitorData", request)
         model = models.DescribeNetworkInterfaceMonitorDataResponse()
-        model._deserialize(response)
-        return model
-
-    def ModifyNetworkInterfacePublicIPv6BandwidthLimitMode(self, request):
-        """
-        修改指定公网IPv6的带宽限速模式。
-        """
-        response = self._api_call("ModifyNetworkInterfacePublicIPv6BandwidthLimitMode", request)
-        model = models.ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse()
-        model._deserialize(response)
-        return model
-
-    def InquiryPriceModifyIpv6Bandwidth(self, request):
-        """
-        查询调整IPv6带宽后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
-        """
-        response = self._api_call("InquiryPriceModifyIpv6Bandwidth", request)
-        model = models.InquiryPriceModifyIpv6BandwidthResponse()
-        model._deserialize(response)
-        return model
-
-    def ModifyIpv6Bandwidth(self, request):
-        """
-        调整公网IPv6的带宽限速。
-        """
-        response = self._api_call("ModifyIpv6Bandwidth", request)
-        model = models.ModifyIpv6BandwidthResponse()
-        model._deserialize(response)
-        return model
-
-    def ModifyIpv6TrafficPackage(self, request):
-        """
-        调整公网IPv6流量包。
-        """
-        response = self._api_call("ModifyIpv6TrafficPackage", request)
-        model = models.ModifyIpv6TrafficPackageResponse()
         model._deserialize(response)
         return model
 
@@ -2039,6 +1958,159 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("UnassociateHaVip", request)
         model = models.UnassociateHaVipResponse()
+        model._deserialize(response)
+        return model
+
+    def AssignNetworkInterfaceIpv6(self, request):
+        """
+        给网卡添加IPv6。
+        """
+        response = self._api_call("AssignNetworkInterfaceIpv6", request)
+        model = models.AssignNetworkInterfaceIpv6Response()
+        model._deserialize(response)
+        return model
+
+    def UnassignNetworkInterfaceIpv6(self, request):
+        """
+        删除网卡IPv6。
+        """
+        response = self._api_call("UnassignNetworkInterfaceIpv6", request)
+        model = models.UnassignNetworkInterfaceIpv6Response()
+        model._deserialize(response)
+        return model
+
+    def ModifyIpv6Bandwidth(self, request):
+        """
+        调整公网IPv6的带宽限速。
+        """
+        response = self._api_call("ModifyIpv6Bandwidth", request)
+        model = models.ModifyIpv6BandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyIpv6TrafficPackage(self, request):
+        """
+        调整公网IPv6流量包。
+        """
+        response = self._api_call("ModifyIpv6TrafficPackage", request)
+        model = models.ModifyIpv6TrafficPackageResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteIpv6Addresses(self, request):
+        """
+        批量删除公网 IPv6。逐个独立处理，部分失败不影响其余项，失败项通过 failedIpv6Addresses 返回其错误码与错误信息。
+        """
+        response = self._api_call("DeleteIpv6Addresses", request)
+        model = models.DeleteIpv6AddressesResponse()
+        model._deserialize(response)
+        return model
+
+    def InquiryPricePublicIpv6(self, request):
+        """
+        公网Ipv6流量包或固定带宽询价。
+        """
+        response = self._api_call("InquiryPricePublicIpv6", request)
+        model = models.InquiryPricePublicIpv6Response()
+        model._deserialize(response)
+        return model
+
+    def InquiryPriceModifyIpv6Bandwidth(self, request):
+        """
+        查询调整IPv6带宽后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
+        """
+        response = self._api_call("InquiryPriceModifyIpv6Bandwidth", request)
+        model = models.InquiryPriceModifyIpv6BandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def InquiryPriceChangeIpv6InternetChargeType(self, request):
+        """
+        查询变更IPv6网络计费模式后的价格。同时通过 previousPrices 返回变更前各计费项当前生效的价格，用于对比出哪些计费项发生了调价。
+        """
+        response = self._api_call("InquiryPriceChangeIpv6InternetChargeType", request)
+        model = models.InquiryPriceChangeIpv6InternetChargeTypeResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyNetworkInterfacePublicIPv6BandwidthLimitMode(self, request):
+        """
+        修改指定公网IPv6的带宽限速模式。
+        """
+        response = self._api_call("ModifyNetworkInterfacePublicIPv6BandwidthLimitMode", request)
+        model = models.ModifyNetworkInterfacePublicIPv6BandwidthLimitModeResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeIpv6Addresses(self, request):
+        """
+        指定条件查询已分配的公网 IPv6 信息。用户可以根据 ID、名称、绑定的资源等信息来搜索。
+        """
+        response = self._api_call("DescribeIpv6Addresses", request)
+        model = models.DescribeIpv6AddressesResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeNetworkInterfacePublicIPv6(self, request):
+        """
+        查询指定弹性网卡（vNIC）上已分配的公网 IPv6 地址及其计费、带宽配置信息。
+        """
+        response = self._api_call("DescribeNetworkInterfacePublicIPv6", request)
+        model = models.DescribeNetworkInterfacePublicIPv6Response()
+        model._deserialize(response)
+        return model
+
+    def DescribeUsableByoAsns(self, request):
+        """
+        返回可作为 BYOIP 起源ASN使用的ASN号列表。
+        """
+        response = self._api_call("DescribeUsableByoAsns", request)
+        model = models.DescribeUsableByoAsnsResponse()
+        model._deserialize(response)
+        return model
+
+    def VerifyByoAsn(self, request):
+        """
+        确认指定自带ASN在 RIR 上的 export 声明是否已生效。
+        """
+        response = self._api_call("VerifyByoAsn", request)
+        model = models.VerifyByoAsnResponse()
+        model._deserialize(response)
+        return model
+
+    def RegenerateByoAsnVerifyCode(self, request):
+        """
+        为指定自带ASN重新签发校验码，旧校验码同时失效。
+        """
+        response = self._api_call("RegenerateByoAsnVerifyCode", request)
+        model = models.RegenerateByoAsnVerifyCodeResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateByoAsn(self, request):
+        """
+        提交自带ASN并获取用于归属校验的校验码。
+        """
+        response = self._api_call("CreateByoAsn", request)
+        model = models.CreateByoAsnResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteByoAsn(self, request):
+        """
+        删除指定自带ASN。删除前需确保该ASN下没有已宣告的 BYOIP 段。
+        """
+        response = self._api_call("DeleteByoAsn", request)
+        model = models.DeleteByoAsnResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeByoAsns(self, request):
+        """
+        查询一个或多个自带ASN的详细信息。
+        """
+        response = self._api_call("DescribeByoAsns", request)
+        model = models.DescribeByoAsnsResponse()
         model._deserialize(response)
         return model
 

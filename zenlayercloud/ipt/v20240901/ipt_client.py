@@ -10,7 +10,7 @@ class IptClient(AbstractClient):
 
     def DescribeIPTransitDatacenters(self, request):
         """
-        查询IP Transit可连接数据中心
+        查询IP Transit可连接数据中心。
         """
         response = self._api_call("DescribeIPTransitDatacenters", request)
         model = models.DescribeIPTransitDatacentersResponse()
@@ -19,7 +19,7 @@ class IptClient(AbstractClient):
 
     def DescribeIPTransitAvailableAsns(self, request):
         """
-        查询IP Transit可用 ASN
+        查询IP Transit可用 ASN。
         """
         response = self._api_call("DescribeIPTransitAvailableAsns", request)
         model = models.DescribeIPTransitAvailableAsnsResponse()
@@ -28,7 +28,7 @@ class IptClient(AbstractClient):
 
     def DescribeIPTransitAvailableCidrBlocks(self, request):
         """
-        查询IP Transit可用公网地址段
+        查询IP Transit可用公网地址段。
         """
         response = self._api_call("DescribeIPTransitAvailableCidrBlocks", request)
         model = models.DescribeIPTransitAvailableCidrBlocksResponse()
@@ -37,7 +37,7 @@ class IptClient(AbstractClient):
 
     def InquiryCreateIPTransitPrice(self, request):
         """
-        iP Transit创建询价
+        IP Transit创建询价。
         """
         response = self._api_call("InquiryCreateIPTransitPrice", request)
         model = models.InquiryCreateIPTransitPriceResponse()
@@ -46,7 +46,7 @@ class IptClient(AbstractClient):
 
     def CreateIPTransit(self, request):
         """
-        创建IP Transit
+        创建IP Transit。
         """
         response = self._api_call("CreateIPTransit", request)
         model = models.CreateIPTransitResponse()
@@ -55,7 +55,7 @@ class IptClient(AbstractClient):
 
     def DescribeIPTransits(self, request):
         """
-        查询IP Transit列表
+        查询IP Transit列表。
         """
         response = self._api_call("DescribeIPTransits", request)
         model = models.DescribeIPTransitsResponse()
@@ -64,7 +64,7 @@ class IptClient(AbstractClient):
 
     def ModifyIPTransitBandwidth(self, request):
         """
-        修改IP Transit带宽
+        修改IP Transit带宽。
         """
         response = self._api_call("ModifyIPTransitBandwidth", request)
         model = models.ModifyIPTransitBandwidthResponse()
@@ -73,7 +73,7 @@ class IptClient(AbstractClient):
 
     def ModifyIPTransitsAttribute(self, request):
         """
-        修改IP Transit属性
+        修改IP Transit属性。
         """
         response = self._api_call("ModifyIPTransitsAttribute", request)
         model = models.ModifyIPTransitsAttributeResponse()
@@ -82,7 +82,7 @@ class IptClient(AbstractClient):
 
     def DeleteIPTransit(self, request):
         """
-        删除IP Transit
+        删除IP Transit。
         """
         response = self._api_call("DeleteIPTransit", request)
         model = models.DeleteIPTransitResponse()
@@ -91,7 +91,7 @@ class IptClient(AbstractClient):
 
     def DescribeIPTransitTraffic(self, request):
         """
-        查询IP Transit流量
+        查询IP Transit流量。
         """
         response = self._api_call("DescribeIPTransitTraffic", request)
         model = models.DescribeIPTransitTrafficResponse()
@@ -100,7 +100,7 @@ class IptClient(AbstractClient):
 
     def InquiryModifyIPTransitPrice(self, request):
         """
-        IP Transit变配询价
+        IP Transit变配询价。
         """
         response = self._api_call("InquiryModifyIPTransitPrice", request)
         model = models.InquiryModifyIPTransitPriceResponse()
@@ -109,7 +109,7 @@ class IptClient(AbstractClient):
 
     def ModifyIPTransitConfig(self, request):
         """
-        修改IP Transit配置
+        修改IP Transit配置。
         """
         response = self._api_call("ModifyIPTransitConfig", request)
         model = models.ModifyIPTransitConfigResponse()

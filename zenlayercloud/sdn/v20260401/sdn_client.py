@@ -8,6 +8,105 @@ class SdnClient(AbstractClient):
     _api_version = "2026-04-01"
     _service = "sdn"
 
+    def DescribeDatacenters(self, request):
+        """
+        查询数据中心列表
+        """
+        response = self._api_call("DescribeDatacenters", request)
+        model = models.DescribeDatacentersResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeVirtualEdgeDatacenters(self, request):
+        """
+        查询边缘网关数据中心列表
+        """
+        response = self._api_call("DescribeVirtualEdgeDatacenters", request)
+        model = models.DescribeVirtualEdgeDatacentersResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeBorderGatewayDatacenters(self, request):
+        """
+        查询边界网关数据中心列表
+        """
+        response = self._api_call("DescribeBorderGatewayDatacenters", request)
+        model = models.DescribeBorderGatewayDatacentersResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeVPCDatacenters(self, request):
+        """
+        查询 VPC 数据中心列表
+        """
+        response = self._api_call("DescribeVPCDatacenters", request)
+        model = models.DescribeVPCDatacentersResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeDatacentersWithService(self, request):
+        """
+        查询含服务的数据中心列表
+        """
+        response = self._api_call("DescribeDatacentersWithService", request)
+        model = models.DescribeDatacentersWithServiceResponse()
+        model._deserialize(response)
+        return model
+
+    def QueryCloudOnrampPrice(self, request):
+        """
+        云连接带宽询价
+        """
+        response = self._api_call("QueryCloudOnrampPrice", request)
+        model = models.QueryCloudOnrampPriceResponse()
+        model._deserialize(response)
+        return model
+
+    def QueryDataCenterPortPrice(self, request):
+        """
+        数据中心端口询价
+        """
+        response = self._api_call("QueryDataCenterPortPrice", request)
+        model = models.QueryDataCenterPortPriceResponse()
+        model._deserialize(response)
+        return model
+
+    def QueryDataCenterPortPrices(self, request):
+        """
+        数据中心端口批量询价
+        """
+        response = self._api_call("QueryDataCenterPortPrices", request)
+        model = models.QueryDataCenterPortPricesResponse()
+        model._deserialize(response)
+        return model
+
+    def QueryPrivateConnectPrice(self, request):
+        """
+        二层网络专线询价
+        """
+        response = self._api_call("QueryPrivateConnectPrice", request)
+        model = models.QueryPrivateConnectPriceResponse()
+        model._deserialize(response)
+        return model
+
+    def QueryPrivateConnectBandwidthPrice(self, request):
+        """
+        二层专线带宽询价
+        """
+        response = self._api_call("QueryPrivateConnectBandwidthPrice", request)
+        model = models.QueryPrivateConnectBandwidthPriceResponse()
+        model._deserialize(response)
+        return model
+
+    def QueryCloudRouterBandwidthPrice(self, request):
+        """
+        三层骨干带宽询价
+        """
+        response = self._api_call("QueryCloudRouterBandwidthPrice", request)
+        model = models.QueryCloudRouterBandwidthPriceResponse()
+        model._deserialize(response)
+        return model
+
     def CreatePort(self, request):
         """
         创建端口
@@ -86,60 +185,6 @@ class SdnClient(AbstractClient):
         """
         response = self._api_call("DescribePortUsableVlan", request)
         model = models.DescribePortUsableVlanResponse()
-        model._deserialize(response)
-        return model
-
-    def QueryCloudOnrampPrice(self, request):
-        """
-        云连接带宽询价
-        """
-        response = self._api_call("QueryCloudOnrampPrice", request)
-        model = models.QueryCloudOnrampPriceResponse()
-        model._deserialize(response)
-        return model
-
-    def QueryDataCenterPortPrice(self, request):
-        """
-        数据中心端口询价
-        """
-        response = self._api_call("QueryDataCenterPortPrice", request)
-        model = models.QueryDataCenterPortPriceResponse()
-        model._deserialize(response)
-        return model
-
-    def QueryDataCenterPortPrices(self, request):
-        """
-        数据中心端口批量询价
-        """
-        response = self._api_call("QueryDataCenterPortPrices", request)
-        model = models.QueryDataCenterPortPricesResponse()
-        model._deserialize(response)
-        return model
-
-    def QueryPrivateConnectPrice(self, request):
-        """
-        二层网络专线询价
-        """
-        response = self._api_call("QueryPrivateConnectPrice", request)
-        model = models.QueryPrivateConnectPriceResponse()
-        model._deserialize(response)
-        return model
-
-    def QueryPrivateConnectBandwidthPrice(self, request):
-        """
-        二层专线带宽询价
-        """
-        response = self._api_call("QueryPrivateConnectBandwidthPrice", request)
-        model = models.QueryPrivateConnectBandwidthPriceResponse()
-        model._deserialize(response)
-        return model
-
-    def QueryCloudRouterBandwidthPrice(self, request):
-        """
-        三层骨干带宽询价
-        """
-        response = self._api_call("QueryCloudRouterBandwidthPrice", request)
-        model = models.QueryCloudRouterBandwidthPriceResponse()
         model._deserialize(response)
         return model
 
@@ -305,6 +350,132 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeVolcengineVlanUsage(self, request):
+        """
+        查询火山引擎接入点VLAN使用情况。
+        """
+        response = self._api_call("DescribeVolcengineVlanUsage", request)
+        model = models.DescribeVolcengineVlanUsageResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeVolcengineRegions(self, request):
+        """
+        查询火山引擎接入点区域。
+        """
+        response = self._api_call("DescribeVolcengineRegions", request)
+        model = models.DescribeVolcengineRegionsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribePrivateConnectAvailablePorts(self, request):
+        """
+        查询可加入的数据中心端口
+        """
+        response = self._api_call("DescribePrivateConnectAvailablePorts", request)
+        model = models.DescribePrivateConnectAvailablePortsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribePrivateConnects(self, request):
+        """
+        获取二层网络专线列表
+        """
+        response = self._api_call("DescribePrivateConnects", request)
+        model = models.DescribePrivateConnectsResponse()
+        model._deserialize(response)
+        return model
+
+    def InquiryCreatePrivateConnectPrice(self, request):
+        """
+        二层网络专线询价
+        """
+        response = self._api_call("InquiryCreatePrivateConnectPrice", request)
+        model = models.InquiryCreatePrivateConnectPriceResponse()
+        model._deserialize(response)
+        return model
+
+    def CreatePrivateConnect(self, request):
+        """
+        创建二层网络专线
+        """
+        response = self._api_call("CreatePrivateConnect", request)
+        model = models.CreatePrivateConnectResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyPrivateConnectsAttribute(self, request):
+        """
+        修改二层网络专线属性
+        """
+        response = self._api_call("ModifyPrivateConnectsAttribute", request)
+        model = models.ModifyPrivateConnectsAttributeResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyPrivateConnectBandwidth(self, request):
+        """
+        修改二层网络专线带宽
+        """
+        response = self._api_call("ModifyPrivateConnectBandwidth", request)
+        model = models.ModifyPrivateConnectBandwidthResponse()
+        model._deserialize(response)
+        return model
+
+    def RenewPrivateConnect(self, request):
+        """
+        恢复二层网络专线
+        """
+        response = self._api_call("RenewPrivateConnect", request)
+        model = models.RenewPrivateConnectResponse()
+        model._deserialize(response)
+        return model
+
+    def DeletePrivateConnect(self, request):
+        """
+        删除二层网络专线
+        """
+        response = self._api_call("DeletePrivateConnect", request)
+        model = models.DeletePrivateConnectResponse()
+        model._deserialize(response)
+        return model
+
+    def DestroyPrivateConnect(self, request):
+        """
+        销毁二层网络专线
+        """
+        response = self._api_call("DestroyPrivateConnect", request)
+        model = models.DestroyPrivateConnectResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribePrivateConnectTraffic(self, request):
+        """
+        查询二层网络专线流量
+        """
+        response = self._api_call("DescribePrivateConnectTraffic", request)
+        model = models.DescribePrivateConnectTrafficResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeCloudRouterAvailablePorts(self, request):
+        """
+        查询可用端口
+        """
+        response = self._api_call("DescribeCloudRouterAvailablePorts", request)
+        model = models.DescribeCloudRouterAvailablePortsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeCloudRouterAvailableVpcs(self, request):
+        """
+        查询可用VPC
+        """
+        response = self._api_call("DescribeCloudRouterAvailableVpcs", request)
+        model = models.DescribeCloudRouterAvailableVpcsResponse()
+        model._deserialize(response)
+        return model
+
     def CreateCloudRouter(self, request):
         """
         创建三层网络
@@ -314,12 +485,12 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-    def DeleteCloudRouterEdgePoint(self, request):
+    def DescribeCloudRouters(self, request):
         """
-        删除连接点
+        查询三层网络列表
         """
-        response = self._api_call("DeleteCloudRouterEdgePoint", request)
-        model = models.DeleteCloudRouterEdgePointResponse()
+        response = self._api_call("DescribeCloudRouters", request)
+        model = models.DescribeCloudRoutersResponse()
         model._deserialize(response)
         return model
 
@@ -341,30 +512,12 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-    def DescribeCloudRouterAvailableVpcs(self, request):
+    def DeleteCloudRouterEdgePoint(self, request):
         """
-        查询可用VPC
+        删除连接点
         """
-        response = self._api_call("DescribeCloudRouterAvailableVpcs", request)
-        model = models.DescribeCloudRouterAvailableVpcsResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribeCloudRouterEdgePointTraffic(self, request):
-        """
-        查询连接点流量
-        """
-        response = self._api_call("DescribeCloudRouterEdgePointTraffic", request)
-        model = models.DescribeCloudRouterEdgePointTrafficResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribeCloudRouterDCToDCTraffic(self, request):
-        """
-        查询数据中心间流量
-        """
-        response = self._api_call("DescribeCloudRouterDCToDCTraffic", request)
-        model = models.DescribeCloudRouterDCToDCTrafficResponse()
+        response = self._api_call("DeleteCloudRouterEdgePoint", request)
+        model = models.DeleteCloudRouterEdgePointResponse()
         model._deserialize(response)
         return model
 
@@ -404,165 +557,21 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
-    def RenewCloudRouter(self, request):
+    def DescribeCloudRouterEdgePointTraffic(self, request):
         """
-        恢复三层网络
+        查询连接点流量
         """
-        response = self._api_call("RenewCloudRouter", request)
-        model = models.RenewCloudRouterResponse()
+        response = self._api_call("DescribeCloudRouterEdgePointTraffic", request)
+        model = models.DescribeCloudRouterEdgePointTrafficResponse()
         model._deserialize(response)
         return model
 
-    def DescribeCloudRouterAvailablePorts(self, request):
+    def DescribeCloudRouterDCToDCTraffic(self, request):
         """
-        查询可用端口
+        查询数据中心间流量
         """
-        response = self._api_call("DescribeCloudRouterAvailablePorts", request)
-        model = models.DescribeCloudRouterAvailablePortsResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribeCloudRouters(self, request):
-        """
-        查询三层网络列表
-        """
-        response = self._api_call("DescribeCloudRouters", request)
-        model = models.DescribeCloudRoutersResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribeDatacenters(self, request):
-        """
-        查询数据中心列表
-        """
-        response = self._api_call("DescribeDatacenters", request)
-        model = models.DescribeDatacentersResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribeVirtualEdgeDatacenters(self, request):
-        """
-        查询边缘网关数据中心列表
-        """
-        response = self._api_call("DescribeVirtualEdgeDatacenters", request)
-        model = models.DescribeVirtualEdgeDatacentersResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribeBorderGatewayDatacenters(self, request):
-        """
-        查询边界网关数据中心列表
-        """
-        response = self._api_call("DescribeBorderGatewayDatacenters", request)
-        model = models.DescribeBorderGatewayDatacentersResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribeVPCDatacenters(self, request):
-        """
-        查询 VPC 数据中心列表
-        """
-        response = self._api_call("DescribeVPCDatacenters", request)
-        model = models.DescribeVPCDatacentersResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribeDatacentersWithService(self, request):
-        """
-        查询含服务的数据中心列表
-        """
-        response = self._api_call("DescribeDatacentersWithService", request)
-        model = models.DescribeDatacentersWithServiceResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribePrivateConnects(self, request):
-        """
-        获取二层网络专线列表
-        """
-        response = self._api_call("DescribePrivateConnects", request)
-        model = models.DescribePrivateConnectsResponse()
-        model._deserialize(response)
-        return model
-
-    def CreatePrivateConnect(self, request):
-        """
-        创建二层网络专线
-        """
-        response = self._api_call("CreatePrivateConnect", request)
-        model = models.CreatePrivateConnectResponse()
-        model._deserialize(response)
-        return model
-
-    def ModifyPrivateConnectBandwidth(self, request):
-        """
-        修改二层网络专线带宽
-        """
-        response = self._api_call("ModifyPrivateConnectBandwidth", request)
-        model = models.ModifyPrivateConnectBandwidthResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribePrivateConnectTraffic(self, request):
-        """
-        查询二层网络专线流量
-        """
-        response = self._api_call("DescribePrivateConnectTraffic", request)
-        model = models.DescribePrivateConnectTrafficResponse()
-        model._deserialize(response)
-        return model
-
-    def DeletePrivateConnect(self, request):
-        """
-        删除二层网络专线
-        """
-        response = self._api_call("DeletePrivateConnect", request)
-        model = models.DeletePrivateConnectResponse()
-        model._deserialize(response)
-        return model
-
-    def DestroyPrivateConnect(self, request):
-        """
-        销毁二层网络专线
-        """
-        response = self._api_call("DestroyPrivateConnect", request)
-        model = models.DestroyPrivateConnectResponse()
-        model._deserialize(response)
-        return model
-
-    def DescribePrivateConnectAvailablePorts(self, request):
-        """
-        查询可加入的数据中心端口
-        """
-        response = self._api_call("DescribePrivateConnectAvailablePorts", request)
-        model = models.DescribePrivateConnectAvailablePortsResponse()
-        model._deserialize(response)
-        return model
-
-    def ModifyPrivateConnectsAttribute(self, request):
-        """
-        修改二层网络专线属性
-        """
-        response = self._api_call("ModifyPrivateConnectsAttribute", request)
-        model = models.ModifyPrivateConnectsAttributeResponse()
-        model._deserialize(response)
-        return model
-
-    def RenewPrivateConnect(self, request):
-        """
-        恢复二层网络专线
-        """
-        response = self._api_call("RenewPrivateConnect", request)
-        model = models.RenewPrivateConnectResponse()
-        model._deserialize(response)
-        return model
-
-    def InquiryCreatePrivateConnectPrice(self, request):
-        """
-        二层网络专线询价
-        """
-        response = self._api_call("InquiryCreatePrivateConnectPrice", request)
-        model = models.InquiryCreatePrivateConnectPriceResponse()
+        response = self._api_call("DescribeCloudRouterDCToDCTraffic", request)
+        model = models.DescribeCloudRouterDCToDCTrafficResponse()
         model._deserialize(response)
         return model
 

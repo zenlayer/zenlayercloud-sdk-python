@@ -85,14 +85,37 @@ class RemoteIptAvailableRoutingType(AbstractModel):
             return
         self.routingType = None
         self.availableBgpRouteTypes = None
+        self.availableBgpTiers = None
+        self.peerAsns = None
         self.deliveryType = None
         self.publicInterconnectNetmasks = None
 
     def _deserialize(self, params):
         self.routingType = params.get("routingType")
         self.availableBgpRouteTypes = params.get("availableBgpRouteTypes")
+        self.availableBgpTiers = params.get("availableBgpTiers")
+        if params.get("peerAsns") is not None:
+            self.peerAsns = []
+            for item in params.get("peerAsns"):
+                obj = RiptPeerAsn(item)
+                self.peerAsns.append(obj)
         self.deliveryType = params.get("deliveryType")
         self.publicInterconnectNetmasks = params.get("publicInterconnectNetmasks")
+
+
+class RiptPeerAsn(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.tier = None
+        self.asn = None
+
+    def _deserialize(self, params):
+        self.tier = params.get("tier")
+        self.asn = params.get("asn")
 
 
 class DescribeIPTransitAvailableAsnsRequest(AbstractModel):
@@ -191,6 +214,7 @@ class InquiryCreateIPTransitPriceRequest(AbstractModel):
         self.routingType = None
         self.publicIPv4BlockSize = None
         self.bgpRouteType = None
+        self.bgpTier = None
         self.ipType = None
         self.publicIpList = None
         self.zbgRegionId = None
@@ -206,6 +230,7 @@ class InquiryCreateIPTransitPriceRequest(AbstractModel):
         self.routingType = params.get("routingType")
         self.publicIPv4BlockSize = params.get("publicIPv4BlockSize")
         self.bgpRouteType = params.get("bgpRouteType")
+        self.bgpTier = params.get("bgpTier")
         self.ipType = params.get("ipType")
         if params.get("publicIpList") is not None:
             self.publicIpList = []
@@ -430,6 +455,7 @@ class RiptBgpConfig(AbstractModel):
             self._deserialize(params)
             return
         self.routeType = None
+        self.tier = None
         self.asn = None
         self.password = None
         self.asnList = None
@@ -437,6 +463,7 @@ class RiptBgpConfig(AbstractModel):
 
     def _deserialize(self, params):
         self.routeType = params.get("routeType")
+        self.tier = params.get("tier")
         self.asn = params.get("asn")
         self.password = params.get("password")
         self.asnList = params.get("asnList")
