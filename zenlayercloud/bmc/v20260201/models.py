@@ -932,6 +932,7 @@ class InstanceInfo(AbstractModel):
         self.keyId = None
         self.tags = None
         self.enableGatewayMode = None
+        self.ipmiEnabled = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
@@ -974,6 +975,7 @@ class InstanceInfo(AbstractModel):
         if params.get("tags") is not None:
             self.tags = Tags(params.get("tags"))
         self.enableGatewayMode = params.get("enableGatewayMode")
+        self.ipmiEnabled = params.get("ipmiEnabled")
 
 
 class Tags(AbstractModel):
@@ -1455,6 +1457,42 @@ class InstanceHealth(AbstractModel):
         self.cpu2Temp = params.get("cpu2Temp")
         self.inletTemp = params.get("inletTemp")
         self.tempUnit = params.get("tempUnit")
+
+
+class ResetInstanceIpmiPasswordRequest(AbstractModel):
+    def __init__(self):
+        self.instanceId = None
+        self.password = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+        self.password = params.get("password")
+
+
+class ResetInstanceIpmiPasswordResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribeInstanceIpmiUrlRequest(AbstractModel):
+    def __init__(self):
+        self.instanceId = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+
+
+class DescribeInstanceIpmiUrlResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.url = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.url = params.get("url")
 
 
 class DescribeAvailableIpv4ResourcesRequest(AbstractModel):
@@ -1956,12 +1994,15 @@ class CreateByoipRequest(AbstractModel):
         self.cidr = None
         self.asn = None
         self.publicVirtualInterfaceId = None
+        self.tags = None
 
     def _deserialize(self, params):
         self.ipType = params.get("ipType")
         self.cidr = params.get("cidr")
         self.asn = params.get("asn")
         self.publicVirtualInterfaceId = params.get("publicVirtualInterfaceId")
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
 
 
 class CreateByoipResponse(AbstractModel):
@@ -2152,9 +2193,11 @@ class ModifyEipAddressesResourceGroupResponse(AbstractModel):
 class DescribeInstanceAvailableEipResourcesRequest(AbstractModel):
     def __init__(self):
         self.instanceId = None
+        self.ipType = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
+        self.ipType = params.get("ipType")
 
 
 class DescribeInstanceAvailableEipResourcesResponse(AbstractModel):

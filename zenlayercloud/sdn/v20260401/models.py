@@ -711,6 +711,7 @@ class PortInfo(AbstractModel):
         self.period = None
         self.isCreateBusinessAllowed = None
         self.tags = None
+        self.lag = None
 
     def _deserialize(self, params):
         self.portId = params.get("portId")
@@ -732,6 +733,8 @@ class PortInfo(AbstractModel):
         self.isCreateBusinessAllowed = params.get("isCreateBusinessAllowed")
         if params.get("tags") is not None:
             self.tags = Tags(params.get("tags"))
+        if params.get("lag") is not None:
+            self.lag = LagInfo(params.get("lag"))
 
 
 class Tags(AbstractModel):
@@ -749,6 +752,21 @@ class Tags(AbstractModel):
             for item in params.get("tags"):
                 obj = Tag(item)
                 self.tags.append(obj)
+
+
+class LagInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.lagId = None
+        self.lagName = None
+
+    def _deserialize(self, params):
+        self.lagId = params.get("lagId")
+        self.lagName = params.get("lagName")
 
 
 class DescribeDataCenterPortPriceRequest(AbstractModel):
@@ -800,11 +818,15 @@ class DescribePortTrafficRequest(AbstractModel):
         self.portId = None
         self.startTime = None
         self.endTime = None
+        self.period = None
+        self.statistic = None
 
     def _deserialize(self, params):
         self.portId = params.get("portId")
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
+        self.period = params.get("period")
+        self.statistic = params.get("statistic")
 
 
 class DescribePortTrafficResponse(AbstractModel):
@@ -1757,11 +1779,15 @@ class DescribePrivateConnectTrafficRequest(AbstractModel):
         self.privateConnectId = None
         self.startTime = None
         self.endTime = None
+        self.period = None
+        self.statistic = None
 
     def _deserialize(self, params):
         self.privateConnectId = params.get("privateConnectId")
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
+        self.period = params.get("period")
+        self.statistic = params.get("statistic")
 
 
 class DescribePrivateConnectTrafficResponse(AbstractModel):
@@ -1929,6 +1955,7 @@ class CreateCloudRouterEdgePoint(AbstractModel):
         self.backupIpSec = None
         self.ipSecBgpConnection = None
         self.ipSecStaticRoutes = None
+        self.marketingInfo = None
 
     def _deserialize(self, params):
         self.edgePointName = params.get("edgePointName")
@@ -1966,6 +1993,8 @@ class CreateCloudRouterEdgePoint(AbstractModel):
             for item in params.get("ipSecStaticRoutes"):
                 obj = IPSecStaticRoute(item)
                 self.ipSecStaticRoutes.append(obj)
+        if params.get("marketingInfo") is not None:
+            self.marketingInfo = MarketingInfo(params.get("marketingInfo"))
 
 
 class BGPConnection(AbstractModel):
@@ -2356,11 +2385,15 @@ class DescribeCloudRouterEdgePointTrafficRequest(AbstractModel):
         self.edgePointId = None
         self.startTime = None
         self.endTime = None
+        self.period = None
+        self.statistic = None
 
     def _deserialize(self, params):
         self.edgePointId = params.get("edgePointId")
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
+        self.period = params.get("period")
+        self.statistic = params.get("statistic")
 
 
 class DescribeCloudRouterEdgePointTrafficResponse(AbstractModel):
@@ -2402,6 +2435,8 @@ class DescribeCloudRouterDCToDCTrafficRequest(AbstractModel):
         self.destinationDcId = None
         self.startTime = None
         self.endTime = None
+        self.period = None
+        self.statistic = None
 
     def _deserialize(self, params):
         self.cloudRouterId = params.get("cloudRouterId")
@@ -2409,6 +2444,8 @@ class DescribeCloudRouterDCToDCTrafficRequest(AbstractModel):
         self.destinationDcId = params.get("destinationDcId")
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
+        self.period = params.get("period")
+        self.statistic = params.get("statistic")
 
 
 class DescribeCloudRouterDCToDCTrafficResponse(AbstractModel):

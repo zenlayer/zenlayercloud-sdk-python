@@ -45,7 +45,7 @@ class IPTransitDatacenter(AbstractModel):
         if params.get("availableRoutingTypes") is not None:
             self.availableRoutingTypes = []
             for item in params.get("availableRoutingTypes"):
-                obj = RemoteIptAvailableRoutingType(item)
+                obj = IPTransitAvailableRoutingType(item)
                 self.availableRoutingTypes.append(obj)
 
 
@@ -76,7 +76,7 @@ class DatacenterInfo(AbstractModel):
         self.longitude = params.get("longitude")
 
 
-class RemoteIptAvailableRoutingType(AbstractModel):
+class IPTransitAvailableRoutingType(AbstractModel):
     def __init__(self, params=None):
         if params is None:
             params = {}
@@ -815,11 +815,15 @@ class DescribeIPTransitTrafficRequest(AbstractModel):
         self.iptId = None
         self.startTime = None
         self.endTime = None
+        self.period = None
+        self.statistic = None
 
     def _deserialize(self, params):
         self.iptId = params.get("iptId")
         self.startTime = params.get("startTime")
         self.endTime = params.get("endTime")
+        self.period = params.get("period")
+        self.statistic = params.get("statistic")
 
 
 class DescribeIPTransitTrafficResponse(AbstractModel):
@@ -880,6 +884,7 @@ class InquiryModifyIPTransitPriceRequest(AbstractModel):
         self.publicIPv4BlockSize = None
         self.ipUuid = None
         self.ipNetworkType = None
+        self.marketingInfo = None
 
     def _deserialize(self, params):
         self.iptId = params.get("iptId")
@@ -889,6 +894,23 @@ class InquiryModifyIPTransitPriceRequest(AbstractModel):
         self.publicIPv4BlockSize = params.get("publicIPv4BlockSize")
         self.ipUuid = params.get("ipUuid")
         self.ipNetworkType = params.get("ipNetworkType")
+        if params.get("marketingInfo") is not None:
+            self.marketingInfo = MarketingInfo(params.get("marketingInfo"))
+
+
+class MarketingInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.discountCode = None
+        self.usePocVoucher = None
+
+    def _deserialize(self, params):
+        self.discountCode = params.get("discountCode")
+        self.usePocVoucher = params.get("usePocVoucher")
 
 
 class InquiryModifyIPTransitPriceResponse(AbstractModel):
@@ -947,6 +969,7 @@ class ModifyIPTransitConfigRequest(AbstractModel):
         self.publicIPv4BlockSize = None
         self.ipUuid = None
         self.ipNetworkType = None
+        self.marketingInfo = None
 
     def _deserialize(self, params):
         self.iptId = params.get("iptId")
@@ -960,6 +983,8 @@ class ModifyIPTransitConfigRequest(AbstractModel):
         self.publicIPv4BlockSize = params.get("publicIPv4BlockSize")
         self.ipUuid = params.get("ipUuid")
         self.ipNetworkType = params.get("ipNetworkType")
+        if params.get("marketingInfo") is not None:
+            self.marketingInfo = MarketingInfo(params.get("marketingInfo"))
 
 
 class BgpConfigParam(AbstractModel):

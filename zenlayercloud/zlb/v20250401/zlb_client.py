@@ -73,7 +73,7 @@ class ZlbClient(AbstractClient):
 
     def TerminateLoadBalancer(self, request):
         """
-        本接口用户删除一个指定的负载均衡器实例。
+        删除一个指定的负载均衡实例。
         """
         response = self._api_call("TerminateLoadBalancer", request)
         model = models.TerminateLoadBalancerResponse()
@@ -82,7 +82,7 @@ class ZlbClient(AbstractClient):
 
     def RestoreLoadBalancer(self, request):
         """
-        将在回收站的负载均衡实例进行恢复。
+        恢复处于回收状态的负载均衡实例，使其重新可用。
         """
         response = self._api_call("RestoreLoadBalancer", request)
         model = models.RestoreLoadBalancerResponse()
@@ -91,7 +91,7 @@ class ZlbClient(AbstractClient):
 
     def DescribeLoadBalancerMonitorData(self, request):
         """
-        查询负载均衡监控指标数据，包括并发连接数, 新建连接数以及网络带宽等指标数据。
+        查询负载均衡监控指标数据，包括并发连接数、新建连接数以及网络带宽等指标数据。
         """
         response = self._api_call("DescribeLoadBalancerMonitorData", request)
         model = models.DescribeLoadBalancerMonitorDataResponse()
@@ -100,7 +100,7 @@ class ZlbClient(AbstractClient):
 
     def SetSecurityGroupForLoadBalancers(self, request):
         """
-        批量更换负载器均衡的安全组。
+        批量更换负载均衡实例绑定的安全组。
         """
         response = self._api_call("SetSecurityGroupForLoadBalancers", request)
         model = models.SetSecurityGroupForLoadBalancersResponse()
@@ -109,7 +109,7 @@ class ZlbClient(AbstractClient):
 
     def UnbindSecurityGroupFromLoadBalancers(self, request):
         """
-        批量解绑负载器均衡的安全组。
+        批量解绑负载均衡实例绑定的安全组。
         """
         response = self._api_call("UnbindSecurityGroupFromLoadBalancers", request)
         model = models.UnbindSecurityGroupFromLoadBalancersResponse()
@@ -127,7 +127,7 @@ class ZlbClient(AbstractClient):
 
     def DescribeListeners(self, request):
         """
-        本接口接口可根据负载均衡器 ID、监听器的协议作为过滤条件获取监听器列表。如果不指定任何过滤条件，则返回指定负载均衡实例下的所有监听器。
+        可根据负载均衡器ID、监听器的协议作为过滤条件获取监听器列表。如果不指定任何过滤条件，则返回指定负载均衡实例下的所有监听器。
         """
         response = self._api_call("DescribeListeners", request)
         model = models.DescribeListenersResponse()
@@ -136,7 +136,7 @@ class ZlbClient(AbstractClient):
 
     def CreateListener(self, request):
         """
-        查询创建负载均衡监听器。
+        创建负载均衡的监听器。
         """
         response = self._api_call("CreateListener", request)
         model = models.CreateListenerResponse()
@@ -154,7 +154,7 @@ class ZlbClient(AbstractClient):
 
     def DeleteListener(self, request):
         """
-        查询删除一个负载均衡监听器。
+        删除一个负载均衡监听器。
         """
         response = self._api_call("DeleteListener", request)
         model = models.DeleteListenerResponse()
@@ -163,7 +163,7 @@ class ZlbClient(AbstractClient):
 
     def DescribeBackends(self, request):
         """
-        查询负载均衡实例的绑定的后端服务列表。
+        查询负载均衡实例已绑定的后端服务及其转发配置。
         """
         response = self._api_call("DescribeBackends", request)
         model = models.DescribeBackendsResponse()
@@ -181,7 +181,7 @@ class ZlbClient(AbstractClient):
 
     def ModifyBackend(self, request):
         """
-        修改一台或多台绑定在指定监听器上的后端服务的配置，包括权重和和后端服务器转发端口。
+        修改一台或多台绑定在指定监听器上的后端服务的配置，包括权重和转发端口。
         """
         response = self._api_call("ModifyBackend", request)
         model = models.ModifyBackendResponse()
@@ -199,7 +199,7 @@ class ZlbClient(AbstractClient):
 
     def DescribeBackendHealth(self, request):
         """
-        查询负载均衡实例的绑定的后端服务列表。
+        查询负载均衡实例已绑定的后端服务的健康检查状态。
         """
         response = self._api_call("DescribeBackendHealth", request)
         model = models.DescribeBackendHealthResponse()

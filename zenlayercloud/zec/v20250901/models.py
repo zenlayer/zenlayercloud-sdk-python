@@ -455,6 +455,7 @@ class CreateZecInstancesRequest(AbstractModel):
         self.systemDisk = None
         self.dataDisks = None
         self.securityGroupId = None
+        self.placementGroupId = None
         self.subnetId = None
         self.lanIp = None
         self.enableAgent = None
@@ -493,6 +494,7 @@ class CreateZecInstancesRequest(AbstractModel):
                 obj = DataDisk(item)
                 self.dataDisks.append(obj)
         self.securityGroupId = params.get("securityGroupId")
+        self.placementGroupId = params.get("placementGroupId")
         self.subnetId = params.get("subnetId")
         self.lanIp = params.get("lanIp")
         self.enableAgent = params.get("enableAgent")
@@ -4684,6 +4686,113 @@ class ModifyEipBlockThresholdResponse(AbstractModel):
         self.requestId = params.get("requestId")
 
 
+class DescribeEipConcurrentConnsMonitorDataRequest(AbstractModel):
+    def __init__(self):
+        self.eipId = None
+        self.instanceId = None
+        self.metricType = None
+        self.startTime = None
+        self.endTime = None
+        self.step = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.instanceId = params.get("instanceId")
+        self.metricType = params.get("metricType")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+        self.step = params.get("step")
+
+
+class DescribeEipConcurrentConnsMonitorDataResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.maxValue = None
+        self.minValue = None
+        self.avgValue = None
+        self.dataList = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.maxValue = params.get("maxValue")
+        self.minValue = params.get("minValue")
+        self.avgValue = params.get("avgValue")
+        if params.get("dataList") is not None:
+            self.dataList = []
+            for item in params.get("dataList"):
+                obj = MetricValue(item)
+                self.dataList.append(obj)
+
+
+class DescribeEipNewConnsMonitorDataRequest(AbstractModel):
+    def __init__(self):
+        self.eipId = None
+        self.instanceId = None
+        self.metricType = None
+        self.startTime = None
+        self.endTime = None
+        self.step = None
+
+    def _deserialize(self, params):
+        self.eipId = params.get("eipId")
+        self.instanceId = params.get("instanceId")
+        self.metricType = params.get("metricType")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+        self.step = params.get("step")
+
+
+class DescribeEipNewConnsMonitorDataResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.allMaxValue = None
+        self.allMinValue = None
+        self.allAvgValue = None
+        self.inMaxValue = None
+        self.inMinValue = None
+        self.inAvgValue = None
+        self.outMaxValue = None
+        self.outMinValue = None
+        self.outAvgValue = None
+        self.dataList = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.allMaxValue = params.get("allMaxValue")
+        self.allMinValue = params.get("allMinValue")
+        self.allAvgValue = params.get("allAvgValue")
+        self.inMaxValue = params.get("inMaxValue")
+        self.inMinValue = params.get("inMinValue")
+        self.inAvgValue = params.get("inAvgValue")
+        self.outMaxValue = params.get("outMaxValue")
+        self.outMinValue = params.get("outMinValue")
+        self.outAvgValue = params.get("outAvgValue")
+        if params.get("dataList") is not None:
+            self.dataList = []
+            for item in params.get("dataList"):
+                obj = NewConnsValue(item)
+                self.dataList.append(obj)
+
+
+class NewConnsValue(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.time = None
+        self.allValue = None
+        self.inValue = None
+        self.outValue = None
+
+    def _deserialize(self, params):
+        self.time = params.get("time")
+        self.allValue = params.get("allValue")
+        self.inValue = params.get("inValue")
+        self.outValue = params.get("outValue")
+
+
 class DescribeRoutesRequest(AbstractModel):
     def __init__(self):
         self.routeIds = None
@@ -5376,6 +5485,7 @@ class CreateBorderGatewayRequest(AbstractModel):
         self.advertisedSubnetIds = None
         self.advertisedCidrs = None
         self.advertisedRouteIds = None
+        self.interConnectCidr = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
@@ -5387,6 +5497,7 @@ class CreateBorderGatewayRequest(AbstractModel):
         self.advertisedSubnetIds = params.get("advertisedSubnetIds")
         self.advertisedCidrs = params.get("advertisedCidrs")
         self.advertisedRouteIds = params.get("advertisedRouteIds")
+        self.interConnectCidr = params.get("interConnectCidr")
 
 
 class CreateBorderGatewayResponse(AbstractModel):
@@ -5446,6 +5557,7 @@ class ZbgInfo(AbstractModel):
         self.regionId = None
         self.asn = None
         self.interConnectCidr = None
+        self.interconnectCidrEditable = None
         self.createTime = None
         self.cloudRouterIds = None
         self.routingMode = None
@@ -5462,6 +5574,7 @@ class ZbgInfo(AbstractModel):
         self.regionId = params.get("regionId")
         self.asn = params.get("asn")
         self.interConnectCidr = params.get("interConnectCidr")
+        self.interconnectCidrEditable = params.get("interconnectCidrEditable")
         self.createTime = params.get("createTime")
         self.cloudRouterIds = params.get("cloudRouterIds")
         self.routingMode = params.get("routingMode")
@@ -5685,6 +5798,24 @@ class InterconnectDataCenter(AbstractModel):
         self.name = params.get("name")
         self.cityName = params.get("cityName")
         self.countryName = params.get("countryName")
+
+
+class ModifyBorderGatewayInterconnectCidrRequest(AbstractModel):
+    def __init__(self):
+        self.zbgId = None
+        self.interConnectCidr = None
+
+    def _deserialize(self, params):
+        self.zbgId = params.get("zbgId")
+        self.interConnectCidr = params.get("interConnectCidr")
+
+
+class ModifyBorderGatewayInterconnectCidrResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
 
 
 class DescribeUnmanagedEgressIpsRequest(AbstractModel):
@@ -6132,6 +6263,7 @@ class VpcInfo(AbstractModel):
         self.vpcId = None
         self.name = None
         self.cidrBlock = None
+        self.secondaryCidrBlocks = None
         self.ipv6CidrBlock = None
         self.mtu = None
         self.isDefault = None
@@ -6147,6 +6279,7 @@ class VpcInfo(AbstractModel):
         self.vpcId = params.get("vpcId")
         self.name = params.get("name")
         self.cidrBlock = params.get("cidrBlock")
+        self.secondaryCidrBlocks = params.get("secondaryCidrBlocks")
         self.ipv6CidrBlock = params.get("ipv6CidrBlock")
         self.mtu = params.get("mtu")
         self.isDefault = params.get("isDefault")
@@ -6574,6 +6707,42 @@ class DeleteSubnetsFailedItem(AbstractModel):
         self.subnetId = params.get("subnetId")
         self.errorCode = params.get("errorCode")
         self.errorMsg = params.get("errorMsg")
+
+
+class AssociateVpcCidrBlockRequest(AbstractModel):
+    def __init__(self):
+        self.vpcId = None
+        self.cidrBlock = None
+
+    def _deserialize(self, params):
+        self.vpcId = params.get("vpcId")
+        self.cidrBlock = params.get("cidrBlock")
+
+
+class AssociateVpcCidrBlockResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class UnassociateVpcCidrBlockRequest(AbstractModel):
+    def __init__(self):
+        self.vpcId = None
+        self.cidrBlock = None
+
+    def _deserialize(self, params):
+        self.vpcId = params.get("vpcId")
+        self.cidrBlock = params.get("cidrBlock")
+
+
+class UnassociateVpcCidrBlockResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
 
 
 class DescribeNatGatewayRegionsRequest(AbstractModel):

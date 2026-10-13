@@ -305,6 +305,24 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ResetInstanceIpmiPassword(self, request):
+        """
+        设置裸金属实例的IPMI控制台登录密码。
+        """
+        response = self._api_call("ResetInstanceIpmiPassword", request)
+        model = models.ResetInstanceIpmiPasswordResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeInstanceIpmiUrl(self, request):
+        """
+        查询裸金属实例的IPMI控制台访问地址。
+        """
+        response = self._api_call("DescribeInstanceIpmiUrl", request)
+        model = models.DescribeInstanceIpmiUrlResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeAvailableIpv4Resources(self, request):
         """
         查询可售的Ipv4 Cidr Block资源。
@@ -721,7 +739,7 @@ class BmcClient(AbstractClient):
 
     def RegisterBackend(self, request):
         """
-        创建将一台后端服务绑定到负载均衡的监听器。
+        创建将一台后端服务器(vm或bmc实例)绑定到负载均衡的监听器。
         """
         response = self._api_call("RegisterBackend", request)
         model = models.RegisterBackendResponse()
