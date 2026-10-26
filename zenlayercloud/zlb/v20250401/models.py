@@ -463,9 +463,11 @@ class DeleteLoadBalancersPrivateIpsResponse(AbstractModel):
 class TerminateLoadBalancerRequest(AbstractModel):
     def __init__(self):
         self.loadBalancerId = None
+        self.eipIds = None
 
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
+        self.eipIds = params.get("eipIds")
 
 
 class TerminateLoadBalancerResponse(AbstractModel):
@@ -655,6 +657,7 @@ class Listener(AbstractModel):
         self.createTime = None
         self.persistent = None
         self.algoOpts = None
+        self.proxyProtocol = None
         self.idleTimeout = None
 
     def _deserialize(self, params):
@@ -670,6 +673,7 @@ class Listener(AbstractModel):
         self.createTime = params.get("createTime")
         self.persistent = params.get("persistent")
         self.algoOpts = params.get("algoOpts")
+        self.proxyProtocol = params.get("proxyProtocol")
         self.idleTimeout = params.get("idleTimeout")
 
 
@@ -688,6 +692,7 @@ class HealthCheck(AbstractModel):
         self.checkRetry = None
         self.checkDelayTry = None
         self.checkHttpGetUrl = None
+        self.checkHttpGetHost = None
         self.checkHttpStatusCode = None
         self.failOpen = None
 
@@ -700,6 +705,7 @@ class HealthCheck(AbstractModel):
         self.checkRetry = params.get("checkRetry")
         self.checkDelayTry = params.get("checkDelayTry")
         self.checkHttpGetUrl = params.get("checkHttpGetUrl")
+        self.checkHttpGetHost = params.get("checkHttpGetHost")
         self.checkHttpStatusCode = params.get("checkHttpStatusCode")
         self.failOpen = params.get("failOpen")
 
@@ -716,6 +722,7 @@ class CreateListenerRequest(AbstractModel):
         self.persistent = None
         self.idleTimeout = None
         self.algoOpts = None
+        self.proxyProtocol = None
 
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
@@ -729,6 +736,7 @@ class CreateListenerRequest(AbstractModel):
         self.persistent = params.get("persistent")
         self.idleTimeout = params.get("idleTimeout")
         self.algoOpts = params.get("algoOpts")
+        self.proxyProtocol = params.get("proxyProtocol")
 
 
 class CreateListenerResponse(AbstractModel):
@@ -753,6 +761,7 @@ class ModifyListenerRequest(AbstractModel):
         self.persistent = None
         self.idleTimeout = None
         self.algoOpts = None
+        self.proxyProtocol = None
 
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
@@ -766,6 +775,7 @@ class ModifyListenerRequest(AbstractModel):
         self.persistent = params.get("persistent")
         self.idleTimeout = params.get("idleTimeout")
         self.algoOpts = params.get("algoOpts")
+        self.proxyProtocol = params.get("proxyProtocol")
 
 
 class ModifyListenerResponse(AbstractModel):

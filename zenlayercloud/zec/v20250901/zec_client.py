@@ -809,6 +809,60 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeIpv6CidrPrice(self, request):
+        """
+        查询指定掩码和数量的IPv6 CIDR地址块价格。
+        """
+        response = self._api_call("DescribeIpv6CidrPrice", request)
+        model = models.DescribeIpv6CidrPriceResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyIpv6CidrAttribute(self, request):
+        """
+        修改IPv6 CIDR地址段的属性。 目前只能修改名称。
+        """
+        response = self._api_call("ModifyIpv6CidrAttribute", request)
+        model = models.ModifyIpv6CidrAttributeResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateIpv6Cidr(self, request):
+        """
+        购买指定掩码和数量的IPv6 CIDR地址段。
+        """
+        response = self._api_call("CreateIpv6Cidr", request)
+        model = models.CreateIpv6CidrResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeIpv6CidrNetmasks(self, request):
+        """
+        查询指定节点当前可售的IPv6 CIDR掩码档位、库存与单价。
+        """
+        response = self._api_call("DescribeIpv6CidrNetmasks", request)
+        model = models.DescribeIpv6CidrNetmasksResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeIpv6CidrRegions(self, request):
+        """
+        查询支持售卖IPv6 CIDR地址块的节点信息。
+        """
+        response = self._api_call("DescribeIpv6CidrRegions", request)
+        model = models.DescribeIpv6CidrRegionsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeByoipRegionAvailability(self, request):
+        """
+        查询各区域各线路的BYOIP支持状态，包括已支持、计划支持和暂不支持。
+        """
+        response = self._api_call("DescribeByoipRegionAvailability", request)
+        model = models.DescribeByoipRegionAvailabilityResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeEipNetworkLineTypes(self, request):
         """
         查询EIP支持的IP线路类型列表，可按节点过滤。
@@ -1067,6 +1121,15 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("DescribeEipNewConnsMonitorData", request)
         model = models.DescribeEipNewConnsMonitorDataResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyEipsBlockThreshold(self, request):
+        """
+        批量修改多个弹性公网IP（EIP）的自定义封堵阈值，所有EIP使用同一组阈值。
+        """
+        response = self._api_call("ModifyEipsBlockThreshold", request)
+        model = models.ModifyEipsBlockThresholdResponse()
         model._deserialize(response)
         return model
 
@@ -1736,6 +1799,15 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeNatGatewayNewConnsMonitorData(self, request):
+        """
+        查询一段时间的NAT网关每秒新建连接数（CPS，All/In/Out）监控数据。
+        """
+        response = self._api_call("DescribeNatGatewayNewConnsMonitorData", request)
+        model = models.DescribeNatGatewayNewConnsMonitorDataResponse()
+        model._deserialize(response)
+        return model
+
     def CreatePolicy(self, request):
         """
         创建一个DDoS防护策略。
@@ -1837,7 +1909,7 @@ class ZecClient(AbstractClient):
 
     def DescribeSecurityGroups(self, request):
         """
-        查询账户下的安全组信息，支持按安全组ID或名称进行筛选，支持分页查询。
+        查询账户下的安全组信息，支持按安全组ID、名称或是否为默认安全组进行筛选，支持分页查询。
         """
         response = self._api_call("DescribeSecurityGroups", request)
         model = models.DescribeSecurityGroupsResponse()
