@@ -1495,6 +1495,22 @@ class DescribeInstanceIpmiUrlResponse(AbstractModel):
         self.url = params.get("url")
 
 
+class ResetInstanceIpRequest(AbstractModel):
+    def __init__(self):
+        self.instanceId = None
+
+    def _deserialize(self, params):
+        self.instanceId = params.get("instanceId")
+
+
+class ResetInstanceIpResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
 class DescribeAvailableIpv4ResourcesRequest(AbstractModel):
     def __init__(self):
         self.chargeType = None

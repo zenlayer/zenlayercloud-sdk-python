@@ -323,6 +323,15 @@ class BmcClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def ResetInstanceIp(self, request):
+        """
+        按平台分配的IP重新配置裸金属实例的网络。
+        """
+        response = self._api_call("ResetInstanceIp", request)
+        model = models.ResetInstanceIpResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeAvailableIpv4Resources(self, request):
         """
         查询可售的Ipv4 Cidr Block资源。
