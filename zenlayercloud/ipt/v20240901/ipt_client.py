@@ -10,7 +10,7 @@ class IptClient(AbstractClient):
 
     def DescribeIPTransitDatacenters(self, request):
         """
-        查询IP Transit可连接数据中心。
+        查询Internet可连接数据中心。本接口已弃用，请改用 **sdn:DescribeInternetDatacenters**。
         """
         response = self._api_call("DescribeIPTransitDatacenters", request)
         model = models.DescribeIPTransitDatacentersResponse()
@@ -19,7 +19,7 @@ class IptClient(AbstractClient):
 
     def DescribeIPTransitAvailableAsns(self, request):
         """
-        查询IP Transit可用 ASN。
+        查询Internet可用 ASN。本接口已弃用，请改用 **sdn:DescribeInternetAvailableAsns**。
         """
         response = self._api_call("DescribeIPTransitAvailableAsns", request)
         model = models.DescribeIPTransitAvailableAsnsResponse()
@@ -28,7 +28,7 @@ class IptClient(AbstractClient):
 
     def DescribeIPTransitAvailableCidrBlocks(self, request):
         """
-        查询IP Transit可用公网地址段。
+        查询Internet可用公网地址段。本接口已弃用，请改用 **sdn:DescribeInternetAvailableCidrBlocks**。
         """
         response = self._api_call("DescribeIPTransitAvailableCidrBlocks", request)
         model = models.DescribeIPTransitAvailableCidrBlocksResponse()
@@ -37,7 +37,7 @@ class IptClient(AbstractClient):
 
     def InquiryCreateIPTransitPrice(self, request):
         """
-        IP Transit创建询价。
+        Internet创建询价。本接口已弃用，请改用 **sdn:InquiryCreateInternetPrice**。
         """
         response = self._api_call("InquiryCreateIPTransitPrice", request)
         model = models.InquiryCreateIPTransitPriceResponse()
@@ -46,7 +46,7 @@ class IptClient(AbstractClient):
 
     def CreateIPTransit(self, request):
         """
-        创建IP Transit。
+        创建Internet。本接口已弃用，请改用 **sdn:CreateInternet**。
         """
         response = self._api_call("CreateIPTransit", request)
         model = models.CreateIPTransitResponse()
@@ -55,7 +55,7 @@ class IptClient(AbstractClient):
 
     def DescribeIPTransits(self, request):
         """
-        查询IP Transit列表。
+        查询Internet列表。本接口已弃用，请改用 **sdn:DescribeInternets**。
         """
         response = self._api_call("DescribeIPTransits", request)
         model = models.DescribeIPTransitsResponse()
@@ -64,7 +64,7 @@ class IptClient(AbstractClient):
 
     def ModifyIPTransitBandwidth(self, request):
         """
-        修改IP Transit带宽。
+        修改Internet带宽。本接口已弃用，请改用 **sdn:ModifyInternetConfig**（`type=BANDWIDTH`）。
         """
         response = self._api_call("ModifyIPTransitBandwidth", request)
         model = models.ModifyIPTransitBandwidthResponse()
@@ -73,7 +73,7 @@ class IptClient(AbstractClient):
 
     def ModifyIPTransitsAttribute(self, request):
         """
-        修改IP Transit属性。
+        修改Internet属性。本接口已弃用，请改用 **sdn:ModifyInternetsAttribute**。
         """
         response = self._api_call("ModifyIPTransitsAttribute", request)
         model = models.ModifyIPTransitsAttributeResponse()
@@ -82,7 +82,7 @@ class IptClient(AbstractClient):
 
     def DeleteIPTransit(self, request):
         """
-        删除IP Transit。
+        删除Internet。本接口已弃用，请改用 **sdn:DeleteInternet**。
         """
         response = self._api_call("DeleteIPTransit", request)
         model = models.DeleteIPTransitResponse()
@@ -91,7 +91,7 @@ class IptClient(AbstractClient):
 
     def DescribeIPTransitTraffic(self, request):
         """
-        查询IP Transit流量。
+        查询Internet流量。本接口已弃用，请改用 **sdn:DescribeInternetTraffic**。
         """
         response = self._api_call("DescribeIPTransitTraffic", request)
         model = models.DescribeIPTransitTrafficResponse()
@@ -100,7 +100,7 @@ class IptClient(AbstractClient):
 
     def InquiryModifyIPTransitPrice(self, request):
         """
-        IP Transit变配询价。
+        Internet变配询价。本接口已弃用，请改用 **sdn:InquiryModifyInternetPrice**。
         """
         response = self._api_call("InquiryModifyIPTransitPrice", request)
         model = models.InquiryModifyIPTransitPriceResponse()
@@ -109,7 +109,7 @@ class IptClient(AbstractClient):
 
     def ModifyIPTransitConfig(self, request):
         """
-        修改IP Transit配置。
+        修改Internet配置。本接口已弃用，请改用 **sdn:ModifyInternetConfig**。
         """
         response = self._api_call("ModifyIPTransitConfig", request)
         model = models.ModifyIPTransitConfigResponse()

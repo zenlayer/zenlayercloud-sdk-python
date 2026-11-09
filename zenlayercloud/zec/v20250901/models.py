@@ -2890,6 +2890,97 @@ class ReplaceNetworkInterfacePrimaryIpv4Response(AbstractModel):
         self.primaryIpAddress = params.get("primaryIpAddress")
 
 
+class CreateNetworkInterfacePermissionRequest(AbstractModel):
+    def __init__(self):
+        self.nicId = None
+        self.granteeCid = None
+        self.permission = None
+
+    def _deserialize(self, params):
+        self.nicId = params.get("nicId")
+        self.granteeCid = params.get("granteeCid")
+        self.permission = params.get("permission")
+
+
+class CreateNetworkInterfacePermissionResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.permissionId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.permissionId = params.get("permissionId")
+
+
+class DescribeNetworkInterfacePermissionsRequest(AbstractModel):
+    def __init__(self):
+        self.nicIds = None
+        self.permissionIds = None
+        self.pageSize = None
+        self.pageNum = None
+
+    def _deserialize(self, params):
+        self.nicIds = params.get("nicIds")
+        self.permissionIds = params.get("permissionIds")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+
+
+class DescribeNetworkInterfacePermissionsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = NetworkInterfacePermission(item)
+                self.dataSet.append(obj)
+
+
+class NetworkInterfacePermission(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.permissionId = None
+        self.nicId = None
+        self.granteeCid = None
+        self.permission = None
+        self.createTime = None
+
+    def _deserialize(self, params):
+        self.permissionId = params.get("permissionId")
+        self.nicId = params.get("nicId")
+        self.granteeCid = params.get("granteeCid")
+        self.permission = params.get("permission")
+        self.createTime = params.get("createTime")
+
+
+class DeleteNetworkInterfacePermissionRequest(AbstractModel):
+    def __init__(self):
+        self.permissionId = None
+        self.force = None
+
+    def _deserialize(self, params):
+        self.permissionId = params.get("permissionId")
+        self.force = params.get("force")
+
+
+class DeleteNetworkInterfacePermissionResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
 class DescribePoolsRequest(AbstractModel):
     def __init__(self):
         self.poolIds = None

@@ -575,3 +575,102 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def InquiryCreateInternetPrice(self, request):
+        """
+        Internet创建询价。
+        """
+        response = self._api_call("InquiryCreateInternetPrice", request)
+        model = models.InquiryCreateInternetPriceResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeInternetTraffic(self, request):
+        """
+        查询Internet流量。
+        """
+        response = self._api_call("DescribeInternetTraffic", request)
+        model = models.DescribeInternetTrafficResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyInternetsAttribute(self, request):
+        """
+        修改Internet属性。
+        """
+        response = self._api_call("ModifyInternetsAttribute", request)
+        model = models.ModifyInternetsAttributeResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteInternet(self, request):
+        """
+        删除Internet。
+        """
+        response = self._api_call("DeleteInternet", request)
+        model = models.DeleteInternetResponse()
+        model._deserialize(response)
+        return model
+
+    def ModifyInternetConfig(self, request):
+        """
+        修改Internet配置。
+        """
+        response = self._api_call("ModifyInternetConfig", request)
+        model = models.ModifyInternetConfigResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeInternetAvailableAsns(self, request):
+        """
+        查询Internet可用 ASN。
+        """
+        response = self._api_call("DescribeInternetAvailableAsns", request)
+        model = models.DescribeInternetAvailableAsnsResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeInternetDatacenters(self, request):
+        """
+        查询Internet可连接数据中心。
+        """
+        response = self._api_call("DescribeInternetDatacenters", request)
+        model = models.DescribeInternetDatacentersResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeInternetAvailableCidrBlocks(self, request):
+        """
+        查询Internet可用公网地址段。
+        """
+        response = self._api_call("DescribeInternetAvailableCidrBlocks", request)
+        model = models.DescribeInternetAvailableCidrBlocksResponse()
+        model._deserialize(response)
+        return model
+
+    def InquiryModifyInternetPrice(self, request):
+        """
+        Internet变配询价。
+        """
+        response = self._api_call("InquiryModifyInternetPrice", request)
+        model = models.InquiryModifyInternetPriceResponse()
+        model._deserialize(response)
+        return model
+
+    def CreateInternet(self, request):
+        """
+        创建Internet。
+        """
+        response = self._api_call("CreateInternet", request)
+        model = models.CreateInternetResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeInternets(self, request):
+        """
+        查询Internet列表。
+        """
+        response = self._api_call("DescribeInternets", request)
+        model = models.DescribeInternetsResponse()
+        model._deserialize(response)
+        return model
+

@@ -35,11 +35,13 @@ class Region(AbstractModel):
         self.regionId = None
         self.cityName = None
         self.cityCode = None
+        self.supportPrivateIp = None
 
     def _deserialize(self, params):
         self.regionId = params.get("regionId")
         self.cityName = params.get("cityName")
         self.cityCode = params.get("cityCode")
+        self.supportPrivateIp = params.get("supportPrivateIp")
 
 
 class DescribeLoadBalancersRequest(AbstractModel):
@@ -134,6 +136,12 @@ class LoadBalancer(AbstractModel):
         self.loadBalancerId = params.get("loadBalancerId")
         self.loadBalancerName = params.get("loadBalancerName")
         self.vpcId = params.get("vpcId")
+        if params.get("subnetId") is not None:
+            warnings.warn(
+                "subnetId 已废弃，请勿使用",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.subnetId = params.get("subnetId")
         self.ipStackType = params.get("ipStackType")
         self.status = params.get("status")
@@ -218,6 +226,8 @@ class InquiryPriceCreateLoadBalancerResponse(AbstractModel):
         self.eipNetworkPrice = None
         self.eipNetworkPrices = None
         self.lcuPrice = None
+        self.ipv6Price = None
+        self.ipv6NetworkPrice = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
@@ -234,6 +244,10 @@ class InquiryPriceCreateLoadBalancerResponse(AbstractModel):
                 self.eipNetworkPrices.append(obj)
         if params.get("lcuPrice") is not None:
             self.lcuPrice = PriceItem(params.get("lcuPrice"))
+        if params.get("ipv6Price") is not None:
+            self.ipv6Price = PriceItem(params.get("ipv6Price"))
+        if params.get("ipv6NetworkPrice") is not None:
+            self.ipv6NetworkPrice = PriceItem(params.get("ipv6NetworkPrice"))
 
 
 class PriceItem(AbstractModel):
@@ -315,6 +329,7 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.regionId = None
         self.vpcId = None
         self.subnetId = None
+        self.privateIpSubnetId = None
         self.healthCheckPrivateIps = None
         self.loadBalancerName = None
         self.ipStackType = None
@@ -335,6 +350,7 @@ class CreateLoadBalancerRequest(AbstractModel):
         self.regionId = params.get("regionId")
         self.vpcId = params.get("vpcId")
         self.subnetId = params.get("subnetId")
+        self.privateIpSubnetId = params.get("privateIpSubnetId")
         self.healthCheckPrivateIps = params.get("healthCheckPrivateIps")
         self.loadBalancerName = params.get("loadBalancerName")
         self.ipStackType = params.get("ipStackType")
@@ -588,6 +604,7 @@ class UnbindSecurityGroupFromLoadBalancersResponse(AbstractModel):
 class AssignLoadBalancerIpv6Request(AbstractModel):
     def __init__(self):
         self.loadBalancerId = None
+        self.subnetId = None
         self.vipCount = None
         self.internetChargeType = None
         self.bandwidth = None
@@ -597,6 +614,7 @@ class AssignLoadBalancerIpv6Request(AbstractModel):
 
     def _deserialize(self, params):
         self.loadBalancerId = params.get("loadBalancerId")
+        self.subnetId = params.get("subnetId")
         self.vipCount = params.get("vipCount")
         self.internetChargeType = params.get("internetChargeType")
         self.bandwidth = params.get("bandwidth")

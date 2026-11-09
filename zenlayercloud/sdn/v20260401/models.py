@@ -650,6 +650,7 @@ class DescribePortsRequest(AbstractModel):
         self.portName = None
         self.dcId = None
         self.cityName = None
+        self.lagIds = None
         self.resourceGroupId = None
         self.tagKeys = None
         self.tags = None
@@ -661,6 +662,7 @@ class DescribePortsRequest(AbstractModel):
         self.portName = params.get("portName")
         self.dcId = params.get("dcId")
         self.cityName = params.get("cityName")
+        self.lagIds = params.get("lagIds")
         self.resourceGroupId = params.get("resourceGroupId")
         self.tagKeys = params.get("tagKeys")
         if params.get("tags") is not None:
@@ -2478,5 +2480,830 @@ class DescribeCloudRouterDCToDCTrafficResponse(AbstractModel):
         self.outMax = params.get("outMax")
         self.outMin = params.get("outMin")
         self.unit = params.get("unit")
+
+
+class InquiryCreateInternetPriceRequest(AbstractModel):
+    def __init__(self):
+        self.peerPortId = None
+        self.internetDcId = None
+        self.internetType = None
+        self.commitBandwidth = None
+        self.bandwidth = None
+        self.routingType = None
+        self.publicIPv4BlockSize = None
+        self.bgpRouteType = None
+        self.bgpTier = None
+        self.ipType = None
+        self.publicIpList = None
+        self.zbgRegionId = None
+        self.haConfig = None
+        self.publicInterconnectNetmask = None
+
+    def _deserialize(self, params):
+        self.peerPortId = params.get("peerPortId")
+        self.internetDcId = params.get("internetDcId")
+        self.internetType = params.get("internetType")
+        self.commitBandwidth = params.get("commitBandwidth")
+        self.bandwidth = params.get("bandwidth")
+        self.routingType = params.get("routingType")
+        self.publicIPv4BlockSize = params.get("publicIPv4BlockSize")
+        self.bgpRouteType = params.get("bgpRouteType")
+        self.bgpTier = params.get("bgpTier")
+        self.ipType = params.get("ipType")
+        if params.get("publicIpList") is not None:
+            self.publicIpList = []
+            for item in params.get("publicIpList"):
+                obj = InternetIpRequest(item)
+                self.publicIpList.append(obj)
+        self.zbgRegionId = params.get("zbgRegionId")
+        if params.get("haConfig") is not None:
+            self.haConfig = InternetHaConfig(params.get("haConfig"))
+        self.publicInterconnectNetmask = params.get("publicInterconnectNetmask")
+
+
+class InternetIpRequest(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.netmask = None
+        self.ipType = None
+        self.ipNetworkType = None
+        self.amount = None
+
+    def _deserialize(self, params):
+        self.netmask = params.get("netmask")
+        self.ipType = params.get("ipType")
+        self.ipNetworkType = params.get("ipNetworkType")
+        self.amount = params.get("amount")
+
+
+class InternetHaConfig(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.haMode = None
+        self.secondaryPortId = None
+        self.secondaryPortVlanId = None
+
+    def _deserialize(self, params):
+        self.haMode = params.get("haMode")
+        self.secondaryPortId = params.get("secondaryPortId")
+        self.secondaryPortVlanId = params.get("secondaryPortVlanId")
+
+
+class InquiryCreateInternetPriceResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.privateConnectPrice = None
+        self.internetBandwidthPrice = None
+        self.publicIpPrices = None
+        self.publicInterconnectIpPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("privateConnectPrice") is not None:
+            self.privateConnectPrice = PriceItem(params.get("privateConnectPrice"))
+        if params.get("internetBandwidthPrice") is not None:
+            self.internetBandwidthPrice = PriceItem(params.get("internetBandwidthPrice"))
+        if params.get("publicIpPrices") is not None:
+            self.publicIpPrices = []
+            for item in params.get("publicIpPrices"):
+                obj = InternetIpPrice(item)
+                self.publicIpPrices.append(obj)
+        if params.get("publicInterconnectIpPrice") is not None:
+            self.publicInterconnectIpPrice = InternetIpPrice(params.get("publicInterconnectIpPrice"))
+
+
+class InternetIpPrice(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.price = None
+        self.netmask = None
+        self.qty = None
+        self.ipNetworkType = None
+
+    def _deserialize(self, params):
+        if params.get("price") is not None:
+            self.price = PriceItem(params.get("price"))
+        self.netmask = params.get("netmask")
+        self.qty = params.get("qty")
+        self.ipNetworkType = params.get("ipNetworkType")
+
+
+class DescribeInternetTrafficRequest(AbstractModel):
+    def __init__(self):
+        self.internetId = None
+        self.startTime = None
+        self.endTime = None
+        self.period = None
+        self.statistic = None
+
+    def _deserialize(self, params):
+        self.internetId = params.get("internetId")
+        self.startTime = params.get("startTime")
+        self.endTime = params.get("endTime")
+        self.period = params.get("period")
+        self.statistic = params.get("statistic")
+
+
+class DescribeInternetTrafficResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.dataList = None
+        self.in95 = None
+        self.inAvg = None
+        self.inMax = None
+        self.inMin = None
+        self.out95 = None
+        self.outAvg = None
+        self.outMax = None
+        self.outMin = None
+        self.unit = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("dataList") is not None:
+            self.dataList = []
+            for item in params.get("dataList"):
+                obj = TrafficData(item)
+                self.dataList.append(obj)
+        self.in95 = params.get("in95")
+        self.inAvg = params.get("inAvg")
+        self.inMax = params.get("inMax")
+        self.inMin = params.get("inMin")
+        self.out95 = params.get("out95")
+        self.outAvg = params.get("outAvg")
+        self.outMax = params.get("outMax")
+        self.outMin = params.get("outMin")
+        self.unit = params.get("unit")
+
+
+class ModifyInternetsAttributeRequest(AbstractModel):
+    def __init__(self):
+        self.internetIds = None
+        self.internetName = None
+        self.internetDescription = None
+
+    def _deserialize(self, params):
+        self.internetIds = params.get("internetIds")
+        self.internetName = params.get("internetName")
+        self.internetDescription = params.get("internetDescription")
+
+
+class ModifyInternetsAttributeResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DeleteInternetRequest(AbstractModel):
+    def __init__(self):
+        self.internetId = None
+
+    def _deserialize(self, params):
+        self.internetId = params.get("internetId")
+
+
+class DeleteInternetResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class ModifyInternetConfigRequest(AbstractModel):
+    def __init__(self):
+        self.internetId = None
+        self.type = None
+        self.bandwidth = None
+        self.commitBandwidth = None
+        self.bfd = None
+        self.bgp = None
+        self.publicIPv4BlockSize = None
+        self.ipUuid = None
+        self.ipNetworkType = None
+        self.marketingInfo = None
+
+    def _deserialize(self, params):
+        self.internetId = params.get("internetId")
+        self.type = params.get("type")
+        self.bandwidth = params.get("bandwidth")
+        self.commitBandwidth = params.get("commitBandwidth")
+        if params.get("bfd") is not None:
+            self.bfd = BFDConfig(params.get("bfd"))
+        if params.get("bgp") is not None:
+            self.bgp = InternetBgpConfigParam(params.get("bgp"))
+        self.publicIPv4BlockSize = params.get("publicIPv4BlockSize")
+        self.ipUuid = params.get("ipUuid")
+        self.ipNetworkType = params.get("ipNetworkType")
+        if params.get("marketingInfo") is not None:
+            self.marketingInfo = MarketingInfo(params.get("marketingInfo"))
+
+
+class BFDConfig(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.bfdTxInterval = None
+        self.bfdRxInterval = None
+        self.bfdMultiplier = None
+
+    def _deserialize(self, params):
+        self.bfdTxInterval = params.get("bfdTxInterval")
+        self.bfdRxInterval = params.get("bfdRxInterval")
+        self.bfdMultiplier = params.get("bfdMultiplier")
+
+
+class InternetBgpConfigParam(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.routeType = None
+        self.asnList = None
+        self.asSetList = None
+        self.password = None
+
+    def _deserialize(self, params):
+        self.routeType = params.get("routeType")
+        self.asnList = params.get("asnList")
+        self.asSetList = params.get("asSetList")
+        self.password = params.get("password")
+
+
+class ModifyInternetConfigResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class DescribeInternetAvailableAsnsRequest(AbstractModel):
+    def __init__(self):
+        pass
+
+    def _deserialize(self, params):
+        pass
+
+
+class DescribeInternetAvailableAsnsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = InternetAsnInfo(item)
+                self.dataSet.append(obj)
+
+
+class InternetAsnInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.asn = None
+        self.asnType = None
+
+    def _deserialize(self, params):
+        self.asn = params.get("asn")
+        self.asnType = params.get("asnType")
+
+
+class DescribeInternetDatacentersRequest(AbstractModel):
+    def __init__(self):
+        self.peerPortId = None
+        self.peerDcId = None
+        self.zbgRegionId = None
+
+    def _deserialize(self, params):
+        self.peerPortId = params.get("peerPortId")
+        self.peerDcId = params.get("peerDcId")
+        self.zbgRegionId = params.get("zbgRegionId")
+
+
+class DescribeInternetDatacentersResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.supportSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("supportSet") is not None:
+            self.supportSet = []
+            for item in params.get("supportSet"):
+                obj = InternetDatacenter(item)
+                self.supportSet.append(obj)
+
+
+class InternetDatacenter(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.dataCenter = None
+        self.availableRoutingTypes = None
+
+    def _deserialize(self, params):
+        if params.get("dataCenter") is not None:
+            self.dataCenter = DatacenterInfo(params.get("dataCenter"))
+        if params.get("availableRoutingTypes") is not None:
+            self.availableRoutingTypes = []
+            for item in params.get("availableRoutingTypes"):
+                obj = InternetAvailableRoutingType(item)
+                self.availableRoutingTypes.append(obj)
+
+
+class InternetAvailableRoutingType(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.routingType = None
+        self.availableBgpRouteTypes = None
+        self.availableBgpTiers = None
+        self.peerAsns = None
+        self.deliveryType = None
+        self.publicInterconnectNetmasks = None
+
+    def _deserialize(self, params):
+        self.routingType = params.get("routingType")
+        self.availableBgpRouteTypes = params.get("availableBgpRouteTypes")
+        self.availableBgpTiers = params.get("availableBgpTiers")
+        if params.get("peerAsns") is not None:
+            self.peerAsns = []
+            for item in params.get("peerAsns"):
+                obj = InternetPeerAsn(item)
+                self.peerAsns.append(obj)
+        self.deliveryType = params.get("deliveryType")
+        self.publicInterconnectNetmasks = params.get("publicInterconnectNetmasks")
+
+
+class InternetPeerAsn(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.tier = None
+        self.asn = None
+
+    def _deserialize(self, params):
+        self.tier = params.get("tier")
+        self.asn = params.get("asn")
+
+
+class DescribeInternetAvailableCidrBlocksRequest(AbstractModel):
+    def __init__(self):
+        self.internetDcId = None
+        self.routingType = None
+        self.zbgRegionId = None
+        self.ipUuid = None
+
+    def _deserialize(self, params):
+        self.internetDcId = params.get("internetDcId")
+        self.routingType = params.get("routingType")
+        self.zbgRegionId = params.get("zbgRegionId")
+        self.ipUuid = params.get("ipUuid")
+
+
+class DescribeInternetAvailableCidrBlocksResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.ipv4CidrBlocks = None
+        self.ipv6CidrBlocks = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("ipv4CidrBlocks") is not None:
+            self.ipv4CidrBlocks = []
+            for item in params.get("ipv4CidrBlocks"):
+                obj = InternetCidrBlock(item)
+                self.ipv4CidrBlocks.append(obj)
+        if params.get("ipv6CidrBlocks") is not None:
+            self.ipv6CidrBlocks = []
+            for item in params.get("ipv6CidrBlocks"):
+                obj = InternetCidrBlock(item)
+                self.ipv6CidrBlocks.append(obj)
+
+
+class InternetCidrBlock(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.netmask = None
+        self.ipNetworkType = None
+
+    def _deserialize(self, params):
+        self.netmask = params.get("netmask")
+        self.ipNetworkType = params.get("ipNetworkType")
+
+
+class InquiryModifyInternetPriceRequest(AbstractModel):
+    def __init__(self):
+        self.internetId = None
+        self.type = None
+        self.bandwidth = None
+        self.commitBandwidth = None
+        self.publicIPv4BlockSize = None
+        self.ipUuid = None
+        self.ipNetworkType = None
+        self.marketingInfo = None
+
+    def _deserialize(self, params):
+        self.internetId = params.get("internetId")
+        self.type = params.get("type")
+        self.bandwidth = params.get("bandwidth")
+        self.commitBandwidth = params.get("commitBandwidth")
+        self.publicIPv4BlockSize = params.get("publicIPv4BlockSize")
+        self.ipUuid = params.get("ipUuid")
+        self.ipNetworkType = params.get("ipNetworkType")
+        if params.get("marketingInfo") is not None:
+            self.marketingInfo = MarketingInfo(params.get("marketingInfo"))
+
+
+class InquiryModifyInternetPriceResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.privateConnectPrice = None
+        self.privateConnectBandwidth = None
+        self.internetPrice = None
+        self.internetIpPrices = None
+        self.publicInterconnectIpPrice = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("privateConnectPrice") is not None:
+            self.privateConnectPrice = PriceItem(params.get("privateConnectPrice"))
+        self.privateConnectBandwidth = params.get("privateConnectBandwidth")
+        if params.get("internetPrice") is not None:
+            self.internetPrice = PriceItem(params.get("internetPrice"))
+        if params.get("internetIpPrices") is not None:
+            self.internetIpPrices = []
+            for item in params.get("internetIpPrices"):
+                obj = InternetIpPriceItem(item)
+                self.internetIpPrices.append(obj)
+        if params.get("publicInterconnectIpPrice") is not None:
+            self.publicInterconnectIpPrice = InternetIpPriceItem(params.get("publicInterconnectIpPrice"))
+
+
+class InternetIpPriceItem(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.price = None
+        self.netmask = None
+        self.amount = None
+        self.ipNetworkType = None
+
+    def _deserialize(self, params):
+        if params.get("price") is not None:
+            self.price = PriceItem(params.get("price"))
+        self.netmask = params.get("netmask")
+        self.amount = params.get("amount")
+        self.ipNetworkType = params.get("ipNetworkType")
+
+
+class CreateInternetRequest(AbstractModel):
+    def __init__(self):
+        self.internetName = None
+        self.internetDescription = None
+        self.peerPortId = None
+        self.peerPortVlan = None
+        self.internetDcId = None
+        self.internetType = None
+        self.commitBandwidth = None
+        self.bandwidth = None
+        self.routingType = None
+        self.publicIPv4BlockSize = None
+        self.bfd = None
+        self.resourceGroupId = None
+        self.bgp = None
+        self.tags = None
+        self.publicIpList = None
+        self.zbgRegionId = None
+        self.haConfig = None
+        self.publicInterconnectNetmask = None
+
+    def _deserialize(self, params):
+        self.internetName = params.get("internetName")
+        self.internetDescription = params.get("internetDescription")
+        self.peerPortId = params.get("peerPortId")
+        self.peerPortVlan = params.get("peerPortVlan")
+        self.internetDcId = params.get("internetDcId")
+        self.internetType = params.get("internetType")
+        self.commitBandwidth = params.get("commitBandwidth")
+        self.bandwidth = params.get("bandwidth")
+        self.routingType = params.get("routingType")
+        self.publicIPv4BlockSize = params.get("publicIPv4BlockSize")
+        if params.get("bfd") is not None:
+            self.bfd = BFDConfig(params.get("bfd"))
+        self.resourceGroupId = params.get("resourceGroupId")
+        if params.get("bgp") is not None:
+            self.bgp = InternetBgpConfig(params.get("bgp"))
+        if params.get("tags") is not None:
+            self.tags = TagAssociation(params.get("tags"))
+        if params.get("publicIpList") is not None:
+            self.publicIpList = []
+            for item in params.get("publicIpList"):
+                obj = InternetIpRequest(item)
+                self.publicIpList.append(obj)
+        self.zbgRegionId = params.get("zbgRegionId")
+        if params.get("haConfig") is not None:
+            self.haConfig = InternetHaConfig(params.get("haConfig"))
+        self.publicInterconnectNetmask = params.get("publicInterconnectNetmask")
+
+
+class InternetBgpConfig(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.routeType = None
+        self.tier = None
+        self.asn = None
+        self.password = None
+        self.asnList = None
+        self.asSetList = None
+
+    def _deserialize(self, params):
+        self.routeType = params.get("routeType")
+        self.tier = params.get("tier")
+        self.asn = params.get("asn")
+        self.password = params.get("password")
+        self.asnList = params.get("asnList")
+        self.asSetList = params.get("asSetList")
+
+
+class CreateInternetResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.orderNumber = None
+        self.internetId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.orderNumber = params.get("orderNumber")
+        self.internetId = params.get("internetId")
+
+
+class DescribeInternetsRequest(AbstractModel):
+    def __init__(self):
+        self.internetIds = None
+        self.internetName = None
+        self.resourceGroupId = None
+        self.peerPortId = None
+        self.internetDcId = None
+        self.pageSize = None
+        self.pageNum = None
+        self.tagKeys = None
+        self.tags = None
+
+    def _deserialize(self, params):
+        self.internetIds = params.get("internetIds")
+        self.internetName = params.get("internetName")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.peerPortId = params.get("peerPortId")
+        self.internetDcId = params.get("internetDcId")
+        self.pageSize = params.get("pageSize")
+        self.pageNum = params.get("pageNum")
+        self.tagKeys = params.get("tagKeys")
+        if params.get("tags") is not None:
+            self.tags = []
+            for item in params.get("tags"):
+                obj = Tag(item)
+                self.tags.append(obj)
+
+
+class DescribeInternetsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.totalCount = None
+        self.dataSet = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        self.totalCount = params.get("totalCount")
+        if params.get("dataSet") is not None:
+            self.dataSet = []
+            for item in params.get("dataSet"):
+                obj = Internet(item)
+                self.dataSet.append(obj)
+
+
+class Internet(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.internetId = None
+        self.internetName = None
+        self.internetDescription = None
+        self.dataCenter = None
+        self.peerPortId = None
+        self.peerPortName = None
+        self.peerDataCenter = None
+        self.deliveryType = None
+        self.resourceGroupId = None
+        self.resourceGroupName = None
+        self.createTime = None
+        self.routingType = None
+        self.internetType = None
+        self.bandwidth = None
+        self.commitBandwidth = None
+        self.bfd = None
+        self.bgp = None
+        self.interconnect = None
+        self.privateConnectId = None
+        self.privateConnectName = None
+        self.publicIpv4Addresses = None
+        self.internetStatus = None
+        self.connectivityStatus = None
+        self.tags = None
+        self.publicIpAddresses = None
+        self.haMode = None
+        self.zbgRegionId = None
+        self.peerPortType = None
+        self.haLinks = None
+
+    def _deserialize(self, params):
+        self.internetId = params.get("internetId")
+        self.internetName = params.get("internetName")
+        self.internetDescription = params.get("internetDescription")
+        if params.get("dataCenter") is not None:
+            self.dataCenter = DatacenterInfo(params.get("dataCenter"))
+        self.peerPortId = params.get("peerPortId")
+        self.peerPortName = params.get("peerPortName")
+        if params.get("peerDataCenter") is not None:
+            self.peerDataCenter = DatacenterInfo(params.get("peerDataCenter"))
+        self.deliveryType = params.get("deliveryType")
+        self.resourceGroupId = params.get("resourceGroupId")
+        self.resourceGroupName = params.get("resourceGroupName")
+        self.createTime = params.get("createTime")
+        self.routingType = params.get("routingType")
+        self.internetType = params.get("internetType")
+        self.bandwidth = params.get("bandwidth")
+        self.commitBandwidth = params.get("commitBandwidth")
+        if params.get("bfd") is not None:
+            self.bfd = BFDConfig(params.get("bfd"))
+        if params.get("bgp") is not None:
+            self.bgp = InternetBgpConfig(params.get("bgp"))
+        if params.get("interconnect") is not None:
+            self.interconnect = InternetInterconnect(params.get("interconnect"))
+        self.privateConnectId = params.get("privateConnectId")
+        self.privateConnectName = params.get("privateConnectName")
+        if params.get("publicIpv4Addresses") is not None:
+            self.publicIpv4Addresses = []
+            for item in params.get("publicIpv4Addresses"):
+                obj = IPAddress(item)
+                self.publicIpv4Addresses.append(obj)
+        self.internetStatus = params.get("internetStatus")
+        self.connectivityStatus = params.get("connectivityStatus")
+        if params.get("tags") is not None:
+            self.tags = Tags(params.get("tags"))
+        if params.get("publicIpAddresses") is not None:
+            self.publicIpAddresses = []
+            for item in params.get("publicIpAddresses"):
+                obj = InternetIpAddress(item)
+                self.publicIpAddresses.append(obj)
+        self.haMode = params.get("haMode")
+        self.zbgRegionId = params.get("zbgRegionId")
+        self.peerPortType = params.get("peerPortType")
+        if params.get("haLinks") is not None:
+            self.haLinks = []
+            for item in params.get("haLinks"):
+                obj = InternetHaLink(item)
+                self.haLinks.append(obj)
+
+
+class InternetInterconnect(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.vendorIpv4Address = None
+        self.customerIpv4Address = None
+        self.vendorIpv6Address = None
+        self.customerIpv6Address = None
+
+    def _deserialize(self, params):
+        self.vendorIpv4Address = params.get("vendorIpv4Address")
+        self.customerIpv4Address = params.get("customerIpv4Address")
+        self.vendorIpv6Address = params.get("vendorIpv6Address")
+        self.customerIpv6Address = params.get("customerIpv6Address")
+
+
+class IPAddress(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.ipAddress = None
+        self.netmask = None
+        self.gatewayIpAddress = None
+
+    def _deserialize(self, params):
+        self.ipAddress = params.get("ipAddress")
+        self.netmask = params.get("netmask")
+        self.gatewayIpAddress = params.get("gatewayIpAddress")
+
+
+class InternetIpAddress(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.ipUuid = None
+        self.ipAddress = None
+        self.netmask = None
+        self.gatewayIpAddress = None
+        self.ipType = None
+        self.ipNetworkType = None
+
+    def _deserialize(self, params):
+        self.ipUuid = params.get("ipUuid")
+        self.ipAddress = params.get("ipAddress")
+        self.netmask = params.get("netmask")
+        self.gatewayIpAddress = params.get("gatewayIpAddress")
+        self.ipType = params.get("ipType")
+        self.ipNetworkType = params.get("ipNetworkType")
+
+
+class InternetHaLink(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.isPrimary = None
+        self.internetStatus = None
+        self.connectivityStatus = None
+        self.privateConnectId = None
+        self.privateConnectName = None
+        self.peerPortId = None
+        self.peerPortName = None
+        self.peerDataCenter = None
+        self.peerPortVlan = None
+        self.interconnect = None
+
+    def _deserialize(self, params):
+        self.isPrimary = params.get("isPrimary")
+        self.internetStatus = params.get("internetStatus")
+        self.connectivityStatus = params.get("connectivityStatus")
+        self.privateConnectId = params.get("privateConnectId")
+        self.privateConnectName = params.get("privateConnectName")
+        self.peerPortId = params.get("peerPortId")
+        self.peerPortName = params.get("peerPortName")
+        if params.get("peerDataCenter") is not None:
+            self.peerDataCenter = DatacenterInfo(params.get("peerDataCenter"))
+        self.peerPortVlan = params.get("peerPortVlan")
+        if params.get("interconnect") is not None:
+            self.interconnect = InternetInterconnect(params.get("interconnect"))
 
 

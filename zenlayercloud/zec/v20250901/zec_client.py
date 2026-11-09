@@ -674,6 +674,33 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def CreateNetworkInterfacePermission(self, request):
+        """
+        授权其他账号把一张网卡绑定到它自己的实例上。
+        """
+        response = self._api_call("CreateNetworkInterfacePermission", request)
+        model = models.CreateNetworkInterfacePermissionResponse()
+        model._deserialize(response)
+        return model
+
+    def DescribeNetworkInterfacePermissions(self, request):
+        """
+        查询网卡授权给其他账号的记录。
+        """
+        response = self._api_call("DescribeNetworkInterfacePermissions", request)
+        model = models.DescribeNetworkInterfacePermissionsResponse()
+        model._deserialize(response)
+        return model
+
+    def DeleteNetworkInterfacePermission(self, request):
+        """
+        删除一条网卡授权。
+        """
+        response = self._api_call("DeleteNetworkInterfacePermission", request)
+        model = models.DeleteNetworkInterfacePermissionResponse()
+        model._deserialize(response)
+        return model
+
     def DescribePools(self, request):
         """
         查询账户下的公网IP池信息，支持按IP池ID、地域或名称进行筛选，支持分页查询。
