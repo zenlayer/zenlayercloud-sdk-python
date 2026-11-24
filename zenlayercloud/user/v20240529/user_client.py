@@ -26,33 +26,6 @@ class UserClient(AbstractClient):
         model._deserialize(response)
         return model
 
-    def InviteMember(self, request):
-        """
-        邀请单个成员信息。
-        """
-        response = self._api_call("InviteMember", request)
-        model = models.InviteMemberResponse()
-        model._deserialize(response)
-        return model
-
-    def DeleteMember(self, request):
-        """
-        删除一个成员信息。
-        """
-        response = self._api_call("DeleteMember", request)
-        model = models.DeleteMemberResponse()
-        model._deserialize(response)
-        return model
-
-    def SendInviteMemberEmail(self, request):
-        """
-        重新发送一个成员信息的邮件。
-        """
-        response = self._api_call("SendInviteMemberEmail", request)
-        model = models.SendInviteMemberEmailResponse()
-        model._deserialize(response)
-        return model
-
     def DescribeMemberGroups(self, request):
         """
         查询成员组列表。用户可以根据名称信息来搜索成员组信息。

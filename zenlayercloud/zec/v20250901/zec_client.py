@@ -458,6 +458,15 @@ class ZecClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribeLocalDiskSpecs(self, request):
+        """
+        查询指定可用区可售的本地盘规格。本地盘只能在创建实例时购买，按固定容量档位售卖。
+        """
+        response = self._api_call("DescribeLocalDiskSpecs", request)
+        model = models.DescribeLocalDiskSpecsResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeSnapshots(self, request):
         """
         查询快照的详细信息。
@@ -811,7 +820,7 @@ class ZecClient(AbstractClient):
 
     def CreateByoip(self, request):
         """
-        提交自带IP段（BYOIP）创建CIDR。返回RPKI/IRR校验失败列表。
+        提交自带IP段（BYOIP）创建CIDR。返回RPKI校验失败列表。
         """
         response = self._api_call("CreateByoip", request)
         model = models.CreateByoipResponse()
@@ -1688,6 +1697,24 @@ class ZecClient(AbstractClient):
         """
         response = self._api_call("UnassociateVpcCidrBlock", request)
         model = models.UnassociateVpcCidrBlockResponse()
+        model._deserialize(response)
+        return model
+
+    def AssociateSubnetIpv6CidrBlocks(self, request):
+        """
+        为公网IPv6子网添加一个或多个IPv6网段。
+        """
+        response = self._api_call("AssociateSubnetIpv6CidrBlocks", request)
+        model = models.AssociateSubnetIpv6CidrBlocksResponse()
+        model._deserialize(response)
+        return model
+
+    def UnassociateSubnetIpv6CidrBlock(self, request):
+        """
+        释放子网的一个IPv6网段。
+        """
+        response = self._api_call("UnassociateSubnetIpv6CidrBlock", request)
+        model = models.UnassociateSubnetIpv6CidrBlockResponse()
         model._deserialize(response)
         return model
 

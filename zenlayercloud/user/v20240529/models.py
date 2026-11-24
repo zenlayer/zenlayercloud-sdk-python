@@ -92,58 +92,6 @@ class DescribeMemberResponse(AbstractModel):
         self.createTime = params.get("createTime")
 
 
-class InviteMemberRequest(AbstractModel):
-    def __init__(self):
-        self.email = None
-        self.memberGroupId = None
-        self.openApi = None
-
-    def _deserialize(self, params):
-        self.email = params.get("email")
-        self.memberGroupId = params.get("memberGroupId")
-        self.openApi = params.get("openApi")
-
-
-class InviteMemberResponse(AbstractModel):
-    def __init__(self):
-        self.requestId = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-
-
-class DeleteMemberRequest(AbstractModel):
-    def __init__(self):
-        self.userUid = None
-
-    def _deserialize(self, params):
-        self.userUid = params.get("userUid")
-
-
-class DeleteMemberResponse(AbstractModel):
-    def __init__(self):
-        self.requestId = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-
-
-class SendInviteMemberEmailRequest(AbstractModel):
-    def __init__(self):
-        self.userUid = None
-
-    def _deserialize(self, params):
-        self.userUid = params.get("userUid")
-
-
-class SendInviteMemberEmailResponse(AbstractModel):
-    def __init__(self):
-        self.requestId = None
-
-    def _deserialize(self, params):
-        self.requestId = params.get("requestId")
-
-
 class DescribeMemberGroupsRequest(AbstractModel):
     def __init__(self):
         self.name = None

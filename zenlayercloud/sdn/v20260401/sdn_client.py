@@ -458,6 +458,15 @@ class SdnClient(AbstractClient):
         model._deserialize(response)
         return model
 
+    def DescribePartnerDcNniCandidates(self, request):
+        """
+        查询合作对接点候选与推荐。
+        """
+        response = self._api_call("DescribePartnerDcNniCandidates", request)
+        model = models.DescribePartnerDcNniCandidatesResponse()
+        model._deserialize(response)
+        return model
+
     def DescribeCloudRouterAvailablePorts(self, request):
         """
         查询可用端口。

@@ -45,6 +45,8 @@ class DataCenterAssemble(AbstractModel):
         self.isPortAvailable = None
         self.availableBandwidth = None
         self.regionId = None
+        self.dcType = None
+        self.partner = None
 
     def _deserialize(self, params):
         self.dcId = params.get("dcId")
@@ -58,6 +60,8 @@ class DataCenterAssemble(AbstractModel):
         self.isPortAvailable = params.get("isPortAvailable")
         self.availableBandwidth = params.get("availableBandwidth")
         self.regionId = params.get("regionId")
+        self.dcType = params.get("dcType")
+        self.partner = params.get("partner")
 
 
 class DescribeVirtualEdgeDatacentersRequest(AbstractModel):
@@ -173,6 +177,8 @@ class DataCenterWithServiceResponse(AbstractModel):
         self.longitude = None
         self.cloudRegionId = None
         self.serviceTypes = None
+        self.dcType = None
+        self.partner = None
 
     def _deserialize(self, params):
         self.dcId = params.get("dcId")
@@ -185,6 +191,8 @@ class DataCenterWithServiceResponse(AbstractModel):
         self.longitude = params.get("longitude")
         self.cloudRegionId = params.get("cloudRegionId")
         self.serviceTypes = params.get("serviceTypes")
+        self.dcType = params.get("dcType")
+        self.partner = params.get("partner")
 
 
 class QueryCloudOnrampPriceRequest(AbstractModel):
@@ -714,6 +722,7 @@ class PortInfo(AbstractModel):
         self.isCreateBusinessAllowed = None
         self.tags = None
         self.lag = None
+        self.partnerDc = None
 
     def _deserialize(self, params):
         self.portId = params.get("portId")
@@ -737,6 +746,8 @@ class PortInfo(AbstractModel):
             self.tags = Tags(params.get("tags"))
         if params.get("lag") is not None:
             self.lag = LagInfo(params.get("lag"))
+        if params.get("partnerDc") is not None:
+            self.partnerDc = PartnerDcPortInfo(params.get("partnerDc"))
 
 
 class Tags(AbstractModel):
@@ -769,6 +780,29 @@ class LagInfo(AbstractModel):
     def _deserialize(self, params):
         self.lagId = params.get("lagId")
         self.lagName = params.get("lagName")
+
+
+class PartnerDcPortInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.partner = None
+        self.status = None
+        self.loaIssuedTime = None
+        self.freePeriodEndTime = None
+        self.billBeginTime = None
+        self.billBeginReason = None
+
+    def _deserialize(self, params):
+        self.partner = params.get("partner")
+        self.status = params.get("status")
+        self.loaIssuedTime = params.get("loaIssuedTime")
+        self.freePeriodEndTime = params.get("freePeriodEndTime")
+        self.billBeginTime = params.get("billBeginTime")
+        self.billBeginReason = params.get("billBeginReason")
 
 
 class DescribeDataCenterPortPriceRequest(AbstractModel):
@@ -1572,6 +1606,7 @@ class PrivateConnectEndpoint(AbstractModel):
         self.cloudRegionId = None
         self.cloudAccountId = None
         self.sharedChannelId = None
+        self.partnerDcNni = None
 
     def _deserialize(self, params):
         self.endpointId = params.get("endpointId")
@@ -1584,6 +1619,33 @@ class PrivateConnectEndpoint(AbstractModel):
         self.cloudRegionId = params.get("cloudRegionId")
         self.cloudAccountId = params.get("cloudAccountId")
         self.sharedChannelId = params.get("sharedChannelId")
+        if params.get("partnerDcNni") is not None:
+            self.partnerDcNni = PartnerDcNniInfo(params.get("partnerDcNni"))
+
+
+class PartnerDcNniInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.partner = None
+        self.zenDc = None
+        self.zenDcName = None
+        self.cityName = None
+        self.availabilityZone = None
+        self.partnerLatency = None
+        self.partnerSegmentStatus = None
+
+    def _deserialize(self, params):
+        self.partner = params.get("partner")
+        self.zenDc = params.get("zenDc")
+        self.zenDcName = params.get("zenDcName")
+        self.cityName = params.get("cityName")
+        self.availabilityZone = params.get("availabilityZone")
+        self.partnerLatency = params.get("partnerLatency")
+        self.partnerSegmentStatus = params.get("partnerSegmentStatus")
 
 
 class InquiryCreatePrivateConnectPriceRequest(AbstractModel):
@@ -1620,6 +1682,7 @@ class CreateEndpointParam(AbstractModel):
         self.dcId = None
         self.cloudType = None
         self.endpointName = None
+        self.partnerDcNni = None
 
     def _deserialize(self, params):
         self.portId = params.get("portId")
@@ -1631,6 +1694,23 @@ class CreateEndpointParam(AbstractModel):
         self.dcId = params.get("dcId")
         self.cloudType = params.get("cloudType")
         self.endpointName = params.get("endpointName")
+        if params.get("partnerDcNni") is not None:
+            self.partnerDcNni = PartnerDcNni(params.get("partnerDcNni"))
+
+
+class PartnerDcNni(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.zenDc = None
+        self.availabilityZone = None
+
+    def _deserialize(self, params):
+        self.zenDc = params.get("zenDc")
+        self.availabilityZone = params.get("availabilityZone")
 
 
 class InquiryCreatePrivateConnectPriceResponse(AbstractModel):
@@ -1822,6 +1902,73 @@ class DescribePrivateConnectTrafficResponse(AbstractModel):
         self.outMax = params.get("outMax")
         self.outMin = params.get("outMin")
         self.unit = params.get("unit")
+
+
+class DescribePartnerDcNniCandidatesRequest(AbstractModel):
+    def __init__(self):
+        self.portId = None
+        self.peerDcId = None
+        self.bandwidth = None
+
+    def _deserialize(self, params):
+        self.portId = params.get("portId")
+        self.peerDcId = params.get("peerDcId")
+        self.bandwidth = params.get("bandwidth")
+
+
+class DescribePartnerDcNniCandidatesResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.featuredCandidates = None
+        self.otherCandidates = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("featuredCandidates") is not None:
+            self.featuredCandidates = []
+            for item in params.get("featuredCandidates"):
+                obj = PartnerDcNniCandidate(item)
+                self.featuredCandidates.append(obj)
+        if params.get("otherCandidates") is not None:
+            self.otherCandidates = []
+            for item in params.get("otherCandidates"):
+                obj = PartnerDcNniCandidate(item)
+                self.otherCandidates.append(obj)
+
+
+class PartnerDcNniCandidate(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.zenDc = None
+        self.zenDcName = None
+        self.cityName = None
+        self.availabilityZone = None
+        self.tags = None
+        self.availableBandwidth = None
+        self.partnerLatency = None
+        self.backboneLatency = None
+        self.totalLatency = None
+        self.privateConnectPrice = None
+        self.connectionPrice = None
+
+    def _deserialize(self, params):
+        self.zenDc = params.get("zenDc")
+        self.zenDcName = params.get("zenDcName")
+        self.cityName = params.get("cityName")
+        self.availabilityZone = params.get("availabilityZone")
+        self.tags = params.get("tags")
+        self.availableBandwidth = params.get("availableBandwidth")
+        self.partnerLatency = params.get("partnerLatency")
+        self.backboneLatency = params.get("backboneLatency")
+        self.totalLatency = params.get("totalLatency")
+        if params.get("privateConnectPrice") is not None:
+            self.privateConnectPrice = PriceItem(params.get("privateConnectPrice"))
+        if params.get("connectionPrice") is not None:
+            self.connectionPrice = PriceItem(params.get("connectionPrice"))
 
 
 class DescribeCloudRouterAvailablePortsRequest(AbstractModel):

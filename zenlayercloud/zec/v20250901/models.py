@@ -255,6 +255,7 @@ class InquiryPriceCreateInstanceRequest(AbstractModel):
         self.systemDisk = None
         self.dataDisk = None
         self.dataDisks = None
+        self.localDisks = None
 
     def _deserialize(self, params):
         self.zoneId = params.get("zoneId")
@@ -280,6 +281,11 @@ class InquiryPriceCreateInstanceRequest(AbstractModel):
             for item in params.get("dataDisks"):
                 obj = DataDisk(item)
                 self.dataDisks.append(obj)
+        if params.get("localDisks") is not None:
+            self.localDisks = []
+            for item in params.get("localDisks"):
+                obj = LocalDisk(item)
+                self.localDisks.append(obj)
 
 
 class SystemDisk(AbstractModel):
@@ -326,6 +332,27 @@ class DataDisk(AbstractModel):
         self.diskCategory = params.get("diskCategory")
 
 
+class LocalDisk(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.diskId = None
+        self.diskName = None
+        self.diskSize = None
+        self.diskAmount = None
+        self.diskCategory = None
+
+    def _deserialize(self, params):
+        self.diskId = params.get("diskId")
+        self.diskName = params.get("diskName")
+        self.diskSize = params.get("diskSize")
+        self.diskAmount = params.get("diskAmount")
+        self.diskCategory = params.get("diskCategory")
+
+
 class InquiryPriceCreateInstanceResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
@@ -340,6 +367,7 @@ class InquiryPriceCreateInstanceResponse(AbstractModel):
         self.systemDiskPrice = None
         self.dataDiskPrice = None
         self.dataDiskPrices = None
+        self.localDiskPrices = None
 
     def _deserialize(self, params):
         self.requestId = params.get("requestId")
@@ -371,6 +399,11 @@ class InquiryPriceCreateInstanceResponse(AbstractModel):
             for item in params.get("dataDiskPrices"):
                 obj = PriceItem(item)
                 self.dataDiskPrices.append(obj)
+        if params.get("localDiskPrices") is not None:
+            self.localDiskPrices = []
+            for item in params.get("localDiskPrices"):
+                obj = PriceItem(item)
+                self.localDiskPrices.append(obj)
 
 
 class PriceItem(AbstractModel):
@@ -460,6 +493,7 @@ class CreateZecInstancesRequest(AbstractModel):
         self.instanceCount = None
         self.systemDisk = None
         self.dataDisks = None
+        self.localDisks = None
         self.securityGroupId = None
         self.placementGroupId = None
         self.subnetId = None
@@ -499,6 +533,11 @@ class CreateZecInstancesRequest(AbstractModel):
             for item in params.get("dataDisks"):
                 obj = DataDisk(item)
                 self.dataDisks.append(obj)
+        if params.get("localDisks") is not None:
+            self.localDisks = []
+            for item in params.get("localDisks"):
+                obj = LocalDisk(item)
+                self.localDisks.append(obj)
         self.securityGroupId = params.get("securityGroupId")
         self.placementGroupId = params.get("placementGroupId")
         self.subnetId = params.get("subnetId")
@@ -618,10 +657,12 @@ class DiskWithInstance(AbstractModel):
             return
         self.instanceId = None
         self.diskIdSet = None
+        self.localDiskIdSet = None
 
     def _deserialize(self, params):
         self.instanceId = params.get("instanceId")
         self.diskIdSet = params.get("diskIdSet")
+        self.localDiskIdSet = params.get("localDiskIdSet")
 
 
 class DescribeInstancesRequest(AbstractModel):
@@ -698,6 +739,7 @@ class InstanceInfo(AbstractModel):
         self.status = None
         self.systemDisk = None
         self.dataDisks = None
+        self.localDisks = None
         self.publicIpAddresses = None
         self.privateIpAddresses = None
         self.keyId = None
@@ -735,6 +777,11 @@ class InstanceInfo(AbstractModel):
             for item in params.get("dataDisks"):
                 obj = DataDisk(item)
                 self.dataDisks.append(obj)
+        if params.get("localDisks") is not None:
+            self.localDisks = []
+            for item in params.get("localDisks"):
+                obj = LocalDisk(item)
+                self.localDisks.append(obj)
         self.publicIpAddresses = params.get("publicIpAddresses")
         self.privateIpAddresses = params.get("privateIpAddresses")
         self.keyId = params.get("keyId")
@@ -778,6 +825,7 @@ class NicInfo(AbstractModel):
         self.primaryIpv4 = None
         self.primaryIpv6 = None
         self.ipv6Cidr = None
+        self.ipv6CidrBlocks = None
         self.secondaryIpv4s = None
         self.macAddress = None
         self.instanceId = None
@@ -801,6 +849,11 @@ class NicInfo(AbstractModel):
         self.primaryIpv4 = params.get("primaryIpv4")
         self.primaryIpv6 = params.get("primaryIpv6")
         self.ipv6Cidr = params.get("ipv6Cidr")
+        if params.get("ipv6CidrBlocks") is not None:
+            self.ipv6CidrBlocks = []
+            for item in params.get("ipv6CidrBlocks"):
+                obj = NicIpv6CidrBlockInfo(item)
+                self.ipv6CidrBlocks.append(obj)
         self.secondaryIpv4s = params.get("secondaryIpv4s")
         self.macAddress = params.get("macAddress")
         self.instanceId = params.get("instanceId")
@@ -813,6 +866,27 @@ class NicInfo(AbstractModel):
         self.securityGroupId = params.get("securityGroupId")
         if params.get("tags") is not None:
             self.tags = Tags(params.get("tags"))
+
+
+class NicIpv6CidrBlockInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.ipv6Id = None
+        self.cidrBlock = None
+        self.primaryIpv6 = None
+        self.ipv6Type = None
+        self.subnetIpv6CidrBlock = None
+
+    def _deserialize(self, params):
+        self.ipv6Id = params.get("ipv6Id")
+        self.cidrBlock = params.get("cidrBlock")
+        self.primaryIpv6 = params.get("primaryIpv6")
+        self.ipv6Type = params.get("ipv6Type")
+        self.subnetIpv6CidrBlock = params.get("subnetIpv6CidrBlock")
 
 
 class ResourceGroupInfo(AbstractModel):
@@ -1878,6 +1952,7 @@ class DiskInfo(AbstractModel):
         self.diskType = None
         self.portable = None
         self.diskCategory = None
+        self.localDiskCategory = None
         self.diskSize = None
         self.diskStatus = None
         self.instanceId = None
@@ -1901,6 +1976,7 @@ class DiskInfo(AbstractModel):
         self.diskType = params.get("diskType")
         self.portable = params.get("portable")
         self.diskCategory = params.get("diskCategory")
+        self.localDiskCategory = params.get("localDiskCategory")
         self.diskSize = params.get("diskSize")
         self.diskStatus = params.get("diskStatus")
         self.instanceId = params.get("instanceId")
@@ -2218,6 +2294,43 @@ class ResizeDiskPreviousPrices(AbstractModel):
             self.gpuPrice = PriceItem(params.get("gpuPrice"))
         if params.get("acceleratorPrice") is not None:
             self.acceleratorPrice = PriceItem(params.get("acceleratorPrice"))
+
+
+class DescribeLocalDiskSpecsRequest(AbstractModel):
+    def __init__(self):
+        self.zoneId = None
+
+    def _deserialize(self, params):
+        self.zoneId = params.get("zoneId")
+
+
+class DescribeLocalDiskSpecsResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.localDiskSpecs = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("localDiskSpecs") is not None:
+            self.localDiskSpecs = []
+            for item in params.get("localDiskSpecs"):
+                obj = LocalDiskSpec(item)
+                self.localDiskSpecs.append(obj)
+
+
+class LocalDiskSpec(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.diskCategory = None
+        self.diskSize = None
+
+    def _deserialize(self, params):
+        self.diskCategory = params.get("diskCategory")
+        self.diskSize = params.get("diskSize")
 
 
 class DescribeSnapshotsRequest(AbstractModel):
@@ -6908,6 +7021,7 @@ class SubnetInfo(AbstractModel):
         self.isDefault = None
         self.dhcpOptionsSetId = None
         self.ipv6MaskLength = None
+        self.ipv6CidrBlocks = None
 
     def _deserialize(self, params):
         self.subnetId = params.get("subnetId")
@@ -6927,6 +7041,42 @@ class SubnetInfo(AbstractModel):
         self.isDefault = params.get("isDefault")
         self.dhcpOptionsSetId = params.get("dhcpOptionsSetId")
         self.ipv6MaskLength = params.get("ipv6MaskLength")
+        if params.get("ipv6CidrBlocks") is not None:
+            self.ipv6CidrBlocks = []
+            for item in params.get("ipv6CidrBlocks"):
+                obj = SubnetIpv6CidrBlockInfo(item)
+                self.ipv6CidrBlocks.append(obj)
+
+
+class SubnetIpv6CidrBlockInfo(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.cidrBlock = None
+        self.ipv6Type = None
+        self.isPrimary = None
+        self.ipv6MaskLength = None
+        self.gatewayIpAddress = None
+        self.isp = None
+        self.poolId = None
+        self.isDefaultPool = None
+        self.ipv6CidrBlockId = None
+        self.usedIpv6Count = None
+
+    def _deserialize(self, params):
+        self.cidrBlock = params.get("cidrBlock")
+        self.ipv6Type = params.get("ipv6Type")
+        self.isPrimary = params.get("isPrimary")
+        self.ipv6MaskLength = params.get("ipv6MaskLength")
+        self.gatewayIpAddress = params.get("gatewayIpAddress")
+        self.isp = params.get("isp")
+        self.poolId = params.get("poolId")
+        self.isDefaultPool = params.get("isDefaultPool")
+        self.ipv6CidrBlockId = params.get("ipv6CidrBlockId")
+        self.usedIpv6Count = params.get("usedIpv6Count")
 
 
 class CreateSubnetRequest(AbstractModel):
@@ -7162,6 +7312,69 @@ class UnassociateVpcCidrBlockRequest(AbstractModel):
 
 
 class UnassociateVpcCidrBlockResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+
+
+class AssociateSubnetIpv6CidrBlocksRequest(AbstractModel):
+    def __init__(self):
+        self.subnetId = None
+        self.ipv6CidrBlocks = None
+
+    def _deserialize(self, params):
+        self.subnetId = params.get("subnetId")
+        if params.get("ipv6CidrBlocks") is not None:
+            self.ipv6CidrBlocks = []
+            for item in params.get("ipv6CidrBlocks"):
+                obj = Ipv6CidrBlockItem(item)
+                self.ipv6CidrBlocks.append(obj)
+
+
+class Ipv6CidrBlockItem(AbstractModel):
+    def __init__(self, params=None):
+        if params is None:
+            params = {}
+        if len(params) > 0:
+            self._deserialize(params)
+            return
+        self.ipv6CidrBlockId = None
+        self.amount = None
+        self.ipv6MaskLength = None
+
+    def _deserialize(self, params):
+        self.ipv6CidrBlockId = params.get("ipv6CidrBlockId")
+        self.amount = params.get("amount")
+        self.ipv6MaskLength = params.get("ipv6MaskLength")
+
+
+class AssociateSubnetIpv6CidrBlocksResponse(AbstractModel):
+    def __init__(self):
+        self.requestId = None
+        self.ipv6CidrBlocks = None
+
+    def _deserialize(self, params):
+        self.requestId = params.get("requestId")
+        if params.get("ipv6CidrBlocks") is not None:
+            self.ipv6CidrBlocks = []
+            for item in params.get("ipv6CidrBlocks"):
+                obj = SubnetIpv6CidrBlockInfo(item)
+                self.ipv6CidrBlocks.append(obj)
+
+
+class UnassociateSubnetIpv6CidrBlockRequest(AbstractModel):
+    def __init__(self):
+        self.subnetId = None
+        self.ipv6CidrBlock = None
+
+    def _deserialize(self, params):
+        self.subnetId = params.get("subnetId")
+        self.ipv6CidrBlock = params.get("ipv6CidrBlock")
+
+
+class UnassociateSubnetIpv6CidrBlockResponse(AbstractModel):
     def __init__(self):
         self.requestId = None
 
@@ -8888,6 +9101,8 @@ class UnassociateHaVipResponse(AbstractModel):
 class AssignNetworkInterfaceIpv6Request(AbstractModel):
     def __init__(self):
         self.nicId = None
+        self.subnetIpv6CidrBlock = None
+        self.amount = None
         self.internetChargeType = None
         self.bandwidth = None
         self.packageSize = None
@@ -8896,6 +9111,8 @@ class AssignNetworkInterfaceIpv6Request(AbstractModel):
 
     def _deserialize(self, params):
         self.nicId = params.get("nicId")
+        self.subnetIpv6CidrBlock = params.get("subnetIpv6CidrBlock")
+        self.amount = params.get("amount")
         self.internetChargeType = params.get("internetChargeType")
         self.bandwidth = params.get("bandwidth")
         self.packageSize = params.get("packageSize")
@@ -8914,9 +9131,11 @@ class AssignNetworkInterfaceIpv6Response(AbstractModel):
 class UnassignNetworkInterfaceIpv6Request(AbstractModel):
     def __init__(self):
         self.nicId = None
+        self.ipv6CidrBlock = None
 
     def _deserialize(self, params):
         self.nicId = params.get("nicId")
+        self.ipv6CidrBlock = params.get("ipv6CidrBlock")
 
 
 class UnassignNetworkInterfaceIpv6Response(AbstractModel):
@@ -9381,6 +9600,7 @@ class DescribeByoAsnsRequest(AbstractModel):
         self.byoAsnIds = None
         self.asn = None
         self.status = None
+        self.type = None
         self.resourceGroupId = None
         self.orderBy = None
         self.direction = None
@@ -9393,6 +9613,7 @@ class DescribeByoAsnsRequest(AbstractModel):
         self.byoAsnIds = params.get("byoAsnIds")
         self.asn = params.get("asn")
         self.status = params.get("status")
+        self.type = params.get("type")
         self.resourceGroupId = params.get("resourceGroupId")
         self.orderBy = params.get("orderBy")
         self.direction = params.get("direction")
